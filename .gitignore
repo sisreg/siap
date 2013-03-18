@@ -1,0 +1,15 @@
+# Bootstrap
+app/bootstrap*
+ 
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+web/uploads/*
+ 
+# Archivos de configuración
+app/config/parameters.ini
+app/config/parameters.yml
+ 
+#Carpeta nbproject de netbeans
+nbproject/
