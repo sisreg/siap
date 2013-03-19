@@ -13,3 +13,6 @@ app/config/parameters.yml
  
 #Carpeta nbproject de netbeans
 nbproject/
+
+#Archivos de respaldo
+*~
