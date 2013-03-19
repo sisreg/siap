@@ -22,7 +22,7 @@ tiene debe de realizar los siguientes pasos:
 * Como usuario normal, se creará una nueva rama y para trabajar en ella. Ejecutar:
        git checkout -b nombreRama 
 Solo si no realizo en el primer paso
-* Agregar el parameters.yml en el directorio app/config/ con un contenido similar al siguiente:
+* Agregar el parameters.yml con un contenido similar al siguiente:
 parameters:
     database_driver: pdo_pgsql
     database_host: nombreHost
