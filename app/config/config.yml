@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: service.xml }
+
 framework:
     #esi:             ~
     translator:      { fallback: %locale% }
@@ -48,13 +49,15 @@ doctrine:
         user:     %database_user%
         password: %database_password%
         charset:  UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: %kernel.root_dir%/data/data.db3
         # path:     %database_path%
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
+        auto_mapping: true  
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -63,17 +66,30 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+#KNPMENUBUNDLE
 knp_menu:
     twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
         template: knp_menu.html.twig
     templating: false # if true, enables the helper for PHP templates
     default_renderer: twig # The renderer to use, list is also available by default
-    
+#FOSUSERBUNDLE    
 fos_user:
-    db_driver: orm 
-    firewall_name: main
-    user_class: Minsal\SiapsBundle\Entity\User
+    db_driver:        orm # can be orm or odm
+    firewall_name:    main
+    user_class:       Application\Sonata\UserBundle\Entity\User
 
+    group:
+        group_class:  Application\Sonata\UserBundle\Entity\Group
+
+    profile:  # Authentication Form
+        form:
+            type:               fos_user_profile
+            handler:            fos_user.profile.form.handler.default
+            name:               fos_user_profile_form
+            validation_groups:  [Authentication] # Please note : this is not the default value
+
+#SONATACACHEBUNCLE
 sonata_cache:
     caches:
         apc:
@@ -81,17 +97,20 @@ sonata_cache:
             prefix: test     #prefix to ensure there is no clash between instances
             servers:
                 - { domain: kooqit.local, ip: 127.0.0.1, port: 80}
-
+#SONATABLOCKBUNDLE
 sonata_block:
     default_contexts: [cms]
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
+
         #sonata.admin_doctrine_orm.block.audit:
         #    contexts:   [admin]
-        # sonata.block.service.text:
-        # sonata.block.service.rss:
 
+        sonata.block.service.text:
+        sonata.block.service.rss:
+
+#SONATAADMINBUNDLE
 sonata_admin:
     title:      Sonata Project
     title_logo: /bundles/sonataadmin/logo_title.png
@@ -109,3 +128,16 @@ sonata_admin:
         blocks:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
+#SONATAUSERBUNDLE
+sonata_user:
+    security_acl:     false
+    class:
+        user:         Application\Sonata\UserBundle\Entity\User
+        group:        Application\Sonata\UserBundle\Entity\Group
+
+    profile:  # Profile Form (firstname, lastname, etc ...)
+        form:
+            type:               sonata.user.profile
+            handler:            sonata.user.profile.form.handler.default
+            name:               sonata_user_profile_form
+            validation_groups:  [Profile]
