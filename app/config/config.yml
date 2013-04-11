@@ -112,11 +112,13 @@ sonata_block:
 
 #SONATAADMINBUNDLE
 sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.role
     title:      Sonata Project
     title_logo: /bundles/sonataadmin/logo_title.png
     templates:
         # default global templates
-        layout:  SonataAdminBundle::standard_layout.html.twig
+        layout:  MinsalSiapsBundle::standard_layout.html.twig
         ajax:    SonataAdminBundle::ajax_layout.html.twig
 
         # default actions templates, should extend a global templates

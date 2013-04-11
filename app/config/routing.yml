@@ -1,3 +1,11 @@
+#REDIRIGIR AUTOMATICAMENTE AL LOGIN AL ESCRIBIR EL NOMBRE DE DOMINIO
+root:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path:  /admin/login
+        permanent: true
+
 minsal_siaps:
     resource: "@MinsalSiapsBundle/Controller/"
     type:     annotation

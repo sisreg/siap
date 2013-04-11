@@ -35,7 +35,6 @@ security:
             logout:
                 path:           /admin/logout
                 target:         /admin/login
-
             anonymous:    true
         # -> end custom configuration
 
@@ -50,7 +49,9 @@ security:
                 use_forward:    false
                 check_path:     /admin/login_check
                 failure_path:   null
-            logout:             true
+            logout:            
+                path:           /admin/logout
+                target:         /admin/login
             anonymous:          true
 
     access_control:
