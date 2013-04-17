@@ -10,5 +10,4 @@
           <argument>SonataAdminBundle:CRUD</argument>
       </service>
    </services>
-
 </container>
