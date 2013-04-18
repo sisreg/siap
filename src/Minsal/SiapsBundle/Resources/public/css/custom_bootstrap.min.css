@@ -37,6 +37,7 @@
 .sonata-bc .breadcrumb .active{color:#999999;}
 .sonata-bc .sonata-ba-content {margin-top: 20px;}
 .sonata-bc .container-fluid{display: block;}
+/*para ajustar las etiquetas y controles en los formularios de edición*/
 .sonata-bc .form-horizontal .controls{*display:inline-block;*padding-left:20px;margin-left:180px;*margin-left:0; text-align:left;}
 .sonata-bc .form-horizontal .controls:first-child{*padding-left:160px;}
 .sonata-bc .form-horizontal .control-label{float:left;width:160px;padding-top:5px;text-align:right;}

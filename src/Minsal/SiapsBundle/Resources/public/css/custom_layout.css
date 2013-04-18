@@ -85,7 +85,7 @@ div#pagina{
     overflow-y: auto;
     border: 1px solid #CCCCCC;        
 }
-
+/**para ajustar la imagen que aparece a la par de los nombres de los campos en las listas de mantenimiento */
 .sonata-bc th.sonata-ba-list-field-header-order-desc:hover:before {
 	display: inline-block;
 	position: relative;
