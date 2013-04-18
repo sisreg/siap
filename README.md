@@ -34,9 +34,10 @@ parameters:
     mailer_host: localhost
     mailer_user: null
     mailer_password: null
-    locale: en
+    locale: es
     secret: df1ca40cfc425c4f34e654696720435a044b9ca9
     database_path: null
+* Crear los directorios cache/ y logs/ dentro del directorio app/
 * Como usuario normal ejecutar: php composer.phar install
 * Aplicar las acl al directorio cache y logs:
 setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/

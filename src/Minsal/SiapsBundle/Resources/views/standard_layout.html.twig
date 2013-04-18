@@ -27,7 +27,7 @@ file that was distributed with this source code.
         {% block stylesheets %}
         <!-- jQuery code -->
         <link rel="stylesheet" href="{{ asset('bundles/sonatajquery/themes/flick/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="all" />
-           
+
         <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap.min.css') }}" type="text/css" media="all"  />
         <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/custom_bootstrap.min.css') }}" type="text/css" media="all"  />
         <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap-responsive.min.css') }}" type="text/css" media="all" />
@@ -73,26 +73,31 @@ file that was distributed with this source code.
         </title>
     </head>
     <body class="sonata-bc {% if _side_menu is empty %}sonata-ba-no-side-menu{% endif %}">
-        
+
         {# initialize block value #}
         <div id="pagina">
-            <div class="navbar navbar-fixed-top">
-                <div class="navbar-inner">
-                    <div class="container-fluid">
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </a>
+             {%block logo %}
+                <div id="banner" >
+                    <img src={{ asset('bundles/minsalsiaps/imagenes/logo_siaps.png') }} />
+                </div>
+                            {% endblock %}
+                <div class="navbar navbar-fixed-top">
+                    <div class="navbar-inner">
+                        <div class="container-fluid">
+                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
 
                         {% if admin_pool is defined %}
                             <div class="navbar-text pull-right">{% include admin_pool.getTemplate('user_block') %}</div>
-
-                            {%block logo %}
+{#block logo %}
                                 <div id="banner" >
-                                    <img src={{ asset('bundles/minsalsiaps/imagenes/logo_salud.png') }} />
+                                    <img src={{ asset('bundles/minsalsiaps/imagenes/logo_siaps.png') }} />
                                 </div>
-                            {% endblock %}
+                            {% endblock #}
+
 
                             <div class="nav-collapse">
                                 <ul class="nav">
@@ -100,28 +105,28 @@ file that was distributed with this source code.
                                     {% block sonata_top_bar_nav %}
                                         {% if app.security.token and is_granted('ROLE_SONATA_ADMIN') %}
                                             {% for group in admin_pool.dashboardgroups %}
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ group.label|trans({}, group.label_catalogue) }} <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ group.label|trans({}, group.label_catalogue) }} <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
                                                          {% for admin in group.items %}
                                                             {% if admin.hasroute('list') and admin.isGranted('LIST') %}
-                                                                <li><a href="{{ admin.generateUrl('list')}}">{{ admin.label|trans({}, admin.translationdomain) }}</a></li>
+                                                    <li><a href="{{ admin.generateUrl('list')}}">{{ admin.label|trans({}, admin.translationdomain) }}</a></li>
                                                             {% endif %}
                                                          {% endfor %}
-                                                    </ul>
-                                                </li>
+                                                </ul>
+                                            </li>
                                             {% endfor %}
                                         {% endif %}
                                     {% endblock %}
                                     {% block top_bar_after_nav %} {% endblock %}
-                                </ul>
-                            </div>
+                                        </ul>
+                                    </div>
                         {% endif %}
-                    </div>
-                </div>
-            </div>
+                                </div>
+                            </div>
+                        </div>
 
-            <div class="container-fluid">
+                        <div class="container-fluid">
                 {% block notice %}
                     {% for notice_level in ['success','error','info', 'warning'] %}
                         {% set session_var = 'sonata_flash_' ~ notice_level %}
@@ -133,22 +138,22 @@ file that was distributed with this source code.
                     {% endfor %}
                 {% endblock %}
 
-                <div class="row-fluid">
-                    <div class="span6">
+                                    <div class="row-fluid">
+                                        <div class="span6">
                         {% if _breadcrumb is not empty or action is defined %}
-                            <ul class="breadcrumb">
+                                                <ul class="breadcrumb">
                                 {% if _breadcrumb is empty %}
                                     {% if action is defined %}
                                         {% for menu in admin.breadcrumbs(action) %}
                                             {% if not loop.last  %}
-                                                <li>
+                                                        <li>
                                                     {% if menu.uri is not empty %}
                                                         <a href="{{ menu.uri }}">{{ menu.label|trans }}</a>
                                                     {% else %}
                                                         {{ menu.label|trans }}
                                                     {% endif %}
-                                                    <span class="divider">/</span>
-                                                </li>
+                                                                <span class="divider">/</span>
+                                                            </li>
                                             {% else %}
                                                 <li class="active">{{ menu.label|trans}}</li>
                                             {% endif %}
@@ -157,57 +162,57 @@ file that was distributed with this source code.
                                 {% else %}
                                     {{ _breadcrumb|raw }}
                                 {% endif %}
-                            </ul>
+                                                        </ul>
                         {% endif %}
-                    </div>
-                    <div class="span4 offset2">
+                                                    </div>
+                                                    <div class="span4 offset2">
                         {%block actions %}{% endblock %}
-                    </div>
-                </div>
-                <div class="row-fluid">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-fluid">
                     {% if _side_menu is not empty %}
-                        <div class="sidebar span2">
-                            <div class="well sonata-ba-side-menu" style="padding: 8px 0;">{{ _side_menu|raw }}</div>
-                        </div>
+                                                            <div class="sidebar span2">
+                                                                <div class="well sonata-ba-side-menu" style="padding: 8px 0;">{{ _side_menu|raw }}</div>
+                                                            </div>
                     {% endif %}
 
-                    <div class="content {{ _side_menu is not empty ? ' span10' : 'span12' }}">
+                                                            <div class="content {{ _side_menu is not empty ? ' span10' : 'span12' }}">
                         {% block sonata_admin_content %}
 
                             {% if _preview is not empty %}
-                                <div class="sonata-ba-preview">{{ _preview|raw }}</div>
+                                                                    <div class="sonata-ba-preview">{{ _preview|raw }}</div>
                             {% endif %}
 
                             {% if _content is not empty %}
-                                <div class="sonata-ba-content">{{ _content|raw }}</div>
+                                                                    <div class="sonata-ba-content">{{ _content|raw }}</div>
                             {% endif %}
 
                             {% if _show is not empty %}
-                                <div class="sonata-ba-show">{{ _show|raw }}</div>
+                                                                    <div class="sonata-ba-show">{{ _show|raw }}</div>
                             {% endif %}
 
                             {% if _form is not empty %}
-                                <div class="sonata-ba-form">{{ _form|raw }}</div>
+                                                                    <div class="sonata-ba-form">{{ _form|raw }}</div>
                             {% endif %}
 
                             {% if _list_table is not empty or _list_filters is not empty %}
-                                <div class="row-fluid">
-                                    <div class="sonata-ba-list span10">
+                                                                    <div class="row-fluid">
+                                                                        <div class="sonata-ba-list span10">
                                         {{ _list_table|raw }}
-                                    </div>
-                                    <div class="sonata-ba-filter span2">
+                                                                            </div>
+                                                                            <div class="sonata-ba-filter span2">
                                         {{ _list_filters|raw }}
-                                    </div>
-                                </div>
+                                                                                </div>
+                                                                            </div>
                             {% endif %}
 
                         {% endblock %}
-                    </div>
-                </div>
-            </div>
-            <div id="divpie">
-                <img src={{ asset('bundles/minsalsiaps/imagenes/pie_siaps.png') }} />
-            </div>
-        </div>
-    </body>
-</html>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="divpie">
+                                                                    <img src={{ asset('bundles/minsalsiaps/imagenes/pie_siaps.png') }} />
+                                                                </div>
+                                                            </div>
+                                                        </body>
+                                                    </html>
