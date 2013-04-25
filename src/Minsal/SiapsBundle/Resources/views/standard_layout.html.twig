@@ -31,10 +31,12 @@ file that was distributed with this source code.
         <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap.min.css') }}" type="text/css" media="all"  />
         <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/custom_bootstrap.min.css') }}" type="text/css" media="all"  />
         <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap-responsive.min.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/custom_bootstrap-responsive.min.css') }}" type="text/css" media="all" />
 
         <!-- base application asset -->
         <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/layout.css') }}" type="text/css" media="all" />
         <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/colors.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/custom_colors.css') }}" type="text/css" media="all" />
 
         <!-- AGREGADAS POR EQUIPO SIAPS-->
         <link href="{{ asset('bundles/minsalsiaps/imagenes/escudo.png') }}" type="image/png" rel="Shortcut Icon" />
@@ -80,7 +82,7 @@ file that was distributed with this source code.
                 <div id="banner" >
                     <img src={{ asset('bundles/minsalsiaps/imagenes/logo_siaps.png') }} />
                 </div>
-                            {% endblock %}
+             {% endblock %}
                 <div class="navbar navbar-fixed-top">
                     <div class="navbar-inner">
                         <div class="container-fluid">
@@ -92,7 +94,7 @@ file that was distributed with this source code.
 
                         {% if admin_pool is defined %}
                             <div class="navbar-text pull-right">{% include admin_pool.getTemplate('user_block') %}</div>
-{#block logo %}
+                            {#block logo %}
                                 <div id="banner" >
                                     <img src={{ asset('bundles/minsalsiaps/imagenes/logo_siaps.png') }} />
                                 </div>

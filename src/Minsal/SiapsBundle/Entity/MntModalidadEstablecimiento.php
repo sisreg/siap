@@ -23,9 +23,12 @@ class MntModalidadEstablecimiento
     private $id;
 
     /**
-     * @var integer
+     * @var \CtlEstablecimiento
      *
-     * @ORM\Column(name="id_establecimiento", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
+     * })     
      */
     private $idEstablecimiento;
 
@@ -65,28 +68,7 @@ class MntModalidadEstablecimiento
         return $this->id;
     }
 
-    /**
-     * Set idEstablecimiento
-     *
-     * @param integer $idEstablecimiento
-     * @return MntModalidadEstablecimiento
-     */
-    public function setIdEstablecimiento($idEstablecimiento)
-    {
-        $this->idEstablecimiento = $idEstablecimiento;
-    
-        return $this;
-    }
-
-    /**
-     * Get idEstablecimiento
-     *
-     * @return integer 
-     */
-    public function getIdEstablecimiento()
-    {
-        return $this->idEstablecimiento;
-    }
+   
 
     /**
      * Set tieneBodega
@@ -155,5 +137,28 @@ class MntModalidadEstablecimiento
     public function getIdModalidad()
     {
         return $this->idModalidad;
+    }
+
+    /**
+     * Set idEstablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @return MntModalidadEstablecimiento
+     */
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+    
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
     }
 }

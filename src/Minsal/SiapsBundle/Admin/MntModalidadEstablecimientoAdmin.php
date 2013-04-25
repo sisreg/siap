@@ -7,12 +7,13 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 
-class CtlAreaCotizanteAdmin extends Admin
+class MntModalidadEstablecimientoAdmin extends Admin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('nombre','text',array())
+            ->add('id')
+            ->add('idEstablecimiento')
         ;
     }
 
@@ -20,7 +21,7 @@ class CtlAreaCotizanteAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
-            ->add('nombre')
+            ->add('idEstablecimiento')  
         ;
     }
 
@@ -28,22 +29,20 @@ class CtlAreaCotizanteAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('nombre')
+            ->add('idEstablecimiento')  
         ;
     }
     
     public function validate(ErrorElement $errorElement, $object) {  
     }
     
-    public function __toString() {
-        return $this->nombre;
-    }
+  /*  public function __toString() {
+        return $this->id($entity);
+    }*/
     
     public function getBatchActions(){
        $actions = parent::getBatchActions();
        $actions['delete'] = null;
    }
 }
-
-
 ?>
