@@ -57,7 +57,7 @@
 .sonata-bc .btn-inverse:active,.sonata-bc .btn-inverse.active{background-color:#080808 \9;}
 .sonata-bc .navbar-static-top{position:static;width:100%;margin-bottom:0;}.sonata-bc .navbar-static-top .navbar-inner{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;}
 .sonata-bc .navbar-fixed-top,.sonata-bc .navbar-fixed-bottom{position: relative; right:0;left:0;z-index:1030;margin-bottom:0;}
-.sonata-bc .sonata-ba-list-field-header{background-color: #a2c94c; font-size: 12pt;}
+.sonata-bc .sonata-ba-list-field-header{background-color: #aac966; font-size: 11pt;}
 /*para el nombre de los campos en el formulario de listar*/
 .sonata-bc .sonata-ba-list-field-header a{ color: #333333;}
 .sonata-bc .sonata-ba-field-help{color: gray; font-style: italic}
@@ -71,4 +71,4 @@
 .sonata-bc .form-horizontal .controls:first-child{*padding-left:140px;}
 .sonata-bc .form-horizontal .control-label{float:left;width:190px;padding-top:5px;text-align:right;}
 .sonata-bc .well{min-height:20px;padding:19px;margin-bottom:20px;background-color:#f5f5f5;border:1px solid #e3e3e3;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);-moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);}.sonata-bc .well blockquote{border-color:#ddd;border-color:rgba(0, 0, 0, 0.15);}
-.sonata-bc .table-bordered {border-color: #5f762d;border-style: solid;border-width: 2px;}
+.sonata-bc .table-bordered {border-color: #5f762d;border-style: solid;border-width: 1px;}
