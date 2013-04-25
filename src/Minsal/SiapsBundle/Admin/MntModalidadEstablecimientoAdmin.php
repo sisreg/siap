@@ -12,34 +12,35 @@ class MntModalidadEstablecimientoAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
-            ->add('idEstablecimiento')
+            ->add('idEstablecimiento',null, array('label'=> $this->getTranslator()->trans('establecimiento')))
+            ->add('idModalidad', null, array('label'=>$this->getTranslator()->trans('id_modalidad')))
+            ->add('tieneBodega', null, array('label'=>'Tiene bodega para farmacia'))
+            ->add('repetitiva', null , array('label'=>'Emite recetas repetitivas'))
+                
         ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('idEstablecimiento')  
+            ->add('idEstablecimiento',null, array('label'=> $this->getTranslator()->trans('establecimiento')))
+            ->add('idModalidad', null, array('label'=>$this->getTranslator()->trans('id_modalidad')))
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id')
-            ->add('idEstablecimiento')  
+            ->add('idEstablecimiento',null, array('label'=> $this->getTranslator()->trans('establecimiento')))
+            ->add('idModalidad', null, array('label'=>$this->getTranslator()->trans('id_modalidad')))
+            ->add('tieneBodega', null, array('label'=>'Tiene bodega para farmacia'))
+            ->add('repetitiva', null , array('label'=>'Emite recetas repetitivas'))
         ;
     }
     
     public function validate(ErrorElement $errorElement, $object) {  
     }
-    
-  /*  public function __toString() {
-        return $this->id($entity);
-    }*/
-    
+  
     public function getBatchActions(){
        $actions = parent::getBatchActions();
        $actions['delete'] = null;

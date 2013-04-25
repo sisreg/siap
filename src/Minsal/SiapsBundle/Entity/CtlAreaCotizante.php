@@ -62,10 +62,9 @@ class CtlAreaCotizante
     public function getNombre()
     {
         return $this->nombre;
-    }
+    }    
     
-    public function __toString() {
+      public function __toString() {
         return $this->nombre ? :'';
     }
-    
 }

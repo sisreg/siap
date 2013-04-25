@@ -3,6 +3,7 @@
 namespace Minsal\SiapsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * MntModalidadEstablecimiento
@@ -29,6 +30,7 @@ class MntModalidadEstablecimiento
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })     
+     * @Assert\NotNull
      */
     private $idEstablecimiento;
 
@@ -53,6 +55,7 @@ class MntModalidadEstablecimiento
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_modalidad", referencedColumnName="id")
      * })
+     * @Assert\NotNull
      */
     private $idModalidad;
 
@@ -161,4 +164,10 @@ class MntModalidadEstablecimiento
     {
         return $this->idEstablecimiento;
     }
+    
+      
+   public function __toString() {
+         return $this->id ? :'';
+    }
+    
 }

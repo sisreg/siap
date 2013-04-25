@@ -35,10 +35,6 @@ class CtlAreaCotizanteAdmin extends Admin
     public function validate(ErrorElement $errorElement, $object) {  
     }
     
-    public function __toString() {
-        return $this->nombre;
-    }
-    
     public function getBatchActions(){
        $actions = parent::getBatchActions();
        $actions['delete'] = null;

@@ -432,4 +432,8 @@ class CtlEstablecimiento
     {
         return $this->idTipoEstablecimiento;
     }
+    
+     public function __toString() {
+         return $this->nombre ? :'';
+    }
 }

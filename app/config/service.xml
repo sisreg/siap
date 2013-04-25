@@ -4,13 +4,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
        <service id="sonata.admin.areacotizante" class="Minsal\SiapsBundle\Admin\CtlAreaCotizanteAdmin">
-          <tag name="sonata.admin" manager_type="orm" group="Administración" label="AreaCotizante"/>
+          <tag name="sonata.admin" manager_type="orm" group="Administración" label="Area Cotizante"/>
           <argument />
           <argument>Minsal\SiapsBundle\Entity\CtlAreaCotizante</argument>
           <argument>SonataAdminBundle:CRUD</argument>
       </service>
       <service id="sonata.admin.modalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntModalidadEstablecimientoAdmin">
-          <tag name="sonata.admin" manager_type="orm" group="Administración" label="ModalidadEstablecimiento"/>
+          <tag name="sonata.admin" manager_type="orm" group="Administración" label="Modalidad del Establecimiento"/>
           <argument />
           <argument>Minsal\SiapsBundle\Entity\MntModalidadEstablecimiento</argument>
           <argument>SonataAdminBundle:CRUD</argument>
