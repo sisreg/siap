@@ -1,7 +1,7 @@
 @media (min-width: 979px) {
     body.sonata-bc {
         padding-top: 0px;
-        background:-moz-linear-gradient(top, #ffffff,#dcdcdc,#adadad,#737373);
+        background:-moz-linear-gradient(top,#e0e0e0,#a9c56a);
         background: -webkit-linear-gradient( top, #ffffff, #8CB5F3,#266ebb);
     }
 }
@@ -25,9 +25,10 @@ div#divpie{
     width: 85%;
     
     /* -- CSS3 - Gradiente de fondo -- */
-   background: -webkit-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);
-   background: -moz-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);
-
+ /*  background: -webkit-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);
+   background: -moz-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);*/
+    background: -webkit-linear-gradient( 0deg ,whitesmoke,#e0e0e0);
+    background: -moz-linear-gradient( 0deg ,#e0e0e0,#535353)
 }
 #divpie img{
     margin-top: 3px;
@@ -51,12 +52,12 @@ div#pagina{
     border-top-left-radius: .8em;*/
     
     /* -- CSS3 - Sombras -- */
-    -webkit-box-shadow:0px 0 50px #848484; 
+   /* -webkit-box-shadow:0px 0 50px #848484; 
     -moz-box-shadow:50px 50px 50px #848484;
-    box-shadow:0px 0 50px #848484;
-    border-top: 3px solid #d6d6d6;/*#e5e5e5;*/
-    border-left: 4px solid #2e73bc;
-    border-right: 4px solid #2e73bc;
+    box-shadow:0px 0 50px #848484;*/
+    border-top: 3px solid #bebebe;/*#e5e5e5;*/
+    border-left: 2px solid #535353;
+    border-right: 2px solid #535353;
 }
 .sonata-bc div.connection {
     border: 1px solid #DDDDDD;
