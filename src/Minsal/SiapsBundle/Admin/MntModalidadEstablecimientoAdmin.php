@@ -12,31 +12,15 @@ use Minsal\SiapsBundle\Entity\CtlEstablecimiento;
 
 class MntModalidadEstablecimientoAdmin extends Admin {
 
-//  private $repositorio;
-
-
     protected function configureFormFields(FormMapper $formMapper) {
-        //$establecimiento=new CtlEstablecimiento();
-        /* $establecimiento =  $this->getConfigurationPool()
-          ->getContainer()
-          ->get('doctrine')
-          ->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
-          ->find(1);
-
-          $modalidades=$this->getConfigurationPool()
-          ->getContainer()
-          ->get('doctrine')
-          ->getRepository('MinsalSiapsBundle:MntModalidadEstablecimiento')
-          ->obtenerModalidadUtilizada($establecimiento);
-         */
-        $formMapper
+         $formMapper
                 ->add('idEstablecimiento', null, array(
                     'label' => $this->getTranslator()->trans('establecimiento')
                 ))
                 ->add('idModalidad', 'entity', array('label' => $this->getTranslator()->trans('id_modalidad'),
-                     'empty_value' => 'Seleccione la modalidad',
-                     'class' => 'MinsalSiapsBundle:CtlModalidad',
-                     'query_builder' => function($repositorio) {
+                    'empty_value' => 'Seleccione la modalidad',
+                    'class' => 'MinsalSiapsBundle:CtlModalidad',
+                    'query_builder' => function($repositorio) {
                         $establecimiento = $this->getConfigurationPool()
                                 ->getContainer()
                                 ->get('doctrine')
@@ -48,11 +32,11 @@ class MntModalidadEstablecimientoAdmin extends Admin {
                                 ->get('doctrine')
                                 ->getRepository('MinsalSiapsBundle:MntModalidadEstablecimiento')
                                 ->obtenerModalidadUtilizada($establecimiento);
-                        
+
                         return $repositorio
                                 ->createQueryBuilder('e')
                                 ->where('e.id NOT IN (:id)')
-                                ->setParameter(':id', $modalidades ?:'0' );
+                                ->setParameter(':id', $modalidades ? : '0' );
                     }))
                 ->add('tieneBodega', null, array('label' => 'Tiene bodega para farmacia'))
                 ->add('repetitiva', null, array('label' => 'Emite recetas repetitivas'));
@@ -67,7 +51,7 @@ class MntModalidadEstablecimientoAdmin extends Admin {
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('idEstablecimiento', null, array('label' => $this->getTranslator()->trans('establecimiento')))
+                ->addIdentifier('idEstablecimiento', null, array('label' => $this->getTranslator()->trans('establecimiento')))
                 ->add('idModalidad', null, array('label' => $this->getTranslator()->trans('id_modalidad')))
                 ->add('tieneBodega', null, array('label' => 'Tiene bodega para farmacia'))
                 ->add('repetitiva', null, array('label' => 'Emite recetas repetitivas'))
