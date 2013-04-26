@@ -12,27 +12,6 @@ use Minsal\SiapsBundle\Entity\CtlEstablecimiento;
 
 class MntModalidadEstablecimientoAdmin extends Admin {
 
-//  private $repositorio;
-
-<<<<<<< HEAD
-
-    protected function configureFormFields(FormMapper $formMapper) {
-        //$establecimiento=new CtlEstablecimiento();
-        /* $establecimiento =  $this->getConfigurationPool()
-          ->getContainer()
-          ->get('doctrine')
-          ->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
-          ->find(1);
-
-          $modalidades=$this->getConfigurationPool()
-          ->getContainer()
-          ->get('doctrine')
-          ->getRepository('MinsalSiapsBundle:MntModalidadEstablecimiento')
-          ->obtenerModalidadUtilizada($establecimiento);
-         */
-=======
-class MntModalidadEstablecimientoAdmin extends Admin
-{
     protected $datagridValues = array(
         '_page' => 1, // Display the first page (default = 1)
         '_sort_order' => 'ASC', // Descendant ordering (default = 'ASC')
@@ -41,7 +20,6 @@ class MntModalidadEstablecimientoAdmin extends Admin
     
     protected function configureFormFields(FormMapper $formMapper)
     {
->>>>>>> master
         $formMapper
                 ->add('idEstablecimiento', null, array(
                     'label' => $this->getTranslator()->trans('establecimiento')
@@ -80,17 +58,10 @@ class MntModalidadEstablecimientoAdmin extends Admin
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-<<<<<<< HEAD
-                ->add('idEstablecimiento', null, array('label' => $this->getTranslator()->trans('establecimiento')))
-                ->add('idModalidad', null, array('label' => $this->getTranslator()->trans('id_modalidad')))
-                ->add('tieneBodega', null, array('label' => 'Tiene bodega para farmacia'))
-                ->add('repetitiva', null, array('label' => 'Emite recetas repetitivas'))
-=======
             ->addIdentifier('idEstablecimiento',null, array('label'=> $this->getTranslator()->trans('establecimiento')))
             ->add('idModalidad', null, array('label'=>$this->getTranslator()->trans('id_modalidad')))
             ->add('tieneBodega', null, array('label'=>'Tiene bodega para farmacia'))
             ->add('repetitiva', null , array('label'=>'Emite recetas repetitivas'))
->>>>>>> master
         ;
     }
 
