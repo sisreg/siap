@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ctl_municipio")
  * @ORM\Entity
  */
-class CtlMunicipio
-{
+class CtlMunicipio {
+
     /**
      * @var integer
      *
@@ -53,15 +53,12 @@ class CtlMunicipio
      */
     private $idDepartamento;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -71,10 +68,9 @@ class CtlMunicipio
      * @param string $nombre
      * @return CtlMunicipio
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -83,8 +79,7 @@ class CtlMunicipio
      *
      * @return string 
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
 
@@ -94,10 +89,9 @@ class CtlMunicipio
      * @param string $codigoDigestyc
      * @return CtlMunicipio
      */
-    public function setCodigoDigestyc($codigoDigestyc)
-    {
+    public function setCodigoDigestyc($codigoDigestyc) {
         $this->codigoDigestyc = $codigoDigestyc;
-    
+
         return $this;
     }
 
@@ -106,8 +100,7 @@ class CtlMunicipio
      *
      * @return string 
      */
-    public function getCodigoDigestyc()
-    {
+    public function getCodigoDigestyc() {
         return $this->codigoDigestyc;
     }
 
@@ -117,10 +110,9 @@ class CtlMunicipio
      * @param string $abreviatura
      * @return CtlMunicipio
      */
-    public function setAbreviatura($abreviatura)
-    {
+    public function setAbreviatura($abreviatura) {
         $this->abreviatura = $abreviatura;
-    
+
         return $this;
     }
 
@@ -129,8 +121,7 @@ class CtlMunicipio
      *
      * @return string 
      */
-    public function getAbreviatura()
-    {
+    public function getAbreviatura() {
         return $this->abreviatura;
     }
 
@@ -140,10 +131,9 @@ class CtlMunicipio
      * @param \Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamento
      * @return CtlMunicipio
      */
-    public function setIdDepartamento(\Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamento = null)
-    {
+    public function setIdDepartamento(\Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamento = null) {
         $this->idDepartamento = $idDepartamento;
-    
+
         return $this;
     }
 
@@ -152,12 +142,12 @@ class CtlMunicipio
      *
      * @return \Minsal\SiapsBundle\Entity\CtlDepartamento 
      */
-    public function getIdDepartamento()
-    {
+    public function getIdDepartamento() {
         return $this->idDepartamento;
     }
-    
+
     public function __toString() {
         return $this->nombre;
     }
+
 }

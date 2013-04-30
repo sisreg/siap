@@ -30,14 +30,14 @@ class MntServicioEstab
     private $nombre;
 
     /**
-     * @var \MntEspAreaModEstab
+     * @var \MntAtenAreaModEstab
      *
-     * @ORM\ManyToOne(targetEntity="MntEspAreaModEstab")
+     * @ORM\ManyToOne(targetEntity="MntAtenAreaModEstab")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_esp_area_mod_estab", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_aten_area_mod_estab", referencedColumnName="id")
      * })
      */
-    private $idEspAreaModEstab;
+    private $idAtenAreaModEstab;
 
     /**
      * @var \CtlEstablecimiento
@@ -85,26 +85,26 @@ class MntServicioEstab
     }
 
     /**
-     * Set idEspAreaModEstab
+     * Set idAtenAreaModEstab
      *
-     * @param \Minsal\SiapsBundle\Entity\MntEspAreaModEstab $idEspAreaModEstab
+     * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab
      * @return MntServicioEstab
      */
-    public function setIdEspAreaModEstab(\Minsal\SiapsBundle\Entity\MntEspAreaModEstab $idEspAreaModEstab = null)
+    public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null)
     {
-        $this->idEspAreaModEstab = $idEspAreaModEstab;
+        $this->idAtenAreaModEstab = $idAtenAreaModEstab;
     
         return $this;
     }
 
     /**
-     * Get idEspAreaModEstab
+     * Get idAtenAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntEspAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
      */
-    public function getIdEspAreaModEstab()
+    public function getIdAtenAreaModEstab()
     {
-        return $this->idEspAreaModEstab;
+        return $this->idAtenAreaModEstab;
     }
 
     /**
@@ -128,33 +128,5 @@ class MntServicioEstab
     public function getIdEstablecimiento()
     {
         return $this->idEstablecimiento;
-    }
-    /**
-     * @var \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
-     */
-    private $idAtenAreaModEstab;
-
-
-    /**
-     * Set idAtenAreaModEstab
-     *
-     * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab
-     * @return MntServicioEstab
-     */
-    public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null)
-    {
-        $this->idAtenAreaModEstab = $idAtenAreaModEstab;
-    
-        return $this;
-    }
-
-    /**
-     * Get idAtenAreaModEstab
-     *
-     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
-     */
-    public function getIdAtenAreaModEstab()
-    {
-        return $this->idAtenAreaModEstab;
     }
 }

@@ -6,23 +6,42 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * MntProgramaEstablecimiento
+ *
+ * @ORM\Table(name="mnt_programa_establecimiento")
+ * @ORM\Entity
  */
 class MntProgramaEstablecimiento
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="mnt_programa_establecimiento_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\CtlPrograma
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
+     * })
+     */
+    private $idEstablecimiento;
+
+    /**
+     * @var \CtlPrograma
+     *
+     * @ORM\ManyToOne(targetEntity="CtlPrograma")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_programa", referencedColumnName="id")
+     * })
      */
     private $idPrograma;
 
-    /**
-     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
-     */
-    private $idEstablecimiento;
 
 
     /**
@@ -33,29 +52,6 @@ class MntProgramaEstablecimiento
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set idPrograma
-     *
-     * @param \Minsal\SiapsBundle\Entity\CtlPrograma $idPrograma
-     * @return MntProgramaEstablecimiento
-     */
-    public function setIdPrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $idPrograma = null)
-    {
-        $this->idPrograma = $idPrograma;
-    
-        return $this;
-    }
-
-    /**
-     * Get idPrograma
-     *
-     * @return \Minsal\SiapsBundle\Entity\CtlPrograma 
-     */
-    public function getIdPrograma()
-    {
-        return $this->idPrograma;
     }
 
     /**
@@ -79,5 +75,28 @@ class MntProgramaEstablecimiento
     public function getIdEstablecimiento()
     {
         return $this->idEstablecimiento;
+    }
+
+    /**
+     * Set idPrograma
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlPrograma $idPrograma
+     * @return MntProgramaEstablecimiento
+     */
+    public function setIdPrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $idPrograma = null)
+    {
+        $this->idPrograma = $idPrograma;
+    
+        return $this;
+    }
+
+    /**
+     * Get idPrograma
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlPrograma 
+     */
+    public function getIdPrograma()
+    {
+        return $this->idPrograma;
     }
 }

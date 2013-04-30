@@ -14,7 +14,7 @@ class CtlModalidadRepository extends EntityRepository {
 
         $establecimiento = $this->getEntityManager()
                 ->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
-                ->find(1);
+                ->obtenerEstablecimientoConfigurado();
 
         $modalidades = $this->getEntityManager()
                 ->getRepository('MinsalSiapsBundle:MntModalidadEstablecimiento')

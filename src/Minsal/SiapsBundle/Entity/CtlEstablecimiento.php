@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * CtlEstablecimiento
  *
  * @ORM\Table(name="ctl_establecimiento")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\CtlEstablecimientoRepository")
  */
-class CtlEstablecimiento
-{
+class CtlEstablecimiento {
+
     /**
      * @var integer
      *
@@ -88,9 +88,16 @@ class CtlEstablecimiento
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo_expediente", type="string", nullable=false)
+     * @ORM\Column(name="tipo_expediente", type="string", nullable=true)
      */
     private $tipoExpediente;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="configurado", type="boolean", nullable=true)
+     */
+    private $configurado;
 
     /**
      * @var \CtlEstablecimiento
@@ -122,15 +129,12 @@ class CtlEstablecimiento
      */
     private $idTipoEstablecimiento;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -140,10 +144,9 @@ class CtlEstablecimiento
      * @param string $nombre
      * @return CtlEstablecimiento
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -152,8 +155,7 @@ class CtlEstablecimiento
      *
      * @return string 
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
 
@@ -163,10 +165,9 @@ class CtlEstablecimiento
      * @param string $direccion
      * @return CtlEstablecimiento
      */
-    public function setDireccion($direccion)
-    {
+    public function setDireccion($direccion) {
         $this->direccion = $direccion;
-    
+
         return $this;
     }
 
@@ -175,8 +176,7 @@ class CtlEstablecimiento
      *
      * @return string 
      */
-    public function getDireccion()
-    {
+    public function getDireccion() {
         return $this->direccion;
     }
 
@@ -186,10 +186,9 @@ class CtlEstablecimiento
      * @param string $telefono
      * @return CtlEstablecimiento
      */
-    public function setTelefono($telefono)
-    {
+    public function setTelefono($telefono) {
         $this->telefono = $telefono;
-    
+
         return $this;
     }
 
@@ -198,8 +197,7 @@ class CtlEstablecimiento
      *
      * @return string 
      */
-    public function getTelefono()
-    {
+    public function getTelefono() {
         return $this->telefono;
     }
 
@@ -209,10 +207,9 @@ class CtlEstablecimiento
      * @param string $fax
      * @return CtlEstablecimiento
      */
-    public function setFax($fax)
-    {
+    public function setFax($fax) {
         $this->fax = $fax;
-    
+
         return $this;
     }
 
@@ -221,8 +218,7 @@ class CtlEstablecimiento
      *
      * @return string 
      */
-    public function getFax()
-    {
+    public function getFax() {
         return $this->fax;
     }
 
@@ -232,10 +228,9 @@ class CtlEstablecimiento
      * @param float $latitud
      * @return CtlEstablecimiento
      */
-    public function setLatitud($latitud)
-    {
+    public function setLatitud($latitud) {
         $this->latitud = $latitud;
-    
+
         return $this;
     }
 
@@ -244,8 +239,7 @@ class CtlEstablecimiento
      *
      * @return float 
      */
-    public function getLatitud()
-    {
+    public function getLatitud() {
         return $this->latitud;
     }
 
@@ -255,10 +249,9 @@ class CtlEstablecimiento
      * @param float $longitud
      * @return CtlEstablecimiento
      */
-    public function setLongitud($longitud)
-    {
+    public function setLongitud($longitud) {
         $this->longitud = $longitud;
-    
+
         return $this;
     }
 
@@ -267,8 +260,7 @@ class CtlEstablecimiento
      *
      * @return float 
      */
-    public function getLongitud()
-    {
+    public function getLongitud() {
         return $this->longitud;
     }
 
@@ -278,10 +270,9 @@ class CtlEstablecimiento
      * @param integer $idNivelMinsal
      * @return CtlEstablecimiento
      */
-    public function setIdNivelMinsal($idNivelMinsal)
-    {
+    public function setIdNivelMinsal($idNivelMinsal) {
         $this->idNivelMinsal = $idNivelMinsal;
-    
+
         return $this;
     }
 
@@ -290,8 +281,7 @@ class CtlEstablecimiento
      *
      * @return integer 
      */
-    public function getIdNivelMinsal()
-    {
+    public function getIdNivelMinsal() {
         return $this->idNivelMinsal;
     }
 
@@ -301,10 +291,9 @@ class CtlEstablecimiento
      * @param integer $codUcsf
      * @return CtlEstablecimiento
      */
-    public function setCodUcsf($codUcsf)
-    {
+    public function setCodUcsf($codUcsf) {
         $this->codUcsf = $codUcsf;
-    
+
         return $this;
     }
 
@@ -313,8 +302,7 @@ class CtlEstablecimiento
      *
      * @return integer 
      */
-    public function getCodUcsf()
-    {
+    public function getCodUcsf() {
         return $this->codUcsf;
     }
 
@@ -324,10 +312,9 @@ class CtlEstablecimiento
      * @param boolean $activo
      * @return CtlEstablecimiento
      */
-    public function setActivo($activo)
-    {
+    public function setActivo($activo) {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
@@ -336,8 +323,7 @@ class CtlEstablecimiento
      *
      * @return boolean 
      */
-    public function getActivo()
-    {
+    public function getActivo() {
         return $this->activo;
     }
 
@@ -347,10 +333,9 @@ class CtlEstablecimiento
      * @param string $tipoExpediente
      * @return CtlEstablecimiento
      */
-    public function setTipoExpediente($tipoExpediente)
-    {
+    public function setTipoExpediente($tipoExpediente) {
         $this->tipoExpediente = $tipoExpediente;
-    
+
         return $this;
     }
 
@@ -359,9 +344,29 @@ class CtlEstablecimiento
      *
      * @return string 
      */
-    public function getTipoExpediente()
-    {
+    public function getTipoExpediente() {
         return $this->tipoExpediente;
+    }
+
+    /**
+     * Set configurado
+     *
+     * @param boolean $configurado
+     * @return CtlEstablecimiento
+     */
+    public function setConfigurado($configurado) {
+        $this->configurado = $configurado;
+
+        return $this;
+    }
+
+    /**
+     * Get configurado
+     *
+     * @return boolean 
+     */
+    public function getConfigurado() {
+        return $this->configurado;
     }
 
     /**
@@ -370,10 +375,9 @@ class CtlEstablecimiento
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
      * @return CtlEstablecimiento
      */
-    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
-    {
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null) {
         $this->idEstablecimiento = $idEstablecimiento;
-    
+
         return $this;
     }
 
@@ -382,8 +386,7 @@ class CtlEstablecimiento
      *
      * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
      */
-    public function getIdEstablecimiento()
-    {
+    public function getIdEstablecimiento() {
         return $this->idEstablecimiento;
     }
 
@@ -393,10 +396,9 @@ class CtlEstablecimiento
      * @param \Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipio
      * @return CtlEstablecimiento
      */
-    public function setIdMunicipio(\Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipio = null)
-    {
+    public function setIdMunicipio(\Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipio = null) {
         $this->idMunicipio = $idMunicipio;
-    
+
         return $this;
     }
 
@@ -405,8 +407,7 @@ class CtlEstablecimiento
      *
      * @return \Minsal\SiapsBundle\Entity\CtlMunicipio 
      */
-    public function getIdMunicipio()
-    {
+    public function getIdMunicipio() {
         return $this->idMunicipio;
     }
 
@@ -416,10 +417,9 @@ class CtlEstablecimiento
      * @param \Minsal\SiapsBundle\Entity\CtlTipoEstablecimiento $idTipoEstablecimiento
      * @return CtlEstablecimiento
      */
-    public function setIdTipoEstablecimiento(\Minsal\SiapsBundle\Entity\CtlTipoEstablecimiento $idTipoEstablecimiento = null)
-    {
+    public function setIdTipoEstablecimiento(\Minsal\SiapsBundle\Entity\CtlTipoEstablecimiento $idTipoEstablecimiento = null) {
         $this->idTipoEstablecimiento = $idTipoEstablecimiento;
-    
+
         return $this;
     }
 
@@ -428,40 +428,12 @@ class CtlEstablecimiento
      *
      * @return \Minsal\SiapsBundle\Entity\CtlTipoEstablecimiento 
      */
-    public function getIdTipoEstablecimiento()
-    {
+    public function getIdTipoEstablecimiento() {
         return $this->idTipoEstablecimiento;
     }
-    
-     public function __toString() {
-         return $this->nombre ? :'';
-    }
-    /**
-     * @var boolean
-     */
-    private $configurado;
 
-
-    /**
-     * Set configurado
-     *
-     * @param boolean $configurado
-     * @return CtlEstablecimiento
-     */
-    public function setConfigurado($configurado)
-    {
-        $this->configurado = $configurado;
-    
-        return $this;
+    public function __toString() {
+        return $this->nombre ? : '';
     }
 
-    /**
-     * Get configurado
-     *
-     * @return boolean 
-     */
-    public function getConfigurado()
-    {
-        return $this->configurado;
-    }
 }

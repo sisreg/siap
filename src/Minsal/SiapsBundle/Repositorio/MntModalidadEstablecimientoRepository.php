@@ -1,5 +1,4 @@
 <?php
-
 namespace Minsal\SiapsBundle\Repositorio;
 
 use Doctrine\ORM\EntityRepository;
@@ -9,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
  *
  */
 class MntModalidadEstablecimientoRepository extends EntityRepository {
-
+     
     public function obtenerModalidadUtilizada($establecimiento) {
         $consulta = $this->getEntityManager()
                 ->createQuery('
@@ -22,5 +21,6 @@ class MntModalidadEstablecimientoRepository extends EntityRepository {
 
          return $consulta->getResult();
     }
-
 }
+
+?>

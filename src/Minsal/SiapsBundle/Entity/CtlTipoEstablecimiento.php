@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ctl_tipo_establecimiento")
  * @ORM\Entity
  */
-class CtlTipoEstablecimiento
-{
+class CtlTipoEstablecimiento {
+
     /**
      * @var integer
      *
@@ -36,15 +36,12 @@ class CtlTipoEstablecimiento
      */
     private $codigo;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -54,10 +51,9 @@ class CtlTipoEstablecimiento
      * @param string $nombre
      * @return CtlTipoEstablecimiento
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -66,8 +62,7 @@ class CtlTipoEstablecimiento
      *
      * @return string 
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
 
@@ -77,10 +72,9 @@ class CtlTipoEstablecimiento
      * @param string $codigo
      * @return CtlTipoEstablecimiento
      */
-    public function setCodigo($codigo)
-    {
+    public function setCodigo($codigo) {
         $this->codigo = $codigo;
-    
+
         return $this;
     }
 
@@ -89,12 +83,12 @@ class CtlTipoEstablecimiento
      *
      * @return string 
      */
-    public function getCodigo()
-    {
+    public function getCodigo() {
         return $this->codigo;
     }
-    
+
     public function __toString() {
         return $this->nombre;
     }
+
 }
