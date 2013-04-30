@@ -16,7 +16,7 @@ class CtlEstablecimientoRepository extends EntityRepository {
                 ->createQueryBuilder()
                 ->select('e')
                 ->from('MinsalSiapsBundle:CtlEstablecimiento', 'e')
-                ->where('e.id = 2')
+                ->where('e.configurado = true')
                 ->getQuery();
 
         return $establecimiento->getResult();
@@ -27,7 +27,7 @@ class CtlEstablecimientoRepository extends EntityRepository {
                 ->createQueryBuilder()
                 ->select('e')
                 ->from('MinsalSiapsBundle:CtlEstablecimiento', 'e')
-                ->where('e.id = 2');
+                ->where('e.configurado = true');
     }
 
 }

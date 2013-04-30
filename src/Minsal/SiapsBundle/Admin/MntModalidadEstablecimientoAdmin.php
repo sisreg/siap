@@ -19,7 +19,7 @@ class MntModalidadEstablecimientoAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
                 ->add('idEstablecimiento', 'entity', array('label' => $this->getTranslator()->trans('establecimiento'),
-                    'disabled'=>true,
+                    'read_only'=>true,                    
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function($repositorio) {
                         return $repositorio->obtenerEstabConfigurado();
