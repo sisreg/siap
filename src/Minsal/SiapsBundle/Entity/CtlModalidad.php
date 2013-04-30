@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CtlModalidad
  *
  * @ORM\Table(name="ctl_modalidad")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\CtlModalidadRepository")
  */
 class CtlModalidad
 {
