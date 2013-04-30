@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Minsal\SiapsBundle\Entity\MntAreaModEstab" table="mnt_area_mod_estab">
-    <id name="id" type="integer" column="id">
+  <entity name="MntExpediente" table="mnt_expediente">
+    <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
-    <many-to-one field="idModalidadEstab" target-entity="MntModalidadEstablecimiento">
+    <field name="numero" type="string" column="numero" length="10" nullable="false"/>
+    <field name="habilitado" type="boolean" column="habilitado" nullable="false"/>
+    <many-to-one field="idPaciente" target-entity="MntPaciente">
       <join-columns>
-        <join-column name="id_modalidad_estab" referenced-column-name="id"/>
+        <join-column name="id_paciente" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
@@ -14,9 +16,9 @@
         <join-column name="id_establecimiento" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idAreaAtencion" target-entity="CtlAreaAtencion">
+    <many-to-one field="idCreacionExpediente" target-entity="CtlCreacionExpediente">
       <join-columns>
-        <join-column name="id_area_atencion" referenced-column-name="id"/>
+        <join-column name="id_creacion_expediente" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * CtlModalidad
  *
  * @ORM\Table(name="ctl_modalidad")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\CtlModalidadRepository")
  */
-class CtlModalidad
-{
+class CtlModalidad {
+
     /**
      * @var integer
      *
@@ -29,15 +29,12 @@ class CtlModalidad
      */
     private $nombre;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -47,10 +44,9 @@ class CtlModalidad
      * @param string $nombre
      * @return CtlModalidad
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -59,12 +55,12 @@ class CtlModalidad
      *
      * @return string 
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
-    
-     public function __toString() {
-         return $this->nombre ? :'';
+
+    public function __toString() {
+        return $this->nombre ? : '';
     }
-}
+
+}   

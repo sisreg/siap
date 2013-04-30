@@ -9,10 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * MntModalidadEstablecimiento
  *
  * @ORM\Table(name="mnt_modalidad_establecimiento")
- *  @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\MntModalidadEstablecimientoRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\MntModalidadEstablecimientoRepository")
  */
-class MntModalidadEstablecimiento
-{
+class MntModalidadEstablecimiento {
+
     /**
      * @var integer
      *
@@ -22,17 +22,6 @@ class MntModalidadEstablecimiento
      * @ORM\SequenceGenerator(sequenceName="mnt_modalidad_establecimiento_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
-
-    /**
-     * @var \CtlEstablecimiento
-     *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
-     * })     
-     * @Assert\NotNull
-     */
-    private $idEstablecimiento;
 
     /**
      * @var boolean
@@ -49,6 +38,17 @@ class MntModalidadEstablecimiento
     private $repetitiva;
 
     /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
+     * })
+     * @Assert\NotNull
+     */
+    private $idEstablecimiento;
+
+    /**
      * @var \CtlModalidad
      *
      * @ORM\ManyToOne(targetEntity="CtlModalidad")
@@ -59,19 +59,14 @@ class MntModalidadEstablecimiento
      */
     private $idModalidad;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
-
-   
 
     /**
      * Set tieneBodega
@@ -79,10 +74,9 @@ class MntModalidadEstablecimiento
      * @param boolean $tieneBodega
      * @return MntModalidadEstablecimiento
      */
-    public function setTieneBodega($tieneBodega)
-    {
+    public function setTieneBodega($tieneBodega) {
         $this->tieneBodega = $tieneBodega;
-    
+
         return $this;
     }
 
@@ -91,8 +85,7 @@ class MntModalidadEstablecimiento
      *
      * @return boolean 
      */
-    public function getTieneBodega()
-    {
+    public function getTieneBodega() {
         return $this->tieneBodega;
     }
 
@@ -102,10 +95,9 @@ class MntModalidadEstablecimiento
      * @param boolean $repetitiva
      * @return MntModalidadEstablecimiento
      */
-    public function setRepetitiva($repetitiva)
-    {
+    public function setRepetitiva($repetitiva) {
         $this->repetitiva = $repetitiva;
-    
+
         return $this;
     }
 
@@ -114,32 +106,8 @@ class MntModalidadEstablecimiento
      *
      * @return boolean 
      */
-    public function getRepetitiva()
-    {
+    public function getRepetitiva() {
         return $this->repetitiva;
-    }
-
-    /**
-     * Set idModalidad
-     *
-     * @param \Minsal\SiapsBundle\Entity\CtlModalidad $idModalidad
-     * @return MntModalidadEstablecimiento
-     */
-    public function setIdModalidad(\Minsal\SiapsBundle\Entity\CtlModalidad $idModalidad = null)
-    {
-        $this->idModalidad = $idModalidad;
-    
-        return $this;
-    }
-
-    /**
-     * Get idModalidad
-     *
-     * @return \Minsal\SiapsBundle\Entity\CtlModalidad 
-     */
-    public function getIdModalidad()
-    {
-        return $this->idModalidad;
     }
 
     /**
@@ -148,10 +116,9 @@ class MntModalidadEstablecimiento
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
      * @return MntModalidadEstablecimiento
      */
-    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
-    {
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null) {
         $this->idEstablecimiento = $idEstablecimiento;
-    
+
         return $this;
     }
 
@@ -160,14 +127,33 @@ class MntModalidadEstablecimiento
      *
      * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
      */
-    public function getIdEstablecimiento()
-    {
+    public function getIdEstablecimiento() {
         return $this->idEstablecimiento;
     }
-    
-      
-   public function __toString() {
-         return (string)$this->idEstablecimiento ? :'';
+
+    /**
+     * Set idModalidad
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlModalidad $idModalidad
+     * @return MntModalidadEstablecimiento
+     */
+    public function setIdModalidad(\Minsal\SiapsBundle\Entity\CtlModalidad $idModalidad = null) {
+        $this->idModalidad = $idModalidad;
+
+        return $this;
     }
-    
+
+    /**
+     * Get idModalidad
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlModalidad 
+     */
+    public function getIdModalidad() {
+        return $this->idModalidad;
+    }
+
+    public function __toString() {
+        return (string) $this->idEstablecimiento ? : '';
+    }
+
 }

@@ -65,13 +65,6 @@ class MntPaciente
     private $apellidoCasada;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="sexo", type="string", nullable=false)
-     */
-    private $sexo;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_nacimiento", type="date", nullable=false)
@@ -107,13 +100,6 @@ class MntPaciente
     private $telefonoCasa;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="area_geografica_domicilio", type="integer", nullable=false)
-     */
-    private $areaGeograficaDomicilio;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="lugar_trabajo", type="string", length=50, nullable=true)
@@ -126,6 +112,13 @@ class MntPaciente
      * @ORM\Column(name="telefono_trabajo", type="string", length=10, nullable=true)
      */
     private $telefonoTrabajo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_area_cotizacion", type="integer", nullable=true)
+     */
+    private $idAreaCotizacion;
 
     /**
      * @var boolean
@@ -247,14 +240,14 @@ class MntPaciente
     private $idPacienteInicial;
 
     /**
-     * @var \CtlAreaCotizante
+     * @var \CtlAreaGeografica
      *
-     * @ORM\ManyToOne(targetEntity="CtlAreaCotizante")
+     * @ORM\ManyToOne(targetEntity="CtlAreaGeografica")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_area_cotizacion", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="area_geografica_domicilio", referencedColumnName="id")
      * })
      */
-    private $idAreaCotizacion;
+    private $areaGeograficaDomicilio;
 
     /**
      * @var \CtlCanton
@@ -375,6 +368,16 @@ class MntPaciente
      * })
      */
     private $idParentescoResponsable;
+
+    /**
+     * @var \CtlSexo
+     *
+     * @ORM\ManyToOne(targetEntity="CtlSexo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_sexo", referencedColumnName="id")
+     * })
+     */
+    private $idSexo;
 
 
 
@@ -527,29 +530,6 @@ class MntPaciente
     }
 
     /**
-     * Set sexo
-     *
-     * @param string $sexo
-     * @return MntPaciente
-     */
-    public function setSexo($sexo)
-    {
-        $this->sexo = $sexo;
-    
-        return $this;
-    }
-
-    /**
-     * Get sexo
-     *
-     * @return string 
-     */
-    public function getSexo()
-    {
-        return $this->sexo;
-    }
-
-    /**
      * Set fechaNacimiento
      *
      * @param \DateTime $fechaNacimiento
@@ -665,29 +645,6 @@ class MntPaciente
     }
 
     /**
-     * Set areaGeograficaDomicilio
-     *
-     * @param integer $areaGeograficaDomicilio
-     * @return MntPaciente
-     */
-    public function setAreaGeograficaDomicilio($areaGeograficaDomicilio)
-    {
-        $this->areaGeograficaDomicilio = $areaGeograficaDomicilio;
-    
-        return $this;
-    }
-
-    /**
-     * Get areaGeograficaDomicilio
-     *
-     * @return integer 
-     */
-    public function getAreaGeograficaDomicilio()
-    {
-        return $this->areaGeograficaDomicilio;
-    }
-
-    /**
      * Set lugarTrabajo
      *
      * @param string $lugarTrabajo
@@ -731,6 +688,29 @@ class MntPaciente
     public function getTelefonoTrabajo()
     {
         return $this->telefonoTrabajo;
+    }
+
+    /**
+     * Set idAreaCotizacion
+     *
+     * @param integer $idAreaCotizacion
+     * @return MntPaciente
+     */
+    public function setIdAreaCotizacion($idAreaCotizacion)
+    {
+        $this->idAreaCotizacion = $idAreaCotizacion;
+    
+        return $this;
+    }
+
+    /**
+     * Get idAreaCotizacion
+     *
+     * @return integer 
+     */
+    public function getIdAreaCotizacion()
+    {
+        return $this->idAreaCotizacion;
     }
 
     /**
@@ -1125,26 +1105,26 @@ class MntPaciente
     }
 
     /**
-     * Set idAreaCotizacion
+     * Set areaGeograficaDomicilio
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlAreaCotizante $idAreaCotizacion
+     * @param \Minsal\SiapsBundle\Entity\CtlAreaGeografica $areaGeograficaDomicilio
      * @return MntPaciente
      */
-    public function setIdAreaCotizacion(\Minsal\SiapsBundle\Entity\CtlAreaCotizante $idAreaCotizacion = null)
+    public function setAreaGeograficaDomicilio(\Minsal\SiapsBundle\Entity\CtlAreaGeografica $areaGeograficaDomicilio = null)
     {
-        $this->idAreaCotizacion = $idAreaCotizacion;
+        $this->areaGeograficaDomicilio = $areaGeograficaDomicilio;
     
         return $this;
     }
 
     /**
-     * Get idAreaCotizacion
+     * Get areaGeograficaDomicilio
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlAreaCotizante 
+     * @return \Minsal\SiapsBundle\Entity\CtlAreaGeografica 
      */
-    public function getIdAreaCotizacion()
+    public function getAreaGeograficaDomicilio()
     {
-        return $this->idAreaCotizacion;
+        return $this->areaGeograficaDomicilio;
     }
 
     /**
@@ -1422,11 +1402,6 @@ class MntPaciente
     {
         return $this->idParentescoResponsable;
     }
-    /**
-     * @var \Minsal\SiapsBundle\Entity\CtlSexo
-     */
-    private $idSexo;
-
 
     /**
      * Set idSexo

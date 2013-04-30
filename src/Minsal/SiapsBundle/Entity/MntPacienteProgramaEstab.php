@@ -6,39 +6,77 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * MntPacienteProgramaEstab
+ *
+ * @ORM\Table(name="mnt_paciente_programa_estab")
+ * @ORM\Entity
  */
 class MntPacienteProgramaEstab
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="mnt_paciente_programa_estab_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_inscripcion", type="date", nullable=false)
      */
     private $fechaInscripcion;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_alta", type="date", nullable=true)
      */
     private $fechaAlta;
 
     /**
-     * @var integer
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
+     * })
      */
-    private $id;
+    private $idEstablecimiento;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\MntProgramaEstablecimiento
-     */
-    private $idProgramaEstablecimiento;
-
-    /**
-     * @var \Minsal\SiapsBundle\Entity\MntPaciente
+     * @var \MntPaciente
+     *
+     * @ORM\ManyToOne(targetEntity="MntPaciente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_paciente", referencedColumnName="id")
+     * })
      */
     private $idPaciente;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
+     * @var \MntProgramaEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="MntProgramaEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_programa_establecimiento", referencedColumnName="id")
+     * })
      */
-    private $idEstablecimiento;
+    private $idProgramaEstablecimiento;
 
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set fechaInscripcion
@@ -87,36 +125,26 @@ class MntPacienteProgramaEstab
     }
 
     /**
-     * Get id
+     * Set idEstablecimiento
      *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set idProgramaEstablecimiento
-     *
-     * @param \Minsal\SiapsBundle\Entity\MntProgramaEstablecimiento $idProgramaEstablecimiento
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
      * @return MntPacienteProgramaEstab
      */
-    public function setIdProgramaEstablecimiento(\Minsal\SiapsBundle\Entity\MntProgramaEstablecimiento $idProgramaEstablecimiento = null)
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
     {
-        $this->idProgramaEstablecimiento = $idProgramaEstablecimiento;
+        $this->idEstablecimiento = $idEstablecimiento;
     
         return $this;
     }
 
     /**
-     * Get idProgramaEstablecimiento
+     * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\MntProgramaEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
      */
-    public function getIdProgramaEstablecimiento()
+    public function getIdEstablecimiento()
     {
-        return $this->idProgramaEstablecimiento;
+        return $this->idEstablecimiento;
     }
 
     /**
@@ -143,25 +171,25 @@ class MntPacienteProgramaEstab
     }
 
     /**
-     * Set idEstablecimiento
+     * Set idProgramaEstablecimiento
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @param \Minsal\SiapsBundle\Entity\MntProgramaEstablecimiento $idProgramaEstablecimiento
      * @return MntPacienteProgramaEstab
      */
-    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    public function setIdProgramaEstablecimiento(\Minsal\SiapsBundle\Entity\MntProgramaEstablecimiento $idProgramaEstablecimiento = null)
     {
-        $this->idEstablecimiento = $idEstablecimiento;
+        $this->idProgramaEstablecimiento = $idProgramaEstablecimiento;
     
         return $this;
     }
 
     /**
-     * Get idEstablecimiento
+     * Get idProgramaEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\MntProgramaEstablecimiento 
      */
-    public function getIdEstablecimiento()
+    public function getIdProgramaEstablecimiento()
     {
-        return $this->idEstablecimiento;
+        return $this->idProgramaEstablecimiento;
     }
 }

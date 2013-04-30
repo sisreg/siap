@@ -25,7 +25,7 @@ class CtlAreaCotizante
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=300, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=300, nullable=false)
      */
     private $nombre;
 
@@ -62,9 +62,5 @@ class CtlAreaCotizante
     public function getNombre()
     {
         return $this->nombre;
-    }    
-    
-      public function __toString() {
-        return $this->nombre ? :'';
     }
 }
