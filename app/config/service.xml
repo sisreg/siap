@@ -3,10 +3,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-       <service id="sonata.admin.areacotizante" class="Minsal\SiapsBundle\Admin\CtlAreaCotizanteAdmin">
-          <tag name="sonata.admin" manager_type="orm" group="Administración" label="Area Cotizante"/>
+       <service id="sonata.admin.establecimiento" class="Minsal\SiapsBundle\Admin\CtlEstablecimientoAdmin">
+          <tag name="sonata.admin" manager_type="orm" group="Administración" label="Configurar Establecimiento"/>
           <argument />
-          <argument>Minsal\SiapsBundle\Entity\CtlAreaCotizante</argument>
+          <argument>Minsal\SiapsBundle\Entity\CtlEstablecimiento</argument>
           <argument>SonataAdminBundle:CRUD</argument>
       </service>
       <service id="sonata.admin.modalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntModalidadEstablecimientoAdmin">

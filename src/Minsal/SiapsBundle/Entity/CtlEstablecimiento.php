@@ -436,4 +436,32 @@ class CtlEstablecimiento
      public function __toString() {
          return $this->nombre ? :'';
     }
+    /**
+     * @var boolean
+     */
+    private $configurado;
+
+
+    /**
+     * Set configurado
+     *
+     * @param boolean $configurado
+     * @return CtlEstablecimiento
+     */
+    public function setConfigurado($configurado)
+    {
+        $this->configurado = $configurado;
+    
+        return $this;
+    }
+
+    /**
+     * Get configurado
+     *
+     * @return boolean 
+     */
+    public function getConfigurado()
+    {
+        return $this->configurado;
+    }
 }

@@ -14,6 +14,15 @@
     padding-top: 0em;
 }
 
+div#prueba{
+    background-image:url('../imagenes/fondo.png');
+    background-repeat:no-repeat;
+    background-position: 50% 15%;
+    width:100%; 
+     min-height: 600px;
+  /*  z-index:200;*/
+}
+
 div#divpie{
     position: fixed;
     color: #E6E6E6;
@@ -41,8 +50,8 @@ div#pagina{
     text-align: center;
     margin-left: auto ;
     margin-right: auto ;
-    background-color:white;
-    min-height: 780px;
+    background-color:whitesmoke;
+    min-height: 600px;
     
         
     /* -- CSS3 - definición de las esquinas redondeadas -- */

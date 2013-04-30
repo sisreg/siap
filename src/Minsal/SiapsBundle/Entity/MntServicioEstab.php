@@ -129,4 +129,32 @@ class MntServicioEstab
     {
         return $this->idEstablecimiento;
     }
+    /**
+     * @var \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
+     */
+    private $idAtenAreaModEstab;
+
+
+    /**
+     * Set idAtenAreaModEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab
+     * @return MntServicioEstab
+     */
+    public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null)
+    {
+        $this->idAtenAreaModEstab = $idAtenAreaModEstab;
+    
+        return $this;
+    }
+
+    /**
+     * Get idAtenAreaModEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
+     */
+    public function getIdAtenAreaModEstab()
+    {
+        return $this->idAtenAreaModEstab;
+    }
 }

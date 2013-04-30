@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * MntModalidadEstablecimiento
  *
  * @ORM\Table(name="mnt_modalidad_establecimiento")
- * @ORM\Entity
+ *  @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\MntModalidadEstablecimientoRepository")
  */
 class MntModalidadEstablecimiento
 {
@@ -167,7 +167,7 @@ class MntModalidadEstablecimiento
     
       
    public function __toString() {
-         return $this->id ? :'';
+         return (string)$this->idEstablecimiento ? :'';
     }
     
 }
