@@ -6,6 +6,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
+//AGREGANDO PARA PODER UTILIZARLAS
+use Minsal\SiapsBundle\Entity\CtlEstablecimiento;
 
 class MntModalidadEstablecimientoAdmin extends Admin
 {
@@ -19,9 +21,9 @@ class MntModalidadEstablecimientoAdmin extends Admin
     {
         $formMapper
             ->add('idEstablecimiento',null, array('label'=> $this->getTranslator()->trans('establecimiento')))
-            ->add('idModalidad', null, array('label'=>$this->getTranslator()->trans('id_modalidad')))
-            ->add('tieneBodega', null, array('label'=>'Tiene bodega para farmacia'))
-            ->add('repetitiva', null , array('label'=>'Emite recetas repetitivas'))
+            ->add('idModalidad', null, array('label' => $this->getTranslator()->trans('id_modalidad')))
+            ->add('tieneBodega', null, array('label'=>'Tiene bodega para farmacia','required'=>false))
+            ->add('repetitiva', null , array('label'=>'Emite recetas repetitivas','required'=>false))
                 
         ;
     }
@@ -37,14 +39,11 @@ class MntModalidadEstablecimientoAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('idEstablecimiento',null, array('label'=> $this->getTranslator()->trans('establecimiento')))
-            ->add('idModalidad', null, array('label'=>$this->getTranslator()->trans('id_modalidad')))
+            ->add('idEstablecimiento',null, array('label'=> $this->getTranslator()->trans('establecimiento')))
+            ->addIdentifier('idModalidad', null, array('label'=>$this->getTranslator()->trans('id_modalidad')))
             ->add('tieneBodega', null, array('label'=>'Tiene bodega para farmacia'))
             ->add('repetitiva', null , array('label'=>'Emite recetas repetitivas'))
         ;
-    }
-    
-    public function validate(ErrorElement $errorElement, $object) {  
     }
   
     public function getBatchActions(){

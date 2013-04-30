@@ -1422,4 +1422,32 @@ class MntPaciente
     {
         return $this->idParentescoResponsable;
     }
+    /**
+     * @var \Minsal\SiapsBundle\Entity\CtlSexo
+     */
+    private $idSexo;
+
+
+    /**
+     * Set idSexo
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlSexo $idSexo
+     * @return MntPaciente
+     */
+    public function setIdSexo(\Minsal\SiapsBundle\Entity\CtlSexo $idSexo = null)
+    {
+        $this->idSexo = $idSexo;
+    
+        return $this;
+    }
+
+    /**
+     * Get idSexo
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlSexo 
+     */
+    public function getIdSexo()
+    {
+        return $this->idSexo;
+    }
 }
