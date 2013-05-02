@@ -153,7 +153,7 @@ class MntModalidadEstablecimiento {
     }
 
     public function __toString() {
-        return (string) $this->idEstablecimiento ? : '';
+        return (string) $this->idModalidad ? : '';
     }
 
 }

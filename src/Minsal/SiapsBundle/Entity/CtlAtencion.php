@@ -129,4 +129,9 @@ class CtlAtencion
     {
         return $this->idTipoAtencion;
     }
+    
+    /*Método __toString*/
+    public function __toString() {
+        return $this->nombre ? : '';
+    }
 }
