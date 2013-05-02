@@ -6,28 +6,52 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * MntAtenAreaModEstab
+ *
+ * @ORM\Table(name="mnt_aten_area_mod_estab")
+ * @ORM\Entity
  */
 class MntAtenAreaModEstab
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="mnt_aten_area_mod_estab_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
+     * @var \MntAreaModEstab
+     *
+     * @ORM\ManyToOne(targetEntity="MntAreaModEstab")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_area_mod_estab", referencedColumnName="id")
+     * })
      */
-    private $idEstablecimiento;
+    private $idAreaModEstab;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\CtlAtencion
+     * @var \CtlAtencion
+     *
+     * @ORM\ManyToOne(targetEntity="CtlAtencion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_atencion", referencedColumnName="id")
+     * })
      */
     private $idAtencion;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\MntAreaModEstab
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
+     * })
      */
-    private $idAreaModEstab;
+    private $idEstablecimiento;
+
 
 
     /**
@@ -41,26 +65,26 @@ class MntAtenAreaModEstab
     }
 
     /**
-     * Set idEstablecimiento
+     * Set idAreaModEstab
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @param \Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab
      * @return MntAtenAreaModEstab
      */
-    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null)
     {
-        $this->idEstablecimiento = $idEstablecimiento;
+        $this->idAreaModEstab = $idAreaModEstab;
     
         return $this;
     }
 
     /**
-     * Get idEstablecimiento
+     * Get idAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
      */
-    public function getIdEstablecimiento()
+    public function getIdAreaModEstab()
     {
-        return $this->idEstablecimiento;
+        return $this->idAreaModEstab;
     }
 
     /**
@@ -87,25 +111,25 @@ class MntAtenAreaModEstab
     }
 
     /**
-     * Set idAreaModEstab
+     * Set idEstablecimiento
      *
-     * @param \Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
      * @return MntAtenAreaModEstab
      */
-    public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null)
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
     {
-        $this->idAreaModEstab = $idAreaModEstab;
+        $this->idEstablecimiento = $idEstablecimiento;
     
         return $this;
     }
 
     /**
-     * Get idAreaModEstab
+     * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
      */
-    public function getIdAreaModEstab()
+    public function getIdEstablecimiento()
     {
-        return $this->idAreaModEstab;
+        return $this->idEstablecimiento;
     }
 }

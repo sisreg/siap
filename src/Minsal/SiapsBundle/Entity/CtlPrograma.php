@@ -6,44 +6,78 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * CtlPrograma
+ *
+ * @ORM\Table(name="ctl_programa")
+ * @ORM\Entity
  */
 class CtlPrograma
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_programa_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
      * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=100, nullable=false)
      */
     private $nombre;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
      */
     private $fechaInicio;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_fin", type="date", nullable=true)
      */
     private $fechaFin;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="edad_minima", type="integer", nullable=false)
      */
     private $edadMinima;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="edad_maxima", type="integer", nullable=true)
      */
     private $edadMaxima;
 
     /**
-     * @var integer
-     */
-    private $id;
-
-    /**
-     * @var \Minsal\SiapsBundle\Entity\CtlSexo
+     * @var \CtlSexo
+     *
+     * @ORM\ManyToOne(targetEntity="CtlSexo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_sexo", referencedColumnName="id")
+     * })
      */
     private $idSexo;
 
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set nombre
@@ -158,16 +192,6 @@ class CtlPrograma
     public function getEdadMaxima()
     {
         return $this->edadMaxima;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

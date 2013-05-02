@@ -6,29 +6,60 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * CtlAtencion
+ *
+ * @ORM\Table(name="ctl_atencion")
+ * @ORM\Entity
  */
 class CtlAtencion
 {
     /**
-     * @var string
-     */
-    private $nombre;
-
-    /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_atencion_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\CtlTipoAtencion
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=100, nullable=false)
      */
-    private $idTipoAtencion;
+    private $nombre;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\CtlAtencion
+     * @var \CtlAtencion
+     *
+     * @ORM\ManyToOne(targetEntity="CtlAtencion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_atencion_padre", referencedColumnName="id")
+     * })
      */
     private $idAtencionPadre;
 
+    /**
+     * @var \CtlTipoAtencion
+     *
+     * @ORM\ManyToOne(targetEntity="CtlTipoAtencion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_tipo_atencion", referencedColumnName="id")
+     * })
+     */
+    private $idTipoAtencion;
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set nombre
@@ -54,13 +85,26 @@ class CtlAtencion
     }
 
     /**
-     * Get id
+     * Set idAtencionPadre
      *
-     * @return integer 
+     * @param \Minsal\SiapsBundle\Entity\CtlAtencion $idAtencionPadre
+     * @return CtlAtencion
      */
-    public function getId()
+    public function setIdAtencionPadre(\Minsal\SiapsBundle\Entity\CtlAtencion $idAtencionPadre = null)
     {
-        return $this->id;
+        $this->idAtencionPadre = $idAtencionPadre;
+    
+        return $this;
+    }
+
+    /**
+     * Get idAtencionPadre
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlAtencion 
+     */
+    public function getIdAtencionPadre()
+    {
+        return $this->idAtencionPadre;
     }
 
     /**
@@ -84,28 +128,5 @@ class CtlAtencion
     public function getIdTipoAtencion()
     {
         return $this->idTipoAtencion;
-    }
-
-    /**
-     * Set idAtencionPadre
-     *
-     * @param \Minsal\SiapsBundle\Entity\CtlAtencion $idAtencionPadre
-     * @return CtlAtencion
-     */
-    public function setIdAtencionPadre(\Minsal\SiapsBundle\Entity\CtlAtencion $idAtencionPadre = null)
-    {
-        $this->idAtencionPadre = $idAtencionPadre;
-    
-        return $this;
-    }
-
-    /**
-     * Get idAtencionPadre
-     *
-     * @return \Minsal\SiapsBundle\Entity\CtlAtencion 
-     */
-    public function getIdAtencionPadre()
-    {
-        return $this->idAtencionPadre;
     }
 }
