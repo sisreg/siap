@@ -132,4 +132,9 @@ class MntAreaModEstab
     {
         return $this->idModalidadEstab;
     }
+    
+    /*Método __toString*/
+    public function __toString() {
+        return (string)  $this->idModalidadEstab.' - '.$this->idAreaAtencion ? : '';
+    }
 }

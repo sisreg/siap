@@ -90,7 +90,7 @@ file that was distributed with this source code.
                                 <ul class="nav">
                                     {% block top_bar_before_nav %} {% endblock %}
                                     {% block sonata_top_bar_nav %}
-                           
+
                                             {% for group in admin_pool.dashboardgroups %}
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ group.label|trans({}, group.label_catalogue) }} <span class="caret"></span></a>
@@ -103,7 +103,7 @@ file that was distributed with this source code.
                                                 </ul>
                                             </li>
                                             {% endfor %}
-                                        
+
                                     {% endblock %}
                                     {% block top_bar_after_nav %} {% endblock %}
                                         </ul>
@@ -133,16 +133,22 @@ file that was distributed with this source code.
                                     {% if action is defined %}
                                         {% for menu in admin.breadcrumbs(action) %}
                                             {% if not loop.last  %}
+                                                        {% if menu.label=='Dashboard' or menu.label=='⌂' %}
+                                                        <li><a href="{{ menu.uri }}">Inicio</a><span class="divider">/</span></li>
+                                                        {% else %}
+                                                        <li><a href="{{ menu.uri }}">{{ menu.label|trans }}</a><span class="divider">/</span></li>
+                                                        {% endif %}
+                                                        <!--Lo quite para que aparesca Inicio en ves de Dashboard
                                                         <li>
-                                                    {% if menu.uri is not empty %}
-                                                        <a href="{{ menu.uri }}">{{ menu.label|trans }}</a>
+                                                    {# if menu.uri is not empty %}
+                                                                <a href="{{ menu.uri }}">{{ menu.label|trans }}</a>
                                                     {% else %}
                                                         {{ menu.label|trans }}
-                                                    {% endif %}
+                                                    {% endif #}
                                                                 <span class="divider">/</span>
-                                                            </li>
+                                                            </li>-->
                                             {% else %}
-                                                <li class="active">{{ menu.label|trans}}</li>
+                                                            <li class="active">{{ menu.label|trans}}</li>
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}

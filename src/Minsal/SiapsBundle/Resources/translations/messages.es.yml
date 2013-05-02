@@ -1,7 +1,9 @@
-'Ctl Area Cotizante List': 'Area Cotizante - Listado'
-'Mnt Modalidad Establecimiento List': 'Modalidad del Establecimiento - Listado'
-
 'establecimiento': 'Establecimiento de salud'
 'id_modalidad': 'Modalidad de atención'
+'Id Municipio': 'Municipio'
+'idModalidadEstab': 'Modalidad del Establecimiento'
 
+
+'Mnt Modalidad Establecimiento List': 'Modalidad del Establecimiento - Listado'
 'Ctl Establecimiento List': 'Establecimiento - Listado'
+'Mnt Area Mod Estab List': 'Áreas de atención del Establecimiento'

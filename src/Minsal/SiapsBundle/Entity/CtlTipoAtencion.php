@@ -63,4 +63,9 @@ class CtlTipoAtencion
     {
         return $this->nombre;
     }
+    
+     /*Método __toString*/
+    public function __toString() {
+        return $this->nombre ? : '';
+    }
 }

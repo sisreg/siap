@@ -132,4 +132,9 @@ class MntAtenAreaModEstab
     {
         return $this->idEstablecimiento;
     }
+    
+    /*Método __toString*/
+    public function __toString() {
+        return (string) $this->idAtencion ? : '';
+    }
 }
