@@ -19,7 +19,7 @@ class MntAtenAreaModEstabAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
                 ->add('idEstablecimiento', 'entity', array('label' => $this->getTranslator()->trans('establecimiento'),
-                    'read_only'=>true,                    
+                    'read_only' => true,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function($repositorio) {
                         return $repositorio->obtenerEstabConfigurado();
@@ -27,20 +27,21 @@ class MntAtenAreaModEstabAdmin extends Admin {
                 ->add('idAreaModEstab', 'entity', array('label' => $this->getTranslator()->trans('id_modalidad'),
                     'empty_value' => 'Seleccione la modalidad',
                     'class' => 'MinsalSiapsBundle:MntAreaModEstab',
-                    
-                    ))
+                ))
                 ->add('idAtencion', 'entity', array(
-                    'empty_value' => 'Seleccione la atención',
+                    'label' => 'Especialidades',
                     'class' => 'MinsalSiapsBundle:CtlAtencion',
-                     'query_builder' => function($repositorio) {
-                        return $repositorio->createQueryBuilder('caa')
-                                           ->where('caa.idAtencionPadre IS NULL');
-                     },
+                    'query_builder' => function($repositorio) {
+                        return $repositorio->createQueryBuilder('ca')
+                                ->andWhere('ca.idAtencionPadre IS NULL')
+                                ->andWhere('ca.idTipoAtencion = 1')
+                        ;
+                    },
                     'required' => true,
                     'multiple' => true,
                     'expanded' => true
-                    ))
-            ;
+                ))
+        ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {

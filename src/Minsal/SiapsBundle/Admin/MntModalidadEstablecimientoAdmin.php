@@ -28,7 +28,10 @@ class MntModalidadEstablecimientoAdmin extends Admin {
                     'empty_value' => 'Seleccione la modalidad',
                     'class' => 'MinsalSiapsBundle:CtlModalidad',
                     'query_builder' => function($repositorio) {
-                        return $repositorio->obtenerModalidades();
+                        $ruta_accion = explode('/', $this->getRequest()->getUri());
+                        $accion = array_pop($ruta_accion);
+                        $valor= array_pop($ruta_accion);
+                        return $repositorio->obtenerModalidades($accion,$valor);
                     }))
                 ->add('tieneBodega', null, array('label' => 'Tiene bodega para farmacia', 'required' => false))
                 ->add('repetitiva', null, array('label' => 'Emite recetas repetitivas', 'required' => false));

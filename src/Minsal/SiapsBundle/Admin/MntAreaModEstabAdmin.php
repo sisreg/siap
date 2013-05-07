@@ -17,9 +17,10 @@ class MntAreaModEstabAdmin extends Admin {
     );
 
     protected function configureFormFields(FormMapper $formMapper) {
+
         $formMapper
                 ->add('idEstablecimiento', 'entity', array('label' => $this->getTranslator()->trans('establecimiento'),
-                    'read_only'=>true,                    
+                    'read_only' => true,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function($repositorio) {
                         return $repositorio->obtenerEstabConfigurado();
@@ -27,12 +28,12 @@ class MntAreaModEstabAdmin extends Admin {
                 ->add('idModalidadEstab', 'entity', array('label' => $this->getTranslator()->trans('id_modalidad'),
                     'empty_value' => 'Seleccione la modalidad',
                     'class' => 'MinsalSiapsBundle:MntModalidadEstablecimiento'
-                    ))
+                ))
                 ->add('idAreaAtencion', null, array('empty_value' => 'Seleccione el área',
                     'label' => 'Área de atención',
                     'required' => true
-                    ))
-            ;
+                ))
+        ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
@@ -52,8 +53,6 @@ class MntAreaModEstabAdmin extends Admin {
     public function validate(ErrorElement $errorElement, $object) {
         
     }
-
-  
 
 }
 

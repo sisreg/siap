@@ -2,8 +2,10 @@
 'id_modalidad': 'Modalidad de atención'
 'Id Municipio': 'Municipio'
 'idModalidadEstab': 'Modalidad del Establecimiento'
-
+'Id Tipo Establecimiento': 'Tipo Establecimiento'
+'form.label_id_establecimiento' : 'Establecimiento'
 
 'Mnt Modalidad Establecimiento List': 'Modalidad del Establecimiento - Listado'
 'Ctl Establecimiento List': 'Establecimiento - Listado'
 'Mnt Area Mod Estab List': 'Áreas de atención del Establecimiento'
+'Mnt Aten Area Mod Estab List' : 'Cartera de servicios'
