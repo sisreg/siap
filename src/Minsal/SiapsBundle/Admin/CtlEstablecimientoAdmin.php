@@ -14,7 +14,7 @@ class CtlEstablecimientoAdmin extends Admin
     protected $datagridValues = array(
         '_page' => 1, // Display the first page (default = 1)
         '_sort_order' => 'ASC', // Descendant ordering (default = 'ASC')
-        '_sort_by' => 'idEstablecimiento' // name of the ordered field (default = the model id field, if any)
+        '_sort_by' => 'configurado' // name of the ordered field (default = the model id field, if any)
     );
     
     protected function configureFormFields(FormMapper $formMapper)
@@ -30,7 +30,7 @@ class CtlEstablecimientoAdmin extends Admin
     {
         $datagridMapper
             ->add('nombre')
-            ->add('idMunicipio')
+            ->add('idMunicipio',null,array())
             ->add('idTipoEstablecimiento')
         ;
     }

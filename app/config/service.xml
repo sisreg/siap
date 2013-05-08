@@ -1,31 +1,44 @@
 <?xml version="1.0" encoding="utf8"?>
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-       <service id="sonata.admin.establecimiento" class="Minsal\SiapsBundle\Admin\CtlEstablecimientoAdmin">
-          <tag name="sonata.admin" manager_type="orm" group="Administración" label="Configurar Establecimiento"/>
-          <argument />
-          <argument>Minsal\SiapsBundle\Entity\CtlEstablecimiento</argument>
-          <argument>SonataAdminBundle:CRUD</argument>
-      </service>
-      <service id="sonata.admin.modalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntModalidadEstablecimientoAdmin">
-          <tag name="sonata.admin" manager_type="orm" group="Administración" label="Modalidad del Establecimiento"/>
-          <argument />
-          <argument>Minsal\SiapsBundle\Entity\MntModalidadEstablecimiento</argument>
-          <argument>SonataAdminBundle:CRUD</argument>
-      </service>
-      <service id="sonata.admin.areamodalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntAreaModEstabAdmin">
-          <tag name="sonata.admin" manager_type="orm" group="Administración" label="Áreas del Establecimiento"/>
-          <argument />
-          <argument>Minsal\SiapsBundle\Entity\MntAreaModEstab</argument>
-          <argument>SonataAdminBundle:CRUD</argument>
-      </service>
-      <service id="sonata.admin.atenareamodalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntAtenAreaModEstabAdmin">
+        <service id="sonata.admin.establecimiento" class="Minsal\SiapsBundle\Admin\CtlEstablecimientoAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Administración" label="Configurar Establecimiento"/>
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\CtlEstablecimiento</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        <service id="sonata.admin.modalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntModalidadEstablecimientoAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Administración" label="Modalidad del Establecimiento"/>
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\MntModalidadEstablecimiento</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        <service id="sonata.admin.areamodalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntAreaModEstabAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Administración" label="Áreas del Establecimiento"/>
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\MntAreaModEstab</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        <service id="sonata.admin.atenareamodalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntAtenAreaModEstabAdmin">
           <tag name="sonata.admin" manager_type="orm" group="Administración" label="Atenciones del Establecimiento"/>
-          <argument />
-          <argument>Minsal\SiapsBundle\Entity\MntAtenAreaModEstab</argument>
-          <argument>SonataAdminBundle:CRUD</argument>
-      </service>
-   </services>
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\MntAtenAreaModEstab</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        <!--AGREGADO PARA PODER EDITAR EL FORMULARIO DE CREACIÓN DEL USUARIO-->
+        <service id="sonata.user.admin.user" class="Application\Sonata\UserBundle\Admin\UserAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="users" label_catalogue="SonataUserBundle" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\User</argument>
+            <argument>%sonata.user.admin.user.controller%</argument>
+            <call method="setUserManager">
+                <argument type="service" id="fos_user.user_manager" />
+            </call>
+            <call method="setTranslationDomain">
+                <argument>%sonata.user.admin.user.translation_domain%</argument>
+            </call>
+        </service>
+    </services>
 </container>
