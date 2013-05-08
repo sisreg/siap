@@ -18,7 +18,7 @@ class CtlEstablecimientoRepository extends EntityRepository {
                 ->from('MinsalSiapsBundle:CtlEstablecimiento', 'e')
                 ->where('e.configurado = true')
                 ->getQuery();
-
+        
         return $establecimiento->getResult();
     }
     public function obtenerEstabConfigurado() {

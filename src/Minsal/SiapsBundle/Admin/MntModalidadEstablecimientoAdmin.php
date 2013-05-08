@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 
 class MntModalidadEstablecimientoAdmin extends Admin {
-
+     
     protected $datagridValues = array(
         '_page' => 1, // Display the first page (default = 1)
         '_sort_order' => 'ASC', // Descendant ordering (default = 'ASC')
@@ -19,11 +19,11 @@ class MntModalidadEstablecimientoAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
                 ->add('idEstablecimiento', 'entity', array('label' => $this->getTranslator()->trans('establecimiento'),
-                    'read_only'=>true,                    
+                     'read_only'=>true,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function($repositorio) {
                         return $repositorio->obtenerEstabConfigurado();
-                    }))
+                }))
                 ->add('idModalidad', 'entity', array('label' => $this->getTranslator()->trans('id_modalidad'),
                     'empty_value' => 'Seleccione la modalidad',
                     'class' => 'MinsalSiapsBundle:CtlModalidad',
@@ -58,7 +58,7 @@ class MntModalidadEstablecimientoAdmin extends Admin {
         $actions = parent::getBatchActions();
         $actions['delete'] = null;
     }
-
-}
+ 
+     }
 
 ?>

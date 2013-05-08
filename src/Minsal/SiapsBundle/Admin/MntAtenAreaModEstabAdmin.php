@@ -65,7 +65,7 @@ class MntAtenAreaModEstabAdmin extends Admin {
         $actions = parent::getBatchActions();
         $actions['delete'] = null;
     }
-
+    
 }
 
 ?>
