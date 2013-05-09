@@ -28,7 +28,7 @@ class User extends BaseUser {
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
      */
-    public $idEstablecimiento;
+    protected $idEstablecimiento;
 
     /**
      * Get id
@@ -62,4 +62,5 @@ class User extends BaseUser {
     {
         return $this->idEstablecimiento;
     }
+   
 }

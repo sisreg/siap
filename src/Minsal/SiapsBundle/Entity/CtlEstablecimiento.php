@@ -129,6 +129,20 @@ class CtlEstablecimiento {
      */
     private $idTipoEstablecimiento;
 
+   /**
+    * 
+    * @var \programas
+    * 
+    * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlPrograma", inversedBy="establecimientos")
+    * @ORM\JoinTable(name="mnt_programa_establecimiento",
+    *       joinColumns={
+    *           @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")},
+    *       inverseJoinColumns={
+    *           @ORM\JoinColumn(name="id_programa", referencedColumnName="id")}
+    * )
+    */
+    private $programas;
+    
     /**
      * Get id
      *
@@ -436,4 +450,44 @@ class CtlEstablecimiento {
         return $this->nombre ? : '';
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->programas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add programas
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlPrograma $programas
+     * @return CtlEstablecimiento
+     */
+    public function addPrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $programas)
+    {
+        $this->programas[] = $programas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove programas
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlPrograma $programas
+     */
+    public function removePrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $programas)
+    {
+        $this->programas->removeElement($programas);
+    }
+
+    /**
+     * Get programas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProgramas()
+    {
+        return $this->programas;
+    }
 }

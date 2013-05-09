@@ -66,9 +66,7 @@ class CtlPrograma
      * })
      */
     private $idSexo;
-
-
-
+    
     /**
      * Get id
      *
@@ -215,5 +213,9 @@ class CtlPrograma
     public function getIdSexo()
     {
         return $this->idSexo;
+    }
+   
+    public function __toString() {
+       return $this->nombre ?: '';
     }
 }
