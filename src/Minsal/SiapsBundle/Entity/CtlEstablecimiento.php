@@ -129,12 +129,18 @@ class CtlEstablecimiento {
      */
     private $idTipoEstablecimiento;
 
-    /**
-     * @var \programas
-     *
-     * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlPrograma",mappedBy="establecimientos")
-     *
-     */
+   /**
+    * 
+    * @var \programas
+    * 
+    * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlPrograma", inversedBy="establecimientos")
+    * @ORM\JoinTable(name="mnt_programa_establecimiento",
+    *       joinColumns={
+    *           @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")},
+    *       inverseJoinColumns={
+    *           @ORM\JoinColumn(name="id_programa", referencedColumnName="id")}
+    * )
+    */
     private $programas;
     
     /**

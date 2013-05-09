@@ -27,12 +27,6 @@
             <argument>Minsal\SiapsBundle\Entity\MntAtenAreaModEstab</argument>
             <argument>SonataAdminBundle:CRUD</argument>
         </service>
-        <service id="sonata.admin.programa" class="Minsal\SiapsBundle\Admin\CtlProgramaAdmin">
-          <tag name="sonata.admin" manager_type="orm" group="Administración" label="Programas del Establecimiento"/>
-            <argument />
-            <argument>Minsal\SiapsBundle\Entity\CtlPrograma</argument>
-            <argument>SonataAdminBundle:CRUD</argument>
-        </service>
         <!--AGREGADO PARA PODER EDITAR EL FORMULARIO DE CREACIÓN DEL USUARIO-->
         <service id="sonata.user.admin.user" class="Application\Sonata\UserBundle\Admin\UserAdmin">
             <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="users" label_catalogue="SonataUserBundle" label_translator_strategy="sonata.admin.label.strategy.underscore" />
