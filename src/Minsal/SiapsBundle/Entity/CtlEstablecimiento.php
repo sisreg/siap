@@ -130,6 +130,14 @@ class CtlEstablecimiento {
     private $idTipoEstablecimiento;
 
     /**
+     * @var \programas
+     *
+     * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlPrograma",mappedBy="establecimientos")
+     *
+     */
+    private $programas;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -436,4 +444,44 @@ class CtlEstablecimiento {
         return $this->nombre ? : '';
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->programas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add programas
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlPrograma $programas
+     * @return CtlEstablecimiento
+     */
+    public function addPrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $programas)
+    {
+        $this->programas[] = $programas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove programas
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlPrograma $programas
+     */
+    public function removePrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $programas)
+    {
+        $this->programas->removeElement($programas);
+    }
+
+    /**
+     * Get programas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProgramas()
+    {
+        return $this->programas;
+    }
 }

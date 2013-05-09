@@ -28,7 +28,7 @@ class User extends BaseUser {
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
      */
-    public $idEstablecimiento;
+    protected $idEstablecimiento;
 
     /**
      * Get id
@@ -61,5 +61,50 @@ class User extends BaseUser {
     public function getIdEstablecimiento()
     {
         return $this->idEstablecimiento;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $groups;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add groups
+     *
+     * @param \Application\Sonata\UserBundle\Entity\Group $groups
+     * @return User
+     */
+    public function addGroup(\Application\Sonata\UserBundle\Entity\Group $groups)
+    {
+        $this->groups[] = $groups;
+    
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param \Application\Sonata\UserBundle\Entity\Group $groups
+     */
+    public function removeGroup(\Application\Sonata\UserBundle\Entity\Group $groups)
+    {
+        $this->groups->removeElement($groups);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGroups()
+    {
+        return $this->groups;
     }
 }

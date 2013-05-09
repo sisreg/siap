@@ -66,7 +66,20 @@ class CtlPrograma
      * })
      */
     private $idSexo;
-
+    
+    /**
+    * 
+    * @var \CtlEstablecimiento
+    * 
+    * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento", inversedBy="programas")
+    * @ORM\JoinTable(name="mnt_programa_establecimiento",
+    *       joinColumns={
+    *           @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")},
+    *       inverseJoinColumns={
+    *           @ORM\JoinColumn(name="id_programa", referencedColumnName="id")}
+    * )
+    */
+    private $establecimientos;
 
 
     /**
@@ -215,5 +228,45 @@ class CtlPrograma
     public function getIdSexo()
     {
         return $this->idSexo;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->establecimientos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add establecimientos
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $establecimientos
+     * @return CtlPrograma
+     */
+    public function addEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $establecimientos)
+    {
+        $this->establecimientos[] = $establecimientos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove establecimientos
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $establecimientos
+     */
+    public function removeEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $establecimientos)
+    {
+        $this->establecimientos->removeElement($establecimientos);
+    }
+
+    /**
+     * Get establecimientos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEstablecimientos()
+    {
+        return $this->establecimientos;
     }
 }
