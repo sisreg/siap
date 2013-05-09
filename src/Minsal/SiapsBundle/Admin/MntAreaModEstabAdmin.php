@@ -17,10 +17,9 @@ class MntAreaModEstabAdmin extends Admin {
     );
 
     protected function configureFormFields(FormMapper $formMapper) {
-
         $formMapper
                 ->add('idEstablecimiento', 'entity', array('label' => $this->getTranslator()->trans('establecimiento'),
-                    'read_only' => true,
+                    'read_only'=>true,                    
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function($repositorio) {
                         return $repositorio->obtenerEstabConfigurado();
@@ -28,12 +27,17 @@ class MntAreaModEstabAdmin extends Admin {
                 ->add('idModalidadEstab', 'entity', array('label' => $this->getTranslator()->trans('id_modalidad'),
                     'empty_value' => 'Seleccione la modalidad',
                     'class' => 'MinsalSiapsBundle:MntModalidadEstablecimiento'
-                ))
+                    ))
                 ->add('idAreaAtencion', null, array('empty_value' => 'Seleccione el área',
                     'label' => 'Área de atención',
                     'required' => true
-                ))
-        ;
+                    ))
+                ->add('atenciones', null, array(                    
+                    'required' => true,
+                    'multiple' => true,
+                    'expanded' => true
+                    ))
+            ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
@@ -46,13 +50,26 @@ class MntAreaModEstabAdmin extends Admin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('idModalidadEstab', null, array('label' => 'Modalidad'))
-                ->add('idAreaAtencion', null, array('label' => 'Área de atención'))
+                ->addIdentifier('idAreaAtencion', null, array('label' => 'Área de atención'))
         ;
     }
 
     public function validate(ErrorElement $errorElement, $object) {
         
     }
+    
+    public function getTemplate($name) {
+        switch ($name) {
+            case 'edit':
+                return 'MinsalSiapsBundle:CRUD:AreaModEstab_edit.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
+
+  
 
 }
 

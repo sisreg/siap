@@ -52,7 +52,14 @@ class MntAreaModEstab
      */
     private $idModalidadEstab;
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity="CtlAtencion", inversedBy="areas")
+     * @ORM\JoinTable(name="mnt_aten_area_mod_estab",
+     *      joinColumns={@ORM\JoinColumn(name="id_area_mod_estab", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_atencion", referencedColumnName="id")}
+     *      )
+     */
+    private $atenciones;
 
     /**
      * Get id
@@ -136,5 +143,45 @@ class MntAreaModEstab
     /*Método __toString*/
     public function __toString() {
         return (string)  $this->idModalidadEstab.' - '.$this->idAreaAtencion ? : '';
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->atenciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add atenciones
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlAtencion $atenciones
+     * @return MntAreaModEstab
+     */
+    public function addAtencione(\Minsal\SiapsBundle\Entity\CtlAtencion $atenciones)
+    {
+        $this->atenciones[] = $atenciones;
+    
+        return $this;
+    }
+
+    /**
+     * Remove atenciones
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlAtencion $atenciones
+     */
+    public function removeAtencione(\Minsal\SiapsBundle\Entity\CtlAtencion $atenciones)
+    {
+        $this->atenciones->removeElement($atenciones);
+    }
+
+    /**
+     * Get atenciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAtenciones()
+    {
+        return $this->atenciones;
     }
 }

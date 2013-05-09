@@ -32,7 +32,7 @@ class MntAtenAreaModEstab
      */
     private $idAreaModEstab;
 
-   /**
+    /**
      * @var \CtlAtencion
      *
      * @ORM\ManyToOne(targetEntity="CtlAtencion")
@@ -73,7 +73,7 @@ class MntAtenAreaModEstab
     public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null)
     {
         $this->idAreaModEstab = $idAreaModEstab;
-
+    
         return $this;
     }
 
@@ -87,7 +87,7 @@ class MntAtenAreaModEstab
         return $this->idAreaModEstab;
     }
 
-     /**
+    /**
      * Set idAtencion
      *
      * @param \Minsal\SiapsBundle\Entity\CtlAtencion $idAtencion
@@ -110,7 +110,7 @@ class MntAtenAreaModEstab
         return $this->idAtencion;
     }
 
-     /**
+    /**
      * Set idEstablecimiento
      *
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
@@ -119,7 +119,7 @@ class MntAtenAreaModEstab
     public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
     {
         $this->idEstablecimiento = $idEstablecimiento;
-
+    
         return $this;
     }
 
@@ -132,7 +132,7 @@ class MntAtenAreaModEstab
     {
         return $this->idEstablecimiento;
     }
-
+    
     /*Método __toString*/
     public function __toString() {
         return (string) $this->idAtencion ? : '';

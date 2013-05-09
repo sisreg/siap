@@ -3,7 +3,7 @@
 namespace Minsal\SiapsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
- 
+
 /**
  * CtlAtencion
  *
@@ -49,7 +49,7 @@ class CtlAtencion
      */
     private $idTipoAtencion;
 
- 
+
 
     /**
      * Get id
@@ -134,4 +134,4 @@ class CtlAtencion
     public function __toString() {
         return $this->nombre ? : '';
     }
-    }
+}

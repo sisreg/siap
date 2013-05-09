@@ -77,7 +77,7 @@ knp_menu:
 fos_user:
     db_driver:        orm # can be orm or odm
     firewall_name:    main
-    user_class:       Minsal\SiapsBundle\Entity\User
+    user_class:       Application\Sonata\UserBundle\Entity\User
 
     group:
         group_class:  Application\Sonata\UserBundle\Entity\Group
@@ -136,7 +136,7 @@ sonata_admin:
 sonata_user:
     security_acl:     false
     class:
-        user:         Minsal\SiapsBundle\Entity\User
+        user:         Application\Sonata\UserBundle\Entity\User
         group:        Application\Sonata\UserBundle\Entity\Group
 
     profile:  # Profile Form (firstname, lastname, etc ...)
