@@ -10,7 +10,10 @@ minsal_siaps:
     resource: "@MinsalSiapsBundle/Controller/"
     type:     annotation
     prefix:   /
-#FOSUSERBUNDLE    
+#FOSUSERBUNDLE   
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -46,6 +49,3 @@ _sonata_admin:
 sonata_user:
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
     prefix: /admin
-
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

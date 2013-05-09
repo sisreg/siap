@@ -1,0 +1,1 @@
+fos.Router.setData({"base_url":"","routes":{"get_atenciones":{"tokens":[["text","\/atenciones\/get"]],"defaults":[],"requirements":[],"hosttokens":[]}},"prefix":"","host":"localhost","scheme":"http"});

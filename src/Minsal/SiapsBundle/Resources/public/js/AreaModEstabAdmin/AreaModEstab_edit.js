@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var $check = $('input:checkbox');
-
+    
     $listado = $('ul[id$="_atenciones"]');
     $capa_listado = $listado.parent().append('<div id="tree">hola</div>');
 
