@@ -1,8 +1,7 @@
 $(document).ready(function() {
-    var $check = $('input:checkbox');
-    
     $listado = $('ul[id$="_atenciones"]');
-    $capa_listado = $listado.parent().append('<div id="tree">hola</div>');
+    $listado.hide();
+    $capa_listado = $listado.parent().append('<div id="tree" style="width:50%;"></div>');
 
     $("#tree").dynatree({
         checkbox: true,
@@ -28,7 +27,11 @@ $(document).ready(function() {
                         $('input:checkbox[value="'+node.data.key+'"]').attr('checked', true);
                 }
         },
-    });
+        onPostInit: function(isReloading, isError) {
+            $('ul[id$="_atenciones"] input:checked').each(function(i, nodo){
+                $("#tree").dynatree("getTree").selectKey($(nodo).val());
+            });
+        },
+    });    
+    
 });
-
-

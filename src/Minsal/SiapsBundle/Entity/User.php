@@ -4,7 +4,7 @@ namespace Minsal\SiapsBundle\Entity;
 
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-//use FOS\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\GroupInterface;
 //use Doctrine\Common\Collections\ArrayCollection;
 
 /**

@@ -33,11 +33,19 @@ class UserAdmin extends BaseUserAdmin
                     'query_builder' => function($repositorio) {
                         return $repositorio->obtenerEstabConfigurado();
                     }))
+<<<<<<< HEAD
                 ->end()
                 ->with('Groups')
-                ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => true, 'multiple' => true))
+                ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => false, 'multiple' => true))
                 ->end()
         ;
+=======
+             ->end()
+            ->with('Groups')
+                ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => true, 'multiple' => true))
+            ->end()
+            ;
+>>>>>>> 1a5d827a81785a36b4b952e17d8c31050a9d273f
     }
 
     protected function configureListFields(ListMapper $listMapper)

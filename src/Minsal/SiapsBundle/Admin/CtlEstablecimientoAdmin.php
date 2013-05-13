@@ -38,11 +38,17 @@ class CtlEstablecimientoAdmin extends Admin {
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->addIdentifier('nombre')
+                ->add('nombre')
                 ->add('idMunicipio')
                 ->add('idTipoEstablecimiento')
                 ->add('configurado')
                 ->add('programas')
+                
+                 ->add('_action', 'actions', array(
+                        'actions' => array(
+                        'edit' => array()
+                    )
+                  ))
         ;
     }
 
