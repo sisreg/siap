@@ -49,7 +49,7 @@ class User extends BaseUser {
     public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
     {
         $this->idEstablecimiento = $idEstablecimiento;
-    
+
         return $this;
     }
 
@@ -62,5 +62,5 @@ class User extends BaseUser {
     {
         return $this->idEstablecimiento;
     }
-     
+
     }

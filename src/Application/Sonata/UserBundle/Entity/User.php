@@ -37,7 +37,7 @@ class User extends BaseUser
     {
         return $this->id;
     }
-        /**
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $groups;
@@ -59,7 +59,7 @@ class User extends BaseUser
     public function addGroup(\Application\Sonata\UserBundle\Entity\Group $groups)
     {
         $this->groups[] = $groups;
-    
+
         return $this;
     }
 

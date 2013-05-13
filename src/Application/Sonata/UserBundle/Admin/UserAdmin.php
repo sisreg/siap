@@ -18,9 +18,9 @@ class UserAdmin extends BaseUserAdmin
 {
    public function configureFormFields(FormMapper $formMapper)
     {
-       //parent::configureFormFields($formMapper);
-         $formMapper
-            ->with('Datos Usuario')
+        //parent::configureFormFields($formMapper);
+        $formMapper
+                ->with('Datos Usuario')
                 ->add('firstname', null, array('required' => true))
                 ->add('lastname', null, array('required' => true))
                 ->add('username')
@@ -33,26 +33,26 @@ class UserAdmin extends BaseUserAdmin
                     'query_builder' => function($repositorio) {
                         return $repositorio->obtenerEstabConfigurado();
                     }))
-             ->end()
-            ->with('Groups')
+                ->end()
+                ->with('Groups')
                 ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => false, 'multiple' => true))
-            ->end()
-            ;
+                ->end()
+        ;
     }
-    
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('username')
-            ->add('email')
-            ->add('groups')
-            ->add('enabled', null, array('editable' => true))
-            ->add('locked', null, array('editable' => true))
-            ->add('createdAt')
+                ->addIdentifier('username')
+                ->add('email')
+                ->add('groups')
+                ->add('enabled', null, array('editable' => true))
+                ->add('locked', null, array('editable' => true))
+                ->add('createdAt')
             ->add('idEstablecimiento',null,array('label'=>'Establecimiento de salud'))
         ;
     }
-    
+
     
      
 
