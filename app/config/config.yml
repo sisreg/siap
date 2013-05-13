@@ -124,7 +124,7 @@ sonata_admin:
         # default actions templates, should extend a global templates
         list:    MinsalSiapsBundle:CRUD:base_list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
-        edit:    SonataAdminBundle:CRUD:edit.html.twig
+        edit:    MinsalSiapsBundle:CRUD:edit.html.twig
          # se personalizó la plantilla de dashboard
         dashboard: MinsalSiapsBundle:Core:dashboard.html.twig
 
@@ -145,3 +145,8 @@ sonata_user:
             handler:            sonata.user.profile.form.handler.default
             name:               sonata_user_profile_form
             validation_groups:  [Profile]
+            
+            
+sonata_doctrine_orm_admin:
+    templates:
+        form: [ MinsalSiapsBundle:Form:form_admin_fields.html.twig ]            

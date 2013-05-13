@@ -18,7 +18,7 @@ class MntModalidadEstablecimientoAdmin extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('idEstablecimiento', 'entity', array('label' => $this->getTranslator()->trans('establecimiento'),
+               ->add('idEstablecimiento', 'entity', array('label' => $this->getTranslator()->trans('establecimiento'),
                      'read_only'=>true,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function($repositorio) {
@@ -46,10 +46,18 @@ class MntModalidadEstablecimientoAdmin extends Admin {
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('idEstablecimiento', null, array('label' => $this->getTranslator()->trans('establecimiento')))
-                ->addIdentifier('idModalidad', null, array('label' => $this->getTranslator()->trans('id_modalidad')))
+                ->add('idEstablecimiento.nombre', 'text', array('label' => $this->getTranslator()->trans('establecimiento')))
+                ->add('idModalidad.nombre', 'text', array('label' => $this->getTranslator()->trans('id_modalidad')))
                 ->add('tieneBodega', null, array('label' => 'Tiene bodega para farmacia'))
                 ->add('repetitiva', null, array('label' => 'Emite recetas repetitivas'))
+                
+                 ->add('_action', 'actions', array(
+                        'actions' => array(
+                        'edit' => array()
+                    )
+                  ))
+                
+               
         ;
     }
 

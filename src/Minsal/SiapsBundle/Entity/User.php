@@ -4,7 +4,7 @@ namespace Minsal\SiapsBundle\Entity;
 
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-//use FOS\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\GroupInterface;
 //use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -63,4 +63,50 @@ class User extends BaseUser {
         return $this->idEstablecimiento;
     }
      
+        /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $groups;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+         parent::__construct();
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
+    /**
+     * Add groups
+     *
+     * @param \Application\Sonata\UserBundle\Entity\Group $groups
+     * @return User
+     */
+    public function addGroup(GroupInterface $groups)
+    {
+        $this->groups[] = $groups;
+    
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param \Application\Sonata\UserBundle\Entity\Group $groups
+     */
+    public function removeGroup(GroupInterface $groups)
+    {
+        $this->groups->removeElement($groups);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGroups()
+    {
+        return $this->groups ?: $this->groups = new ArrayCollection();
+    }
+}

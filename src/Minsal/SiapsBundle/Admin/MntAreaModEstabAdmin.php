@@ -49,13 +49,25 @@ class MntAreaModEstabAdmin extends Admin {
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('idModalidadEstab', null, array('label' => 'Modalidad'))
-                ->addIdentifier('idAreaAtencion', null, array('label' => 'Área de atención'))
+                ->add('idEstablecimiento.nombre','text', array('label'=>'Establecimiento'))
+                ->add('idModalidadEstab.idModalidad', 'text', array('label' => 'Modalidad'))
+                ->add('idAreaAtencion', null, array('label' => 'Área de atención'))
+                
+                ->add('_action', 'actions', array(
+                'actions' => array(
+                    'edit' => array()
+                )
+            ))
         ;
     }
 
-    public function validate(ErrorElement $errorElement, $object) {
-        
+    public function validate(ErrorElement $errorElement, $object) {    
+        if (count($object->getAtenciones()) == 0){
+            $errorElement
+                ->with('atenciones')
+                ->addViolation('Debe seleccionar al menos una atención')
+                ->end();
+        }            
     }
     
     public function getTemplate($name) {
@@ -68,7 +80,11 @@ class MntAreaModEstabAdmin extends Admin {
                 break;
         }
     }
-
+    
+    public function getBatchActions() {
+        $actions = parent::getBatchActions();
+        $actions['delete'] = null;
+    }
   
 
 }

@@ -35,7 +35,7 @@ class UserAdmin extends BaseUserAdmin
                     }))
              ->end()
             ->with('Groups')
-                ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => false, 'multiple' => true))
+                ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => true, 'multiple' => true))
             ->end()
             ;
     }

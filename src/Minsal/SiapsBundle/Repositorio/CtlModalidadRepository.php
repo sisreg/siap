@@ -27,7 +27,8 @@ class CtlModalidadRepository extends EntityRepository {
                             ->from('MinsalSiapsBundle:CtlModalidad', 'm')
                             ->where('m.id NOT IN (:id)')
                             ->setParameter(':id', $modalidades ? : '0' );
-        else
+        
+        else if ($ruta=='edit')
             return $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('m')
@@ -35,6 +36,13 @@ class CtlModalidadRepository extends EntityRepository {
                             ->join('MinsalSiapsBundle:MntModalidadEstablecimiento','mm')
                             ->where('mm.idModalidad = m.id AND mm.id=:valor')
                             ->setParameter(':valor', $valor)
+            ;
+        
+        else
+            return $this->getEntityManager()
+                        ->createQueryBuilder()
+                            ->select('m')
+                            ->from('MinsalSiapsBundle:CtlModalidad', 'm')
             ;
     }
 }
