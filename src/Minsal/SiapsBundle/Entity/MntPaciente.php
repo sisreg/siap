@@ -1425,4 +1425,7 @@ class MntPaciente
     {
         return $this->idSexo;
     }
+    public function __toString() {
+        return $this->primerApellido.' '.$this->primerNombre ?: '';
+    }
 }

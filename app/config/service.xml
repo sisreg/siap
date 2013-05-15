@@ -21,6 +21,12 @@
             <argument>Minsal\SiapsBundle\Entity\MntAreaModEstab</argument>
             <argument>SonataAdminBundle:CRUD</argument>
         </service>
+        <service id="sonata.admin.mntpaciente" class="Minsal\SiapsBundle\Admin\MntPacienteAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Identificación Paciente" label="Buscar Paciente"/>
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\MntPaciente</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
         <!--AGREGADO PARA PODER EDITAR EL FORMULARIO DE CREACIÓN DEL USUARIO-->
         <service id="sonata.user.admin.user" class="Application\Sonata\UserBundle\Admin\UserAdmin">
             <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="users" label_catalogue="SonataUserBundle" label_translator_strategy="sonata.admin.label.strategy.underscore" />
