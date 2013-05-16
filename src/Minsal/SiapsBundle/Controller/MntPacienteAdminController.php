@@ -12,6 +12,6 @@ class MntPacienteAdminController extends Controller {
 
         return array();
 //parent::editAction($id);
-    }
+    }   
 
 }

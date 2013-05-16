@@ -16,12 +16,12 @@
 
 div#prueba{
     background-image:url('../imagenes/fondo.png');
-/*    background-color: ;**/
+    /*    background-color: ;**/
     background-repeat:no-repeat;
     background-position: 50% 15%;
     width:100%; 
-     min-height: 525px;
-  /*  z-index:200;*/
+    min-height: 525px;
+    /*  z-index:200;*/
 }
 
 div#divpie{
@@ -33,10 +33,10 @@ div#divpie{
     height: 29px;
     font-weight: bold;
     width: 85%;
-    
+
     /* -- CSS3 - Gradiente de fondo -- */
- /*  background: -webkit-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);
-   background: -moz-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);*/
+    /*  background: -webkit-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);
+      background: -moz-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);*/
     background: -webkit-linear-gradient( 0deg ,#e4e7ec,#2f5d96);
     background: -moz-linear-gradient( 0deg ,#e4e7ec,#2f5d96)
 }
@@ -53,7 +53,7 @@ div#pagina{
     margin-right: auto ;
     background-color:whitesmoke;
     min-height: 525px;
-  
+
     border-top: 3px solid #bebebe;
     border-left: 2px solid #535353;
     border-right: 2px solid #535353;
@@ -82,13 +82,13 @@ div#pagina{
 }
 /**para ajustar la imagen que aparece a la par de los nombres de los campos en las listas de mantenimiento */
 .sonata-bc th.sonata-ba-list-field-header-order-desc:hover:before {
-	display: inline-block;
-	position: relative;
+    display: inline-block;
+    position: relative;
 }
 
 .sonata-bc th.sonata-ba-list-field-header-order-asc:hover:before {
-	display: inline-block;
-	position: relative;
+    display: inline-block;
+    position: relative;
 }
 
 .sonata-bc th.sonata-ba-list-field-header-order-desc,
@@ -98,12 +98,48 @@ div#pagina{
 
 .sonata-bc th.sonata-ba-list-field-header-order-asc.sonata-ba-list-field-order-active:before,
 .sonata-bc th.sonata-ba-list-field-header-order-desc.sonata-ba-list-field-order-active:hover:before {
-	display: inline-block;
-	position: relative;
+    display: inline-block;
+    position: relative;
 }
 
 .sonata-bc th.sonata-ba-list-field-header-order-desc.sonata-ba-list-field-order-active:before,
 .sonata-bc th.sonata-ba-list-field-header-order-asc.sonata-ba-list-field-order-active:hover:before {
-	display: inline-block;
-	position: relative;
+    display: inline-block;
+    position: relative;
+}
+
+.justificado{
+    text-align: left;
+    margin-left: 20%;
+}
+
+.justificado .modalidad{
+    font-size: 15px;
+    color:black;
+    background-color: #a9c56a;
+}
+
+.justificado .areaAtencion{
+    color:black;
+    font-size: 13px;
+    background-color: #B6CFFC;
+}
+
+.justificado .atencion{
+    font-size: 13px;
+    color:black;
+}
+
+.justificado .atencionHijo{
+    text-indent: 1.5em;
+    font-size: 13px;
+    color:black;
+    font-style: italic;
+}
+
+.justificado .tipos{
+    background-color: lightgray;
+    font-weight: bold;
+    font-size: 13px;
+    color: black;
 }

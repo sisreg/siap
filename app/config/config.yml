@@ -124,7 +124,7 @@ sonata_admin:
         # default actions templates, should extend a global templates
         list:    MinsalSiapsBundle:CRUD:base_list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
-        edit:    MinsalSiapsBundle:CRUD:edit.html.twig 
+        edit:    SonataAdminBundle:CRUD:edit.html.twig 
          # se personalizó la plantilla de dashboard
         dashboard: MinsalSiapsBundle:Core:dashboard.html.twig
 
