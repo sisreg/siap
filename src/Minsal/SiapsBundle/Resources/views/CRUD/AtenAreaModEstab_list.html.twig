@@ -1,0 +1,37 @@
+{% extends 'MinsalSiapsBundle:CRUD:base_list.html.twig' %}
+{% block sonata_admin_content -%}
+
+<div class="justificado">
+    <table>
+    {%  set espe=0 %} 
+    {%  set otra=0 %} 
+    {% for car in cartera %}
+       {% if car.tipo!=3 %}
+            {% if car.tipo==1 and espe==0 %}
+            {%  set espe=1 %} 
+            <tr class="tipos">
+                <td colspan=2>Especialidades Médica</td>
+            </tr>
+            {% elseif car.tipo==2 and otra==0%}
+            {%  set otra=2 %} 
+            <tr class="tipos">
+                <td colspan=2>Otras Atenciones</td>
+            </tr>
+            {% endif %}
+            {% else %}
+                {%  set espe=0 %} 
+                {%  set otra=0 %} 
+            <tr>
+                <td colspan=2><br/></td>
+            </tr>
+       {% endif %}
+            <tr class="{{car.estilo}}">
+                <td width="150px"><strong>{{car.label}}</strong></td>
+                <td>{{car.nombre}}</td>
+            </tr>
+
+    {% endfor %}
+        </table>
+    </div>
+<br/><br/><br/>
+{% endblock -%}

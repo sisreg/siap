@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * MntAtenAreaModEstab
  *
  * @ORM\Table(name="mnt_aten_area_mod_estab")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\MntAtenAreaModEstabRepository")
  */
 class MntAtenAreaModEstab
 {
