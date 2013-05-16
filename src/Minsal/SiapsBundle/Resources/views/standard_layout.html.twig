@@ -205,9 +205,12 @@ file that was distributed with this source code.
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div id="divpie">
-                                                                    <img src={{ asset('bundles/minsalsiaps/imagenes/pie_siaps.png') }} />
-                                                                </div>
+               
                                                             </div>
+                {%block pie %}
+                <div id="divpie" >
+                        <img src={{ asset('bundles/minsalsiaps/imagenes/pie_siaps.png') }} />
+                </div>
+               {%endblock%}
                                                         </body>
                                                     </html>

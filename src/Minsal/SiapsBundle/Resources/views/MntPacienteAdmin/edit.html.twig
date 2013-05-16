@@ -13,9 +13,6 @@
                     {{ form_errors(form) }}
                 </div>
             {% endif %}
-
-           
-
                 <div class="tab-content">
                     {% for name, form_group in admin.formgroups %}
                         <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ name|sonata_slugify }}">
@@ -24,17 +21,26 @@
                                     {% if form_group.description != false %}
                                         <p>{{ form_group.description|raw }}</p>
                                     {% endif %}
-                                        <table>
-                                            <tr>
+                                        <table class="dat_paciente">
+                                            <tr class="dat_paciente_sec">
                                                 <td>A.Nombre del Paciente</td>
                                             </tr>
                                             <tr>
                                                 <td>{{form_row(form[form_group.fields.primerApellido])}}</td>
                                                 <td>{{form_row(form[form_group.fields.segundoApellido])}}</td>
                                             </tr>
+                                             <tr>
+                                                <td>{{form_row(form[form_group.fields.primerNombre])}}</td>
+                                                <td>{{form_row(form[form_group.fields.segundoNombre])}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>{{form_row(form[form_group.fields.tercerNombre])}}</td>
+                                                <td>{{form_row(form[form_group.fields.apellidoCasada])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.conocidoPor])}}</td>
+                                            </tr>
                                         </table>
-                                    
-                                       
                                 </div>
                             </fieldset>
                         </div>

@@ -63,4 +63,8 @@ class CtlNacionalidad
     {
         return $this->nacionalidad;
     }
+    
+     public function __toString() {
+        return $this->nacionalidad ? : '';
+    }
 }

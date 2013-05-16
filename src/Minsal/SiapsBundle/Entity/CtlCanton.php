@@ -126,4 +126,8 @@ class CtlCanton
     {
         return $this->idMunicipio;
     }
+    
+     public function __toString() {
+        return $this->nombre ? : '';
+    }
 }

@@ -63,4 +63,8 @@ class CtlParentesco
     {
         return $this->parentesco;
     }
+    
+    public function __toString() {
+        return $this->parentesco ? : '';
+    }
 }

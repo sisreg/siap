@@ -23,7 +23,6 @@ class MntAreaModEstabController extends Controller {
             if ($atencion->getIdAtencionPadre() === null) {
                 $resp .= '{"title" : "' . $atencion->getNombre() . '", ' .
                         '"key" : "' . $atencion->getId() . '"';
-                //$resp[$k]['children'] = 
                 $hijos = '';
                 $hijos = $this->getHijos($atencion->getId(), $atenciones);
                 if ($hijos != '')

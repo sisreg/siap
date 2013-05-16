@@ -63,4 +63,8 @@ class CtlEstadoCivil
     {
         return $this->nombre;
     }
+    
+     public function __toString() {
+        return $this->nombre ? : '';
+    }
 }

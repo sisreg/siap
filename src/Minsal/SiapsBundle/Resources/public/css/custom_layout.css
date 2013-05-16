@@ -13,27 +13,13 @@
     width: 70%;
     padding-top: 0em;
 }
-
-div#prueba{
-    background-image:url('../imagenes/fondo.png');
-/*    background-color: ;**/
-    background-repeat:no-repeat;
-    background-position: 50% 15%;
-    width:100%; 
-     min-height: 525px;
-  /*  z-index:200;*/
-}
-
 div#divpie{
     position: fixed;
-    color: #E6E6E6;
-    font-size:12px;
-    font-family: Verdana,Arial,Helvetica,sans-serif;
     top: 96%;
-    height: 29px;
-    font-weight: bold;
+    height: 30px;
     width: 85%;
-    
+    text-align: center;
+    margin-left: 7.5%;
     /* -- CSS3 - Gradiente de fondo -- */
  /*  background: -webkit-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);
    background: -moz-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);*/
@@ -80,6 +66,7 @@ div#pagina{
     overflow-y: auto;
     border: 1px solid #CCCCCC;        
 }
+
 /**para ajustar la imagen que aparece a la par de los nombres de los campos en las listas de mantenimiento */
 .sonata-bc th.sonata-ba-list-field-header-order-desc:hover:before {
 	display: inline-block;

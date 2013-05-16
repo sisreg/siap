@@ -277,7 +277,7 @@ class MntPaciente
      *   @ORM\JoinColumn(name="id_doc_ide_paciente", referencedColumnName="id")
      * })
      */
-    private $idDocePaciente;
+    private $idDocPaciente;
 
     /**
      * @var \CtlDocumentoIdentidad
@@ -287,7 +287,7 @@ class MntPaciente
      *   @ORM\JoinColumn(name="id_doc_ide_proporciono_datos", referencedColumnName="id")
      * })
      */
-    private $idDoceProporcionoDatos;
+    private $idDocProporcionoDatos;
 
     /**
      * @var \CtlDocumentoIdentidad
@@ -297,7 +297,7 @@ class MntPaciente
      *   @ORM\JoinColumn(name="id_doc_ide_responsable", referencedColumnName="id")
      * })
      */
-    private $idDoceResponsable;
+    private $idDocResponsable;
 
     /**
      * @var \CtlEstadoCivil
@@ -1174,72 +1174,72 @@ class MntPaciente
     }
 
     /**
-     * Set idDocePaciente
+     * Set idDocPaciente
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocePaciente
+     * @param \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocPaciente
      * @return MntPaciente
      */
-    public function setIdDocePaciente(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocePaciente = null)
+    public function setIdDocPaciente(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocPaciente = null)
     {
-        $this->idDocePaciente = $idDocePaciente;
+        $this->idDocPaciente = $idDocPaciente;
     
         return $this;
     }
 
     /**
-     * Get idDocePaciente
+     * Get idDocPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad 
      */
-    public function getIdDocePaciente()
+    public function getIdDocPaciente()
     {
-        return $this->idDocePaciente;
+        return $this->idDocPaciente;
     }
 
     /**
-     * Set idDoceProporcionoDatos
+     * Set idDocProporcionoDatos
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDoceProporcionoDatos
+     * @param \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocProporcionoDatos
      * @return MntPaciente
      */
-    public function setIdDoceProporcionoDatos(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDoceProporcionoDatos = null)
+    public function setIdDocProporcionoDatos(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocProporcionoDatos = null)
     {
-        $this->idDoceProporcionoDatos = $idDoceProporcionoDatos;
+        $this->idDocProporcionoDatos = $idDocProporcionoDatos;
     
         return $this;
     }
 
     /**
-     * Get idDoceProporcionoDatos
+     * Get idDocProporcionoDatos
      *
      * @return \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad 
      */
-    public function getIdDoceProporcionoDatos()
+    public function getIdDocProporcionoDatos()
     {
-        return $this->idDoceProporcionoDatos;
+        return $this->idDocProporcionoDatos;
     }
 
     /**
-     * Set idDoceResponsable
+     * Set idDocResponsable
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDoceResponsable
+     * @param \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocResponsable
      * @return MntPaciente
      */
-    public function setIdDoceResponsable(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDoceResponsable = null)
+    public function setIdDocResponsable(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocResponsable = null)
     {
-        $this->idDoceResponsable = $idDoceResponsable;
+        $this->idDocResponsable = $idDocResponsable;
     
         return $this;
     }
 
     /**
-     * Get idDoceResponsable
+     * Get idDocResponsable
      *
      * @return \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad 
      */
-    public function getIdDoceResponsable()
+    public function getIdDocResponsable()
     {
-        return $this->idDoceResponsable;
+        return $this->idDocResponsable;
     }
 
     /**
