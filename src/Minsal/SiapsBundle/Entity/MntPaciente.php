@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="mnt_paciente")
  * @ORM\Entity
  */
-class MntPaciente
-{
+class MntPaciente {
+
     /**
      * @var integer
      *
@@ -114,9 +114,13 @@ class MntPaciente
     private $telefonoTrabajo;
 
     /**
-     * @var integer
+     * @var \CtlAreaCotizante
      *
-     * @ORM\Column(name="id_area_cotizacion", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="CtlAreaCotizante")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_area_cotizacion", referencedColumnName="id")
+     * })
+     * 
      */
     private $idAreaCotizacion;
 
@@ -126,6 +130,13 @@ class MntPaciente
      * @ORM\Column(name="asegurado", type="boolean", nullable=true)
      */
     private $asegurado;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="cotizante", type="boolean", nullable=true)
+     */
+    private $cotizante;
 
     /**
      * @var string
@@ -244,7 +255,7 @@ class MntPaciente
      *
      * @ORM\ManyToOne(targetEntity="CtlAreaGeografica")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="area_geografica_domicilio", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="area_geografica_domicilio", referencedColumnName="id",nullable=false)
      * })
      */
     private $areaGeograficaDomicilio;
@@ -314,7 +325,7 @@ class MntPaciente
      *
      * @ORM\ManyToOne(targetEntity="CtlMunicipio")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_municipio_domicilio", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_municipio_domicilio", referencedColumnName="id", nullable=false)
      * })
      */
     private $idMunicipioDomicilio;
@@ -328,7 +339,15 @@ class MntPaciente
      * })
      */
     private $idMunicipioNacimiento;
-
+/**
+     * @var \CtlMunicipio
+     *
+     * @ORM\ManyToOne(targetEntity="CtlDepartamento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_departamento_nacimiento", referencedColumnName="id")
+     * })
+     */
+    private $idDepartamentoNacimiento;
     /**
      * @var \CtlNacionalidad
      *
@@ -344,7 +363,7 @@ class MntPaciente
      *
      * @ORM\ManyToOne(targetEntity="CtlOcupacion")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_ocupacion", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_ocupacion", referencedColumnName="id",nullable=false)
      * })
      */
     private $idOcupacion;
@@ -374,20 +393,24 @@ class MntPaciente
      *
      * @ORM\ManyToOne(targetEntity="CtlSexo")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_sexo", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_sexo", referencedColumnName="id",nullable=false)
      * })
      */
     private $idSexo;
 
-
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @ORM\OneToMany(targetEntity="MntExpediente", mappedBy="idPaciente", cascade={"all"}, orphanRemoval=true)
+     *
+     */
+    private $expedientes;
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -397,10 +420,9 @@ class MntPaciente
      * @param string $primerNombre
      * @return MntPaciente
      */
-    public function setPrimerNombre($primerNombre)
-    {
+    public function setPrimerNombre($primerNombre) {
         $this->primerNombre = $primerNombre;
-    
+
         return $this;
     }
 
@@ -409,8 +431,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getPrimerNombre()
-    {
+    public function getPrimerNombre() {
         return $this->primerNombre;
     }
 
@@ -420,10 +441,9 @@ class MntPaciente
      * @param string $segundoNombre
      * @return MntPaciente
      */
-    public function setSegundoNombre($segundoNombre)
-    {
+    public function setSegundoNombre($segundoNombre) {
         $this->segundoNombre = $segundoNombre;
-    
+
         return $this;
     }
 
@@ -432,8 +452,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getSegundoNombre()
-    {
+    public function getSegundoNombre() {
         return $this->segundoNombre;
     }
 
@@ -443,10 +462,9 @@ class MntPaciente
      * @param string $tercerNombre
      * @return MntPaciente
      */
-    public function setTercerNombre($tercerNombre)
-    {
+    public function setTercerNombre($tercerNombre) {
         $this->tercerNombre = $tercerNombre;
-    
+
         return $this;
     }
 
@@ -455,8 +473,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getTercerNombre()
-    {
+    public function getTercerNombre() {
         return $this->tercerNombre;
     }
 
@@ -466,10 +483,9 @@ class MntPaciente
      * @param string $primerApellido
      * @return MntPaciente
      */
-    public function setPrimerApellido($primerApellido)
-    {
+    public function setPrimerApellido($primerApellido) {
         $this->primerApellido = $primerApellido;
-    
+
         return $this;
     }
 
@@ -478,8 +494,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getPrimerApellido()
-    {
+    public function getPrimerApellido() {
         return $this->primerApellido;
     }
 
@@ -489,10 +504,9 @@ class MntPaciente
      * @param string $segundoApellido
      * @return MntPaciente
      */
-    public function setSegundoApellido($segundoApellido)
-    {
+    public function setSegundoApellido($segundoApellido) {
         $this->segundoApellido = $segundoApellido;
-    
+
         return $this;
     }
 
@@ -501,8 +515,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getSegundoApellido()
-    {
+    public function getSegundoApellido() {
         return $this->segundoApellido;
     }
 
@@ -512,10 +525,9 @@ class MntPaciente
      * @param string $apellidoCasada
      * @return MntPaciente
      */
-    public function setApellidoCasada($apellidoCasada)
-    {
+    public function setApellidoCasada($apellidoCasada) {
         $this->apellidoCasada = $apellidoCasada;
-    
+
         return $this;
     }
 
@@ -524,8 +536,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getApellidoCasada()
-    {
+    public function getApellidoCasada() {
         return $this->apellidoCasada;
     }
 
@@ -535,10 +546,9 @@ class MntPaciente
      * @param \DateTime $fechaNacimiento
      * @return MntPaciente
      */
-    public function setFechaNacimiento($fechaNacimiento)
-    {
+    public function setFechaNacimiento($fechaNacimiento) {
         $this->fechaNacimiento = $fechaNacimiento;
-    
+
         return $this;
     }
 
@@ -547,8 +557,7 @@ class MntPaciente
      *
      * @return \DateTime 
      */
-    public function getFechaNacimiento()
-    {
+    public function getFechaNacimiento() {
         return $this->fechaNacimiento;
     }
 
@@ -558,10 +567,9 @@ class MntPaciente
      * @param \DateTime $horaNacimiento
      * @return MntPaciente
      */
-    public function setHoraNacimiento($horaNacimiento)
-    {
+    public function setHoraNacimiento($horaNacimiento) {
         $this->horaNacimiento = $horaNacimiento;
-    
+
         return $this;
     }
 
@@ -570,8 +578,7 @@ class MntPaciente
      *
      * @return \DateTime 
      */
-    public function getHoraNacimiento()
-    {
+    public function getHoraNacimiento() {
         return $this->horaNacimiento;
     }
 
@@ -581,10 +588,9 @@ class MntPaciente
      * @param integer $numeroDocIdePaciente
      * @return MntPaciente
      */
-    public function setNumeroDocIdePaciente($numeroDocIdePaciente)
-    {
+    public function setNumeroDocIdePaciente($numeroDocIdePaciente) {
         $this->numeroDocIdePaciente = $numeroDocIdePaciente;
-    
+
         return $this;
     }
 
@@ -593,8 +599,7 @@ class MntPaciente
      *
      * @return integer 
      */
-    public function getNumeroDocIdePaciente()
-    {
+    public function getNumeroDocIdePaciente() {
         return $this->numeroDocIdePaciente;
     }
 
@@ -604,10 +609,9 @@ class MntPaciente
      * @param string $direccion
      * @return MntPaciente
      */
-    public function setDireccion($direccion)
-    {
+    public function setDireccion($direccion) {
         $this->direccion = $direccion;
-    
+
         return $this;
     }
 
@@ -616,8 +620,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getDireccion()
-    {
+    public function getDireccion() {
         return $this->direccion;
     }
 
@@ -627,10 +630,9 @@ class MntPaciente
      * @param string $telefonoCasa
      * @return MntPaciente
      */
-    public function setTelefonoCasa($telefonoCasa)
-    {
+    public function setTelefonoCasa($telefonoCasa) {
         $this->telefonoCasa = $telefonoCasa;
-    
+
         return $this;
     }
 
@@ -639,8 +641,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getTelefonoCasa()
-    {
+    public function getTelefonoCasa() {
         return $this->telefonoCasa;
     }
 
@@ -650,10 +651,9 @@ class MntPaciente
      * @param string $lugarTrabajo
      * @return MntPaciente
      */
-    public function setLugarTrabajo($lugarTrabajo)
-    {
+    public function setLugarTrabajo($lugarTrabajo) {
         $this->lugarTrabajo = $lugarTrabajo;
-    
+
         return $this;
     }
 
@@ -662,8 +662,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getLugarTrabajo()
-    {
+    public function getLugarTrabajo() {
         return $this->lugarTrabajo;
     }
 
@@ -673,10 +672,9 @@ class MntPaciente
      * @param string $telefonoTrabajo
      * @return MntPaciente
      */
-    public function setTelefonoTrabajo($telefonoTrabajo)
-    {
+    public function setTelefonoTrabajo($telefonoTrabajo) {
         $this->telefonoTrabajo = $telefonoTrabajo;
-    
+
         return $this;
     }
 
@@ -685,44 +683,20 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getTelefonoTrabajo()
-    {
+    public function getTelefonoTrabajo() {
         return $this->telefonoTrabajo;
     }
 
-    /**
-     * Set idAreaCotizacion
-     *
-     * @param integer $idAreaCotizacion
-     * @return MntPaciente
-     */
-    public function setIdAreaCotizacion($idAreaCotizacion)
-    {
-        $this->idAreaCotizacion = $idAreaCotizacion;
-    
-        return $this;
-    }
-
-    /**
-     * Get idAreaCotizacion
-     *
-     * @return integer 
-     */
-    public function getIdAreaCotizacion()
-    {
-        return $this->idAreaCotizacion;
-    }
-
+   
     /**
      * Set asegurado
      *
      * @param boolean $asegurado
      * @return MntPaciente
      */
-    public function setAsegurado($asegurado)
-    {
+    public function setAsegurado($asegurado) {
         $this->asegurado = $asegurado;
-    
+
         return $this;
     }
 
@@ -731,8 +705,7 @@ class MntPaciente
      *
      * @return boolean 
      */
-    public function getAsegurado()
-    {
+    public function getAsegurado() {
         return $this->asegurado;
     }
 
@@ -742,10 +715,9 @@ class MntPaciente
      * @param string $numeroAfiliacion
      * @return MntPaciente
      */
-    public function setNumeroAfiliacion($numeroAfiliacion)
-    {
+    public function setNumeroAfiliacion($numeroAfiliacion) {
         $this->numeroAfiliacion = $numeroAfiliacion;
-    
+
         return $this;
     }
 
@@ -754,8 +726,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getNumeroAfiliacion()
-    {
+    public function getNumeroAfiliacion() {
         return $this->numeroAfiliacion;
     }
 
@@ -765,10 +736,9 @@ class MntPaciente
      * @param string $nombrePadre
      * @return MntPaciente
      */
-    public function setNombrePadre($nombrePadre)
-    {
+    public function setNombrePadre($nombrePadre) {
         $this->nombrePadre = $nombrePadre;
-    
+
         return $this;
     }
 
@@ -777,8 +747,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getNombrePadre()
-    {
+    public function getNombrePadre() {
         return $this->nombrePadre;
     }
 
@@ -788,10 +757,9 @@ class MntPaciente
      * @param string $nombreMadre
      * @return MntPaciente
      */
-    public function setNombreMadre($nombreMadre)
-    {
+    public function setNombreMadre($nombreMadre) {
         $this->nombreMadre = $nombreMadre;
-    
+
         return $this;
     }
 
@@ -800,8 +768,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getNombreMadre()
-    {
+    public function getNombreMadre() {
         return $this->nombreMadre;
     }
 
@@ -811,10 +778,9 @@ class MntPaciente
      * @param string $nombreConyuge
      * @return MntPaciente
      */
-    public function setNombreConyuge($nombreConyuge)
-    {
+    public function setNombreConyuge($nombreConyuge) {
         $this->nombreConyuge = $nombreConyuge;
-    
+
         return $this;
     }
 
@@ -823,8 +789,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getNombreConyuge()
-    {
+    public function getNombreConyuge() {
         return $this->nombreConyuge;
     }
 
@@ -834,10 +799,9 @@ class MntPaciente
      * @param string $nombreResponsable
      * @return MntPaciente
      */
-    public function setNombreResponsable($nombreResponsable)
-    {
+    public function setNombreResponsable($nombreResponsable) {
         $this->nombreResponsable = $nombreResponsable;
-    
+
         return $this;
     }
 
@@ -846,8 +810,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getNombreResponsable()
-    {
+    public function getNombreResponsable() {
         return $this->nombreResponsable;
     }
 
@@ -857,10 +820,9 @@ class MntPaciente
      * @param string $direccionResponsable
      * @return MntPaciente
      */
-    public function setDireccionResponsable($direccionResponsable)
-    {
+    public function setDireccionResponsable($direccionResponsable) {
         $this->direccionResponsable = $direccionResponsable;
-    
+
         return $this;
     }
 
@@ -869,8 +831,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getDireccionResponsable()
-    {
+    public function getDireccionResponsable() {
         return $this->direccionResponsable;
     }
 
@@ -880,10 +841,9 @@ class MntPaciente
      * @param string $telefonoResponsable
      * @return MntPaciente
      */
-    public function setTelefonoResponsable($telefonoResponsable)
-    {
+    public function setTelefonoResponsable($telefonoResponsable) {
         $this->telefonoResponsable = $telefonoResponsable;
-    
+
         return $this;
     }
 
@@ -892,8 +852,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getTelefonoResponsable()
-    {
+    public function getTelefonoResponsable() {
         return $this->telefonoResponsable;
     }
 
@@ -903,10 +862,9 @@ class MntPaciente
      * @param string $numeroDocIdeResponsable
      * @return MntPaciente
      */
-    public function setNumeroDocIdeResponsable($numeroDocIdeResponsable)
-    {
+    public function setNumeroDocIdeResponsable($numeroDocIdeResponsable) {
         $this->numeroDocIdeResponsable = $numeroDocIdeResponsable;
-    
+
         return $this;
     }
 
@@ -915,8 +873,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getNumeroDocIdeResponsable()
-    {
+    public function getNumeroDocIdeResponsable() {
         return $this->numeroDocIdeResponsable;
     }
 
@@ -926,10 +883,9 @@ class MntPaciente
      * @param string $nombreProporcionoDatos
      * @return MntPaciente
      */
-    public function setNombreProporcionoDatos($nombreProporcionoDatos)
-    {
+    public function setNombreProporcionoDatos($nombreProporcionoDatos) {
         $this->nombreProporcionoDatos = $nombreProporcionoDatos;
-    
+
         return $this;
     }
 
@@ -938,8 +894,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getNombreProporcionoDatos()
-    {
+    public function getNombreProporcionoDatos() {
         return $this->nombreProporcionoDatos;
     }
 
@@ -949,10 +904,9 @@ class MntPaciente
      * @param string $numeroDocIdeProporDatos
      * @return MntPaciente
      */
-    public function setNumeroDocIdeProporDatos($numeroDocIdeProporDatos)
-    {
+    public function setNumeroDocIdeProporDatos($numeroDocIdeProporDatos) {
         $this->numeroDocIdeProporDatos = $numeroDocIdeProporDatos;
-    
+
         return $this;
     }
 
@@ -961,8 +915,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getNumeroDocIdeProporDatos()
-    {
+    public function getNumeroDocIdeProporDatos() {
         return $this->numeroDocIdeProporDatos;
     }
 
@@ -972,10 +925,9 @@ class MntPaciente
      * @param string $observacion
      * @return MntPaciente
      */
-    public function setObservacion($observacion)
-    {
+    public function setObservacion($observacion) {
         $this->observacion = $observacion;
-    
+
         return $this;
     }
 
@@ -984,8 +936,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getObservacion()
-    {
+    public function getObservacion() {
         return $this->observacion;
     }
 
@@ -995,10 +946,9 @@ class MntPaciente
      * @param string $conocidoPor
      * @return MntPaciente
      */
-    public function setConocidoPor($conocidoPor)
-    {
+    public function setConocidoPor($conocidoPor) {
         $this->conocidoPor = $conocidoPor;
-    
+
         return $this;
     }
 
@@ -1007,8 +957,7 @@ class MntPaciente
      *
      * @return string 
      */
-    public function getConocidoPor()
-    {
+    public function getConocidoPor() {
         return $this->conocidoPor;
     }
 
@@ -1018,10 +967,9 @@ class MntPaciente
      * @param integer $idSiff
      * @return MntPaciente
      */
-    public function setIdSiff($idSiff)
-    {
+    public function setIdSiff($idSiff) {
         $this->idSiff = $idSiff;
-    
+
         return $this;
     }
 
@@ -1030,8 +978,7 @@ class MntPaciente
      *
      * @return integer 
      */
-    public function getIdSiff()
-    {
+    public function getIdSiff() {
         return $this->idSiff;
     }
 
@@ -1041,10 +988,9 @@ class MntPaciente
      * @param integer $estado
      * @return MntPaciente
      */
-    public function setEstado($estado)
-    {
+    public function setEstado($estado) {
         $this->estado = $estado;
-    
+
         return $this;
     }
 
@@ -1053,8 +999,7 @@ class MntPaciente
      *
      * @return integer 
      */
-    public function getEstado()
-    {
+    public function getEstado() {
         return $this->estado;
     }
 
@@ -1064,10 +1009,9 @@ class MntPaciente
      * @param integer $dispensarizacionIndividual
      * @return MntPaciente
      */
-    public function setDispensarizacionIndividual($dispensarizacionIndividual)
-    {
+    public function setDispensarizacionIndividual($dispensarizacionIndividual) {
         $this->dispensarizacionIndividual = $dispensarizacionIndividual;
-    
+
         return $this;
     }
 
@@ -1076,8 +1020,7 @@ class MntPaciente
      *
      * @return integer 
      */
-    public function getDispensarizacionIndividual()
-    {
+    public function getDispensarizacionIndividual() {
         return $this->dispensarizacionIndividual;
     }
 
@@ -1087,10 +1030,9 @@ class MntPaciente
      * @param integer $idPacienteInicial
      * @return MntPaciente
      */
-    public function setIdPacienteInicial($idPacienteInicial)
-    {
+    public function setIdPacienteInicial($idPacienteInicial) {
         $this->idPacienteInicial = $idPacienteInicial;
-    
+
         return $this;
     }
 
@@ -1099,8 +1041,7 @@ class MntPaciente
      *
      * @return integer 
      */
-    public function getIdPacienteInicial()
-    {
+    public function getIdPacienteInicial() {
         return $this->idPacienteInicial;
     }
 
@@ -1110,10 +1051,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlAreaGeografica $areaGeograficaDomicilio
      * @return MntPaciente
      */
-    public function setAreaGeograficaDomicilio(\Minsal\SiapsBundle\Entity\CtlAreaGeografica $areaGeograficaDomicilio = null)
-    {
+    public function setAreaGeograficaDomicilio(\Minsal\SiapsBundle\Entity\CtlAreaGeografica $areaGeograficaDomicilio = null) {
         $this->areaGeograficaDomicilio = $areaGeograficaDomicilio;
-    
+
         return $this;
     }
 
@@ -1122,8 +1062,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlAreaGeografica 
      */
-    public function getAreaGeograficaDomicilio()
-    {
+    public function getAreaGeograficaDomicilio() {
         return $this->areaGeograficaDomicilio;
     }
 
@@ -1133,10 +1072,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlCanton $idCantonDomicilio
      * @return MntPaciente
      */
-    public function setIdCantonDomicilio(\Minsal\SiapsBundle\Entity\CtlCanton $idCantonDomicilio = null)
-    {
+    public function setIdCantonDomicilio(\Minsal\SiapsBundle\Entity\CtlCanton $idCantonDomicilio = null) {
         $this->idCantonDomicilio = $idCantonDomicilio;
-    
+
         return $this;
     }
 
@@ -1145,8 +1083,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlCanton 
      */
-    public function getIdCantonDomicilio()
-    {
+    public function getIdCantonDomicilio() {
         return $this->idCantonDomicilio;
     }
 
@@ -1156,10 +1093,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamentoDomicilio
      * @return MntPaciente
      */
-    public function setIdDepartamentoDomicilio(\Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamentoDomicilio = null)
-    {
+    public function setIdDepartamentoDomicilio(\Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamentoDomicilio = null) {
         $this->idDepartamentoDomicilio = $idDepartamentoDomicilio;
-    
+
         return $this;
     }
 
@@ -1168,8 +1104,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlDepartamento 
      */
-    public function getIdDepartamentoDomicilio()
-    {
+    public function getIdDepartamentoDomicilio() {
         return $this->idDepartamentoDomicilio;
     }
 
@@ -1179,10 +1114,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocPaciente
      * @return MntPaciente
      */
-    public function setIdDocPaciente(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocPaciente = null)
-    {
+    public function setIdDocPaciente(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocPaciente = null) {
         $this->idDocPaciente = $idDocPaciente;
-    
+
         return $this;
     }
 
@@ -1191,8 +1125,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad 
      */
-    public function getIdDocPaciente()
-    {
+    public function getIdDocPaciente() {
         return $this->idDocPaciente;
     }
 
@@ -1202,10 +1135,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocProporcionoDatos
      * @return MntPaciente
      */
-    public function setIdDocProporcionoDatos(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocProporcionoDatos = null)
-    {
+    public function setIdDocProporcionoDatos(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocProporcionoDatos = null) {
         $this->idDocProporcionoDatos = $idDocProporcionoDatos;
-    
+
         return $this;
     }
 
@@ -1214,8 +1146,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad 
      */
-    public function getIdDocProporcionoDatos()
-    {
+    public function getIdDocProporcionoDatos() {
         return $this->idDocProporcionoDatos;
     }
 
@@ -1225,10 +1156,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocResponsable
      * @return MntPaciente
      */
-    public function setIdDocResponsable(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocResponsable = null)
-    {
+    public function setIdDocResponsable(\Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad $idDocResponsable = null) {
         $this->idDocResponsable = $idDocResponsable;
-    
+
         return $this;
     }
 
@@ -1237,8 +1167,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlDocumentoIdentidad 
      */
-    public function getIdDocResponsable()
-    {
+    public function getIdDocResponsable() {
         return $this->idDocResponsable;
     }
 
@@ -1248,10 +1177,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlEstadoCivil $idEstadoCivil
      * @return MntPaciente
      */
-    public function setIdEstadoCivil(\Minsal\SiapsBundle\Entity\CtlEstadoCivil $idEstadoCivil = null)
-    {
+    public function setIdEstadoCivil(\Minsal\SiapsBundle\Entity\CtlEstadoCivil $idEstadoCivil = null) {
         $this->idEstadoCivil = $idEstadoCivil;
-    
+
         return $this;
     }
 
@@ -1260,8 +1188,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlEstadoCivil 
      */
-    public function getIdEstadoCivil()
-    {
+    public function getIdEstadoCivil() {
         return $this->idEstadoCivil;
     }
 
@@ -1271,10 +1198,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipioDomicilio
      * @return MntPaciente
      */
-    public function setIdMunicipioDomicilio(\Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipioDomicilio = null)
-    {
+    public function setIdMunicipioDomicilio(\Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipioDomicilio = null) {
         $this->idMunicipioDomicilio = $idMunicipioDomicilio;
-    
+
         return $this;
     }
 
@@ -1283,8 +1209,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlMunicipio 
      */
-    public function getIdMunicipioDomicilio()
-    {
+    public function getIdMunicipioDomicilio() {
         return $this->idMunicipioDomicilio;
     }
 
@@ -1294,10 +1219,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipioNacimiento
      * @return MntPaciente
      */
-    public function setIdMunicipioNacimiento(\Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipioNacimiento = null)
-    {
+    public function setIdMunicipioNacimiento(\Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipioNacimiento = null) {
         $this->idMunicipioNacimiento = $idMunicipioNacimiento;
-    
+
         return $this;
     }
 
@@ -1306,8 +1230,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlMunicipio 
      */
-    public function getIdMunicipioNacimiento()
-    {
+    public function getIdMunicipioNacimiento() {
         return $this->idMunicipioNacimiento;
     }
 
@@ -1317,10 +1240,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlNacionalidad $idNacionalidad
      * @return MntPaciente
      */
-    public function setIdNacionalidad(\Minsal\SiapsBundle\Entity\CtlNacionalidad $idNacionalidad = null)
-    {
+    public function setIdNacionalidad(\Minsal\SiapsBundle\Entity\CtlNacionalidad $idNacionalidad = null) {
         $this->idNacionalidad = $idNacionalidad;
-    
+
         return $this;
     }
 
@@ -1329,8 +1251,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlNacionalidad 
      */
-    public function getIdNacionalidad()
-    {
+    public function getIdNacionalidad() {
         return $this->idNacionalidad;
     }
 
@@ -1340,10 +1261,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlOcupacion $idOcupacion
      * @return MntPaciente
      */
-    public function setIdOcupacion(\Minsal\SiapsBundle\Entity\CtlOcupacion $idOcupacion = null)
-    {
+    public function setIdOcupacion(\Minsal\SiapsBundle\Entity\CtlOcupacion $idOcupacion = null) {
         $this->idOcupacion = $idOcupacion;
-    
+
         return $this;
     }
 
@@ -1352,8 +1272,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlOcupacion 
      */
-    public function getIdOcupacion()
-    {
+    public function getIdOcupacion() {
         return $this->idOcupacion;
     }
 
@@ -1363,10 +1282,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlPais $idPaisNacimiento
      * @return MntPaciente
      */
-    public function setIdPaisNacimiento(\Minsal\SiapsBundle\Entity\CtlPais $idPaisNacimiento = null)
-    {
+    public function setIdPaisNacimiento(\Minsal\SiapsBundle\Entity\CtlPais $idPaisNacimiento = null) {
         $this->idPaisNacimiento = $idPaisNacimiento;
-    
+
         return $this;
     }
 
@@ -1375,8 +1293,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlPais 
      */
-    public function getIdPaisNacimiento()
-    {
+    public function getIdPaisNacimiento() {
         return $this->idPaisNacimiento;
     }
 
@@ -1386,10 +1303,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlParentesco $idParentescoResponsable
      * @return MntPaciente
      */
-    public function setIdParentescoResponsable(\Minsal\SiapsBundle\Entity\CtlParentesco $idParentescoResponsable = null)
-    {
+    public function setIdParentescoResponsable(\Minsal\SiapsBundle\Entity\CtlParentesco $idParentescoResponsable = null) {
         $this->idParentescoResponsable = $idParentescoResponsable;
-    
+
         return $this;
     }
 
@@ -1398,8 +1314,7 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlParentesco 
      */
-    public function getIdParentescoResponsable()
-    {
+    public function getIdParentescoResponsable() {
         return $this->idParentescoResponsable;
     }
 
@@ -1409,10 +1324,9 @@ class MntPaciente
      * @param \Minsal\SiapsBundle\Entity\CtlSexo $idSexo
      * @return MntPaciente
      */
-    public function setIdSexo(\Minsal\SiapsBundle\Entity\CtlSexo $idSexo = null)
-    {
+    public function setIdSexo(\Minsal\SiapsBundle\Entity\CtlSexo $idSexo = null) {
         $this->idSexo = $idSexo;
-    
+
         return $this;
     }
 
@@ -1421,11 +1335,120 @@ class MntPaciente
      *
      * @return \Minsal\SiapsBundle\Entity\CtlSexo 
      */
-    public function getIdSexo()
-    {
+    public function getIdSexo() {
         return $this->idSexo;
     }
+
     public function __toString() {
-        return $this->primerApellido.' '.$this->primerNombre ?: '';
+        return $this->primerApellido . ' ' . $this->primerNombre ? : '';
     }
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->expedientes = new \Doctrine\Common\Collections\ArrayCollection();
+         $this->estado=true;
+    }
+
+    /**
+     * Add expedientes
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntExpediente $expedientes
+     * @return MntPaciente
+     */
+    public function addExpediente(\Minsal\SiapsBundle\Entity\MntExpediente $expedientes) {
+        $this->expedientes[] = $expedientes;
+
+        return $this;
+    }
+
+    /**
+     * Remove expedientes
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntExpediente $expedientes
+     */
+    public function removeExpediente(\Minsal\SiapsBundle\Entity\MntExpediente $expedientes) {
+        $this->expedientes->removeElement($expedientes);
+    }
+
+    /**
+     * Get expedientes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExpedientes() {
+        return $this->expedientes;
+    }
+
+
+    /**
+     * Set cotizante
+     *
+     * @param boolean $cotizante
+     * @return MntPaciente
+     */
+    public function setCotizante($cotizante)
+    {
+        $this->cotizante = $cotizante;
+    
+        return $this;
+    }
+
+    /**
+     * Get cotizante
+     *
+     * @return boolean 
+     */
+    public function getCotizante()
+    {
+        return $this->cotizante;
+    }
+
+    /**
+     * Set idDepartamentoNacimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamentoNacimiento
+     * @return MntPaciente
+     */
+    public function setIdDepartamentoNacimiento(\Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamentoNacimiento = null)
+    {
+        $this->idDepartamentoNacimiento = $idDepartamentoNacimiento;
+    
+        return $this;
+    }
+
+    /**
+     * Get idDepartamentoNacimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlDepartamento 
+     */
+    public function getIdDepartamentoNacimiento()
+    {
+        return $this->idDepartamentoNacimiento;
+    }
+
+    /**
+     * Set idAreaCotizacion
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlAreaCotizante $idAreaCotizacion
+     * @return MntPaciente
+     */
+    public function setIdAreaCotizacion(\Minsal\SiapsBundle\Entity\CtlAreaCotizante $idAreaCotizacion = null)
+    {
+        $this->idAreaCotizacion = $idAreaCotizacion;
+    
+        return $this;
+    }
+
+    /**
+     * Get idAreaCotizacion
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlAreaCotizante 
+     */
+    public function getIdAreaCotizacion()
+    {
+        return $this->idAreaCotizacion;
+    }
+    
 }
