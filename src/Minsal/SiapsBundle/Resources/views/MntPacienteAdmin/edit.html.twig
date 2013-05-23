@@ -1,4 +1,13 @@
 {% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
+{%block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntPacienteAdmin/form-edit.css') }}" type="text/css" media="all" />  
+{%endblock%}
+{%block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/minsalsiaps/js/maskedinput/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/minsalsiaps/js/MntPacienteAdmin/MntPaciente_edit.js') }}" type="text/javascript"></script>
+{%endblock%}
 {% block form %}
     {% set url = admin.id(object) ? 'edit' : 'create' %}
 
@@ -21,43 +30,144 @@
                                     {% if form_group.description != false %}
                                         <p>{{ form_group.description|raw }}</p>
                                     {% endif %}
-                                        <table class="dat_paciente">
+                                        <table class="dat_paciente" border="0">
                                             <tr class="dat_paciente_sec">
-                                                <td>A.Nombre del Paciente</td>
+                                                <td colspan="4">A.Nombre del Paciente</td>
+                                            </tr>
+                                            <tr class="dat_paciente_content">
+                                                <td width='50%'>{{form_row(form[form_group.fields.primerApellido])}}</td>
+                                                <td width=''>{{form_row(form[form_group.fields.segundoApellido])}}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{form_row(form[form_group.fields.primerApellido])}}</td>
-                                                <td>{{form_row(form[form_group.fields.segundoApellido])}}</td>
-                                            </tr>
-                                             <tr>
                                                 <td>{{form_row(form[form_group.fields.primerNombre])}}</td>
                                                 <td>{{form_row(form[form_group.fields.segundoNombre])}}</td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td>{{form_row(form[form_group.fields.tercerNombre])}}</td>
                                                 <td>{{form_row(form[form_group.fields.apellidoCasada])}}</td>
                                             </tr>
                                             <tr>
                                                 <td>{{form_row(form[form_group.fields.conocidoPor])}}</td>
                                             </tr>
-                                             <tr class="dat_paciente_sec">
-                                                <td>B.Datos del Nacimiento</td>
+                                            <tr class="dat_paciente_sec">
+                                                <td colspan="4">B.Datos del Nacimiento</td>
                                             </tr>
                                             <tr>
                                                 <td>{{form_row(form[form_group.fields.fechaNacimiento])}}</td>
                                                 <td>{{form_row(form[form_group.fields.horaNacimiento])}}</td>
                                             </tr>
-                                             <tr>
-                                                <td>{{form_row(form[form_group.fields.edad])}}</td>
+                                            <tr>
+                                                <td><label>Edad:</label><input id="edad" type="text"></td>
                                                 <td>{{form_row(form[form_group.fields.idSexo])}}</td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td>{{form_row(form[form_group.fields.idPaisNacimiento])}}</td>
-                                                <td>{{form_row(form[form_group.fields.idMunicipioNacimiento])}}</td>
+                                                <td>{{form_row(form[form_group.fields.idDepartamentoNacimiento])}}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{form_row(form[form_group.fields.conocidoPor])}}</td>
+                                                <td>{{form_row(form[form_group.fields.idMunicipioNacimiento])}}</td>
+                                                <td>{{form_row(form[form_group.fields.idNacionalidad])}}</td>
                                             </tr>
+                                            <tr class="dat_paciente_sec">
+                                                <td colspan="4">C.Datos de Identificación</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.idDocPaciente])}}</td>
+                                                <td>{{form_row(form[form_group.fields.numeroDocIdePaciente])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.idEstadoCivil])}}</td>
+                                                <td>{{form_row(form[form_group.fields.idOcupacion])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.idDepartamentoDomicilio])}}</td>
+                                                <td>{{form_row(form[form_group.fields.idMunicipioDomicilio])}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td colspan="4">{{form_row(form[form_group.fields.idCantonDomicilio])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">{{form_row(form[form_group.fields.direccion])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.areaGeograficaDomicilio])}}</td>
+                                                <td>{{form_row(form[form_group.fields.telefonoCasa])}}</td>
+                                            </tr>
+                                             <tr class="dat_paciente_sec">
+                                                <td colspan="4">D.Datos Laborales</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.idAreaCotizacion])}}</td>
+                                                <td>{{form_row(form[form_group.fields.asegurado])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.cotizante])}}</td>
+                                                <td>{{form_row(form[form_group.fields.numeroAfiliacion])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.lugarTrabajo])}}</td>
+                                                <td>{{form_row(form[form_group.fields.telefonoTrabajo])}}</td>
+                                            </tr>
+                                            <tr class="dat_paciente_sec">
+                                                <td colspan="4">E.Datos Familiares</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.nombrePadre])}}</td>
+                                                <td>{{form_row(form[form_group.fields.nombreMadre])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.nombreConyuge])}}</td>
+                                                <td>{{form_row(form[form_group.fields.nombreResponsable])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.idParentescoResponsable])}}</td>
+                                                <td>{{form_row(form[form_group.fields.telefonoResponsable])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.idDocResponsable])}}</td>
+                                                <td>{{form_row(form[form_group.fields.numeroDocIdeResponsable])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">{{form_row(form[form_group.fields.direccionResponsable])}}</td>
+                                            </tr>
+                                             <tr class="dat_paciente_sec">
+                                                <td colspan="4">F.Persona que Proporcionó Datos</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4"><label>Persona Proporcionó Datos:</label>
+                                                    <select id="persona_dio_datos">
+                                                        <option value="-1" selected="">Seleccione...</option>
+                                                        <option value="paciente">El paciente</option>
+                                                        <option value="responsable">El responsable</option>
+                                                        
+                                                    </select>
+                                                </td>
+                                                <td>{{form_row(form[form_group.fields.idSexo])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.nombreProporcionoDatos])}}</td>
+                                                <td>{{form_row(form[form_group.fields.idDocProporcionoDatos])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.numeroDocIdeProporDatos])}}</td>
+                                                <td>{{form_row(form[form_group.fields.nombreResponsable])}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{form_row(form[form_group.fields.direccionResponsable])}}</td>
+                                            </tr>
+                                             <tr class="dat_paciente_sec">
+                                                <td colspan="4">G.Otros</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">{{form_row(form[form_group.fields.observacion])}}</td>
+                                            </tr>
+                                            <tr class="dat_paciente_sec">
+                                                <td colspan="4">H.Número de Expediente</td>
+                                            </tr>
+                                             <tr>
+                                                 <td colspan="4" >{{form_row(form[form_group.fields.expedientes])}}</td>
+                                            </tr>
+                                           
                                         </table>
                                 </div>
                             </fieldset>
@@ -69,7 +179,7 @@
                 </div>
             {% endblock %}
 
-            
+               {{ form_rest(form) }}
 
             {% block formactions %}
                 <div class="well form-actions">

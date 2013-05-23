@@ -7,8 +7,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
-use Sonata\AdminBundle\Route\RouteCollection;
-Use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class MntPacienteAdmin extends Admin {
 
@@ -26,42 +24,67 @@ class MntPacienteAdmin extends Admin {
                 ->add('primerNombre')
                 ->add('segundoNombre')
                 ->add('tercerNombre')
-                ->add('fechaNacimiento')
-                ->add('horaNacimiento')
-                ->add('numeroDocIdePaciente')
+                ->add('fechaNacimiento','date',array(
+                 'years' => range(date('Y') - 110, date('Y') + 5),
+                 'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
+                ->add('horaNacimiento','time',array('empty_value'=>array('hour'=>'Hora','minute'=>'Minutos'),'required' => false))
+                ->add('numeroDocIdePaciente',null,array('label'=>$this->getTranslator()->trans('numeroDocIdePaciente')))
                 ->add('direccion')
-                ->add('telefonoCasa')
+                ->add('telefonoCasa',null, array('label'=>$this->getTranslator()->trans('telefonoCasa')))
                 ->add('lugarTrabajo')
-                ->add('telefonoTrabajo')
-                ->add('idAreaCotizacion')
+                ->add('telefonoTrabajo',null, array('label'=>$this->getTranslator()->trans('telefonotrabajo')))
+                ->add('idAreaCotizacion',null,array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idAreaCotizacion')))
                 ->add('asegurado')
+                ->add('cotizante')
                 ->add('numeroAfiliacion')
                 ->add('nombrePadre')
-                ->add('nombreMadre')
+                ->add('nombreMadre',null,array('required'=>true))
                 ->add('nombreConyuge')
-                ->add('nombreResponsable')
-                ->add('direccionResponsable')
-                ->add('telefonoResponsable')
-                ->add('numeroDocIdeResponsable')
-                ->add('nombreProporcionoDatos')
-                ->add('numeroDocIdeProporDatos')
+                ->add('nombreResponsable',null,array('required'=>true))
+                ->add('direccionResponsable',null,array('required'=>true))
+                ->add('telefonoResponsable',null, array('label'=>$this->getTranslator()->trans('telefonoResponsable')))
+                ->add('numeroDocIdeResponsable',null, array('label'=>$this->getTranslator()->trans('numeroDocIdeResponsable')))
+                ->add('nombreProporcionoDatos',null, array('required'=>true,'label'=>$this->getTranslator()->trans('nombreProporcionoDatos')))
+                ->add('numeroDocIdeProporDatos',null, array('label'=>$this->getTranslator()->trans('numeroDocIdeProporDatos')))
                 ->add('observacion')
                 ->add('conocidoPor')
-                ->add('dispensarizacionIndividual')
-                ->add('areaGeograficaDomicilio')
-                ->add('idCantonDomicilio')
-                ->add('idDepartamentoDomicilio')
-                ->add('idDocPaciente')
-                ->add('idDocProporcionoDatos')
-                ->add('idDocResponsable')
-                ->add('idEstadoCivil')
-                ->add('idMunicipioDomicilio')
-                ->add('idMunicipioNacimiento')
-                ->add('idNacionalidad')
-                ->add('idOcupacion')
-                ->add('idPaisNacimiento')
-                ->add('idParentescoResponsable')
-                ->add('idSexo')
+                ->add('areaGeograficaDomicilio',null,array('empty_value' => 'Seleccione...'))
+                ->add('idCantonDomicilio',null, array('empty_value' => 'Seleccione...',
+                    'label'=>$this->getTranslator()->trans('idCantonDomicilio')))
+                ->add('idDepartamentoDomicilio',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoDomicilio')))
+                ->add('idDocPaciente',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idDocPaciente')))
+                ->add('idDocProporcionoDatos',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idDocProporcionoDatos')))
+                ->add('idDocResponsable',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idDocResponsable')))
+                ->add('idEstadoCivil',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idEstadoCivil')))
+                ->add('idMunicipioDomicilio',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioDomicilio')))
+                ->add('idDepartamentoNacimiento',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento')))                
+                ->add('idMunicipioNacimiento',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioNacimiento')))
+                ->add('idNacionalidad',null, array('empty_value' => 'Seleccione...',
+                    'label'=>$this->getTranslator()->trans('idNacionalidad')))
+                ->add('idOcupacion',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idOcupacion')))
+                ->add('idPaisNacimiento',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idPaisNacimiento')))
+                ->add('idParentescoResponsable',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idParentescoResponsable')))
+                ->add('idSexo',null,array('empty_value' => 'Seleccione...',
+                    'label'=>'Sexo'))
+                ->add('expedientes', 'sonata_type_collection', array(
+                    'label' => 'Expedientes Clínicos',
+                    'required' => true), array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                    'sortable' => 'position'
+                ))
                 
         ;
     }
@@ -79,7 +102,16 @@ class MntPacienteAdmin extends Admin {
                 break;
         }
     }
-
+    
+    
+    public function prePersist($paciente) {
+        
+        foreach( $paciente->getExpedientes() as $expediente ){
+            $expediente->setIdPaciente($paciente);
+        }
+    }
+    
+    
 }
 
 ?>

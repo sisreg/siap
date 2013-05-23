@@ -59,7 +59,7 @@ class MntExpediente
     /**
      * @var \MntPaciente
      *
-     * @ORM\ManyToOne(targetEntity="MntPaciente")
+     * @ORM\ManyToOne(targetEntity="MntPaciente", inversedBy="expedientes")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_paciente", referencedColumnName="id")
      * })
@@ -191,5 +191,9 @@ class MntExpediente
     public function getIdPaciente()
     {
         return $this->idPaciente;
+    }
+    
+    public function __construct() {
+        $this->habilitado=true;
     }
 }
