@@ -3,6 +3,11 @@
     {{parent()}}
     <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntPacienteAdmin/form-edit.css') }}" type="text/css" media="all" />  
 {%endblock%}
+{%block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/minsalsiaps/js/maskedinput/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/minsalsiaps/js/MntPacienteAdmin/MntPaciente_edit.js') }}" type="text/javascript"></script>
+{%endblock%}
 {% block form %}
     {% set url = admin.id(object) ? 'edit' : 'create' %}
 
@@ -52,7 +57,7 @@
                                                 <td>{{form_row(form[form_group.fields.horaNacimiento])}}</td>
                                             </tr>
                                             <tr>
-                                                <td><label>Edad:</label><input type="text"></td>
+                                                <td><label>Edad:</label><input id="edad" type="text"></td>
                                                 <td>{{form_row(form[form_group.fields.idSexo])}}</td>
                                             </tr>
                                             <tr>
@@ -127,6 +132,17 @@
                                             </tr>
                                              <tr class="dat_paciente_sec">
                                                 <td colspan="4">F.Persona que Proporcionó Datos</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4"><label>Persona Proporcionó Datos:</label>
+                                                    <select id="persona_dio_datos">
+                                                        <option value="-1" selected="">Seleccione...</option>
+                                                        <option value="paciente">El paciente</option>
+                                                        <option value="responsable">El responsable</option>
+                                                        
+                                                    </select>
+                                                </td>
+                                                <td>{{form_row(form[form_group.fields.idSexo])}}</td>
                                             </tr>
                                             <tr>
                                                 <td>{{form_row(form[form_group.fields.nombreProporcionoDatos])}}</td>

@@ -21,7 +21,12 @@ span[id$="_expedientes"] table.table-bordered th, span[id$="_expedientes"] table
 
 .dat_paciente input{
     margin-left: 160px;
-    width: 22%;
+    width: 46%;
+}
+
+.dat_paciente #persona_dio_datos{
+    margin-left: 14px;
+    width: 24.5%;
 }
 
 .sonata-bc .row-fluid .span5 {
