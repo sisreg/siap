@@ -65,7 +65,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('idMunicipioDomicilio',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioDomicilio')))
                 ->add('idDepartamentoNacimiento',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento')))                
+                    'required'=>true,'disabled'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento')))                
                 ->add('idMunicipioNacimiento',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioNacimiento')))
                 ->add('idNacionalidad',null, array('empty_value' => 'Seleccione...',

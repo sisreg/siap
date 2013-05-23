@@ -72,6 +72,27 @@ $(document).ready(function() {
             $('input[id$="_numeroDocIdePaciente"]').mask("99999999-9");
         }
     });
+    /*CARGAR DEPARTAMENTOS*/
+    $('select[id$="_idPaisNacimiento"]').change(function() {
+        $('select[id$="_idDepartamentoNacimiento"]').children().remove();
+        $('select[id$="_idDepartamentoNacimiento"]').append('<option value="0">Seleccione...</option>');
+        if ($('select[id$="_idPaisNacimiento"]').val() == '') {
+            $('select[id$="_idDepartamentoNacimiento"]').attr('disabled', 'disabled');
+        } else {
+            $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').val(),
+                    function(data) {
+                        $.each(data, function(key, val) {
+                            if (key == 'rows') {
+                                $.each(val, function(id, registro) {
+                                    $('select[id$="_idDepartamentoNacimiento"]').append('<option value="' + registro['cell'][0] + '">' + registro['cell'][1] + '</option>');
+                                });
+                            }
+                        });
+                    });
+            $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
+        }
+
+    });
 
 });
 
