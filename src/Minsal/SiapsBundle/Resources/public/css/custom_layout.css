@@ -46,6 +46,12 @@ div#pagina{
     border-left: 2px solid #535353;
     border-right: 2px solid #535353;
 }
+
+#pagina .establecimiento{
+    color: #2B3B75;
+    font-size: 15px;
+}
+
 .sonata-bc div.connection {
     border: 1px solid #DDDDDD;
     border-radius: 6px 6px 6px 6px;

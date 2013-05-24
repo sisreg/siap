@@ -19,7 +19,7 @@ class CtlEstablecimientoRepository extends EntityRepository {
                 ->where('e.configurado = true')
                 ->getQuery();
         
-        return $establecimiento->getResult();
+        return $establecimiento->getSingleResult();
     }
     public function obtenerEstabConfigurado() {
 
