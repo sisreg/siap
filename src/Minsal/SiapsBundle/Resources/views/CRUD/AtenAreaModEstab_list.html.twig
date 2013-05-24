@@ -1,10 +1,19 @@
 {% extends 'MinsalSiapsBundle:CRUD:base_list.html.twig' %}
 {%block stylesheets %}
     {{parent()}}
-    <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntAtenAreaModEstabAdmin/list.css') }}" type="text/css" media="all" />  
+<link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntAtenAreaModEstabAdmin/list.css') }}" type="text/css" media="all" />  
 {%endblock%}
-{% block sonata_admin_content -%}
 
+{%block javascripts %}
+    {{parent()}}
+<script src="{{ asset('bundles/minsalsiaps/js/MntAtenAreaModEstab_list.js') }}" type="text/javascript"></script>
+
+{%endblock%}
+
+{% block sonata_admin_content -%}
+<form id='reporteForm' metod="get">
+    <input type="button" value="Reporte" id='reporte'/>
+</form>
 <div class="justificado">
     <table>
     {%  set espe=0 %} 
@@ -37,5 +46,5 @@
     {% endfor %}
         </table>
     </div>
-<br/><br/><br/>
+    <br/><br/><br/>
 {% endblock -%}
