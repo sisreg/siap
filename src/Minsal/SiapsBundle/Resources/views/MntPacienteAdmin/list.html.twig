@@ -1,11 +1,59 @@
 {% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
-{% block actions %}
-    <div class="sonata-actions btn-group">
-        {% include 'SonataAdminBundle:Core:create_button.html.twig' %}
-    </div>
-{% endblock %}
+
 {% block sonata_admin_content -%}
-
-
+<h4><img class="icono" src={{ asset('bundles/minsalsiaps/imagenes/buscar-paciente.png') }} />Buscar Registro de Identificación de  Pacientes</h4>
+<br/>
+<form id="buscarForm" method="post">
+    <table class="table table-bordered ">
+        <tbody>
+            <tr>
+                <td class="sonata-ba-list-field-header "><strong>NEC</strong></td>
+                <td><input id="nec" type="text" /></td>
+                <td class="sonata-ba-list-field-header "><strong>Primer Apellido:*</strong></td>
+                <td><input id="primer_apellido" type="text" /></td>
+                <td class="sonata-ba-list-field-header "><strong>Segundo Apellido:</td>
+                <td><input id="segundo_apellido" type="text" /></td>
+            </tr>
+            <tr>
+                <td class="sonata-ba-list-field-header "><strong>Primer Nombre: *</strong></td>
+                <td><input id="primer_nombre" type="text" /></td>
+                <td class="sonata-ba-list-field-header "><strong>Segundo Nombre:</strong></td>
+                <td><input id="segundo_nombre" type="text" /></td>
+                <td class="sonata-ba-list-field-header "><strong>Tercer Nombre:</strong></td>
+                <td><input id="tercer_nombre" type="text" /></td>
+            </tr>
+            <tr>
+                <td class="sonata-ba-list-field-header "><strong>Fecha Nacimiento:</strong></td>
+                <td><input id="fecha_nacimiento" type="text" /></td>
+                <td class="sonata-ba-list-field-header "><strong>Nombre de la Madre:</strong></td>
+                <td colspan="3"><input id="nombre_madre" type="text" /></td>
+            </tr>
+            <tr>
+                <td class="sonata-ba-list-field-header "><strong>DUI: </strong></td>
+                <td><input id="dui" type="text" /></td>
+                <td class="sonata-ba-list-field-header "><strong>Conocido por:</strong></td>
+                <td colspan="3"><input id="conocido_por" type="text" size="50"/></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <div class="pull-right">
+                        <a class="btn sonata-action-element" href="">
+                            <i class="icon-search"></i>
+                            Buscar
+                        </a>
+                        <a class="btn sonata-action-element" href="{{ admin.generateUrl('create') }}">
+                            <i class="icon-plus"></i>
+                            Capturar Datos
+                        </a>
+                        <a class="btn sonata-action-element" href="">
+                            <i class="icon-trash"></i>
+                            Limpiar
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
 {% endblock -%}
 
