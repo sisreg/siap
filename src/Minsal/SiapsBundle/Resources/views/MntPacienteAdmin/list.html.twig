@@ -1,5 +1,15 @@
 {% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
+{%block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntPacienteAdmin/list.css') }}" type="text/css" media="all" />  
+{%endblock%}
 
+{%block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/minsalsiaps/js/datepicker/jquery.ui.datepicker-es.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/minsalsiaps/js/maskedinput/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/minsalsiaps/js/MntPacienteAdmin/MntPaciente_list.js') }}" type="text/javascript"></script>
+{%endblock%}
 {% block sonata_admin_content -%}
 <h4><img class="icono" src={{ asset('bundles/minsalsiaps/imagenes/buscar-paciente.png') }} />Buscar Registro de Identificación de  Pacientes</h4>
 <br/>
@@ -8,44 +18,44 @@
         <tbody>
             <tr>
                 <td class="sonata-ba-list-field-header "><strong>NEC</strong></td>
-                <td><input id="nec" type="text" /></td>
+                <td><input id="nec" type="text" class="nombres"  /></td>
                 <td class="sonata-ba-list-field-header "><strong>Primer Apellido:*</strong></td>
-                <td><input id="primer_apellido" type="text" /></td>
+                <td><input id="primer_apellido" class="nombres" type="text"</td>
                 <td class="sonata-ba-list-field-header "><strong>Segundo Apellido:</td>
-                <td><input id="segundo_apellido" type="text" /></td>
+                <td><input id="segundo_apellido" class="nombres" type="text" /></td>
             </tr>
             <tr>
                 <td class="sonata-ba-list-field-header "><strong>Primer Nombre: *</strong></td>
-                <td><input id="primer_nombre" type="text" /></td>
+                <td><input id="primer_nombre" type="text" class="nombres" /></td>
                 <td class="sonata-ba-list-field-header "><strong>Segundo Nombre:</strong></td>
-                <td><input id="segundo_nombre" type="text" /></td>
+                <td><input id="segundo_nombre" type="text" class="nombres" /></td>
                 <td class="sonata-ba-list-field-header "><strong>Tercer Nombre:</strong></td>
-                <td><input id="tercer_nombre" type="text" /></td>
+                <td><input id="tercer_nombre" type="text" class="nombres" /></td>
             </tr>
             <tr>
                 <td class="sonata-ba-list-field-header "><strong>Fecha Nacimiento:</strong></td>
-                <td><input id="fecha_nacimiento" type="text" /></td>
+                <td><input id="fecha_nacimiento" type="text" class="fecha" /></td>
                 <td class="sonata-ba-list-field-header "><strong>Nombre de la Madre:</strong></td>
-                <td colspan="3"><input id="nombre_madre" type="text" /></td>
+                <td colspan="3"><input id="nombre_madre"  class="nombresLargos" type="text" /></td>
             </tr>
             <tr>
                 <td class="sonata-ba-list-field-header "><strong>DUI: </strong></td>
-                <td><input id="dui" type="text" /></td>
+                <td><input id="dui" type="text" class="nombres" /></td>
                 <td class="sonata-ba-list-field-header "><strong>Conocido por:</strong></td>
-                <td colspan="3"><input id="conocido_por" type="text" size="50"/></td>
+                <td colspan="3"><input id="conocido_por" type="text"  class="nombresLargos" /></td>
             </tr>
             <tr>
                 <td colspan="6">
                     <div class="pull-right">
-                        <a class="btn sonata-action-element" href="">
+                         <a id="capturar" class="btn sonata-action-element" href="{{ admin.generateUrl('create') }}">
+                            <i class="icon-calendar"></i>
+                            Capturar Datos
+                        </a>
+                        <a id="buscar" class="btn" href="">
                             <i class="icon-search"></i>
                             Buscar
                         </a>
-                        <a class="btn sonata-action-element" href="{{ admin.generateUrl('create') }}">
-                            <i class="icon-plus"></i>
-                            Capturar Datos
-                        </a>
-                        <a class="btn sonata-action-element" href="">
+                        <a id="limpiar" class="btn" href="">
                             <i class="icon-trash"></i>
                             Limpiar
                         </a>

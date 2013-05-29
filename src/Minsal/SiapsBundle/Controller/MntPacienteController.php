@@ -10,6 +10,24 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MntPacienteController extends Controller {
 
+     /**
+     * @Route("/buscar/paciente", name="buscar_paciente", options={"expose"=true})
+     * @Method("POST")
+     */
+    public function buscarPacienteAction() {
+        
+        $request = $this->getRequest();
+        $idPais = $request->get('idPais');
+        $em = $this->getDoctrine()->getEntityManager();
+        $departamentos = $em->getRepository("MinsalSiapsBundle:CtlDepartamento")->findBy(
+                array(
+                    'idPais' => $idPais
+                )
+        );
+        
+        $response = new Response($jsonresponse);
+        return $response;
+    }
     /**
      * @Route("/departamentos/get", name="get_departamentos", options={"expose"=true})
      * @Method("GET")
