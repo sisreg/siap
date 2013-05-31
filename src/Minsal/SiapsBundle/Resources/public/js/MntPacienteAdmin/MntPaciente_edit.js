@@ -2,14 +2,6 @@ $(document).ready(function() {
     
     $('i').popover('show');   
     
-    function limpiar_nombres(text) {
-
-        text = text.replace(/[^a-zA-ZñÑ\s]/g, '');
-        
-        text = text.toUpperCase();
-        return text;
-    }
-
     $('.telefono').mask("9999-9999");
     $('input[id$="_numeroAfiliacion"]').keyup(function(){
          $(this).val(($(this).val()).replace(/[^\d]/g, ''))

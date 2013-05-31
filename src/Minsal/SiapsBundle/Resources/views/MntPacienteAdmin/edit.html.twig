@@ -7,6 +7,7 @@
     {{parent()}}
     <script src="{{ asset('bundles/minsalsiaps/js/maskedinput/jquery.maskedinput.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/minsalsiaps/js/MntPacienteAdmin/MntPaciente_edit.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/minsalsiaps/js/funciones_generales.js') }}" type="text/javascript"></script>
 {%endblock%}
 {% block form %}
     {% set url = admin.id(object) ? 'edit' : 'create' %}
