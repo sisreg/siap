@@ -16,7 +16,7 @@
             {{ "form_not_available"|trans({}, "SonataAdminBundle") }}
         </div>
     {% else %}
-        <form class="form-horizontal" action="{{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }} method="POST">
+    <form class="form-horizontal" action="{{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }} method="POST" onsubmit="verificar(); return false;">
             {% if form.vars.errors|length > 0 %}
                 <div class="sonata-ba-form-error">
                     {{ form_errors(form) }}
@@ -84,21 +84,21 @@
                                                 <td>{{form_row(form[form_group.fields.idMunicipioDomicilio])}}</td>
                                             </tr>
                                              <tr>
-                                                <td colspan="4">{{form_row(form[form_group.fields.idCantonDomicilio])}}</td>
+                                                <td>{{form_row(form[form_group.fields.areaGeograficaDomicilio])}}</td>
+                                                <td>{{form_row(form[form_group.fields.idCantonDomicilio])}}</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="4">{{form_row(form[form_group.fields.direccion])}}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{form_row(form[form_group.fields.areaGeograficaDomicilio])}}</td>
                                                 <td>{{form_row(form[form_group.fields.telefonoCasa])}}</td>
                                             </tr>
                                              <tr class="dat_paciente_sec">
                                                 <td colspan="4">D.Datos Laborales</td>
                                             </tr>
                                             <tr>
-                                                <td>{{form_row(form[form_group.fields.idAreaCotizacion])}}</td>
                                                 <td>{{form_row(form[form_group.fields.asegurado])}}</td>
+                                                <td>{{form_row(form[form_group.fields.idAreaCotizacion])}}</td>
                                             </tr>
                                             <tr>
                                                 <td>{{form_row(form[form_group.fields.cotizante])}}</td>
@@ -137,8 +137,8 @@
                                                 <td colspan="4"><label>Persona Proporcionó Datos:</label>
                                                     <select id="persona_dio_datos">
                                                         <option value="-1" selected="">Seleccione...</option>
-                                                        <option value="paciente">El paciente</option>
-                                                        <option value="responsable">El responsable</option>
+                                                        <option value="paciente">Paciente</option>
+                                                        <option value="responsable">Responsable</option>
                                                         
                                                     </select>
                                                 </td>
