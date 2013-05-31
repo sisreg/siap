@@ -5,6 +5,7 @@ $(document).ready(function() {
     function limpiar_nombres(text) {
 
         text = text.replace(/[^a-zA-ZñÑ\s]/g, '');
+        
         text = text.toUpperCase();
         return text;
     }
@@ -14,6 +15,11 @@ $(document).ready(function() {
          $(this).val(($(this).val()).replace(/[^\d]/g, ''))
         }     
     );
+
+    
+    $('a.sonata-ba-action').click(function() {
+$('a.sonata-ba-action').hide();
+});
 
     $('input.limpiar').keyup(function() {
         $(this).val(limpiar_nombres($(this).val()))

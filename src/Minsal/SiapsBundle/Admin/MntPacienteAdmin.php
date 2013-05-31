@@ -117,23 +117,118 @@ class MntPacienteAdmin extends Admin {
     }
         
     public function validate(ErrorElement $errorElement, $object) {
-       
+       //Verificando que haya ingresado número de expediente
        if (count($object->getExpedientes()) == 0){
             $errorElement->with('expedientes')
                     ->addViolation('Debe agregar un número de expediente')
                     ->end();
         }
-       
+        else{
+             $establecimiento = $this->getModelManager()
+                    ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+             $formatoExpediente=$establecimiento->getTipoExpediente();
+             if($formatoExpediente=='G'){
+             foreach ($object->getExpedientes() as $expediente) {
+                 if(preg_match('/[\d]{1,}-[\d]{2}/', $expediente->getNumero()) == 0){
+                     $errorElement->with('numero')
+                      ->addViolation('El formato del número de expediente es incorrecto')
+                      ->end();
+                 }
+             }
+             }
+            else{
+                 foreach ($object->getExpedientes() as $expediente) {
+                    if(preg_match('/[0-9]{1,}/', $expediente->getNumero()) == 0){
+                        $errorElement->with('numeroDocIdePaciente')
+                         ->addViolation('El formato del número de DUI es incorrecto')
+                         ->end();
+                    }
+             }
+             }
+        }
+        //Verificando los formatos de acuerdo el documento seleccionado
         if ($object->getIdDocPaciente() == 'DUI'){
               $numero_doc = $object->getNumeroDocIdePaciente();
-              if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
+              if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdePaciente')
                       ->addViolation('El formato del número de DUI es incorrecto')
                       ->end();
               }
         }
+        elseif($object->getIdDocPaciente() == 'NIT'){
+            $numero_doc = $object->getNumeroDocIdePaciente();
+              if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
+                $errorElement->with('numeroDocIdePaciente')
+                      ->addViolation('El formato del número de NIT es incorrecto')
+                      ->end();
+              }
+        }
+        else{
+            if($object->getIdDocPaciente() == 'Carné ISSS'){
+                $numero_doc = $object->getNumeroDocIdePaciente();
+                if (preg_match('/[0-9]{9}/', $numero_doc) == 0) {
+                    $errorElement->with('numeroDocIdePaciente')
+                            ->addViolation('El formato del número de documento es incorrecto')
+                            ->end();
+                }
+            }
+        }
+      //Validando número de documento para el responsable  
+        if ($object->getIdDocResponsable() == 'DUI'){
+              $numero_doc = $object->getNumeroDocIdeResponsable();
+              if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
+                $errorElement->with('numeroDocIdeResponsable')
+                      ->addViolation('El formato del número de DUI es incorrecto')
+                      ->end();
+              }
+        }
+        elseif($object->getIdDocResponsable() == 'NIT'){
+            $numero_doc = $object->getNumeroDocIdeResponsable();
+              if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
+                $errorElement->with('numeroDocIdeResponsable')
+                      ->addViolation('El formato del número de NIT es incorrecto')
+                      ->end();
+              }
+        }
+        else{
+            if($object->getIdDocResponsable() == 'Carné ISSS'){
+                $numero_doc = $object->getNumeroDocIdeResponsable();
+                if (preg_match('/[0-9]{9}/', $numero_doc) == 0) {
+                    $errorElement->with('numeroDocIdeResponsable')
+                            ->addViolation('El formato del número de documento es incorrecto')
+                            ->end();
+                }
+            }
+        }
+        //Validando número de documento para la persona que proporcionó datos
+        if ($object->getIdDocProporcionoDatos() == 'DUI'){
+              $numero_doc = $object->getNumeroDocIdeProporDatos();
+              if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
+                $errorElement->with('numeroDocIdeProporDatos')
+                      ->addViolation('El formato del número de DUI es incorrecto')
+                      ->end();
+              }
+        }
+        elseif($object->getIdDocProporcionoDatos() == 'NIT'){
+            $numero_doc = $object->getNumeroDocIdeProporDatos();
+              if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
+                $errorElement->with('numeroDocIdeProporDatos')
+                      ->addViolation('El formato del número de NIT es incorrecto')
+                      ->end();
+              }
+        }
+        else{
+            if($object->getIdDocProporcionoDatos() == 'Carné ISSS'){
+                $numero_doc = $object->getNumeroDocIdeProporDatos();
+                if (preg_match('/[0-9]{9}/', $numero_doc) == 0) {
+                    $errorElement->with('numeroDocIdeProporDatos')
+                            ->addViolation('El formato del número de documento es incorrecto')
+                            ->end();
+                }
+            }
+        }
+        
     }
-    
 }
 
 ?>

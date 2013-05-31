@@ -9,9 +9,13 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 class MntExpedienteAdmin extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
+        $esomed=$this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlCreacionExpediente', array('id'=>3));
+                
         $formMapper
                 ->add('numero',null,array('required'=>true,'label'=>$this->getTranslator()->trans('numero')))
-                ->add('idCreacionExpediente',null,array('required'=>true,'empty_value' => 'Seleccione...',
+                ->add('idCreacionExpediente',null,array('required'=>true,
+                    'preferred_choices' => array($esomed),
                     'label'=>$this->getTranslator()->trans('idCreacionExpediente')))
                 ->add('idPaciente',null,array('label'=>$this->getTranslator()->trans('idPaciente')))
         ;
