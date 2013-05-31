@@ -18,39 +18,39 @@ class MntPacienteAdmin extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('primerApellido')
-                ->add('segundoApellido')     
-                ->add('apellidoCasada')
-                ->add('primerNombre')
-                ->add('segundoNombre')
-                ->add('tercerNombre')
+                ->add('primerApellido', null, array('attr' => array('class' => 'span5 limpiar'))) 
+                ->add('segundoApellido', null, array('attr' => array('class' => 'span5 limpiar'))) 
+                ->add('apellidoCasada', null, array('attr' => array('class' => 'span5 limpiar'))) 
+                ->add('primerNombre', null, array('attr' => array('class' => 'span5 limpiar'))) 
+                ->add('segundoNombre', null, array('attr' => array('class' => 'span5 limpiar'))) 
+                ->add('tercerNombre', null, array('attr' => array('class' => 'span5 limpiar'))) 
                 ->add('fechaNacimiento','date',array(
                  'years' => range(date('Y') - 110, date('Y') + 5),
                  'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
                 ->add('horaNacimiento','time',array('empty_value'=>array('hour'=>'Hora','minute'=>'Minutos'),'required' => false))
                 ->add('numeroDocIdePaciente',null,array('label'=>$this->getTranslator()->trans('numeroDocIdePaciente')))
-                ->add('direccion')
-                ->add('telefonoCasa',null, array('label'=>$this->getTranslator()->trans('telefonoCasa')))
-                ->add('lugarTrabajo')
-                ->add('telefonoTrabajo',null, array('label'=>$this->getTranslator()->trans('telefonotrabajo')))
-                ->add('idAreaCotizacion',null,array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idAreaCotizacion')))
+                ->add('direccion', null, array('attr' => array('class' => 'span5 mayuscula'))) 
+                ->add('telefonoCasa',null, array('label'=>$this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
+                ->add('lugarTrabajo', null, array('attr' => array('class' => 'span5 mayuscula'))) 
+                ->add('telefonoTrabajo',null, array('label'=>$this->getTranslator()->trans('telefonotrabajo'),'attr' => array('class' => 'span5 telefono')))
+                ->add('idAreaCotizacion',null,array('read_only'=>true,'empty_value' => 'Seleccione...',
+                    'label'=>$this->getTranslator()->trans('idAreaCotizacion')))
                 ->add('asegurado')
-                ->add('cotizante')
-                ->add('numeroAfiliacion')
-                ->add('nombrePadre')
-                ->add('nombreMadre',null,array('required'=>true))
-                ->add('nombreConyuge')
-                ->add('nombreResponsable',null,array('required'=>true))
-                ->add('direccionResponsable',null,array('required'=>true))
-                ->add('telefonoResponsable',null, array('label'=>$this->getTranslator()->trans('telefonoResponsable')))
+                ->add('cotizante', null, array('disabled'=>true)) 
+                ->add('numeroAfiliacion', null, array('read_only'=>true))
+                ->add('nombrePadre', null, array('attr' => array('class' => 'span5 limpiar'))) 
+                ->add('nombreMadre',null,array('required'=>true,'attr' => array('class' => 'span5 limpiar')))
+                ->add('nombreConyuge', null, array('attr' => array('class' => 'span5 limpiar'))) 
+                ->add('nombreResponsable',null,array('required'=>true,'attr' => array('class' => 'span5 limpiar')))
+                ->add('direccionResponsable', null, array('attr' => array('class' => 'span5 mayuscula'))) 
+                ->add('telefonoResponsable',null, array('label'=>$this->getTranslator()->trans('telefonoResponsable'), 'attr' => array('class' => 'span5 telefono')))
                 ->add('numeroDocIdeResponsable',null, array('label'=>$this->getTranslator()->trans('numeroDocIdeResponsable')))
-                ->add('nombreProporcionoDatos',null, array('required'=>true,'label'=>$this->getTranslator()->trans('nombreProporcionoDatos')))
+                ->add('nombreProporcionoDatos',null, array('required'=>true,'label'=>$this->getTranslator()->trans('nombreProporcionoDatos'),'attr' => array('class' => 'span5 limpiar')))
                 ->add('numeroDocIdeProporDatos',null, array('label'=>$this->getTranslator()->trans('numeroDocIdeProporDatos')))
-                ->add('observacion')
-                ->add('conocidoPor')
+                ->add('observacion', null, array('attr' => array('class' => 'span5 mayuscula'))) 
+                ->add('conocidoPor', null, array('attr' => array('class' => 'span5 limpiar'))) 
                 ->add('areaGeograficaDomicilio',null,array('empty_value' => 'Seleccione...'))
-                ->add('idCantonDomicilio',null, array('empty_value' => 'Seleccione...',
+                ->add('idCantonDomicilio',null, array('read_only'=>true,'empty_value' => 'Seleccione...',
                     'label'=>$this->getTranslator()->trans('idCantonDomicilio')))
                 ->add('idDepartamentoDomicilio',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoDomicilio')))
@@ -62,12 +62,12 @@ class MntPacienteAdmin extends Admin {
                     'required'=>true,'label'=>$this->getTranslator()->trans('idDocResponsable')))
                 ->add('idEstadoCivil',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idEstadoCivil')))
-                ->add('idMunicipioDomicilio',null, array('empty_value' => 'Seleccione...',
+                ->add('idMunicipioDomicilio',null, array('read_only'=>true,'empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioDomicilio')))
                 ->add('idDepartamentoNacimiento',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'disabled'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento')))                
-                ->add('idMunicipioNacimiento',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioNacimiento')))
+                    'read_only'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento')))                
+                ->add('idMunicipioNacimiento',null, array('read_only'=>true,'empty_value' => 'Seleccione...',
+                    'label'=>$this->getTranslator()->trans('idMunicipioNacimiento')))
                 ->add('idNacionalidad',null, array('empty_value' => 'Seleccione...',
                     'label'=>$this->getTranslator()->trans('idNacionalidad')))
                 ->add('idOcupacion',null, array('empty_value' => 'Seleccione...',
@@ -105,12 +105,34 @@ class MntPacienteAdmin extends Admin {
     
     
     public function prePersist($paciente) {
-        
         foreach( $paciente->getExpedientes() as $expediente ){
             $expediente->setIdPaciente($paciente);
         }
     }
     
+    public function preUpdate($paciente) {
+        foreach( $paciente->getExpedientes() as $expediente ){
+            $expediente->setIdPaciente($paciente);
+        }
+    }
+        
+    public function validate(ErrorElement $errorElement, $object) {
+       
+       if (count($object->getExpedientes()) == 0){
+            $errorElement->with('expedientes')
+                    ->addViolation('Debe agregar un número de expediente')
+                    ->end();
+        }
+       
+        if ($object->getIdDocPaciente() == 'DUI'){
+              $numero_doc = $object->getNumeroDocIdePaciente();
+              if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
+                $errorElement->with('numeroDocIdePaciente')
+                      ->addViolation('El formato del número de DUI es incorrecto')
+                      ->end();
+              }
+        }
+    }
     
 }
 

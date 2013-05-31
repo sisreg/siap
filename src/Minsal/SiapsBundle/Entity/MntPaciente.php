@@ -3,6 +3,7 @@
 namespace Minsal\SiapsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * MntPaciente
@@ -26,6 +27,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="primer_nombre", type="string", length=25, nullable=false)
+     * @Assert\Length(min = "3")
      */
     private $primerNombre;
 
@@ -33,6 +35,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="segundo_nombre", type="string", length=25, nullable=true)
+     * @Assert\Length(min = "3")
      */
     private $segundoNombre;
 
@@ -40,6 +43,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="tercer_nombre", type="string", length=25, nullable=true)
+     * @Assert\Length(min = "3")
      */
     private $tercerNombre;
 
@@ -47,6 +51,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="primer_apellido", type="string", length=25, nullable=false)
+     * @Assert\Length(min = "3")
      */
     private $primerApellido;
 
@@ -54,6 +59,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="segundo_apellido", type="string", length=25, nullable=true)
+     * @Assert\Length(min = "3")
      */
     private $segundoApellido;
 
@@ -61,6 +67,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="apellido_casada", type="string", length=25, nullable=true)
+     * @Assert\Length(min = "3")
      */
     private $apellidoCasada;
 
@@ -81,14 +88,15 @@ class MntPaciente {
     /**
      * @var integer
      *
-     * @ORM\Column(name="numero_doc_ide_paciente", type="integer", nullable=true)
+     * @ORM\Column(name="numero_doc_ide_paciente", type="string", length=20, nullable=true)
      */
     private $numeroDocIdePaciente;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="direccion", type="string", length=100, nullable=false)
+     * @ORM\Column(name="direccion", type="string", length=100, nullable=true)
+     * @Assert\Length(min = "10")
      */
     private $direccion;
 
@@ -96,6 +104,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="telefono_casa", type="string", length=10, nullable=true)
+     * @Assert\Length(min = "9")
      */
     private $telefonoCasa;
 
@@ -103,6 +112,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="lugar_trabajo", type="string", length=50, nullable=true)
+     * @Assert\Length(min = "3")
      */
     private $lugarTrabajo;
 
@@ -110,6 +120,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="telefono_trabajo", type="string", length=10, nullable=true)
+     * @Assert\Length(min = "9")
      */
     private $telefonoTrabajo;
 
@@ -149,6 +160,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="nombre_padre", type="string", length=80, nullable=true)
+     * @Assert\Length(min = "6")
      */
     private $nombrePadre;
 
@@ -156,6 +168,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="nombre_madre", type="string", length=80, nullable=true)
+     * @Assert\Length(min = "6")
      */
     private $nombreMadre;
 
@@ -163,6 +176,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="nombre_conyuge", type="string", length=80, nullable=true)
+     * @Assert\Length(min = "6")
      */
     private $nombreConyuge;
 
@@ -170,6 +184,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="nombre_responsable", type="string", length=80, nullable=true)
+     * @Assert\Length(min = "6")
      */
     private $nombreResponsable;
 
@@ -177,6 +192,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="direccion_responsable", type="string", length=100, nullable=true)
+     * @Assert\Length(min = "6")
      */
     private $direccionResponsable;
 
@@ -184,6 +200,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="telefono_responsable", type="string", length=10, nullable=true)
+     * @Assert\Length(min = "9")
      */
     private $telefonoResponsable;
 
@@ -198,6 +215,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="nombre_proporciono_datos", type="string", length=80, nullable=true)
+     * @Assert\Length(min = "6")
      */
     private $nombreProporcionoDatos;
 
@@ -219,6 +237,7 @@ class MntPaciente {
      * @var string
      *
      * @ORM\Column(name="conocido_por", type="string", length=20, nullable=true)
+     * @Assert\Length(min = "3")
      */
     private $conocidoPor;
 
@@ -401,6 +420,7 @@ class MntPaciente {
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      * @ORM\OneToMany(targetEntity="MntExpediente", mappedBy="idPaciente", cascade={"all"}, orphanRemoval=true)
+     * @Assert\NotBlank()
      *
      */
     private $expedientes;
@@ -1348,7 +1368,7 @@ class MntPaciente {
      */
     public function __construct() {
         $this->expedientes = new \Doctrine\Common\Collections\ArrayCollection();
-         $this->estado=true;
+        $this->estado=true;
     }
 
     /**

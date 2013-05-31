@@ -4,6 +4,7 @@ namespace Minsal\SiapsBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Validator\ErrorElement;
 
 class MntExpedienteAdmin extends Admin {
 
@@ -20,6 +21,7 @@ class MntExpedienteAdmin extends Admin {
         $actions = parent::getBatchActions();
         $actions['delete'] = null;
     }
+    
 
 }
 ?>

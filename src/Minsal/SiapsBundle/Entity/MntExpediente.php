@@ -3,6 +3,8 @@
 namespace Minsal\SiapsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * MntExpediente
@@ -26,6 +28,7 @@ class MntExpediente
      * @var string
      *
      * @ORM\Column(name="numero", type="string", length=10, nullable=false)
+     * @Assert\NotBlank()
      */
     private $numero;
 
@@ -41,8 +44,9 @@ class MntExpediente
      *
      * @ORM\ManyToOne(targetEntity="CtlCreacionExpediente")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_creacion_expediente", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_creacion_expediente", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotNull()
      */
     private $idCreacionExpediente;
 
