@@ -29,7 +29,7 @@ $(document).ready(function() {
         } else {
             $("#capturar").show();
             $('#resultadoBusqueda').show();
-            $('#resultadoBusqueda').load(Routing.generate('buscar_paciente') + '?primerNombre=' + $("#primer_nombre").val() + '&primerApellido=' + $("#primer_apellido").val());
+            $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
         }
         return false;
     });
@@ -38,10 +38,29 @@ $(document).ready(function() {
     $("#primer_apellido").keyup(function() {
         $("#primer_apellido").val(($("#primer_apellido").val()).toUpperCase());
     });
-
-
-    //JQRIG BUSQUEDA PACIENTES   
-
+    $("#segundo_apellido").keyup(function() {
+        $("#segundo_apellido").val(($("#segundo_apellido").val()).toUpperCase());
+    });
+    
+    $("#primer_nombre").keyup(function() {
+        $("#primer_nombre").val(($("#primer_nombre").val()).toUpperCase());
+    });
+    
+    $("#segundo_nombre").keyup(function() {
+        $("#segundo_nombre").val(($("#segundo_nombre").val()).toUpperCase());
+    });
+    
+    $("#tercer_nombre").keyup(function() {
+        $("#tercer_nombre").val(($("#tercer_nombre").val()).toUpperCase());
+    });
+    
+    $("#nombre_madre").keyup(function() {
+        $("#nombre_madre").val(($("#nombre_madre").val()).toUpperCase());
+    });
+    
+    $("#conocido_por").keyup(function() {
+        $("#conocido_por").val(($("#conocido_por").val()).toUpperCase());
+    });
 
 });
 

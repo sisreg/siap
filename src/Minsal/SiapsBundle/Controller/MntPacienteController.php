@@ -14,9 +14,7 @@ class MntPacienteController extends Controller {
      * @Route("/buscar/paciente", name="buscar_paciente", options={"expose"=true})
      */
     public function buscarPacienteAction() {
-        $request = $this->getRequest();
-        $primerNombre = $request->get('primerNombre');
-        $primerApellido = $request->get('primerApellido');
+       
         return $this->render('MinsalSiapsBundle:MntPacienteAdmin:resultado_busqueda.html.twig', array('registros' => 0));
     }
 
@@ -24,17 +22,21 @@ class MntPacienteController extends Controller {
      * @Route("/cargar/paciente", name="cargar_paciente", options={"expose"=true})
      */
     public function cargarBusquedaJSON() {
-        //      $request = $this->getRequest();
+        $request = $this->getRequest();
+        $primerNombre = $request->get('primer_nombre');
         $em = $this->getDoctrine()->getEntityManager();
-        $pacientes = $em->getRepository("MinsalSiapsBundle:MntPaciente")->findAll();
+        $pacientes = $em->getRepository("MinsalSiapsBundle:MntPaciente")->findBy(array('primerNombre'=>$primerNombre));
         $numfilas = count($pacientes);
         $i = 0;
         $rows = array();
         foreach ($pacientes as $aux) {
+           
             $rows[$i]['id'] = $aux->getId();
             $rows[$i]['cell'] = array($aux->getId(),
-                $aux->getPrimerNombre() + $aux->getSegundoNombre() + $aux->getTercerNombre() + $aux->getPrimerApellido() + $aux->getSegundoApellido() + $aux->getApellidoCasada(),
-                $aux->getFechaNacimiento(),
+                11,
+                $aux->getPrimerApellido() .' '. $aux->getSegundoApellido() .' '. $aux->getApellidoCasada() ,
+                $aux->getPrimerNombre() .' '.$aux->getSegundoNombre().' '.$aux->getTercerNombre(),
+                $aux->getFechaNacimiento()->format('d-m-Y'),
                 $aux->getNumeroDocIdePaciente(),
                 $aux->getNombreMadre(),
                 $aux->getConocidoPor()
