@@ -1,11 +1,70 @@
 {% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
-{% block actions %}
-    <div class="sonata-actions btn-group">
-        {% include 'SonataAdminBundle:Core:create_button.html.twig' %}
-    </div>
-{% endblock %}
-{% block sonata_admin_content -%}
+{%block stylesheets %}
+    {{parent()}}
+<link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntPacienteAdmin/list.css') }}" type="text/css" media="all" />  
+{%endblock%}
 
-Esto es una prueba!!!!!!!!
+{%block javascripts %}
+    {{parent()}}
+<script src="{{ asset('bundles/minsalsiaps/js/datepicker/jquery.ui.datepicker-es.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/minsalsiaps/js/maskedinput/jquery.maskedinput.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/minsalsiaps/js/MntPacienteAdmin/MntPaciente_list.js') }}" type="text/javascript"></script>
+{%endblock%}
+{% block sonata_admin_content -%}
+<h4><img class="icono" src={{ asset('bundles/minsalsiaps/imagenes/buscar-paciente.png') }} />Buscar Registro de Identificación de  Pacientes</h4>
+<br/>
+<form id="buscarForm" method="post">
+    <table class="table table-bordered ">
+        <tbody>
+            <tr>
+                <td class="sonata-ba-list-field-header "><strong>NEC</strong></td>
+                <td><input id="nec" type="text" class="nombres"  maxlength="10"  /></td>
+                <td class="sonata-ba-list-field-header "><strong>Primer Apellido:*</strong></td>
+                <td><input id="primer_apellido" name="primer_apellido" class="nombres" type="text"  maxlength="25"/></td>
+                <td class="sonata-ba-list-field-header "><strong>Segundo Apellido:</td>
+                <td><input id="segundo_apellido" name="segundo_apellido" class="nombres" type="text"  maxlength="25"/></td>
+            </tr>
+            <tr>
+                <td class="sonata-ba-list-field-header "><strong>Primer Nombre: *</strong></td>
+                <td><input id="primer_nombre" name="primer_nombre" type="text" class="nombres"  maxlength="25"/></td>
+                <td class="sonata-ba-list-field-header "><strong>Segundo Nombre:</strong></td>
+                <td><input id="segundo_nombre" name="segundo_nombre" type="text" class="nombres"  maxlength="25"/></td>
+                <td class="sonata-ba-list-field-header "><strong>Tercer Nombre:</strong></td>
+                <td><input id="tercer_nombre" name="tercer_nombre" type="text" class="nombres"  maxlength="25"/></td>
+            </tr>
+            <tr>
+                <td class="sonata-ba-list-field-header "><strong>Fecha Nacimiento:</strong></td>
+                <td><input id="fecha_nacimiento" name="fecha_nacimiento" type="text" class="fecha" /></td>
+                <td class="sonata-ba-list-field-header"><strong>Nombre de la Madre:</strong></td>
+                <td colspan="3"><input id="nombre_madre" name="nombre_madre" class="nombresLargos" type="text" maxlength="80" /></td>
+            </tr>
+            <tr>
+                <td class="sonata-ba-list-field-header "><strong>DUI: </strong></td>
+                <td><input id="dui" type="text" class="nombres" /></td>
+                <td class="sonata-ba-list-field-header "><strong>Conocido por:</strong></td>
+                <td colspan="3"><input id="conocido_por" name="conocido_por" type="text"  class="nombresLargos"  maxlength="20" /></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <div class="pull-right">
+                        <a id="capturar" class="btn sonata-action-element" href="{{ admin.generateUrl('create') }}">
+                            <i class="icon-plus"></i>
+                            Capturar Datos
+                        </a>
+                        <a id="buscar" class="btn" href="">
+                            <i class="icon-search"></i>
+                            Buscar
+                        </a>
+                        <a id="limpiar" class="btn" href="">
+                            <i class="icon-trash"></i>
+                            Limpiar
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<div id="resultadoBusqueda"></div>
 {% endblock -%}
 

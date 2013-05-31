@@ -1,0 +1,7 @@
+/*Para campos de busqueda*/
+.sonata-bc .nombres {width:150px;}
+.sonata-bc .fecha {width:90px;}
+.sonata-bc .nombresLargos {width:500px;}
+div #resultadoBusqueda{padding-bottom: 25px;}
+.sonata-bc .table td{padding:1px; line-height:20px;text-align:left;vertical-align: middle;border-top:1px solid #dddddd;}
+.table-bordered input:hover {background-color: #E4F3C0;}

@@ -23,8 +23,8 @@ div#divpie{
     text-align: center;
     margin-left: 7.5%;
     /* -- CSS3 - Gradiente de fondo -- */
- /*  background: -webkit-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);
-   background: -moz-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);*/
+    /*  background: -webkit-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);
+      background: -moz-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);*/
     background: -webkit-linear-gradient( 0deg ,#e4e7ec,#2f5d96);
     background: -moz-linear-gradient( 0deg ,#e4e7ec,#2f5d96)
 }
@@ -46,6 +46,21 @@ div#pagina{
     border-left: 2px solid #535353;
     border-right: 2px solid #535353;
 }
+
+#pagina .establecimiento{
+    color: #2B3B75;
+    font-size: 15px;
+}
+
+.icono{
+    height:50px;
+    width: 50px;
+}
+
+.table-bordered input:hover {
+    background-color: #E4F3C0;
+}
+
 .sonata-bc div.connection {
     border: 1px solid #DDDDDD;
     border-radius: 6px 6px 6px 6px;

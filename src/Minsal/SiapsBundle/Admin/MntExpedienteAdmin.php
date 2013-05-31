@@ -4,6 +4,7 @@ namespace Minsal\SiapsBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Validator\ErrorElement;
 
 class MntExpedienteAdmin extends Admin {
@@ -20,12 +21,16 @@ class MntExpedienteAdmin extends Admin {
                 ->add('idPaciente',null,array('label'=>$this->getTranslator()->trans('idPaciente')))
         ;
     }
-    
-     public function getBatchActions() {
+
+    public function getBatchActions() {
         $actions = parent::getBatchActions();
         $actions['delete'] = null;
     }
-    
+
+    protected function configureRoutes(RouteCollection $collection) {
+        $collection->remove('list');
+    }
 
 }
+
 ?>
