@@ -36,30 +36,30 @@ $(document).ready(function() {
 
     //PASANDO A MAYUSCULAS LOS ELEMENTOS
     $("#primer_apellido").keyup(function() {
-        $("#primer_apellido").val(($("#primer_apellido").val()).toUpperCase());
+        $(this).val(limpiar_nombres($("#primer_apellido").val()));
     });
     $("#segundo_apellido").keyup(function() {
-        $("#segundo_apellido").val(($("#segundo_apellido").val()).toUpperCase());
+        $(this).val(limpiar_nombres($("#segundo_apellido").val()));
     });
     
     $("#primer_nombre").keyup(function() {
-        $("#primer_nombre").val(($("#primer_nombre").val()).toUpperCase());
+        $(this).val(limpiar_nombres($("#primer_nombre").val()));
     });
     
     $("#segundo_nombre").keyup(function() {
-        $("#segundo_nombre").val(($("#segundo_nombre").val()).toUpperCase());
+        $(this).val(limpiar_nombres($("#segundo_nombre").val()));
     });
     
     $("#tercer_nombre").keyup(function() {
-        $("#tercer_nombre").val(($("#tercer_nombre").val()).toUpperCase());
+        $(this).val(limpiar_nombres($("#tercer_nombre").val()));
     });
     
     $("#nombre_madre").keyup(function() {
-        $("#nombre_madre").val(($("#nombre_madre").val()).toUpperCase());
+        $(this).val(limpiar_nombres($("#nombre_madre").val()));
     });
     
     $("#conocido_por").keyup(function() {
-        $("#conocido_por").val(($("#conocido_por").val()).toUpperCase());
+       $(this).val(limpiar_nombres($("#conocido_por").val()));
     });
 
 });
