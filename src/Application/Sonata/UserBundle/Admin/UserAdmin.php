@@ -33,6 +33,7 @@ class UserAdmin extends BaseUserAdmin
                     'query_builder' => function($repositorio) {
                         return $repositorio->obtenerEstabConfigurado();
                     }))
+                ->add('enabled', null, array('required' => true))
                 ->end()
                 ->with('Groups')
                 ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => true, 'multiple' => true))
