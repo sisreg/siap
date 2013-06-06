@@ -34,7 +34,7 @@ parameters:
     mailer_host: localhost
     mailer_user: null
     mailer_password: null
-    locale: es
+    locale: es_SV
     secret: df1ca40cfc425c4f34e654696720435a044b9ca9
     database_path: null
 * Crear los directorios cache/ y logs/ dentro del directorio app/

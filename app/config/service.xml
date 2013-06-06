@@ -3,6 +3,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+         <!--ADMINISTRACION-->
         <service id="sonata.admin.establecimiento" class="Minsal\SiapsBundle\Admin\CtlEstablecimientoAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Administración" label="Configurar Establecimiento"/>
             <argument />
@@ -27,18 +28,26 @@
             <argument>Minsal\SiapsBundle\Entity\MntAtenAreaModEstab</argument>
             <argument>MinsalSiapsBundle:MntAtenAreaModEstabAdmin</argument>
         </service>
-        <service id="sonata.admin.mntpaciente" class="Minsal\SiapsBundle\Admin\MntPacienteAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="Identificación Paciente" label="Buscar Paciente"/>
-            <argument />
-            <argument>Minsal\SiapsBundle\Entity\MntPaciente</argument>
-            <argument>SonataAdminBundle:CRUD</argument>
-        </service>
         <service id="sonata.admin.expediente" class="Minsal\SiapsBundle\Admin\MntExpedienteAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Administración" label="Números de expedientes"/>
             <argument />
             <argument>Minsal\SiapsBundle\Entity\MntExpediente</argument>
             <argument>SonataAdminBundle:CRUD</argument>
         </service>
+        <service id="sonata.admin.conexion" class="Minsal\SiapsBundle\Admin\MntConexionAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Administración" label="Conexiones a bases regionales"/>
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\MntConexion</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        <!--IDENTIFICACION PACIENTE-->
+        <service id="sonata.admin.mntpaciente" class="Minsal\SiapsBundle\Admin\MntPacienteAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Identificación Paciente" label="Buscar Paciente"/>
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\MntPaciente</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        
         <!--AGREGADO PARA PODER EDITAR EL FORMULARIO DE CREACIÓN DEL USUARIO-->
         <service id="sonata.user.admin.user" class="Application\Sonata\UserBundle\Admin\UserAdmin">
             <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="users" label_catalogue="SonataUserBundle" label_translator_strategy="sonata.admin.label.strategy.underscore" />

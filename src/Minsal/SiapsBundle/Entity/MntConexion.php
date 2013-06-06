@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="mnt_conexion")
  * @ORM\Entity
  */
-class MntConexion
-{
+class MntConexion {
+
     /**
      * @var integer
      *
@@ -88,15 +88,12 @@ class MntConexion
      */
     private $idEstablecimiento;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -106,10 +103,9 @@ class MntConexion
      * @param string $nombre
      * @return MntConexion
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -118,8 +114,7 @@ class MntConexion
      *
      * @return string 
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
 
@@ -129,10 +124,9 @@ class MntConexion
      * @param string $host
      * @return MntConexion
      */
-    public function setHost($host)
-    {
+    public function setHost($host) {
         $this->host = $host;
-    
+
         return $this;
     }
 
@@ -141,8 +135,7 @@ class MntConexion
      *
      * @return string 
      */
-    public function getHost()
-    {
+    public function getHost() {
         return $this->host;
     }
 
@@ -152,10 +145,9 @@ class MntConexion
      * @param string $usuario
      * @return MntConexion
      */
-    public function setUsuario($usuario)
-    {
+    public function setUsuario($usuario) {
         $this->usuario = $usuario;
-    
+
         return $this;
     }
 
@@ -164,8 +156,7 @@ class MntConexion
      *
      * @return string 
      */
-    public function getUsuario()
-    {
+    public function getUsuario() {
         return $this->usuario;
     }
 
@@ -175,10 +166,9 @@ class MntConexion
      * @param string $contrasenia
      * @return MntConexion
      */
-    public function setContrasenia($contrasenia)
-    {
+    public function setContrasenia($contrasenia) {
         $this->contrasenia = $contrasenia;
-    
+
         return $this;
     }
 
@@ -187,8 +177,7 @@ class MntConexion
      *
      * @return string 
      */
-    public function getContrasenia()
-    {
+    public function getContrasenia() {
         return $this->contrasenia;
     }
 
@@ -198,10 +187,9 @@ class MntConexion
      * @param string $puerto
      * @return MntConexion
      */
-    public function setPuerto($puerto)
-    {
+    public function setPuerto($puerto) {
         $this->puerto = $puerto;
-    
+
         return $this;
     }
 
@@ -210,8 +198,7 @@ class MntConexion
      *
      * @return string 
      */
-    public function getPuerto()
-    {
+    public function getPuerto() {
         return $this->puerto;
     }
 
@@ -221,10 +208,9 @@ class MntConexion
      * @param string $instacia
      * @return MntConexion
      */
-    public function setInstacia($instacia)
-    {
+    public function setInstacia($instacia) {
         $this->instacia = $instacia;
-    
+
         return $this;
     }
 
@@ -233,8 +219,7 @@ class MntConexion
      *
      * @return string 
      */
-    public function getInstacia()
-    {
+    public function getInstacia() {
         return $this->instacia;
     }
 
@@ -244,10 +229,9 @@ class MntConexion
      * @param string $baseDeDatos
      * @return MntConexion
      */
-    public function setBaseDeDatos($baseDeDatos)
-    {
+    public function setBaseDeDatos($baseDeDatos) {
         $this->baseDeDatos = $baseDeDatos;
-    
+
         return $this;
     }
 
@@ -256,8 +240,7 @@ class MntConexion
      *
      * @return string 
      */
-    public function getBaseDeDatos()
-    {
+    public function getBaseDeDatos() {
         return $this->baseDeDatos;
     }
 
@@ -267,10 +250,9 @@ class MntConexion
      * @param string $gestorBase
      * @return MntConexion
      */
-    public function setGestorBase($gestorBase)
-    {
+    public function setGestorBase($gestorBase) {
         $this->gestorBase = $gestorBase;
-    
+
         return $this;
     }
 
@@ -279,8 +261,7 @@ class MntConexion
      *
      * @return string 
      */
-    public function getGestorBase()
-    {
+    public function getGestorBase() {
         return $this->gestorBase;
     }
 
@@ -290,10 +271,9 @@ class MntConexion
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
      * @return MntConexion
      */
-    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
-    {
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null) {
         $this->idEstablecimiento = $idEstablecimiento;
-    
+
         return $this;
     }
 
@@ -302,9 +282,17 @@ class MntConexion
      *
      * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
      */
-    public function getIdEstablecimiento()
-    {
+    public function getIdEstablecimiento() {
         return $this->idEstablecimiento;
     }
+
+    //PARA INICIALIZAR UNA CONSTANTE EN LA CONEXIÓN QUE ES LA DE POSTGRESQL
+    public function __construct() {
+        $this->gestorBase = 'pdo_pgsql';
+    }
     
+    public function __toString() {
+        return (string) $this->nombre ? : '';
+    }
+
 }
