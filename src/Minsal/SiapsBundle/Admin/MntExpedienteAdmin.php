@@ -22,15 +22,8 @@ class MntExpedienteAdmin extends Admin {
         ;
     }
 
-    public function getBatchActions() {
-        $actions = parent::getBatchActions();
-        $actions['delete'] = null;
-    }
-
-    protected function configureRoutes(RouteCollection $collection) {
+   protected function configureRoutes(RouteCollection $collection) {
         $collection->remove('list');
     }
-
 }
-
 ?>

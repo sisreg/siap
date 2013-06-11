@@ -29,7 +29,7 @@ class MntPacienteAdmin extends Admin {
                  'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
                 ->add('horaNacimiento','time',array('empty_value'=>array('hour'=>'Hora','minute'=>'Minutos'),'required' => false))
                 ->add('numeroDocIdePaciente',null,array('label'=>$this->getTranslator()->trans('numeroDocIdePaciente')))
-                ->add('direccion', null, array('attr' => array('class' => 'span5 mayuscula'))) 
+                ->add('direccion', null, array('required'=>true,'attr' => array('class' => 'span5 mayuscula'))) 
                 ->add('telefonoCasa',null, array('label'=>$this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
                 ->add('lugarTrabajo', null, array('attr' => array('class' => 'span5 mayuscula'))) 
                 ->add('telefonoTrabajo',null, array('label'=>$this->getTranslator()->trans('telefonotrabajo'),'attr' => array('class' => 'span5 telefono')))
@@ -76,15 +76,16 @@ class MntPacienteAdmin extends Admin {
                     'required'=>true,'label'=>$this->getTranslator()->trans('idPaisNacimiento')))
                 ->add('idParentescoResponsable',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idParentescoResponsable')))
+                ->add('idParentescoProporDatos',null, array('empty_value' => 'Seleccione...',
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idParentescoProporDatos')))
                 ->add('idSexo',null,array('empty_value' => 'Seleccione...',
                     'label'=>'Sexo'))
-                ->add('expedientes', 'sonata_type_collection', array(
-                    'label' => 'Expedientes Clínicos',
-                    'required' => true), array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                    'sortable' => 'position'
-                ))
+                    ->add('expedientes', 'sonata_type_collection', array(
+                        'label' => 'Expedientes Clínicos',
+                        'required' => true), array(
+                        'edit' => 'inline',
+                        'inline' => 'table'
+                    ))
                 
         ;
     }
@@ -121,6 +122,11 @@ class MntPacienteAdmin extends Admin {
        if (count($object->getExpedientes()) == 0){
             $errorElement->with('expedientes')
                     ->addViolation('Debe agregar un número de expediente')
+                    ->end();
+        }
+        elseif(count($object->getExpedientes()) > 1){
+            $errorElement->with('expedientes')
+                    ->addViolation('No puede agregar más de un número de expediente')
                     ->end();
         }
         else{

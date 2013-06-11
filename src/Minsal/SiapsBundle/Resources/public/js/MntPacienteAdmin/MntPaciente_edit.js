@@ -7,12 +7,7 @@ $(document).ready(function() {
          $(this).val(($(this).val()).replace(/[^\d]/g, ''))
         }     
     );
-
     
-    $('a.sonata-ba-action').click(function() {
-$('a.sonata-ba-action').hide();
-});
-
     $('input.limpiar').keyup(function() {
         $(this).val(limpiar_nombres($(this).val()))
     });
@@ -70,12 +65,14 @@ $('a.sonata-ba-action').hide();
             $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocPaciente"]').val());
             $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdePaciente"]').val());
         }
-       /* else if($('select[id="persona_dio_datos"]').val() == 'responsable'){
-            
+        else if($('select[id="persona_dio_datos"]').val() == 'responsable'){
+            $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreResponsable"]').val());
+            $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocResponsable"]').val());
+            $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
         }
         else{
             
-        }*/
+        }
     });
     
     /*CARGAR MUNICIPIOS*/
@@ -152,13 +149,6 @@ $('a.sonata-ba-action').hide();
 
     });
 
-    function verificar() {
-        alert('hola')
-    }
-
-    $('.btn btn-primary').click(function(){
-       alert('hola') 
-    });
 });
 
 

@@ -406,6 +406,16 @@ class MntPaciente {
      * })
      */
     private $idParentescoResponsable;
+    
+        /**
+     * @var \CtlParentesco
+     *
+     * @ORM\ManyToOne(targetEntity="CtlParentesco")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_parentesco_propor_datos", referencedColumnName="id")
+     * })
+     */
+    private $idParentescoProporDatos;
 
     /**
      * @var \CtlSexo
@@ -1471,4 +1481,27 @@ class MntPaciente {
         return $this->idAreaCotizacion;
     }
     
+
+    /**
+     * Set idParentescoProporDatos
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlParentesco $idParentescoProporDatos
+     * @return MntPaciente
+     */
+    public function setIdParentescoProporDatos(\Minsal\SiapsBundle\Entity\CtlParentesco $idParentescoProporDatos = null)
+    {
+        $this->idParentescoProporDatos = $idParentescoProporDatos;
+    
+        return $this;
+    }
+
+    /**
+     * Get idParentescoProporDatos
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlParentesco 
+     */
+    public function getIdParentescoProporDatos()
+    {
+        return $this->idParentescoProporDatos;
+    }
 }
