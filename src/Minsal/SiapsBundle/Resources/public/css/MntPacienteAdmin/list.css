@@ -3,5 +3,12 @@
 .sonata-bc .fecha {width:90px;}
 .sonata-bc .nombresLargos {width:500px;}
 div #resultadoBusqueda{padding-bottom: 25px;}
-.sonata-bc .table td{padding:1px; line-height:20px;text-align:left;vertical-align: middle;border-top:1px solid #dddddd;}
+.sonata-bc .table th, .sonata-bc .table td{padding:0px; height:15px;text-align:left; line-height: 20px;vertical-align: middle;border-top:1px solid #dddddd;height: 1.3em;}
 .table-bordered input:hover {background-color: #E4F3C0;}
+.sonata-bc input[type="text"]{
+    height: 20px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    margin-left: 4px;
+   vertical-align: middle;
+}

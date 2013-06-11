@@ -17,7 +17,7 @@
             {{ "form_not_available"|trans({}, "SonataAdminBundle") }}
         </div>
     {% else %}
-    <form class="form-horizontal" action="{{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }} method="POST" onsubmit="verificar(); return false;">
+    <form class="form-horizontal" action="{{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }} method="POST">
             {% if form.vars.errors|length > 0 %}
                 <div class="sonata-ba-form-error">
                     {{ form_errors(form) }}
@@ -117,7 +117,17 @@
                                                 <td>{{form_row(form[form_group.fields.nombreMadre])}}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{form_row(form[form_group.fields.nombreConyuge])}}</td>
+                                                <td >{{form_row(form[form_group.fields.nombreConyuge])}}</td><td></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><label>Persona Responsable:</label>
+                                                    <select id="persona_responsable">
+                                                        <option value="-1" selected="">Seleccione...</option>
+                                                        <option value="madre">Madre</option>
+                                                        <option value="padre">Padre</option>
+                                                        <option value="conyuge">Cónyuge</option>
+                                                    </select>
+                                                </td>
                                                 <td>{{form_row(form[form_group.fields.nombreResponsable])}}</td>
                                             </tr>
                                             <tr>
@@ -143,18 +153,14 @@
                                                         
                                                     </select>
                                                 </td>
-                                                <td>{{form_row(form[form_group.fields.idSexo])}}</td>
                                             </tr>
                                             <tr>
+                                                <td>{{form_row(form[form_group.fields.idParentescoProporDatos])}}</td>
                                                 <td>{{form_row(form[form_group.fields.nombreProporcionoDatos])}}</td>
+                                            </tr>
+                                            <tr>
                                                 <td>{{form_row(form[form_group.fields.idDocProporcionoDatos])}}</td>
-                                            </tr>
-                                            <tr>
                                                 <td>{{form_row(form[form_group.fields.numeroDocIdeProporDatos])}}</td>
-                                                <td>{{form_row(form[form_group.fields.nombreResponsable])}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{form_row(form[form_group.fields.direccionResponsable])}}</td>
                                             </tr>
                                              <tr class="dat_paciente_sec">
                                                 <td colspan="4">G.Otros</td>
