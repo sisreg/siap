@@ -24,11 +24,11 @@ jQuery(function($) {
         showOn: "both",
         buttonImage: "calendario.png",
         buttonText: "Seleccione..",
-        minDate: "-100y",
-        maxDate: "+1y",
+        minDate: "-115y",
+        maxDate: "+0y",
         changeMonth: true,
         changeYear: true,
-        yearRange: "c-100:c+10"
+        yearRange: "c-115:c+10"
     };
     $.datepicker.setDefaults($.datepicker.regional['es']);
 });
