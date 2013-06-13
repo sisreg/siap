@@ -32,7 +32,7 @@
 'idOcupacion' : 'Ocupación'
 'idPaisNacimiento' : 'País de Nacimiento'
 'idParentescoResponsable' : 'Parentesco Responsable'
-'idParentescoProporDatos' : 'Parentesco Proporcionó Datos'
+'idParentescoProporDatos' : 'Parentesco de Persona que Proporcionó Datos con Paciente'
 'idSexo' : 'Sexo'
 'telefonoCasa' : 'Teléfono Casa'
 'telefonoTrabajo' : 'Teléfono Trabajo'

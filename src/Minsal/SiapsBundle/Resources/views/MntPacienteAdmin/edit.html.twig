@@ -17,7 +17,7 @@
             {{ "form_not_available"|trans({}, "SonataAdminBundle") }}
         </div>
     {% else %}
-    <form class="form-horizontal" action="{{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }} method="POST">
+    <form id="form_paciente" class="form-horizontal" action="{{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }} method="POST">
             {% if form.vars.errors|length > 0 %}
                 <div class="sonata-ba-form-error">
                     {{ form_errors(form) }}
@@ -120,18 +120,10 @@
                                                 <td >{{form_row(form[form_group.fields.nombreConyuge])}}</td><td></td>
                                             </tr>
                                             <tr>
-                                                <td ><label>Persona Responsable:</label>
-                                                    <select id="persona_responsable">
-                                                        <option value="-1" selected="">Seleccione...</option>
-                                                        <option value="madre">Madre</option>
-                                                        <option value="padre">Padre</option>
-                                                        <option value="conyuge">Cónyuge</option>
-                                                    </select>
-                                                </td>
+                                                <td>{{form_row(form[form_group.fields.idParentescoResponsable])}}</td>
                                                 <td>{{form_row(form[form_group.fields.nombreResponsable])}}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{form_row(form[form_group.fields.idParentescoResponsable])}}</td>
                                                 <td>{{form_row(form[form_group.fields.telefonoResponsable])}}</td>
                                             </tr>
                                             <tr>
@@ -145,21 +137,21 @@
                                                 <td colspan="4">F.Persona que Proporcionó Datos</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="4"><label>Persona Proporcionó Datos:</label>
-                                                    <select id="persona_dio_datos">
+                                                <td colspan="4"><!--<label>Persona Proporcionó Datos:</label>->
+                                                   <!-- <select id="persona_dio_datos">
                                                         <option value="-1" selected="">Seleccione...</option>
                                                         <option value="paciente">Paciente</option>
                                                         <option value="responsable">Responsable</option>
                                                         
-                                                    </select>
+                                                    </select>-->
+                                                   {{form_row(form[form_group.fields.idParentescoProporDatos])}}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>{{form_row(form[form_group.fields.idParentescoProporDatos])}}</td>
-                                                <td>{{form_row(form[form_group.fields.nombreProporcionoDatos])}}</td>
+                                                <td >{{form_row(form[form_group.fields.nombreProporcionoDatos])}}</td>
+                                                <td>{{form_row(form[form_group.fields.idDocProporcionoDatos])}}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{form_row(form[form_group.fields.idDocProporcionoDatos])}}</td>
                                                 <td>{{form_row(form[form_group.fields.numeroDocIdeProporDatos])}}</td>
                                             </tr>
                                              <tr class="dat_paciente_sec">

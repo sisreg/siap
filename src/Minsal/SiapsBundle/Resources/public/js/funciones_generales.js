@@ -8,6 +8,7 @@
             text = text.replace(/[úùüû]/, 'u');
            text = text.replace(/[ýÿ]/, 'y');
            text = text.replace(/[^a-zA-ZñÑ\s]/g, '');
+           text=text.replace(/\s{2,}/,' ');
            text = text.toUpperCase();
            return text;
        }

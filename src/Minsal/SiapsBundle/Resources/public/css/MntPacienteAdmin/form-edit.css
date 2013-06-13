@@ -60,6 +60,16 @@ span[id$="_expedientes"] table.table-bordered th, span[id$="_expedientes"] table
     text-align: left;
     padding-left: 1em;
 }
+
+.sonata-bc .form-horizontal .dat_paciente select[id$='_idParentescoProporDatos']{
+    width: 35%;
+    margin-left: 4px;
+}
+
+.sonata-bc .form-horizontal .dat_paciente label[for$='_idParentescoProporDatos']{
+    width: 40%;
+}
+
 .dat_paciente_sec{
     background-color: #B0C4DE;
     font-weight: bold;
