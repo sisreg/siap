@@ -33,11 +33,11 @@ class MntPacienteAdmin extends Admin {
                 ->add('telefonoCasa',null, array('label'=>$this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
                 ->add('lugarTrabajo', null, array('attr' => array('class' => 'span5 mayuscula'))) 
                 ->add('telefonoTrabajo',null, array('label'=>$this->getTranslator()->trans('telefonotrabajo'),'attr' => array('class' => 'span5 telefono')))
-                ->add('idAreaCotizacion',null,array('read_only'=>true,'empty_value' => 'Seleccione...',
+                ->add('idAreaCotizacion',null,array('empty_value' => 'Seleccione...',
                     'label'=>$this->getTranslator()->trans('idAreaCotizacion')))
                 ->add('asegurado')
-                ->add('cotizante', null, array('disabled'=>true)) 
-                ->add('numeroAfiliacion', null, array('read_only'=>true))
+                ->add('cotizante') 
+                ->add('numeroAfiliacion', null)
                 ->add('nombrePadre', null, array('attr' => array('class' => 'span5 limpiar'))) 
                 ->add('nombreMadre',null,array('required'=>true,'attr' => array('class' => 'span5 limpiar')))
                 ->add('nombreConyuge', null, array('attr' => array('class' => 'span5 limpiar'))) 
@@ -50,7 +50,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('observacion', null, array('attr' => array('class' => 'span5 mayuscula'))) 
                 ->add('conocidoPor', null, array('attr' => array('class' => 'span5 limpiar'))) 
                 ->add('areaGeograficaDomicilio',null,array('empty_value' => 'Seleccione...'))
-                ->add('idCantonDomicilio',null, array('read_only'=>true,'empty_value' => 'Seleccione...',
+                ->add('idCantonDomicilio',null, array('empty_value' => 'Seleccione...',
                     'label'=>$this->getTranslator()->trans('idCantonDomicilio')))
                 ->add('idDepartamentoDomicilio',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoDomicilio')))
@@ -62,11 +62,11 @@ class MntPacienteAdmin extends Admin {
                     'required'=>true,'label'=>$this->getTranslator()->trans('idDocResponsable')))
                 ->add('idEstadoCivil',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idEstadoCivil')))
-                ->add('idMunicipioDomicilio',null, array('read_only'=>true,'empty_value' => 'Seleccione...',
+                ->add('idMunicipioDomicilio',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioDomicilio')))
                 ->add('idDepartamentoNacimiento',null, array('empty_value' => 'Seleccione...',
-                    'read_only'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento')))                
-                ->add('idMunicipioNacimiento',null, array('read_only'=>true,'empty_value' => 'Seleccione...',
+                    'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento')))                
+                ->add('idMunicipioNacimiento',null, array('empty_value' => 'Seleccione...',
                     'label'=>$this->getTranslator()->trans('idMunicipioNacimiento')))
                 ->add('idNacionalidad',null, array('empty_value' => 'Seleccione...',
                     'label'=>$this->getTranslator()->trans('idNacionalidad')))
