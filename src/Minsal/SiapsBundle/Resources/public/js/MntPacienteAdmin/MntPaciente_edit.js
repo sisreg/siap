@@ -37,8 +37,22 @@ $(document).ready(function() {
         $(this).val($(this).val().toUpperCase())
     });
 
-    $('#edad').keyup(function() {
-         $(this).val(($(this).val()).replace(/[^\d]{1,3}/g, ''))
+    $('#edad').focusout(function() {
+        if(!(/día/.test($(this).val())) && !(/año/.test($(this).val())) && !(/mes/.test($(this).val()))){
+            $(this).val(($(this).val()).replace(/[^\d]/g, ''))
+            var regexp = /^[\d]{2,3}$/;
+            if(!regexp.test($('#edad').val())) {
+                alert("Para hacer el cálculo de la edad debe ingresar un número entero de dos o tres un dígitos");
+            }
+            else {
+                var fecha = new Date();
+                var anio = fecha.getFullYear();
+                var anio_nacimiento = anio - $(this).val();
+                 $('select[id$="_fechaNacimiento_day"]').val('1');
+                 $('select[id$="_fechaNacimiento_month"]').val('1');
+                 $('select[id$="_fechaNacimiento_year"]').val(anio_nacimiento);
+            }
+        }
     });
 
     $('input:submit[value="Actualizar"]').click(function() {
