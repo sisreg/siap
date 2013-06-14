@@ -11,7 +11,9 @@
 'Mnt Area Mod Estab List': 'Áreas de atención del Establecimiento'
 'Mnt Aten Area Mod Estab List' : 'Cartera de servicios'
 'Mnt Paciente List' : 'Buscar Paciente'
+'Mnt Conexion List' : 'Conexion - Listado'
 
+#FORMULARIO DE PACIENTE
 'idAreaCotizacion' : 'Área Cotización'
 'numeroDocIdeResponsable' : 'Número Documento Responsable'
 'nombreProporcionoDatos' : 'Nombre'

@@ -34,7 +34,7 @@ parameters:
     mailer_host: localhost
     mailer_user: null
     mailer_password: null
-    locale: es
+    locale: es_SV
     secret: df1ca40cfc425c4f34e654696720435a044b9ca9
     database_path: null
 * Crear los directorios cache/ y logs/ dentro del directorio app/
@@ -43,4 +43,13 @@ parameters:
 setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/
 setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/
    ** Si no esta instalado acl se debe de instalar
+* Agregar un archivo llamado _jasperserverreports.php para la configuración del Jasper Server Report en la ruta src/Minsal/SiapsBundle/Util/JasperReport/
+  con la siguiente estructura:
+<?php
+
+define('JASPER_USER', 'usuario_jasper_server');
+define('JASPER_PASSWORD', 'contraseña_del_usuario');
+define('JASPER_URL','URI DEL SERVICIO algo similar a -> http://localhost:8080/jasperserver/services/repository?wsdl');
+
+?>
 * Realizar el virtual host y probar la URL para que aparezca la página principal de Symfony

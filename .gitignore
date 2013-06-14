@@ -17,3 +17,6 @@ nbproject/
 
 #Archivos de respaldo
 *~
+
+#Archivo de configuración del JasperServerReport
+src/Minsal/SiapsBundle/Util/JasperReport/_jasperserverreports.php
