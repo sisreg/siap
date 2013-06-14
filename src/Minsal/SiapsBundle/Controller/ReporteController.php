@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Minsal\SiapsBundle\Util\JasperReport\JasperClient as JasperClient;
-
+include (__DIR__ . '/../Util/JasperReport/_jasperserverreports.php');
 class ReporteController extends Controller {
 
     /**
@@ -15,10 +15,10 @@ class ReporteController extends Controller {
      */
     public function showAction($report_name,$report_format) {
         //$report_format='pdf';
-        $jasper_url = "http://localhost:8080/jasperserver/services/repository?wsdl";
-        $jasper_username = "jasperadmin";
-        $jasper_password = "jasperadmin";
-        $report_unit = "/reports/" . $report_name;
+        $jasper_url = JASPER_URL;
+        $jasper_username = JASPER_USER;
+        $jasper_password = JASPER_PASSWORD;
+        $report_unit = "/reports/siaps/" . $report_name;
         $report_params = array();
 
         $client = new JasperClient($jasper_url, $jasper_username, $jasper_password);          
