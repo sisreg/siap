@@ -43,4 +43,13 @@ parameters:
 setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/
 setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/
    ** Si no esta instalado acl se debe de instalar
+* Agregar un archivo llamado _jasperserverreports.php para la configuración del Jasper Server Report en la ruta src/Minsal/SiapsBundle/Util/JasperReport/
+  con la siguiente estructura:
+<?php
+
+define('JASPER_USER', 'usuario_jasper_server');
+define('JASPER_PASSWORD', 'contraseña_del_usuario');
+define('JASPER_URL','URI DEL SERVICIO algo similar a -> http://localhost:8080/jasperserver/services/repository?wsdl');
+
+?>
 * Realizar el virtual host y probar la URL para que aparezca la página principal de Symfony
