@@ -28,12 +28,6 @@
             <argument>Minsal\SiapsBundle\Entity\MntAtenAreaModEstab</argument>
             <argument>MinsalSiapsBundle:MntAtenAreaModEstabAdmin</argument>
         </service>
-        <service id="sonata.admin.expediente" class="Minsal\SiapsBundle\Admin\MntExpedienteAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="Administración" label="Números de expedientes"/>
-            <argument />
-            <argument>Minsal\SiapsBundle\Entity\MntExpediente</argument>
-            <argument>SonataAdminBundle:CRUD</argument>
-        </service>
         <service id="sonata.admin.conexion" class="Minsal\SiapsBundle\Admin\MntConexionAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Administración" label="Conexiones a bases regionales"/>
             <argument />
@@ -47,7 +41,13 @@
             <argument>Minsal\SiapsBundle\Entity\MntPaciente</argument>
             <argument>SonataAdminBundle:CRUD</argument>
         </service>
-        
+        <!--REPORTES -->
+         <service id="sonata.admin.expediente" class="Minsal\SiapsBundle\Admin\MntExpedienteAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Reportes" label="Expedientes Creados"/>
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\MntExpediente</argument>
+            <argument>MinsalSiapsBundle:MntExpedienteAdmin</argument>
+        </service>
         <!--AGREGADO PARA PODER EDITAR EL FORMULARIO DE CREACIÓN DEL USUARIO-->
         <service id="sonata.user.admin.user" class="Application\Sonata\UserBundle\Admin\UserAdmin">
             <tag name="sonata.admin" manager_type="orm" group="%sonata.user.admin.groupname%" label="users" label_catalogue="SonataUserBundle" label_translator_strategy="sonata.admin.label.strategy.underscore" />
