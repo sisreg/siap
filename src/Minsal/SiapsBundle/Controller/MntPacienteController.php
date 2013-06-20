@@ -40,8 +40,8 @@ class MntPacienteController extends Controller {
         $conn = $em->getConnection();
         //CONSTANTES
         $sql = "SELECT * 
-                FROM mnt_paciente A, mnt_expediente B
-                WHERE B.id_paciente=A.id AND B.habilitado= TRUE
+                FROM mnt_paciente A, mnt_expediente B, ctl_documento_identidad C
+                WHERE B.id_paciente=A.id AND B.habilitado= TRUE AND C.id=A.id_doc_ide_paciente
                     AND A.primer_nombre::text ~* '$primerNombre' 
                     AND A.primer_apellido::text ~* '$primerApellido'";
         //VARIABLES
@@ -75,10 +75,10 @@ class MntPacienteController extends Controller {
                 $aux['numero'],
                 $aux['primer_apellido'] . ' ' . $aux['segundo_apellido']  . ' ' . $aux['apellido_casada'] ,
                 $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
-                date('d-m-Y', strtotime($aux['fecha_nacimiento'])), //->format('d-m-Y'),//$aux->getFechaNacimiento()->format('d-m-Y'),
-                $aux['numero_doc_ide_paciente'],//$aux->getNumeroDocIdePaciente(),
-                $aux['nombre_madre'],//$aux->getNombreMadre(),
-                $aux['conocido_por']//$aux->getConocidoPor()
+                date('d-m-Y', strtotime($aux['fecha_nacimiento'])), 
+                substr($aux['nombre'], 0,4).":".$aux['numero_doc_ide_paciente'],
+                $aux['nombre_madre'],
+                $aux['conocido_por']
             );
             $i++;
             }   
