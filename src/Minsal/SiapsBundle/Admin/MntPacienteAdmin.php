@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class MntPacienteAdmin extends Admin {
 
@@ -98,6 +99,8 @@ class MntPacienteAdmin extends Admin {
             case 'edit':
                 return 'MinsalSiapsBundle:MntPacienteAdmin:edit.html.twig';
                 break;
+            case 'view':
+                return 'MinsalSiapsBundle:MntPacienteAdmin:view.html.twig';
             default:
                 return parent::getTemplate($name);
                 break;
@@ -109,12 +112,25 @@ class MntPacienteAdmin extends Admin {
         foreach( $paciente->getExpedientes() as $expediente ){
             $expediente->setIdPaciente($paciente);
         }
+        $establecimiento = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+        $expediente->setIdEstablecimiento($establecimiento);
+        $fecha_actual = new \DateTime();
+        $paciente->setFechaRegistro($fecha_actual);
+        //$user = $this->getConfigurationPool()>getContainer()>get('security.context')>getToken()>getUser()
     }
     
     public function preUpdate($paciente) {
         foreach( $paciente->getExpedientes() as $expediente ){
             $expediente->setIdPaciente($paciente);
         }
+        $establecimiento = $this->getModelManager()
+                    ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));         
+         $expediente->setIdEstablecimiento($establecimiento);
+         $fecha_actual = new \DateTime();
+         $paciente->setFechaRegistro($fecha_actual);
+         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+         $paciente->setIdUser($user);
     }
         
     public function validate(ErrorElement $errorElement, $object) {
@@ -234,6 +250,10 @@ class MntPacienteAdmin extends Admin {
             }
         }
         
+    }
+    
+    protected function configureRoutes(RouteCollection $collection) {
+        $collection->add('view');
     }
 }
 
