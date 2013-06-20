@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b3dbe2a0-70cd-4578-a4d9-18f1579c84c3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1"/>
+	<queryString>
+		<![CDATA[select primer_nombre,segundo_nombre,tercer_nombre,primer_apellido,segundo_apellido,
+apellido_casada,fecha_nacimiento,hora_nacimiento,
+K.nombre as pais_nacimiento,
+C1.nombre as municipio_nacimiento,
+L.nombre as estado_civil,I.nombre as id_doc_paciente,A.numero_doc_ide_paciente,
+M.nombre as ocupacion,direccion,telefono_casa,
+B.nombre as departamento_domicilio,C.nombre as municipio_domicilio,
+H.nombre as canton,G.nombre area_geografica,lugar_trabajo,telefono_trabajo,
+J.nombre asarea_cotizacion, asegurado,numero_afiliacion,A.cotizante,A.nombre_padre,
+A.nombre_madre,A.nombre_conyuge,
+nombre_responsable,direccion_responsable,telefono_responsable,D.parentesco,
+I2.nombre as nombre_responsable,numero_doc_ide_responsable,
+nombre_proporciono_datos,I1.nombre,numero_doc_ide_propor_datos,I1.nombre,
+observacion,conocido_por,F.nacionalidad,
+E.nombre as sexo,B1.nombre as departamento_nacimiento
+from mnt_paciente A
+inner join ctl_departamento B on (A.id_departamento_domicilio=B.id)
+inner join ctl_municipio C on (A.id_municipio_domicilio=C.id)
+inner join ctl_departamento B1 on (A.id_departamento_nacimiento=B1.id)
+inner join ctl_municipio C1 on (A.id_municipio_nacimiento=C1.id)
+inner join ctl_parentesco D on (A.id_parentesco_responsable=D.id)
+inner join ctl_parentesco D1 on (A.id_parentesco_propor_datos=D1.id)
+inner join ctl_sexo E on (A.id_sexo=E.id)
+inner join ctl_area_geografica G on (A.area_geografica_domicilio=G.id)
+left join ctl_nacionalidad F on (A.id_nacionalidad=F.id)
+left join ctl_canton H on (A.id_canton_domicilio=H.id)
+inner join ctl_documento_identidad I on (a.id_doc_ide_paciente=I.id)
+inner join ctl_documento_identidad I1 on (a.id_doc_ide_proporciono_datos=I1.id)
+inner join ctl_documento_identidad I2 on (a.id_doc_ide_responsable=I1.id)
+left join ctl_area_cotizante J on (A.id_area_cotizacion=J.id)
+inner join ctl_pais K on (A.id_pais_nacimiento=K.id)
+inner join ctl_estado_civil L on (A.id_estado_civil=L.id)
+inner join ctl_ocupacion M on (A.id_ocupacion=M.id)
+
+
+where A.id=5468]]>
+	</queryString>
+	<field name="primer_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[Primer nombre del paciente]]></fieldDescription>
+	</field>
+	<field name="segundo_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[Segundo nombre del paciente es opcional]]></fieldDescription>
+	</field>
+	<field name="tercer_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[Tercer nombre del paciente es opcional]]></fieldDescription>
+	</field>
+	<field name="primer_apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[Primer apellido del paciente]]></fieldDescription>
+	</field>
+	<field name="segundo_apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[Segundo apellido del paciente es opcional]]></fieldDescription>
+	</field>
+	<field name="apellido_casada" class="java.lang.String">
+		<fieldDescription><![CDATA[Apellido de casada para paciente mujer]]></fieldDescription>
+	</field>
+	<field name="fecha_nacimiento" class="java.sql.Date">
+		<fieldDescription><![CDATA[Fecha de nacimiento del paciente]]></fieldDescription>
+	</field>
+	<field name="hora_nacimiento" class="java.sql.Time">
+		<fieldDescription><![CDATA[Hora de nacimiento en caso se conociera]]></fieldDescription>
+	</field>
+	<field name="pais_nacimiento" class="java.lang.String"/>
+	<field name="municipio_nacimiento" class="java.lang.String"/>
+	<field name="estado_civil" class="java.lang.String"/>
+	<field name="id_doc_paciente" class="java.lang.String"/>
+	<field name="numero_doc_ide_paciente" class="java.lang.String">
+		<fieldDescription><![CDATA[Número del documento de identidad seleccionado para el paciente]]></fieldDescription>
+	</field>
+	<field name="ocupacion" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[Lugar físico del establecimiento]]></fieldDescription>
+	</field>
+	<field name="telefono_casa" class="java.lang.String">
+		<fieldDescription><![CDATA[Teléfono de contacto de casa en caso existiera]]></fieldDescription>
+	</field>
+	<field name="departamento_domicilio" class="java.lang.String"/>
+	<field name="municipio_domicilio" class="java.lang.String"/>
+	<field name="canton" class="java.lang.String"/>
+	<field name="area_geografica" class="java.lang.String"/>
+	<field name="lugar_trabajo" class="java.lang.String">
+		<fieldDescription><![CDATA[Lugar donde trabaja el paciente, En caso trabajara]]></fieldDescription>
+	</field>
+	<field name="telefono_trabajo" class="java.lang.String">
+		<fieldDescription><![CDATA[Teléfono del trabajo, en caso existiera]]></fieldDescription>
+	</field>
+	<field name="asarea_cotizacion" class="java.lang.String"/>
+	<field name="asegurado" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[Para saber si es asegurado o beneficiario. Asegurado=True; Beneficiario=F]]></fieldDescription>
+	</field>
+	<field name="numero_afiliacion" class="java.lang.String">
+		<fieldDescription><![CDATA[Número de afiliación ya sea del asegurado o del beneficiario]]></fieldDescription>
+	</field>
+	<field name="cotizante" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[Para saber si el paciente es cotizante. True=Es cotizante; False=NO es cotizante]]></fieldDescription>
+	</field>
+	<field name="nombre_padre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del padre, en caso lo conozca]]></fieldDescription>
+	</field>
+	<field name="nombre_madre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de la madre, en caso lo conozca]]></fieldDescription>
+	</field>
+	<field name="nombre_conyuge" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de conyuge en caso este acompañado]]></fieldDescription>
+	</field>
+	<field name="nombre_responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del responsable del paciente]]></fieldDescription>
+	</field>
+	<field name="direccion_responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[Direccion del responsable]]></fieldDescription>
+	</field>
+	<field name="telefono_responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[Telefono del responsable del paciente en caso existiera]]></fieldDescription>
+	</field>
+	<field name="parentesco" class="java.lang.String">
+		<fieldDescription><![CDATA[Parentesco del paciente]]></fieldDescription>
+	</field>
+	<field name="numero_doc_ide_responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[Número del documento de identidad seleccionado para el responsable]]></fieldDescription>
+	</field>
+	<field name="nombre_proporciono_datos" class="java.lang.String">
+		<fieldDescription><![CDATA[Persona que proporciono los datos del paciente]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del área de atención]]></fieldDescription>
+	</field>
+	<field name="numero_doc_ide_propor_datos" class="java.lang.String">
+		<fieldDescription><![CDATA[Número del documento de identidad seleccionado para el proporciono datos]]></fieldDescription>
+	</field>
+	<field name="observacion" class="java.lang.String">
+		<fieldDescription><![CDATA[Observaciones del expediente del paciente, Fusiones de expedientes, etc]]></fieldDescription>
+	</field>
+	<field name="conocido_por" class="java.lang.String">
+		<fieldDescription><![CDATA[Sobre-Nombre con el que es conocido popularmente el paciente]]></fieldDescription>
+	</field>
+	<field name="nacionalidad" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de la nacionalidad]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="departamento_nacimiento" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="27a14304-5a41-488f-a5c0-a58577585f45" x="120" y="66" width="351" height="26"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hoja de Identificación de Paciente]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="317" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1af6a41f-3fca-4fde-a8ab-d8de264a3314" x="58" y="13" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Primer nombre del paciente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b3b9207e-20c4-4bfc-bac5-079e48ffe79d" x="158" y="13" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{primer_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2ff1998-c40a-462f-8374-660f75643f91" x="338" y="16" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Segundo nombre del paciente es opcional]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e4939d48-1ba5-452d-aae8-39bfc4573999" x="438" y="16" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{segundo_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a220a818-eb34-42f3-a276-94d56e6c0a1e" x="334" y="51" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Primer apellido del paciente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="c54c053d-cf23-4fb5-8b03-931076607a99" x="434" y="51" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{primer_apellido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3e4bac7b-9c64-42da-b600-a76a564d244c" x="64" y="102" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Segundo apellido del paciente es opcional]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f60396ea-0b21-4d4c-ad21-23cc4785a512" x="164" y="102" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{segundo_apellido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="96646fe0-66dc-4945-8e6e-ea3ad52d305a" x="334" y="97" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Apellido de casada para paciente mujer]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b4369a76-d9c0-465b-bf21-6a38b8e8a530" x="434" y="97" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{apellido_casada}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cacf9b67-a255-40e3-a82d-2115b3bd3a31" x="58" y="152" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha de nacimiento del paciente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="db73df83-4fed-4657-a88e-238b1a17dcfd" x="158" y="152" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="75bf6e26-80d1-4110-9f05-34f7f0d665bd" x="58" y="51" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tercer nombre del paciente es opcional]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c5c64e9d-8168-463e-93e9-5b094a953ebc" x="158" y="51" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tercer_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c7e4df90-9dc4-471a-95e1-0e76ddacdeeb" x="343" y="145" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Hora de nacimiento en caso se conociera]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="19878671-f144-4020-99af-cd9ed80a025d" x="443" y="145" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{hora_nacimiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

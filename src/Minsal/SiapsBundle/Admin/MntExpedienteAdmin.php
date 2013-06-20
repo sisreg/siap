@@ -9,12 +9,13 @@ use Sonata\AdminBundle\Form\FormMapper;
 class MntExpedienteAdmin extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
-        $esomed = $this->getModelManager()
+        $esdomed=$this->getModelManager()
                 ->findOneBy('MinsalSiapsBundle:CtlCreacionExpediente', array('id' => 3));
+                
         $formMapper
                 ->add('numero', null, array('required' => true, 'label' => $this->getTranslator()->trans('numero')))
                 ->add('idCreacionExpediente', null, array('required' => true,
-                    'preferred_choices' => array($esomed),
+                    'preferred_choices' => array($esdomed),
                     'label' => $this->getTranslator()->trans('idCreacionExpediente')))
                 ->add('idPaciente', null, array('label' => $this->getTranslator()->trans('idPaciente')))
         ;
