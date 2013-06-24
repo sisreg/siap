@@ -16,25 +16,9 @@ class MntPacienteAdminController extends Controller {
        $em = $this->getDoctrine()->getEntityManager();
        $valor=$this->get('request')->get('id');
        $datos_paciente = $em->getRepository("MinsalSiapsBundle:MntPaciente")->obtenerDatosPaciente($valor);
-       $valores=array();
-       foreach ($datos_paciente as $fila) {
-           $valores[]=$fila['primerApellido'];
-           /*.' '.$fila['segundoApellido'].' '.$fila['apellidoCasada'].' '.$fila['primerNombre']
-                    .' '.$fila['segundoNombre'].' '.$fila['tercerNombre'];
-            /*$valores['fechaNacimiento']=$fila['fechaNacimiento'];
-            $valores['lugarNacimiento']=$fila['departamentoNacimiento'].','.$fila['municipioNacimiento'];
-            $valores['direccion']=$fila['direccion'];
-            $valores['nombrePadre']=$fila['nombrePadre'];
-            $valores['nombreMadre']=$fila['nombreMadre'];
-            $valores['nombreResponsable']=$fila['nombreResponsable'];
-            $valores['direccionResponsable']=$fila['direccionResponsable'];
-            $valores['fechaRegistro']=$fila['fecha_registro'];
-            $valores['usuario']=$fila['firstname'].' '.$fila['lastname'];
-            $valores['expediente']=$fila['numero'];*/
-            
-        }
-        return $this->render($this->admin->getTemplate('view'), array(
-                    'action' => 'view'
+       return $this->render($this->admin->getTemplate('view'), array(
+                    'action' => 'view',
+                    'datos' =>  $datos_paciente
         ));
                
     }
@@ -49,7 +33,6 @@ class MntPacienteAdminController extends Controller {
         if ($this->get('request')->get('btn_create_and_list')) {
             $url = $this->admin->generateUrl('list');
         }
-
         if ($this->get('request')->get('btn_create_and_create')) {
             $params = array();
             if ($this->admin->hasActiveSubClass()) {
@@ -57,10 +40,9 @@ class MntPacienteAdminController extends Controller {
             }
             $url = $this->admin->generateUrl('create', $params);
         }
-
         if (!$url) {
           $params['id'] = $this->get('request')->get('id');
-          $url = $this->admin->generateUrl('view',$params);
+          $url = $this->admin->generateUrl('view',$object->get('id'));
         }
 
         return new RedirectResponse($url);

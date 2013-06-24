@@ -1,21 +1,28 @@
 $(document).ready(function() {
     
+    $('#form_paciente').submit(function() {
+        $('.deshabilitados').removeAttr('disabled');
+    });
+
+    $('.deshabilitados').attr('disabled', 'disabled');
+    
     $('i').popover('show');   
+    
      /*DESHABILITANDO CAMPOS CUANDO CARGA FORMULARIO*/
-     $('select[id$="_idDepartamentoNacimiento"]').attr('disabled', 'disabled');
+   /*  $('select[id$="_idDepartamentoNacimiento"]').attr('disabled', 'disabled');
      $('select[id$="_idMunicipioNacimiento"]').attr('disabled', 'disabled');
      $('select[id$="_idMunicipioDomicilio"]').attr('disabled', 'disabled');
-     $('select[id$="_idCantonDomicilio"]').attr('disabled', 'disabled');
+     $('select[id$="_idCantonDomicilio"]').attr('disabled', 'disabled');*/
      
      if ($('input:checkbox[id$="_asegurado"]').is(':checked')){
         $('select[id$="_idAreaCotizacion"]').removeAttr('disabled');
         $('input:checkbox[id$="_cotizante"]').removeAttr('disabled');
         $('input[id$="_numeroAfiliacion"]').removeAttr('disabled');
-     }else{
+     }/*else{
         $('select[id$="_idAreaCotizacion"]').attr('disabled', 'disabled');
         $('input:checkbox[id$="_cotizante"]').attr('disabled', 'disabled');
         $('input[id$="_numeroAfiliacion"]').attr('disabled', 'disabled');
-     }
+     }*/
  
     if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Ninguno') {
         $('input[id$="_numeroDocIdePaciente"]').val('');
@@ -55,7 +62,7 @@ $(document).ready(function() {
         }
     });
 
-    $('input:submit[value="Actualizar"]').click(function() {
+  /*  $('input:submit[value="Actualizar"]').click(function() {
         
         $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
         $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
@@ -64,7 +71,7 @@ $(document).ready(function() {
         $('select[id$="_idAreaCotizacion"]').removeAttr('disabled');
         $('input:checkbox[id$="_cotizante"]').removeAttr('disabled');
         $('input[id$="_numeroAfiliacion"]').removeAttr('disabled');
-    });
+    });*/
     
     $('select[id$="_idDocPaciente"]').change(function(){
         $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');

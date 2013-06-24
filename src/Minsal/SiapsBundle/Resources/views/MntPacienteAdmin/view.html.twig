@@ -1,12 +1,61 @@
 {% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
 
+{%block stylesheets %}
+    {{parent()}}
+<link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntPacienteAdmin/view.css') }}" type="text/css" media="all" />  
+{%endblock%}
+
 {% block sonata_admin_content -%}
-    <table class="dat_paciente" border="0">
-        <tr class="dat_paciente_sec">
+    <table class="vista_paciente" border="0" width="80%" align='center'>
+        <tr class="titulo_vista">
             <td colspan="4">Identificación del Paciente</td>
         </tr>
         <tr class="dat_paciente_content">
-            <td width=''>datos</td>
+                  {% for valor in datos %}
+            <td width='25%'><label>Número Expediente:</label></td>
+            <td width='25%'>
+                    {% for expediente in valor.expedientes %}
+                            {{expediente.numero}}
+                    {%endfor%}
+            </td>
+            <td colspan="2"><label>Nombre:</label> 
+                     {{valor.primerApellido}} {{valor.segundoApellido}} {{valor.apellidoCasada}}, {{valor.primerNombre}} {{valor.segundoNombre}} {{valor.tercerNombre}}   
+            </td>
         </tr>
+        <tr class="dat_paciente_content">
+            <td><label>Edad:</label></td><td>{{valor.fechaNacimiento|date("m/d/Y")}}</td>
+            <td><label>Sexo:</label></td><td>{{valor.idSexo}}</td>
+        </tr>
+        <tr class="dat_paciente_content">
+            <td><label>Fecha Nacimiento:</label></td><td>{{valor.fechaNacimiento|date("m/d/Y")}} </td>
+            <td><label>Lugar Nacimiento:</label></td><td>{{valor.idDepartamentoDomicilio}}, {{valor.idMunicipioDomicilio}}</td>
+        </tr>
+        <tr class="dat_paciente_content">
+            <td><label>Dirección:</label></td><td colspan="3">{{valor.direccion}} </td>
+        </tr>
+        <tr class="dat_paciente_content">
+            <td><label>Nombre Padre:</label></td><td>{{valor.nombrePadre}}</td>
+            <td><label>Nombre Madre:</label></td><td>{{valor.nombreMadre}}</td>
+        </tr>
+        <tr class="dat_paciente_content">
+            <td><label>Nombre Responsable:</label></td><td>{{valor.nombreResponsable}}</td>
+            <td><label>Dirección Responsable:</label></td><td>{{valor.direccionResponsable}}</td>
+        </tr>
+        <tr class="dat_paciente_content">
+            <td><label>Fecha Elaboración:</label></td><td>{{valor.fechaRegistro|date("m/d/Y")}}</td>
+            <td><label>Elaboró :</label></td><td>{{valor.idUser}}</td>
+        </tr>
+        <tr class="dat_paciente_content">
+            <td><label>Fecha Modificación:</label></td><td></td>
+            <td><label>Modificó:</label></td><td></td>
+        </tr>
+        {%endfor%}
     </table>
+
+    <div class="well form-actions" width="80%">
+        <input type="submit" class="btn btn-primary" name="" value="Imprimir Hoja"/>
+        <input type="submit" class="btn" name="" value="Asignar Consulta"/>
+        <input type="submit" class="btn" name="" value="Buscar otro Paciente"/>
+        <input type="submit" class="btn" name="" value="Editar Datos"/>
+    </div>
 {%endblock%}

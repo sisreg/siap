@@ -35,10 +35,10 @@ class MntPacienteAdmin extends Admin {
                 ->add('lugarTrabajo', null, array('attr' => array('class' => 'span5 mayuscula'))) 
                 ->add('telefonoTrabajo',null, array('label'=>$this->getTranslator()->trans('telefonotrabajo'),'attr' => array('class' => 'span5 telefono')))
                 ->add('idAreaCotizacion',null,array('empty_value' => 'Seleccione...',
-                    'label'=>$this->getTranslator()->trans('idAreaCotizacion')))
+                    'label'=>$this->getTranslator()->trans('idAreaCotizacion'), 'attr' => array('class'=>'span5 deshabilitados')))
                 ->add('asegurado')
-                ->add('cotizante') 
-                ->add('numeroAfiliacion', null)
+                ->add('cotizante', null, array('attr'=>array('class'=>'span5 deshabilitados')))
+                ->add('numeroAfiliacion', null,array('attr'=>array('class'=>'span5 deshabilitados')))
                 ->add('nombrePadre', null, array('attr' => array('class' => 'span5 limpiar'))) 
                 ->add('nombreMadre',null,array('required'=>true,'attr' => array('class' => 'span5 limpiar')))
                 ->add('nombreConyuge', null, array('attr' => array('class' => 'span5 limpiar'))) 
@@ -52,7 +52,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('conocidoPor', null, array('attr' => array('class' => 'span5 limpiar'))) 
                 ->add('areaGeograficaDomicilio',null,array('empty_value' => 'Seleccione...'))
                 ->add('idCantonDomicilio',null, array('empty_value' => 'Seleccione...',
-                    'label'=>$this->getTranslator()->trans('idCantonDomicilio')))
+                    'label'=>$this->getTranslator()->trans('idCantonDomicilio'),'attr'=>array('class'=>'span5 deshabilitados')))
                 ->add('idDepartamentoDomicilio',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoDomicilio')))
                 ->add('idDocPaciente',null, array('empty_value' => 'Seleccione...',
@@ -64,11 +64,11 @@ class MntPacienteAdmin extends Admin {
                 ->add('idEstadoCivil',null, array('empty_value' => 'Seleccione...',
                     'required'=>true,'label'=>$this->getTranslator()->trans('idEstadoCivil')))
                 ->add('idMunicipioDomicilio',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioDomicilio')))
+                    'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioDomicilio'),'attr'=>array('class'=>'span5 deshabilitados')))
                 ->add('idDepartamentoNacimiento',null, array('empty_value' => 'Seleccione...',
-                    'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento')))                
+                    'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento'),'attr'=>array('class'=>'span5 deshabilitados')))
                 ->add('idMunicipioNacimiento',null, array('empty_value' => 'Seleccione...',
-                    'label'=>$this->getTranslator()->trans('idMunicipioNacimiento')))
+                    'label'=>$this->getTranslator()->trans('idMunicipioNacimiento'),'attr'=>array('class'=>'span5 deshabilitados')))
                 ->add('idNacionalidad',null, array('empty_value' => 'Seleccione...',
                     'label'=>$this->getTranslator()->trans('idNacionalidad')))
                 ->add('idOcupacion',null, array('empty_value' => 'Seleccione...',
@@ -112,25 +112,19 @@ class MntPacienteAdmin extends Admin {
         foreach( $paciente->getExpedientes() as $expediente ){
             $expediente->setIdPaciente($paciente);
         }
-        $establecimiento = $this->getModelManager()
-                ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
-        $expediente->setIdEstablecimiento($establecimiento);
-        $fecha_actual = new \DateTime();
-        $paciente->setFechaRegistro($fecha_actual);
-        //$user = $this->getConfigurationPool()>getContainer()>get('security.context')>getToken()>getUser()
-    }
-    
-    public function preUpdate($paciente) {
-        foreach( $paciente->getExpedientes() as $expediente ){
-            $expediente->setIdPaciente($paciente);
-        }
-        $establecimiento = $this->getModelManager()
+         $establecimiento = $this->getModelManager()
                     ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));         
          $expediente->setIdEstablecimiento($establecimiento);
          $fecha_actual = new \DateTime();
          $paciente->setFechaRegistro($fecha_actual);
          $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
          $paciente->setIdUser($user);
+    }
+    
+    public function preUpdate($paciente) {
+         $pacienteActual = $this->getModelManager()
+                    ->findOneBy('MinsalSiapsBundle:MntPaciente', array('id' =>$paciente->getId())); 
+         
     }
         
     public function validate(ErrorElement $errorElement, $object) {
@@ -253,7 +247,7 @@ class MntPacienteAdmin extends Admin {
     }
     
     protected function configureRoutes(RouteCollection $collection) {
-        $collection->add('view');
+        $collection->add('view',$this->getRouterIdParameter().'/view');
     }
 }
 

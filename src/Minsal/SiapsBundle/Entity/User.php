@@ -62,5 +62,10 @@ class User extends BaseUser {
     {
         return $this->idEstablecimiento;
     }
+    
+     /*Método __toString*/
+    public function __toString() {
+        return $this->firstname.' '.$this->lastname ? : '';
+    }
 
 }

@@ -53,7 +53,7 @@ class MntAreaModEstab
     private $idModalidadEstab;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CtlAtencion", inversedBy="areas")
+     * @ORM\ManyToMany(targetEntity="CtlAtencion")
      * @ORM\JoinTable(name="mnt_aten_area_mod_estab",
      *      joinColumns={@ORM\JoinColumn(name="id_area_mod_estab", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id_atencion", referencedColumnName="id")}
