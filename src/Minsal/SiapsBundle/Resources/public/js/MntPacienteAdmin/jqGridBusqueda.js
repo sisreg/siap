@@ -8,34 +8,32 @@ $(document).ready(function() {
         hidegrid: false,
         colNames: ['idPaciente', 'NEC', 'Apellidos', 'Nombres', 'F. NAC.', 'Documento', 'Nombre Madre', 'Conocido por', 'Acciones'],
         colModel: [
-            {name: 'id', index: 'id', editable: false, editoptions: {size: 15}},
-            {name: 'nec', index: 'nec', editable: false, width: 80},
+            {name: 'id', index: 'id', editable: false},
+            {name: 'nec', index: 'nec', editable: false, width: 80,align:"center"},
             {name: 'apellidos', index: 'apellidos', editable: false, width: 200},
             {name: 'nombres', index: 'nombres', editable: false, width: 200},
-            {name: 'fecha_nacimiento', index: 'fecha_nacimiento', editable: false, width: 70},
-            {name: 'documento', index: 'documento', editable: false, width: 110},
+            {name: 'fecha_nacimiento', index: 'fecha_nacimiento', editable: false, width: 70,align:"center"},
+            {name: 'documento', index: 'documento', editable: false, width: 110,align:"center"},
             {name: 'nombre_madre', index: 'nombre_madre', editable: false, width: 180},
             {name: 'conocido_por', index: 'conocido_por', editable: false, width: 120},
-            {name: 'acciones', index: 'acciones', editable: false, width: 100},
+            {name: 'acciones', index: 'acciones', editable: false, width: 50,align:"center"}
         ],
         multiselect: false,
-        //caption: "Proyectos PEP",
         rowNum: 10,
         rowList: [10, 20, 30],
         loadonce: true,
         pager: jQuery('#pBuscarPaciente'),
         viewrecords: true,
         loadComplete: function() {
-            $('#lregistro').text('Total de registros: ' + $("#tBuscarPaciente").getGridParam('records'));
+            $('#lregistro').text('Total de registros: ' + $(this).getGridParam('records'));
         },
         gridComplete: function() {
             var ids = jQuery("#tBuscarPaciente").jqGrid('getDataIDs');
             for (var i = 0; i < ids.length; i++) {
                 var cl = ids[i];
                 if (cl != 0) {
-                    ce = "<a id=\"capturar\" class=\"btn sonata-action-element\" href=\"create\"><i class=\"icon-edit\"></i></a>";
-                    ce+= "<a id=\"imprimir\" class=\"btn sonata-action-element\" href=\""+cl+"\/edit\"><i class=\"icon-print\"></i></a>";
-                    jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
+                    ce = "<a class=\"btn sonata-action-element\" href=\""+cl+"\/edit\"><i class=\"icon-edit\"></i></a>";
+                    $(this).jqGrid('setRowData', ids[i], {acciones: ce});
                 }
             }
         }

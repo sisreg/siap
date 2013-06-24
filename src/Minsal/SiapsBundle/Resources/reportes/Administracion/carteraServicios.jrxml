@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="carteraServicios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fea9ec93-94cc-4b7e-bce2-3cfb068cc60d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Heading 1" fontSize="16" isBold="true"/>
+	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
+	<style name="Heading 3" fontSize="14" isBold="true"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/karen/NetBeansProjects/siaps/src/Minsal/SiapsBundle/Resources/reportes/Administracion/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.nombre establecimiento, C.nombre modalidad, B.id modEstab
+FROM 	ctl_establecimiento A,
+	mnt_modalidad_establecimiento B,
+	ctl_modalidad C
+WHERE 
+  A.id = B.id_establecimiento AND B.id_modalidad=C.id
+  AND A.configurado= true]]>
+	</queryString>
+	<field name="establecimiento" class="java.lang.String"/>
+	<field name="modalidad" class="java.lang.String"/>
+	<field name="modestab" class="java.lang.Integer"/>
+	<variable name="establecimiento_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{establecimiento}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4dace8fa-96b8-4b3f-a714-238d03855a51" x="0" y="0" width="73" height="63"/>
+				<imageExpression><![CDATA["/home/karen/NetBeansProjects/siaps/src/Minsal/SiapsBundle/Resources/public/imagenes/Reporte-Escudo.png"]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="28bff828-f416-4714-bfd4-7d2c494f9287" x="491" y="0" width="81" height="63"/>
+				<imageExpression><![CDATA["/home/karen/NetBeansProjects/siaps/src/Minsal/SiapsBundle/Resources/public/imagenes/Reporte-Salud.PNG"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c8e9d7c4-2df0-45a4-8ff0-063ba0e85e46" style="Heading 1" x="194" y="0" width="178" height="20"/>
+				<textElement/>
+				<text><![CDATA[Ministerio de Salud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="42b27ec3-cd3a-4724-8a8e-50adf9874e3f" style="Heading 2" x="73" y="30" width="418" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cartera de Servicios Brindados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21">
+			<textField>
+				<reportElement uuid="994a3d15-94ca-4205-a40f-a1180f24f494" style="Heading 3" x="0" y="0" width="572" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{establecimiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="80" splitType="Stretch">
+			<textField>
+				<reportElement uuid="21bfcb26-dc78-4b52-ab2b-7ae722413916" mode="Opaque" x="107" y="9" width="465" height="23" backcolor="#69B8E0"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modalidad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a44ae05b-b350-42f5-afea-1e84b3c356ad" mode="Opaque" x="2" y="9" width="105" height="23" backcolor="#69B8E0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modalidad:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="9a98e2c2-87b1-46ee-a412-6e78e9159f33" x="2" y="32" width="200" height="48"/>
+				<subreportParameter name="ModalidadEstablecimiento">
+					<subreportParameterExpression><![CDATA[$F{modestab}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "carteraServicios_AreaAtencion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement uuid="ab050cdd-1980-44aa-abb1-ea9a3da5e2d8" x="409" y="18" width="78" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" De"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="b834a3e1-1d57-4802-abba-3a1f7ad5bb99" x="487" y="18" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

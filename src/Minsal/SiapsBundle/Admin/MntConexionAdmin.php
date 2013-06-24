@@ -20,7 +20,7 @@ class MntConexionAdmin extends Admin {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
                 ->add('nombre', null, array('label' => 'Nombre de la conexión'))
-                ->add('idEstablecimiento', null, array('label' => $this->getTranslator()->trans('establecimiento')))
+                ->add('idEstablecimiento', null, array('label' => 'Regional'))
         ;
     }
 
