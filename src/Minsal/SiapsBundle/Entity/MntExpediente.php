@@ -199,5 +199,6 @@ class MntExpediente
     
     public function __construct() {
         $this->habilitado=true;
+        
     }
 }

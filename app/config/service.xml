@@ -39,7 +39,8 @@
             <tag name="sonata.admin" manager_type="orm" group="Identificación Paciente" label="Buscar Paciente"/>
             <argument />
             <argument>Minsal\SiapsBundle\Entity\MntPaciente</argument>
-            <argument>SonataAdminBundle:CRUD</argument>
+           <!-- <argument>SonataAdminBundle:CRUD</argument>-->
+           <argument>MinsalSiapsBundle:MntPacienteAdmin</argument>
         </service>
         <!--REPORTES -->
          <service id="sonata.admin.expediente" class="Minsal\SiapsBundle\Admin\MntExpedienteAdmin">

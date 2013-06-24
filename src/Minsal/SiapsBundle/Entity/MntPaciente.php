@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * MntPaciente
  *
  * @ORM\Table(name="mnt_paciente")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\MntPacienteRepository")
  */
 class MntPaciente {
 
@@ -434,7 +434,24 @@ class MntPaciente {
      *
      */
     private $expedientes;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_registro", type="date", nullable=false)
+     */
+    private $fechaRegistro;
 
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id",nullable=false)
+     * })
+     */
+    private $idUser;
+    
     /**
      * Get id
      *
@@ -1503,5 +1520,51 @@ class MntPaciente {
     public function getIdParentescoProporDatos()
     {
         return $this->idParentescoProporDatos;
+    }
+
+    /**
+     * Set fechaRegistro
+     *
+     * @param \DateTime $fechaRegistro
+     * @return MntPaciente
+     */
+    public function setFechaRegistro($fechaRegistro)
+    {
+        $this->fechaRegistro = $fechaRegistro;
+    
+        return $this;
+    }
+
+    /**
+     * Get fechaRegistro
+     *
+     * @return \DateTime 
+     */
+    public function getFechaRegistro()
+    {
+        return $this->fechaRegistro;
+    }
+
+    /**
+     * Set idUser
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idUser
+     * @return MntPaciente
+     */
+    public function setIdUser(\Minsal\SiapsBundle\Entity\User $idUser)
+    {
+        $this->idUser = $idUser;
+    
+        return $this;
+    }
+
+    /**
+     * Get idUser
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
     }
 }

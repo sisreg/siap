@@ -133,7 +133,7 @@ class CtlEstablecimiento {
     * 
     * @var \programas
     * 
-    * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlPrograma", inversedBy="establecimientos")
+    * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlPrograma")
     * @ORM\JoinTable(name="mnt_programa_establecimiento",
     *       joinColumns={
     *           @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")},
