@@ -6,8 +6,9 @@
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
 	<style name="Heading 3" fontSize="14" isBold="true"/>
+	<style name="Heading 4" fontSize="12" isBold="true" isItalic="true"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/karen/NetBeansProjects/siaps/src/Minsal/SiapsBundle/Resources/reportes/Administracion/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["repo:/reports/siaps/cartera/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT A.nombre establecimiento, C.nombre modalidad, B.id modEstab
@@ -27,48 +28,53 @@ WHERE
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="79" splitType="Stretch">
-			<image scaleImage="FillFrame">
-				<reportElement uuid="4dace8fa-96b8-4b3f-a714-238d03855a51" x="0" y="0" width="73" height="63"/>
-				<imageExpression><![CDATA["/home/karen/NetBeansProjects/siaps/src/Minsal/SiapsBundle/Resources/public/imagenes/Reporte-Escudo.png"]]></imageExpression>
-			</image>
-			<image scaleImage="FillFrame">
-				<reportElement uuid="28bff828-f416-4714-bfd4-7d2c494f9287" x="491" y="0" width="81" height="63"/>
-				<imageExpression><![CDATA["/home/karen/NetBeansProjects/siaps/src/Minsal/SiapsBundle/Resources/public/imagenes/Reporte-Salud.PNG"]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement uuid="c8e9d7c4-2df0-45a4-8ff0-063ba0e85e46" style="Heading 1" x="194" y="0" width="178" height="20"/>
-				<textElement/>
-				<text><![CDATA[Ministerio de Salud]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="42b27ec3-cd3a-4724-8a8e-50adf9874e3f" style="Heading 2" x="73" y="30" width="418" height="20"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Cartera de Servicios Brindados]]></text>
-			</staticText>
-		</band>
-	</title>
 	<columnHeader>
-		<band height="21">
+		<band height="91">
 			<textField>
-				<reportElement uuid="994a3d15-94ca-4205-a40f-a1180f24f494" style="Heading 3" x="0" y="0" width="572" height="20"/>
+				<reportElement uuid="994a3d15-94ca-4205-a40f-a1180f24f494" style="Heading 4" x="2" y="71" width="572" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{establecimiento}]]></textFieldExpression>
 			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4dace8fa-96b8-4b3f-a714-238d03855a51" x="0" y="0" width="73" height="63"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="28bff828-f416-4714-bfd4-7d2c494f9287" x="491" y="0" width="81" height="63"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c8e9d7c4-2df0-45a4-8ff0-063ba0e85e46" style="Heading 1" x="73" y="0" width="418" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[República de El Salvador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="42b27ec3-cd3a-4724-8a8e-50adf9874e3f" style="Heading 4" x="73" y="41" width="418" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cartera de Servicios Brindados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c8e9d7c4-2df0-45a4-8ff0-063ba0e85e46" style="Heading 3" x="73" y="20" width="418" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Sistema Nacional de Salud]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="80" splitType="Stretch">
 			<textField>
-				<reportElement uuid="21bfcb26-dc78-4b52-ab2b-7ae722413916" mode="Opaque" x="107" y="9" width="465" height="23" backcolor="#69B8E0"/>
+				<reportElement uuid="21bfcb26-dc78-4b52-ab2b-7ae722413916" mode="Opaque" x="107" y="9" width="465" height="23" backcolor="#CCCCCC"/>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{modalidad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="a44ae05b-b350-42f5-afea-1e84b3c356ad" mode="Opaque" x="2" y="9" width="105" height="23" backcolor="#69B8E0"/>
+				<reportElement uuid="a44ae05b-b350-42f5-afea-1e84b3c356ad" mode="Opaque" x="2" y="9" width="105" height="23" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -80,20 +86,24 @@ WHERE
 					<subreportParameterExpression><![CDATA[$F{modestab}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "carteraServicios_AreaAtencion.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "carteraServicios_AreaAtencion"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<textField>
-				<reportElement uuid="ab050cdd-1980-44aa-abb1-ea9a3da5e2d8" x="409" y="18" width="78" height="20"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" De"]]></textFieldExpression>
+				<reportElement uuid="ab050cdd-1980-44aa-abb1-ea9a3da5e2d8" x="449" y="3" width="78" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="b834a3e1-1d57-4802-abba-3a1f7ad5bb99" x="487" y="18" width="40" height="20"/>
-				<textElement/>
+				<reportElement uuid="b834a3e1-1d57-4802-abba-3a1f7ad5bb99" x="527" y="3" width="40" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>

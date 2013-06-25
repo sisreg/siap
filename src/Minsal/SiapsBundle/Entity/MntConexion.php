@@ -60,13 +60,6 @@ class MntConexion {
     /**
      * @var string
      *
-     * @ORM\Column(name="instacia", type="string", length=15, nullable=true)
-     */
-    private $instacia;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="base_de_datos", type="string", length=20, nullable=false)
      */
     private $baseDeDatos;
@@ -200,27 +193,6 @@ class MntConexion {
      */
     public function getPuerto() {
         return $this->puerto;
-    }
-
-    /**
-     * Set instacia
-     *
-     * @param string $instacia
-     * @return MntConexion
-     */
-    public function setInstacia($instacia) {
-        $this->instacia = $instacia;
-
-        return $this;
-    }
-
-    /**
-     * Get instacia
-     *
-     * @return string 
-     */
-    public function getInstacia() {
-        return $this->instacia;
     }
 
     /**
