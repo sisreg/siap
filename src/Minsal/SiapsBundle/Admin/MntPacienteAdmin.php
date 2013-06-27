@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Minsal\SiapsBundle\Entity\MntAuditoriaPaciente;
 
 class MntPacienteAdmin extends Admin {
 
@@ -19,78 +20,78 @@ class MntPacienteAdmin extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('primerApellido', null, array('attr' => array('class' => 'span5 limpiar'))) 
-                ->add('segundoApellido', null, array('attr' => array('class' => 'span5 limpiar'))) 
-                ->add('apellidoCasada', null, array('attr' => array('class' => 'span5 limpiar'))) 
-                ->add('primerNombre', null, array('attr' => array('class' => 'span5 limpiar'))) 
-                ->add('segundoNombre', null, array('attr' => array('class' => 'span5 limpiar'))) 
-                ->add('tercerNombre', null, array('attr' => array('class' => 'span5 limpiar'))) 
-                ->add('fechaNacimiento','date',array(
-                 'years' => range(date('Y') - 110, date('Y') + 5),
-                 'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
-                ->add('horaNacimiento','time',array('empty_value'=>array('hour'=>'Hora','minute'=>'Minutos'),'required' => false))
-                ->add('numeroDocIdePaciente',null,array('label'=>$this->getTranslator()->trans('numeroDocIdePaciente')))
-                ->add('direccion', null, array('required'=>true,'attr' => array('class' => 'span5 mayuscula'))) 
-                ->add('telefonoCasa',null, array('label'=>$this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
-                ->add('lugarTrabajo', null, array('attr' => array('class' => 'span5 mayuscula'))) 
-                ->add('telefonoTrabajo',null, array('label'=>$this->getTranslator()->trans('telefonotrabajo'),'attr' => array('class' => 'span5 telefono')))
-                ->add('idAreaCotizacion',null,array('empty_value' => 'Seleccione...',
-                    'label'=>$this->getTranslator()->trans('idAreaCotizacion'), 'attr' => array('class'=>'span5 deshabilitados')))
+                ->add('primerApellido', null, array('attr' => array('class' => 'span5 limpiar')))
+                ->add('segundoApellido', null, array('attr' => array('class' => 'span5 limpiar')))
+                ->add('apellidoCasada', null, array('attr' => array('class' => 'span5 limpiar')))
+                ->add('primerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
+                ->add('segundoNombre', null, array('attr' => array('class' => 'span5 limpiar')))
+                ->add('tercerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
+                ->add('fechaNacimiento', 'date', array(
+                    'years' => range(date('Y') - 110, date('Y') + 5),
+                    'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
+                ->add('horaNacimiento', 'time', array('empty_value' => array('hour' => 'Hora', 'minute' => 'Minutos'), 'required' => false))
+                ->add('numeroDocIdePaciente', null, array('label' => $this->getTranslator()->trans('numeroDocIdePaciente')))
+                ->add('direccion', null, array('required' => true, 'attr' => array('class' => 'span5 mayuscula')))
+                ->add('telefonoCasa', null, array('label' => $this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
+                ->add('lugarTrabajo', null, array('attr' => array('class' => 'span5 mayuscula')))
+                ->add('telefonoTrabajo', null, array('label' => $this->getTranslator()->trans('telefonotrabajo'), 'attr' => array('class' => 'span5 telefono')))
+                ->add('idAreaCotizacion', null, array('empty_value' => 'Seleccione...',
+                    'label' => $this->getTranslator()->trans('idAreaCotizacion'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('asegurado')
-                ->add('cotizante', null, array('attr'=>array('class'=>'span5 deshabilitados')))
-                ->add('numeroAfiliacion', null,array('attr'=>array('class'=>'span5 deshabilitados')))
-                ->add('nombrePadre', null, array('attr' => array('class' => 'span5 limpiar'))) 
-                ->add('nombreMadre',null,array('required'=>true,'attr' => array('class' => 'span5 limpiar')))
-                ->add('nombreConyuge', null, array('attr' => array('class' => 'span5 limpiar'))) 
-                ->add('nombreResponsable',null,array('required'=>true,'attr' => array('class' => 'span5 limpiar')))
-                ->add('direccionResponsable', null, array('attr' => array('class' => 'span5 mayuscula'))) 
-                ->add('telefonoResponsable',null, array('label'=>$this->getTranslator()->trans('telefonoResponsable'), 'attr' => array('class' => 'span5 telefono')))
-                ->add('numeroDocIdeResponsable',null, array('label'=>$this->getTranslator()->trans('numeroDocIdeResponsable')))
-                ->add('nombreProporcionoDatos',null, array('required'=>true,'label'=>$this->getTranslator()->trans('nombreProporcionoDatos'),'attr' => array('class' => 'span5 limpiar')))
-                ->add('numeroDocIdeProporDatos',null, array('label'=>$this->getTranslator()->trans('numeroDocIdeProporDatos')))
-                ->add('observacion', null, array('attr' => array('class' => 'span5 mayuscula'))) 
-                ->add('conocidoPor', null, array('attr' => array('class' => 'span5 limpiar'))) 
-                ->add('areaGeograficaDomicilio',null,array('empty_value' => 'Seleccione...'))
-                ->add('idCantonDomicilio',null, array('empty_value' => 'Seleccione...',
-                    'label'=>$this->getTranslator()->trans('idCantonDomicilio'),'attr'=>array('class'=>'span5 deshabilitados')))
-                ->add('idDepartamentoDomicilio',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idDepartamentoDomicilio')))
-                ->add('idDocPaciente',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idDocPaciente')))
-                ->add('idDocProporcionoDatos',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idDocProporcionoDatos')))
-                ->add('idDocResponsable',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idDocResponsable')))
-                ->add('idEstadoCivil',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idEstadoCivil')))
-                ->add('idMunicipioDomicilio',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idMunicipioDomicilio'),'attr'=>array('class'=>'span5 deshabilitados')))
-                ->add('idDepartamentoNacimiento',null, array('empty_value' => 'Seleccione...',
-                    'label'=>$this->getTranslator()->trans('idDepartamentoNacimiento'),'attr'=>array('class'=>'span5 deshabilitados')))
-                ->add('idMunicipioNacimiento',null, array('empty_value' => 'Seleccione...',
-                    'label'=>$this->getTranslator()->trans('idMunicipioNacimiento'),'attr'=>array('class'=>'span5 deshabilitados')))
-                ->add('idNacionalidad',null, array('empty_value' => 'Seleccione...',
-                    'label'=>$this->getTranslator()->trans('idNacionalidad')))
-                ->add('idOcupacion',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idOcupacion')))
-                ->add('idPaisNacimiento',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idPaisNacimiento')))
-                ->add('idParentescoResponsable',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idParentescoResponsable')))
-                ->add('idParentescoProporDatos',null, array('empty_value' => 'Seleccione...',
-                    'required'=>true,'label'=>$this->getTranslator()->trans('idParentescoProporDatos')))
-                ->add('idSexo',null,array('empty_value' => 'Seleccione...',
-                    'label'=>'Sexo'))
-                    ->add('expedientes', 'sonata_type_collection', array(
-                        'label' => 'Expedientes Clínicos',
-                        'required' => true), array(
-                        'edit' => 'inline',
-                        'inline' => 'table'
-                    ))
-                
+                ->add('cotizante', null, array('attr' => array('class' => 'span5 deshabilitados')))
+                ->add('numeroAfiliacion', null, array('attr' => array('class' => 'span5 deshabilitados')))
+                ->add('nombrePadre', null, array('attr' => array('class' => 'span5 limpiar')))
+                ->add('nombreMadre', null, array('required' => true, 'attr' => array('class' => 'span5 limpiar')))
+                ->add('nombreConyuge', null, array('attr' => array('class' => 'span5 limpiar')))
+                ->add('nombreResponsable', null, array('required' => true, 'attr' => array('class' => 'span5 limpiar')))
+                ->add('direccionResponsable', null, array('attr' => array('class' => 'span5 mayuscula')))
+                ->add('telefonoResponsable', null, array('label' => $this->getTranslator()->trans('telefonoResponsable'), 'attr' => array('class' => 'span5 telefono')))
+                ->add('numeroDocIdeResponsable', null, array('label' => $this->getTranslator()->trans('numeroDocIdeResponsable')))
+                ->add('nombreProporcionoDatos', null, array('required' => true, 'label' => $this->getTranslator()->trans('nombreProporcionoDatos'), 'attr' => array('class' => 'span5 limpiar')))
+                ->add('numeroDocIdeProporDatos', null, array('label' => $this->getTranslator()->trans('numeroDocIdeProporDatos')))
+                ->add('observacion', null, array('attr' => array('class' => 'span5 mayuscula')))
+                ->add('conocidoPor', null, array('attr' => array('class' => 'span5 limpiar')))
+                ->add('areaGeograficaDomicilio', null, array('empty_value' => 'Seleccione...'))
+                ->add('idCantonDomicilio', null, array('empty_value' => 'Seleccione...',
+                    'label' => $this->getTranslator()->trans('idCantonDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idDepartamentoDomicilio', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idDepartamentoDomicilio')))
+                ->add('idDocPaciente', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idDocPaciente')))
+                ->add('idDocProporcionoDatos', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idDocProporcionoDatos')))
+                ->add('idDocResponsable', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idDocResponsable')))
+                ->add('idEstadoCivil', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idEstadoCivil')))
+                ->add('idMunicipioDomicilio', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idMunicipioDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idDepartamentoNacimiento', null, array('empty_value' => 'Seleccione...',
+                    'label' => $this->getTranslator()->trans('idDepartamentoNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idMunicipioNacimiento', null, array('empty_value' => 'Seleccione...',
+                    'label' => $this->getTranslator()->trans('idMunicipioNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idNacionalidad', null, array('empty_value' => 'Seleccione...',
+                    'label' => $this->getTranslator()->trans('idNacionalidad')))
+                ->add('idOcupacion', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idOcupacion')))
+                ->add('idPaisNacimiento', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento')))
+                ->add('idParentescoResponsable', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
+                ->add('idParentescoProporDatos', null, array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idParentescoProporDatos')))
+                ->add('idSexo', null, array('empty_value' => 'Seleccione...',
+                    'label' => 'Sexo'))
+                ->add('expedientes', 'sonata_type_collection', array(
+                    'label' => 'Expedientes Clínicos',
+                    'required' => true), array(
+                    'edit' => 'inline',
+                    'inline' => 'table'
+                ))
+
         ;
     }
-    
+
     public function getTemplate($name) {
         switch ($name) {
             case 'list':
@@ -106,81 +107,173 @@ class MntPacienteAdmin extends Admin {
                 break;
         }
     }
-    
-    
+
     public function prePersist($paciente) {
-        foreach( $paciente->getExpedientes() as $expediente ){
+        foreach ($paciente->getExpedientes() as $expediente) {
             $expediente->setIdPaciente($paciente);
         }
-         $establecimiento = $this->getModelManager()
-                    ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));         
-         $expediente->setIdEstablecimiento($establecimiento);
-         $fecha_actual = new \DateTime();
-         $paciente->setFechaRegistro($fecha_actual);
-         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
-         $paciente->setIdUser($user);
+        $establecimiento = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+        $expediente->setIdEstablecimiento($establecimiento);
+        $fecha_actual = new \DateTime();
+        $paciente->setFechaRegistro($fecha_actual);
+        $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        $paciente->setIdUser($user);
     }
-    
+
     public function preUpdate($paciente) {
-         $pacienteActual = $this->getModelManager()
-                    ->findOneBy('MinsalSiapsBundle:MntPaciente', array('id' =>$paciente->getId())); 
-         
-    }
         
+        $pacienteBase = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:MntPaciente', array('id' => $paciente->getId()));
+        
+        $auditoria = new MntAuditoriaPaciente();
+
+        $cambio = TRUE;
+        
+       // if ($paciente->getPrimerNombre() != $pacienteBase->getPrimerNombre()) {
+            
+            $auditoria->setPrimerNombre($paciente->getPrimerNombre());
+       //     $cambio = TRUE;
+     //   }
+       // if ($paciente->getSegundoNombre() != $pacienteBase->getSegundoNombre()) {
+            $auditoria->setSegundoNombre($paciente->getSegundoNombre());
+      //      $cambio = TRUE;
+      //  }
+       // if ($paciente->getTercerNombre() != $pacienteBase->getTercerNombre()) {
+            $auditoria->setTercerNombre($paciente->getTercerNombre());
+      //      $cambio = TRUE;
+      //  }
+      //  if ($paciente->getPrimerApellido() != $pacienteBase->getPrimerApellido()) {
+            $auditoria->setPrimerApellido($paciente->getPrimerApellido());
+      //      $cambio = TRUE;
+      //  }
+       // if ($paciente->getSegundoApellido() != $pacienteBase->getSegundoApellido()) {
+            $auditoria->setSegundoApellido($paciente->getSegundoApellido());
+       //     $cambio = TRUE;
+       // }
+       // if ($paciente->getApellidoCasada() != $pacienteBase->getApellidoCasada()) {
+            //var_dump($pacienteBase); exit;
+            $auditoria->setApellidoCasada($paciente->getApellidoCasada());
+      //      $cambio = TRUE;
+      //  }
+      //  if ($paciente->getFechaNacimiento() != $pacienteBase->getFechaNacimiento()) {
+            $auditoria->setFechaNacimiento($paciente->getFechaNacimiento());
+      //      $cambio = TRUE;
+     //   }
+      //  if ($paciente->getHoraNacimiento() != $pacienteBase->getHoraNacimiento()) {
+            $auditoria->setHoraNacimiento($paciente->getHoraNacimiento());
+       //     $cambio = TRUE;
+       // }
+      //  if ($paciente->getDireccion() != $pacienteBase->getDireccion()) {
+            $auditoria->setDireccion($paciente->getDireccion());
+       //     $cambio = TRUE;
+       // }
+      //  if ($paciente->getNombrePadre() != $pacienteBase->getNombrePadre()) {
+            $auditoria->setNombrePadre($paciente->getNombrePadre());
+       //     $cambio = TRUE;
+      //  }
+       // if ($paciente->getNombreMadre() != $pacienteBase->getNombreMadre()) {
+            $auditoria->setNombreMadre($paciente->getNombreMadre());
+      //      $cambio = TRUE;
+       // }
+      //  if ($paciente->getNombreResponsable() != $pacienteBase->getNombreResponsable()) {
+            $auditoria->setNombreResponsable($paciente->getNombreResponsable());
+      //      $cambio = TRUE;
+       // }
+       // if ($paciente->getObservacion() != $pacienteBase->getObservacion()) {
+            $auditoria->setObservacion($paciente->getObservacion());
+     //       $cambio = TRUE;
+     //   }
+      //  if ($paciente->getDireccion() != $pacienteBase->getDireccion()) {
+            $auditoria->setDireccion($paciente->getDireccion());
+     //       $cambio = TRUE;
+      //  }
+     //   if ($paciente->getIdDepartamentoDomicilio() != $pacienteBase->getIdDepartamentoDomicilio()) {
+            $auditoria->setIdDepartamentoDomicilio($paciente->getIdDepartamentoDomicilio());
+      //      $cambio = TRUE;
+     //   }
+     //   if ($paciente->getIdMunicipioDomicilio() != $pacienteBase->getIdMunicipioDomicilio()) {
+            $auditoria->setIdMunicipioDomicilio($paciente->getIdMunicipioDomicilio());
+    //        $cambio = TRUE;
+    ////    }
+    //    if ($paciente->getIdCantonDomicilio() != $pacienteBase->getIdCantonDomicilio()) {
+            $auditoria->setIdCantonDomicilio($paciente->getIdCantonDomicilio());
+     //       $cambio = TRUE;
+     //   }
+     //   if ($paciente->getAreaGeograficaDomicilio() != $pacienteBase->getAreaGeograficaDomicilio()) {
+            $auditoria->setAreaGeograficaDomicilio($paciente->getAreaGeograficaDomicilio());
+     //       $cambio = TRUE;
+     //   }
+      //  if ($paciente->getIdSexo() != $pacienteBase->getIdSexo()) {
+            $auditoria->setIdSexo($paciente->getIdSexo());
+    //        $cambio = TRUE;
+     //   }
+        if ($cambio == TRUE) {
+            
+            $establecimiento = $this->getModelManager()
+                    ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+           // var_dump($establecimiento);exit;
+            $auditoria->setIdEstablecimiento($establecimiento);
+            $fecha_actual = new \DateTime();
+            $auditoria->setFechaModificacion($fecha_actual);
+            $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+            $auditoria->setIdUser($user);
+            $auditoria->setIdPaciente($paciente);
+            $em=$this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
+            $em=persist($auditoria);
+        }
+
+    }
+
     public function validate(ErrorElement $errorElement, $object) {
-       //Verificando que haya ingresado número de expediente
-       if (count($object->getExpedientes()) == 0){
+        //Verificando que haya ingresado número de expediente
+        if (count($object->getExpedientes()) == 0) {
             $errorElement->with('expedientes')
                     ->addViolation('Debe agregar un número de expediente')
                     ->end();
-        }
-        elseif(count($object->getExpedientes()) > 1){
+        } elseif (count($object->getExpedientes()) > 1) {
             $errorElement->with('expedientes')
                     ->addViolation('No puede agregar más de un número de expediente')
                     ->end();
-        }
-        else{
-             $establecimiento = $this->getModelManager()
+        } else {
+            $establecimiento = $this->getModelManager()
                     ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
-             $formatoExpediente=$establecimiento->getTipoExpediente();
-             if($formatoExpediente=='G'){
-             foreach ($object->getExpedientes() as $expediente) {
-                 if(preg_match('/[\d]{1,}-[\d]{2}/', $expediente->getNumero()) == 0){
-                     $errorElement->with('numero')
-                      ->addViolation('El formato del número de expediente es incorrecto')
-                      ->end();
-                 }
-             }
-             }
-            else{
-                 foreach ($object->getExpedientes() as $expediente) {
-                    if(preg_match('/[0-9]{1,}/', $expediente->getNumero()) == 0){
-                        $errorElement->with('numeroDocIdePaciente')
-                         ->addViolation('El formato del número de DUI es incorrecto')
-                         ->end();
+            $formatoExpediente = $establecimiento->getTipoExpediente();
+            if ($formatoExpediente == 'G') {
+                foreach ($object->getExpedientes() as $expediente) {
+                    if (preg_match('/[\d]{1,}-[\d]{2}/', $expediente->getNumero()) == 0) {
+                        $errorElement->with('numero')
+                                ->addViolation('El formato del número de expediente es incorrecto')
+                                ->end();
                     }
-             }
-             }
+                }
+            } else {
+                foreach ($object->getExpedientes() as $expediente) {
+                    if (preg_match('/[0-9]{1,}/', $expediente->getNumero()) == 0) {
+                        $errorElement->with('numeroDocIdePaciente')
+                                ->addViolation('El formato del número de DUI es incorrecto')
+                                ->end();
+                    }
+                }
+            }
         }
         //Verificando los formatos de acuerdo el documento seleccionado
-        if ($object->getIdDocPaciente() == 'DUI'){
-              $numero_doc = $object->getNumeroDocIdePaciente();
-              if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
-                $errorElement->with('numeroDocIdePaciente')
-                      ->addViolation('El formato del número de DUI es incorrecto')
-                      ->end();
-              }
-        }
-        elseif($object->getIdDocPaciente() == 'NIT'){
+        if ($object->getIdDocPaciente() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdePaciente();
-              if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
+            if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdePaciente')
-                      ->addViolation('El formato del número de NIT es incorrecto')
-                      ->end();
-              }
-        }
-        else{
-            if($object->getIdDocPaciente() == 'Carné ISSS'){
+                        ->addViolation('El formato del número de DUI es incorrecto')
+                        ->end();
+            }
+        } elseif ($object->getIdDocPaciente() == 'NIT') {
+            $numero_doc = $object->getNumeroDocIdePaciente();
+            if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
+                $errorElement->with('numeroDocIdePaciente')
+                        ->addViolation('El formato del número de NIT es incorrecto')
+                        ->end();
+            }
+        } else {
+            if ($object->getIdDocPaciente() == 'Carné ISSS') {
                 $numero_doc = $object->getNumeroDocIdePaciente();
                 if (preg_match('/[0-9]{9}/', $numero_doc) == 0) {
                     $errorElement->with('numeroDocIdePaciente')
@@ -189,25 +282,23 @@ class MntPacienteAdmin extends Admin {
                 }
             }
         }
-      //Validando número de documento para el responsable  
-        if ($object->getIdDocResponsable() == 'DUI'){
-              $numero_doc = $object->getNumeroDocIdeResponsable();
-              if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
-                $errorElement->with('numeroDocIdeResponsable')
-                      ->addViolation('El formato del número de DUI es incorrecto')
-                      ->end();
-              }
-        }
-        elseif($object->getIdDocResponsable() == 'NIT'){
+        //Validando número de documento para el responsable  
+        if ($object->getIdDocResponsable() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdeResponsable();
-              if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
+            if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdeResponsable')
-                      ->addViolation('El formato del número de NIT es incorrecto')
-                      ->end();
-              }
-        }
-        else{
-            if($object->getIdDocResponsable() == 'Carné ISSS'){
+                        ->addViolation('El formato del número de DUI es incorrecto')
+                        ->end();
+            }
+        } elseif ($object->getIdDocResponsable() == 'NIT') {
+            $numero_doc = $object->getNumeroDocIdeResponsable();
+            if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
+                $errorElement->with('numeroDocIdeResponsable')
+                        ->addViolation('El formato del número de NIT es incorrecto')
+                        ->end();
+            }
+        } else {
+            if ($object->getIdDocResponsable() == 'Carné ISSS') {
                 $numero_doc = $object->getNumeroDocIdeResponsable();
                 if (preg_match('/[0-9]{9}/', $numero_doc) == 0) {
                     $errorElement->with('numeroDocIdeResponsable')
@@ -217,24 +308,22 @@ class MntPacienteAdmin extends Admin {
             }
         }
         //Validando número de documento para la persona que proporcionó datos
-        if ($object->getIdDocProporcionoDatos() == 'DUI'){
-              $numero_doc = $object->getNumeroDocIdeProporDatos();
-              if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
-                $errorElement->with('numeroDocIdeProporDatos')
-                      ->addViolation('El formato del número de DUI es incorrecto')
-                      ->end();
-              }
-        }
-        elseif($object->getIdDocProporcionoDatos() == 'NIT'){
+        if ($object->getIdDocProporcionoDatos() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdeProporDatos();
-              if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
+            if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdeProporDatos')
-                      ->addViolation('El formato del número de NIT es incorrecto')
-                      ->end();
-              }
-        }
-        else{
-            if($object->getIdDocProporcionoDatos() == 'Carné ISSS'){
+                        ->addViolation('El formato del número de DUI es incorrecto')
+                        ->end();
+            }
+        } elseif ($object->getIdDocProporcionoDatos() == 'NIT') {
+            $numero_doc = $object->getNumeroDocIdeProporDatos();
+            if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
+                $errorElement->with('numeroDocIdeProporDatos')
+                        ->addViolation('El formato del número de NIT es incorrecto')
+                        ->end();
+            }
+        } else {
+            if ($object->getIdDocProporcionoDatos() == 'Carné ISSS') {
                 $numero_doc = $object->getNumeroDocIdeProporDatos();
                 if (preg_match('/[0-9]{9}/', $numero_doc) == 0) {
                     $errorElement->with('numeroDocIdeProporDatos')
@@ -243,12 +332,12 @@ class MntPacienteAdmin extends Admin {
                 }
             }
         }
-        
     }
-    
+
     protected function configureRoutes(RouteCollection $collection) {
-        $collection->add('view',$this->getRouterIdParameter().'/view');
+        $collection->add('view', $this->getRouterIdParameter() . '/view');
     }
+
 }
 
 ?>
