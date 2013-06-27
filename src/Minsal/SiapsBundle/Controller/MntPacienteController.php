@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Minsal\Metodos\Funciones;
+use Doctrine\DBAL as DBAL;
 
 class MntPacienteController extends Controller {
 
@@ -15,7 +17,15 @@ class MntPacienteController extends Controller {
      */
     public function buscarPacienteAction() {
 
-        return $this->render('MinsalSiapsBundle:MntPacienteAdmin:resultado_busqueda.html.twig', array());
+        return $this->render('MinsalSiapsBundle:MntPacienteAdmin:resultado_busqueda.html.twig', array('tipo_busqueda' => 'l'));
+    }
+
+    /**
+     * @Route("/buscar/paciente/global", name="buscar_paciente_global", options={"expose"=true})
+     */
+    public function buscarPacienteGlobalAction() {
+
+        return $this->render('MinsalSiapsBundle:MntPacienteAdmin:resultado_busqueda.html.twig', array('tipo_busqueda' => 'g'));
     }
 
     /**
@@ -34,14 +44,22 @@ class MntPacienteController extends Controller {
         $conocidoPor = $request->get('conocido_por');
         $nec = $request->get('nec');
         $dui = $request->get('dui');
+        $tipo_busqueda = $request->get('tipo_busqueda');
 
         //INICIALIZANDO VARIABLE DOCTRINE
         $em = $this->getDoctrine()->getEntityManager();
         $conn = $em->getConnection();
         //CONSTANTES
-        $sql = "SELECT * 
-                FROM mnt_paciente A, mnt_expediente B
-                WHERE B.id_paciente=A.id AND B.habilitado= TRUE
+        if (strcmp($tipo_busqueda, 'l') == 0)
+            $sql = "SELECT * 
+                FROM mnt_paciente A, mnt_expediente B, ctl_documento_identidad C
+                WHERE B.id_paciente=A.id AND B.habilitado= TRUE AND C.id=A.id_doc_ide_paciente
+                    AND A.primer_nombre::text ~* '$primerNombre' 
+                    AND A.primer_apellido::text ~* '$primerApellido'";
+        else
+            $sql = "SELECT * 
+                FROM mnt_paciente A, ctl_documento_identidad C
+                WHERE C.id=A.id_doc_ide_paciente
                     AND A.primer_nombre::text ~* '$primerNombre' 
                     AND A.primer_apellido::text ~* '$primerApellido'";
         //VARIABLES
@@ -54,7 +72,7 @@ class MntPacienteController extends Controller {
         if ($nombreMadre != '')
             $nombreMadre = " AND A.nombre_madre::text ~* '$nombreMadre'";
         if ($conocidoPor != '')
-            $conocidoPor = " AND A.conocido_por::text ~* '$conocidoPor'";
+            $conocidoPor = " OR A.conocido_por::text ~* '$conocidoPor'";
         if ($fechaNacimiento != '')
             $fechaNacimiento = " AND A.fecha_nacimiento='$fechaNacimiento'";
         if ($nec != '')
@@ -62,28 +80,43 @@ class MntPacienteController extends Controller {
         if ($dui != '')
             $dui = " AND A.numero_doc_ide_paciente::text ~*'$dui'";
 
-        $sql.=$segundoNombre . $tercerNombre . $segundoApellido . $nombreMadre . $conocidoPor . $fechaNacimiento .$nec.$dui. " ORDER BY A.primer_Apellido";
-        
-        $query = $conn->query($sql);
+        $sql.=$segundoNombre . $tercerNombre . $segundoApellido . $nombreMadre . $conocidoPor . $fechaNacimiento . $nec . $dui . " ORDER BY A.primer_Apellido";
+        if (strcmp($tipo_busqueda, 'l') == 0)
+            $query = $conn->query($sql);
+        else {
+            //AHORITA LE HE PUESTO EL NUMERO 1 PORQUE ES EL UNICO VALOR QUE TENGO AQUI SE DEBE DETERMINAR 
+            //A QUE SERVIDOR REGIONAL SE DEBE DE CONECTAR
+            $conexion = $em->getRepository('MinsalSiapsBundle:MntConexion')->find(1);
+            $conn = $em->getRepository('MinsalSiapsBundle:MntConexion')->getConexionGenerica($conexion);
+            $query = $conn->query($sql);
+        }
+
         $numfilas = count($query->rowCount());
         $i = 0;
         $rows = array();
         if ($numfilas > 0) {
             foreach ($query->fetchAll() as $aux) {
-                $rows[$i]['id'] = $aux['id'];
-            $rows[$i]['cell'] = array($aux['id'],
-                $aux['numero'],
-                $aux['primer_apellido'] . ' ' . $aux['segundo_apellido']  . ' ' . $aux['apellido_casada'] ,
-                $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
-                date('d-m-Y', strtotime($aux['fecha_nacimiento'])), //->format('d-m-Y'),//$aux->getFechaNacimiento()->format('d-m-Y'),
-                $aux['numero_doc_ide_paciente'],//$aux->getNumeroDocIdePaciente(),
-                $aux['nombre_madre'],//$aux->getNombreMadre(),
-                $aux['conocido_por']//$aux->getConocidoPor()
-            );
-            $i++;
-            }   
+                if (strcmp($tipo_busqueda, 'l') == 0) {
+                    $numero = $aux['numero'];
+                    $id = $aux['id'];
+                } else {
+                    $numero = '';
+                    $id = $aux['id_paciente_inicial'];
+                }
+                $rows[$i]['id'] = $id;
+                $rows[$i]['cell'] = array($id,
+                    $numero,
+                    $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
+                    $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
+                    date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
+                    substr($aux['nombre'], 0, 4) . ":" . $aux['numero_doc_ide_paciente'],
+                    $aux['nombre_madre'],
+                    $aux['conocido_por']
+                );
+                $i++;
+            }
         }
-        
+
         $datos = json_encode($rows);
         $pages = floor($numfilas / 10) + 1;
 
@@ -155,27 +188,14 @@ class MntPacienteController extends Controller {
      * @Method("GET")
      */
     public function edad_paciente() {
-
         $request = $this->getRequest();
         $fecha_nacimiento = $request->get('fecha_nacimiento');
         $fecha_actual = getdate();
-        $fecha_actual = $fecha_actual['mday'].'-'. $fecha_actual['mon'].'-'.$fecha_actual['year'];
+        $fecha_actual = $fecha_actual['mday'] . '-' . $fecha_actual['mon'] . '-' . $fecha_actual['year'];
         $em = $this->getDoctrine()->getEntityManager();
         $conn = $em->getConnection();
-        $sql = "SELECT age('$fecha_actual','$fecha_nacimiento')";
-        $query = $conn->query($sql);
-        if ($query->rowCount() > 0) {
-            $edad = $query->fetch();
-            $edad = $edad['age'];
-            $edad = ereg_replace('years', 'años,', $edad);
-            $edad = ereg_replace('year', 'año,', $edad);
-            $edad = ereg_replace('mons', 'meses,', $edad);
-            $edad = ereg_replace('mon', 'mes,', $edad);
-            $edad = ereg_replace('days', 'días,', $edad);
-            $edad = ereg_replace('day', 'día,', $edad);
-            $edad = ereg_replace('[,]$', '', $edad);
-            $datos['edad'] = $edad;
-        }
+        $calcular = new Funciones();
+        $datos['edad'] = $calcular->calcularEdad($conn, $fecha_nacimiento);
 
         return new Response(json_encode($datos));
     }

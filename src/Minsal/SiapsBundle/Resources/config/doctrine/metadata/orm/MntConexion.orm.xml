@@ -4,12 +4,11 @@
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
-    <field name="nombre" type="string" column="nombre" length="30" nullable="false"/>
+    <field name="nombre" type="string" column="nombre" length="50" nullable="false"/>
     <field name="host" type="string" column="host" length="20" nullable="false"/>
     <field name="usuario" type="string" column="usuario" length="15" nullable="false"/>
     <field name="contrasenia" type="string" column="contrasenia" length="150" nullable="false"/>
-    <field name="puerto" type="string" column="puerto" nullable="false"/>
-    <field name="instacia" type="string" column="instacia" length="15" nullable="true"/>
+    <field name="puerto" type="integer" column="puerto" nullable="false"/>
     <field name="baseDeDatos" type="string" column="base_de_datos" length="20" nullable="false"/>
     <field name="gestorBase" type="string" column="gestor_base" length="10" nullable="false"/>
     <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">

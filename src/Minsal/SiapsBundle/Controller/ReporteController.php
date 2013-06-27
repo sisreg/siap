@@ -18,7 +18,7 @@ class ReporteController extends Controller {
         $jasper_url = JASPER_URL;
         $jasper_username = JASPER_USER;
         $jasper_password = JASPER_PASSWORD;
-        $report_unit = "/reports/siaps/" . $report_name;
+        $report_unit = "/reports/siaps/cartera/" . $report_name;
         $report_params = array();
 
         $client = new JasperClient($jasper_url, $jasper_username, $jasper_password);          

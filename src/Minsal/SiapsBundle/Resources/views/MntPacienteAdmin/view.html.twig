@@ -4,58 +4,58 @@
     {{parent()}}
 <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntPacienteAdmin/view.css') }}" type="text/css" media="all" />  
 {%endblock%}
-
+{%block javascripts %}
+    {{parent()}}
+<script src="{{ asset('bundles/minsalsiaps/js/MntPacienteAdmin/view.js') }}" type="text/javascript"></script>
+{%endblock%}
 {% block sonata_admin_content -%}
     <table class="vista_paciente" border="0" width="80%" align='center'>
         <tr class="titulo_vista">
             <td colspan="4">Identificación del Paciente</td>
         </tr>
-        <tr class="dat_paciente_content">
-                  {% for valor in datos %}
+        <tr class="dat_paciente_content">               
             <td width='25%'><label>Número Expediente:</label></td>
             <td width='25%'>
-                    {% for expediente in valor.expedientes %}
+                    {% for expediente in datos.expedientes %}
                             {{expediente.numero}}
                     {%endfor%}
             </td>
             <td colspan="2"><label>Nombre:</label> 
-                     {{valor.primerApellido}} {{valor.segundoApellido}} {{valor.apellidoCasada}}, {{valor.primerNombre}} {{valor.segundoNombre}} {{valor.tercerNombre}}   
+                     {{datos.primerApellido}} {{datos.segundoApellido}} {{datos.apellidoCasada}}, {{datos.primerNombre}} {{datos.segundoNombre}} {{datos.tercerNombre}}   
             </td>
         </tr>
         <tr class="dat_paciente_content">
-            <td><label>Edad:</label></td><td>{{valor.fechaNacimiento|date("m/d/Y")}}</td>
-            <td><label>Sexo:</label></td><td>{{valor.idSexo}}</td>
+            <td><label>Edad:</label></td><td>{{edad}}</td>
+            <td><label>Sexo:</label></td><td>{{datos.idSexo}}</td>
         </tr>
         <tr class="dat_paciente_content">
-            <td><label>Fecha Nacimiento:</label></td><td>{{valor.fechaNacimiento|date("m/d/Y")}} </td>
-            <td><label>Lugar Nacimiento:</label></td><td>{{valor.idDepartamentoDomicilio}}, {{valor.idMunicipioDomicilio}}</td>
+            <td><label>Fecha Nacimiento:</label></td><td>{{datos.fechaNacimiento|date("m/d/Y")}} </td>
+            <td><label>Lugar Nacimiento:</label></td><td>{{datos.idDepartamentoDomicilio}}, {{datos.idMunicipioDomicilio}}</td>
         </tr>
         <tr class="dat_paciente_content">
-            <td><label>Dirección:</label></td><td colspan="3">{{valor.direccion}} </td>
+            <td><label>Dirección:</label></td><td colspan="3">{{datos.direccion}} </td>
         </tr>
         <tr class="dat_paciente_content">
-            <td><label>Nombre Padre:</label></td><td>{{valor.nombrePadre}}</td>
-            <td><label>Nombre Madre:</label></td><td>{{valor.nombreMadre}}</td>
+            <td><label>Nombre Padre:</label></td><td>{{datos.nombrePadre}}</td>
+            <td><label>Nombre Madre:</label></td><td>{{datos.nombreMadre}}</td>
         </tr>
         <tr class="dat_paciente_content">
-            <td><label>Nombre Responsable:</label></td><td>{{valor.nombreResponsable}}</td>
-            <td><label>Dirección Responsable:</label></td><td>{{valor.direccionResponsable}}</td>
+            <td><label>Nombre Responsable:</label></td><td>{{datos.nombreResponsable}}</td>
+            <td><label>Dirección Responsable:</label></td><td>{{datos.direccionResponsable}}</td>
         </tr>
         <tr class="dat_paciente_content">
-            <td><label>Fecha Elaboración:</label></td><td>{{valor.fechaRegistro|date("m/d/Y")}}</td>
-            <td><label>Elaboró :</label></td><td>{{valor.idUser}}</td>
+            <td><label>Fecha Elaboración:</label></td><td>{{datos.fechaRegistro|date("m/d/Y")}}</td>
+            <td><label>Elaboró :</label></td><td>{{datos.idUser}}</td>
         </tr>
         <tr class="dat_paciente_content">
             <td><label>Fecha Modificación:</label></td><td></td>
             <td><label>Modificó:</label></td><td></td>
-        </tr>
-        {%endfor%}
+        </tr>        
     </table>
-
     <div class="well form-actions" width="80%">
-        <input type="submit" class="btn btn-primary" name="" value="Imprimir Hoja"/>
-        <input type="submit" class="btn" name="" value="Asignar Consulta"/>
-        <input type="submit" class="btn" name="" value="Buscar otro Paciente"/>
-        <input type="submit" class="btn" name="" value="Editar Datos"/>
+        <a class="btn btn-primary" href="" >Imprimir Hoja</a>
+        <a class="btn" href="" >Asignar Consulta</a>
+        <a class="btn" href="{{ admin.generateUrl('list') }}">Buscar otro Paciente</a>
+        <a class="btn" href="{{ admin.generateUrl('edit',{'id':datos.getId}) }}" >Editar Datos</a>
     </div>
 {%endblock%}

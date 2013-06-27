@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Doctrine\ORM\EntityRepository;
+use Minsal\Metodos\Funciones;
 
 class MntConexionAdmin extends Admin {
 
@@ -20,7 +21,7 @@ class MntConexionAdmin extends Admin {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
                 ->add('nombre', null, array('label' => 'Nombre de la conexión'))
-                ->add('idEstablecimiento', null, array('label' => $this->getTranslator()->trans('establecimiento')))
+                ->add('idEstablecimiento', null, array('label' => 'Regional'))
         ;
     }
 
@@ -30,8 +31,9 @@ class MntConexionAdmin extends Admin {
                 ->add('idEstablecimiento.nombre', 'text', array('label' => $this->getTranslator()->trans('establecimiento')))
                 ->add('host')
                 ->add('usuario')
-                ->add('gestorBase')
+                ->add('gestorBase')                
                 ->add('_action', 'actions', array(
+                    'label' => $this->getTranslator()->trans('Action'),
                     'actions' => array(
                         'edit' => array()
                     )
@@ -42,8 +44,8 @@ class MntConexionAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
                 ->add('nombre', 'text', array('required' => true, 'label' => 'Nombre de la conexión'))
-                ->add('host', 'text', array('required' => true, 'label' => 'Nombre del Host o IP'))
-                ->add('usuario', 'text', array('required' => true, 'label' => 'Usuario de la base de datos'))
+                ->add('host', 'text', array('required' => true, 'label' => 'Nombre del Host o IP', 'max_length' => 50))
+                ->add('usuario', 'text', array('required' => true, 'label' => 'Usuario de la base de datos', 'max_length' => 15))
                 ->add('contrasenia', 'repeated', array(
                     'required' => true,
                     'type' => 'password',
@@ -51,8 +53,8 @@ class MntConexionAdmin extends Admin {
                     'second_options' => array('label' => 'Confirmación de contraseña'),
                     'invalid_message' => 'Las contraseñas deben coincidir, vuelva a digitarla',
                 ))
-                ->add('puerto', 'text', array('required' => true, 'label' => 'Puerto'))
-                ->add('baseDeDatos', null, array('required' => true, 'label' => 'Nombre de la base de datos'))
+                ->add('puerto', 'number', array('required' => true, 'label' => 'Puerto'))
+                ->add('baseDeDatos', null, array('required' => true, 'label' => 'Nombre de la base de datos', 'max_length' => 20))
                 ->add('idEstablecimiento', 'entity', array('label' => $this->getTranslator()->trans('establecimiento'),
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function(EntityRepository $repositorio) {
@@ -64,7 +66,6 @@ class MntConexionAdmin extends Admin {
     }
 
     public function validate(ErrorElement $errorElement, $object) {
-         //Verificando los formatos de acuerdo el documento seleccionado
         
     }
 
@@ -77,6 +78,16 @@ class MntConexionAdmin extends Admin {
                 return parent::getTemplate($name);
                 break;
         }
+    }
+
+    public function preUpdate($conexion) {
+        $encripta=new Funciones();
+        $conexion=$conexion->setContrasenia($encripta->encriptarClave($conexion->getContrasenia()));
+    }
+    
+    public function prePersist($conexion) {
+        $encripta=new Funciones();
+        $conexion=$conexion->setContrasenia($encripta->encriptarClave($conexion->getContrasenia()));
     }
 
 }

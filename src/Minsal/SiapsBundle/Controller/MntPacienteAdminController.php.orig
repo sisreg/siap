@@ -46,9 +46,14 @@ class MntPacienteAdminController extends Controller {
             $url = $this->admin->generateUrl('create', $params);
         }
         if (!$url) {
+<<<<<<< HEAD
           $params = array();
           $params['id'] = $object->getId();
           $url = $this->admin->generateUrl('view', $params);
+=======
+            $params['id'] = $this->get('request')->get('id');
+            $url = $this->admin->generateUrl('view', $object->get('id'));
+>>>>>>> 71d855f4564680c16bca071ca9fdb8fed8fda2a2
         }
 
         return new RedirectResponse($url);

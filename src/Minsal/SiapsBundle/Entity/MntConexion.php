@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * MntConexion
  *
  * @ORM\Table(name="mnt_conexion")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\MntConexionRepository")
  */
 class MntConexion {
 
@@ -56,13 +56,6 @@ class MntConexion {
      * @ORM\Column(name="puerto", type="string", nullable=false)
      */
     private $puerto;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="instacia", type="string", length=15, nullable=true)
-     */
-    private $instacia;
 
     /**
      * @var string
@@ -200,27 +193,6 @@ class MntConexion {
      */
     public function getPuerto() {
         return $this->puerto;
-    }
-
-    /**
-     * Set instacia
-     *
-     * @param string $instacia
-     * @return MntConexion
-     */
-    public function setInstacia($instacia) {
-        $this->instacia = $instacia;
-
-        return $this;
-    }
-
-    /**
-     * Get instacia
-     *
-     * @return string 
-     */
-    public function getInstacia() {
-        return $this->instacia;
     }
 
     /**
