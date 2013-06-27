@@ -12,7 +12,6 @@
     <field name="apellidoCasada" type="string" column="apellido_casada" length="25" nullable="true"/>
     <field name="fechaNacimiento" type="date" column="fecha_nacimiento" nullable="false"/>
     <field name="horaNacimiento" type="time" column="hora_nacimiento" nullable="true"/>
-    <field name="idDepartamentoNacimiento" type="integer" column="id_departamento_nacimiento" nullable="true"/>
     <field name="numeroDocIdePaciente" type="string" column="numero_doc_ide_paciente" length="20" nullable="true"/>
     <field name="direccion" type="string" column="direccion" length="100" nullable="false"/>
     <field name="telefonoCasa" type="string" column="telefono_casa" length="10" nullable="true"/>
@@ -36,9 +35,10 @@
     <field name="estado" type="integer" column="estado" nullable="false"/>
     <field name="dispensarizacionIndividual" type="integer" column="dispensarizacion_individual" nullable="true"/>
     <field name="idPacienteInicial" type="bigint" column="id_paciente_inicial" nullable="true"/>
-    <many-to-one field="idAreaCotizacion" target-entity="CtlAreaCotizante">
+    <field name="fechaRegistro" type="date" column="fecha_registro" nullable="true"/>
+    <many-to-one field="idOcupacion" target-entity="CtlOcupacion">
       <join-columns>
-        <join-column name="id_area_cotizacion" referenced-column-name="id"/>
+        <join-column name="id_ocupacion" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="idNacionalidad" target-entity="CtlNacionalidad">
@@ -46,14 +46,24 @@
         <join-column name="id_nacionalidad" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idOcupacion" target-entity="CtlOcupacion">
+    <many-to-one field="idMunicipioNacimiento" target-entity="CtlMunicipio">
       <join-columns>
-        <join-column name="id_ocupacion" referenced-column-name="id"/>
+        <join-column name="id_municipio_nacimiento" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="idPaisNacimiento" target-entity="CtlPais">
       <join-columns>
         <join-column name="id_pais_nacimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idParentescoProporDatos" target-entity="CtlParentesco">
+      <join-columns>
+        <join-column name="id_parentesco_propor_datos" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUser" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="idSexo" target-entity="CtlSexo">
@@ -66,14 +76,14 @@
         <join-column name="id_parentesco_responsable" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idMunicipioNacimiento" target-entity="CtlMunicipio">
-      <join-columns>
-        <join-column name="id_municipio_nacimiento" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="idMunicipioDomicilio" target-entity="CtlMunicipio">
       <join-columns>
         <join-column name="id_municipio_domicilio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstadoCivil" target-entity="CtlEstadoCivil">
+      <join-columns>
+        <join-column name="id_estado_civil" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="idDepartamentoDomicilio" target-entity="CtlDepartamento">
@@ -86,19 +96,19 @@
         <join-column name="id_canton_domicilio" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
+    <many-to-one field="areaGeograficaDomicilio" target-entity="CtlAreaGeografica">
+      <join-columns>
+        <join-column name="area_geografica_domicilio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idDepartamentoNacimiento" target-entity="CtlDepartamento">
+      <join-columns>
+        <join-column name="id_departamento_nacimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="idDocePaciente" target-entity="CtlDocumentoIdentidad">
       <join-columns>
         <join-column name="id_doc_ide_paciente" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="idDoceProporcionoDatos" target-entity="CtlDocumentoIdentidad">
-      <join-columns>
-        <join-column name="id_doc_ide_proporciono_datos" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="idEstadoCivil" target-entity="CtlEstadoCivil">
-      <join-columns>
-        <join-column name="id_estado_civil" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="idDoceResponsable" target-entity="CtlDocumentoIdentidad">
@@ -106,9 +116,14 @@
         <join-column name="id_doc_ide_responsable" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="areaGeograficaDomicilio" target-entity="CtlAreaGeografica">
+    <many-to-one field="idDoceProporcionoDatos" target-entity="CtlDocumentoIdentidad">
       <join-columns>
-        <join-column name="area_geografica_domicilio" referenced-column-name="id"/>
+        <join-column name="id_doc_ide_proporciono_datos" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAreaCotizacion" target-entity="CtlAreaCotizante">
+      <join-columns>
+        <join-column name="id_area_cotizacion" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

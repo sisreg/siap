@@ -21,7 +21,7 @@ class MntPacienteRepository extends EntityRepository {
                 ->where('p.id =:valor and e.habilitado=true')
                 ->setParameter(':valor', $valor)
                 ->getQuery();
-     return $consulta->getResult();
+     return $consulta->getSingleResult();
     }
 }
 ?>

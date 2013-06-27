@@ -43,12 +43,12 @@ class CtlEstablecimientoAdmin extends Admin {
                 ->add('idTipoEstablecimiento')
                 ->add('configurado')
                 ->add('programas')
-                
-                 ->add('_action', 'actions', array(
-                        'actions' => array(
+                ->add('_action', 'actions', array(
+                    'label' => $this->getTranslator()->trans('Action'),
+                    'actions' => array(
                         'edit' => array()
                     )
-                  ))
+                ))
         ;
     }
 

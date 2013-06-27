@@ -35,14 +35,6 @@ WHERE
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{establecimiento}]]></textFieldExpression>
 			</textField>
-			<image scaleImage="FillFrame">
-				<reportElement uuid="4dace8fa-96b8-4b3f-a714-238d03855a51" x="0" y="0" width="73" height="63"/>
-				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
-			</image>
-			<image scaleImage="FillFrame">
-				<reportElement uuid="28bff828-f416-4714-bfd4-7d2c494f9287" x="491" y="0" width="81" height="63"/>
-				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement uuid="c8e9d7c4-2df0-45a4-8ff0-063ba0e85e46" style="Heading 1" x="73" y="0" width="418" height="20"/>
 				<textElement textAlignment="Center"/>
@@ -62,6 +54,14 @@ WHERE
 				</textElement>
 				<text><![CDATA[Sistema Nacional de Salud]]></text>
 			</staticText>
+			<image>
+				<reportElement uuid="1c677c9b-a606-4b1f-9358-1aa8ca292e6b" stretchType="RelativeToTallestObject" x="2" y="0" width="56" height="41"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="1c677c9b-a606-4b1f-9358-1aa8ca292e6b" x="491" y="10" width="76" height="41"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
+			</image>
 		</band>
 	</columnHeader>
 	<detail>

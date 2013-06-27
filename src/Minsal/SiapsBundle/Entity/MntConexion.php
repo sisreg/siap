@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * MntConexion
  *
  * @ORM\Table(name="mnt_conexion")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\MntConexionRepository")
  */
 class MntConexion {
 
