@@ -89,6 +89,7 @@ class MntPacienteController extends Controller {
             $conexion = $em->getRepository('MinsalSiapsBundle:MntConexion')->find(1);
             $conn = $em->getRepository('MinsalSiapsBundle:MntConexion')->getConexionGenerica($conexion);
             $query = $conn->query($sql);
+            
         }
 
         $numfilas = count($query->rowCount());
