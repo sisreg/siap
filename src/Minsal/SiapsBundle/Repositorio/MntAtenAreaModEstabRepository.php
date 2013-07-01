@@ -13,7 +13,7 @@ class MntAtenAreaModEstabRepository extends EntityRepository {
     public function obtenerModalidadesUtilizada() {
         $consulta = $this->getEntityManager()
                 ->createQuery('
-                  SELECT distinct(mod.id),mod.nombre
+                  SELECT distinct(mod.id) id,mod.nombre 
                   FROM MinsalSiapsBundle:MntAtenAreaModEstab atenAreaModEstab
                   JOIN atenAreaModEstab.idAreaModEstab areaModEstab
                   JOIN areaModEstab.idModalidadEstab modEstab
@@ -28,7 +28,7 @@ class MntAtenAreaModEstabRepository extends EntityRepository {
     public function obtenerAreaAtencionUtilizada($modalidad) {
         $consulta = $this->getEntityManager()
                 ->createQuery('
-                  SELECT distinct(areaAten.id),areaAten.nombre
+                  SELECT distinct(areaAten.id) id,areaAten.nombre
                   FROM MinsalSiapsBundle:MntAtenAreaModEstab atenAreaModEstab
                   JOIN atenAreaModEstab.idAreaModEstab areaModEstab
                   JOIN areaModEstab.idModalidadEstab modEstab
