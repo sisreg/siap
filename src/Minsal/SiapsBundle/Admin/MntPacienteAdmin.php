@@ -26,8 +26,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('primerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('segundoNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('tercerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
-                ->add('fechaNacimiento', 'date', array(
-                    'years' => range(date('Y') - 110, date('Y') + 5),
+                ->add('fechaNacimiento', 'birthday', array(
                     'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
                 ->add('horaNacimiento', 'time', array('empty_value' => array('hour' => 'Hora', 'minute' => 'Minutos'), 'required' => false))
                 ->add('numeroDocIdePaciente', null, array('label' => $this->getTranslator()->trans('numeroDocIdePaciente')))
@@ -123,104 +122,100 @@ class MntPacienteAdmin extends Admin {
 
     public function preUpdate($paciente) {
         
-        $pacienteBase = $this->getModelManager()
-                ->findOneBy('MinsalSiapsBundle:MntPaciente', array('id' => $paciente->getId()));
+        $em=$this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
+        $con=$em->getConnection();
+        $query="SELECT * FROM mnt_paciente where id=".$paciente->getId();
+        $resultado=$con->query($query);
+        $pacienteBase=$resultado->fetch();        
         
         $auditoria = new MntAuditoriaPaciente();
 
-        $cambio = TRUE;
+        $cambio = false;
         
-       // if ($paciente->getPrimerNombre() != $pacienteBase->getPrimerNombre()) {
-            
+        if ($paciente->getPrimerNombre() != $pacienteBase['primer_nombre']) {
             $auditoria->setPrimerNombre($paciente->getPrimerNombre());
-       //     $cambio = TRUE;
-     //   }
-       // if ($paciente->getSegundoNombre() != $pacienteBase->getSegundoNombre()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getSegundoNombre() != $pacienteBase['segundo_nombre']) {
             $auditoria->setSegundoNombre($paciente->getSegundoNombre());
-      //      $cambio = TRUE;
-      //  }
-       // if ($paciente->getTercerNombre() != $pacienteBase->getTercerNombre()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getTercerNombre() != $pacienteBase['tercer_nombre']) {
             $auditoria->setTercerNombre($paciente->getTercerNombre());
-      //      $cambio = TRUE;
-      //  }
-      //  if ($paciente->getPrimerApellido() != $pacienteBase->getPrimerApellido()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getPrimerApellido() != $pacienteBase['primer_apellido']) {
             $auditoria->setPrimerApellido($paciente->getPrimerApellido());
-      //      $cambio = TRUE;
-      //  }
-       // if ($paciente->getSegundoApellido() != $pacienteBase->getSegundoApellido()) {
+            $cambio = TRUE;
+       }
+        if ($paciente->getSegundoApellido() != $pacienteBase['segundo_apellido']) {
             $auditoria->setSegundoApellido($paciente->getSegundoApellido());
-       //     $cambio = TRUE;
-       // }
-       // if ($paciente->getApellidoCasada() != $pacienteBase->getApellidoCasada()) {
-            //var_dump($pacienteBase); exit;
+            $cambio = TRUE;
+        }
+        if ($paciente->getApellidoCasada() != $pacienteBase['apellido_casada']) {
             $auditoria->setApellidoCasada($paciente->getApellidoCasada());
-      //      $cambio = TRUE;
-      //  }
-      //  if ($paciente->getFechaNacimiento() != $pacienteBase->getFechaNacimiento()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getFechaNacimiento() != $pacienteBase['fecha_nacimiento']) {
             $auditoria->setFechaNacimiento($paciente->getFechaNacimiento());
-      //      $cambio = TRUE;
-     //   }
-      //  if ($paciente->getHoraNacimiento() != $pacienteBase->getHoraNacimiento()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getHoraNacimiento() != $pacienteBase['hora_nacimiento']) {
             $auditoria->setHoraNacimiento($paciente->getHoraNacimiento());
-       //     $cambio = TRUE;
-       // }
-      //  if ($paciente->getDireccion() != $pacienteBase->getDireccion()) {
-            $auditoria->setDireccion($paciente->getDireccion());
-       //     $cambio = TRUE;
-       // }
-      //  if ($paciente->getNombrePadre() != $pacienteBase->getNombrePadre()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getNombrePadre() != $pacienteBase['nombre_padre']) {
             $auditoria->setNombrePadre($paciente->getNombrePadre());
-       //     $cambio = TRUE;
-      //  }
-       // if ($paciente->getNombreMadre() != $pacienteBase->getNombreMadre()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getNombreMadre() != $pacienteBase['nombre_madre']) {
             $auditoria->setNombreMadre($paciente->getNombreMadre());
-      //      $cambio = TRUE;
-       // }
-      //  if ($paciente->getNombreResponsable() != $pacienteBase->getNombreResponsable()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getNombreResponsable() != $pacienteBase['nombre_responsable']) {
             $auditoria->setNombreResponsable($paciente->getNombreResponsable());
-      //      $cambio = TRUE;
-       // }
-       // if ($paciente->getObservacion() != $pacienteBase->getObservacion()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getObservacion() != $pacienteBase['observacion']) {
             $auditoria->setObservacion($paciente->getObservacion());
-     //       $cambio = TRUE;
-     //   }
-      //  if ($paciente->getDireccion() != $pacienteBase->getDireccion()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getDireccion() != $pacienteBase['direccion']) {
             $auditoria->setDireccion($paciente->getDireccion());
-     //       $cambio = TRUE;
-      //  }
-     //   if ($paciente->getIdDepartamentoDomicilio() != $pacienteBase->getIdDepartamentoDomicilio()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getIdDepartamentoDomicilio()->getId() != $pacienteBase['id_departamento_domicilio']) {
             $auditoria->setIdDepartamentoDomicilio($paciente->getIdDepartamentoDomicilio());
-      //      $cambio = TRUE;
-     //   }
-     //   if ($paciente->getIdMunicipioDomicilio() != $pacienteBase->getIdMunicipioDomicilio()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getIdMunicipioDomicilio()->getId() != $pacienteBase['id_municipio_domicilio']) {
             $auditoria->setIdMunicipioDomicilio($paciente->getIdMunicipioDomicilio());
-    //        $cambio = TRUE;
-    ////    }
-    //    if ($paciente->getIdCantonDomicilio() != $pacienteBase->getIdCantonDomicilio()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getIdCantonDomicilio()->getId() != $pacienteBase['id_canton_domicilio']) {
             $auditoria->setIdCantonDomicilio($paciente->getIdCantonDomicilio());
-     //       $cambio = TRUE;
-     //   }
-     //   if ($paciente->getAreaGeograficaDomicilio() != $pacienteBase->getAreaGeograficaDomicilio()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getAreaGeograficaDomicilio()->getId() != $pacienteBase['area_geografica_domicilio']) {
             $auditoria->setAreaGeograficaDomicilio($paciente->getAreaGeograficaDomicilio());
-     //       $cambio = TRUE;
-     //   }
-      //  if ($paciente->getIdSexo() != $pacienteBase->getIdSexo()) {
+            $cambio = TRUE;
+        }
+        if ($paciente->getIdSexo()->getId() != $pacienteBase['id_sexo']) {
             $auditoria->setIdSexo($paciente->getIdSexo());
-    //        $cambio = TRUE;
-     //   }
+            $cambio = TRUE;
+        }
         if ($cambio == TRUE) {
-            
             $establecimiento = $this->getModelManager()
                     ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
-           // var_dump($establecimiento);exit;
             $auditoria->setIdEstablecimiento($establecimiento);
             $fecha_actual = new \DateTime();
             $auditoria->setFechaModificacion($fecha_actual);
+            $paciente->setFechaMod($fecha_actual);
             $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
             $auditoria->setIdUser($user);
+            $paciente->setIdUserMod($user);
             $auditoria->setIdPaciente($paciente);
-            $em=$this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
-            $em=persist($auditoria);
+            $this->getModelManager()->create($auditoria); 
         }
 
     }

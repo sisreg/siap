@@ -36,7 +36,7 @@ class MntAuditoriaPaciente
     /**
      * @var string
      *
-     * @ORM\Column(name="primer_nombre", type="string", length=25, nullable=false)
+     * @ORM\Column(name="primer_nombre", type="string", length=25, nullable=true)
      * @Assert\Length(min = "3")
      */
     private $primerNombre;
@@ -60,7 +60,7 @@ class MntAuditoriaPaciente
     /**
      * @var string
      *
-     * @ORM\Column(name="primer_apellido", type="string", length=25, nullable=false)
+     * @ORM\Column(name="primer_apellido", type="string", length=25, nullable=true)
      * @Assert\Length(min = "3")
      */
     private $primerApellido;
@@ -84,7 +84,7 @@ class MntAuditoriaPaciente
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_nacimiento", type="date", nullable=false)
+     * @ORM\Column(name="fecha_nacimiento", type="date", nullable=true)
      */
     private $fechaNacimiento;
 
@@ -110,7 +110,7 @@ class MntAuditoriaPaciente
      *
      * @ORM\ManyToOne(targetEntity="CtlMunicipio")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_municipio_domicilio", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="id_municipio_domicilio", referencedColumnName="id", nullable=true)
      * })
      */
     private $idMunicipioDomicilio;
@@ -130,7 +130,7 @@ class MntAuditoriaPaciente
      *
      * @ORM\ManyToOne(targetEntity="CtlAreaGeografica")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="area_geografica_domicilio", referencedColumnName="id",nullable=false)
+     *   @ORM\JoinColumn(name="area_geografica_domicilio", referencedColumnName="id",nullable=true)
      * })
      */
     private $areaGeograficaDomicilio;
@@ -179,7 +179,7 @@ class MntAuditoriaPaciente
      *
      * @ORM\ManyToOne(targetEntity="CtlSexo")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_sexo", referencedColumnName="id",nullable=false)
+     *   @ORM\JoinColumn(name="id_sexo", referencedColumnName="id",nullable=true)
      * })
      */
     private $idSexo;
@@ -187,7 +187,7 @@ class MntAuditoriaPaciente
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_registro", type="date", nullable=false)
+     * @ORM\Column(name="fecha_modificacion", type="date", nullable=false)
      */
     private $fechaModificacion;
 

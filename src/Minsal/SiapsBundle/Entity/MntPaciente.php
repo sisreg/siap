@@ -438,7 +438,7 @@ class MntPaciente {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_registro", type="date", nullable=false)
+     * @ORM\Column(name="fecha_registro", type="datetime", nullable=false)
      */
     private $fechaRegistro;
 
@@ -451,6 +451,23 @@ class MntPaciente {
      * })
      */
     private $idUser;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_mod", type="datetime", nullable=false)
+     */
+    private $fechaMod;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user_mod", referencedColumnName="id",nullable=false)
+     * })
+     */
+    private $idUserMod;
     
     /**
      * Get id
@@ -1566,5 +1583,51 @@ class MntPaciente {
     public function getIdUser()
     {
         return $this->idUser;
+    }
+
+    /**
+     * Set fechaMod
+     *
+     * @param \DateTime $fechaMod
+     * @return MntPaciente
+     */
+    public function setFechaMod($fechaMod)
+    {
+        $this->fechaMod = $fechaMod;
+    
+        return $this;
+    }
+
+    /**
+     * Get fechaMod
+     *
+     * @return \DateTime 
+     */
+    public function getFechaMod()
+    {
+        return $this->fechaMod;
+    }
+
+    /**
+     * Set idUserMod
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idUserMod
+     * @return MntPaciente
+     */
+    public function setIdUserMod(\Minsal\SiapsBundle\Entity\User $idUserMod)
+    {
+        $this->idUserMod = $idUserMod;
+    
+        return $this;
+    }
+
+    /**
+     * Get idUserMod
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdUserMod()
+    {
+        return $this->idUserMod;
     }
 }

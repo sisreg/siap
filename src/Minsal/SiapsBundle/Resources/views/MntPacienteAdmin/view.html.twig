@@ -15,9 +15,9 @@
         </tr>
         <tr class="dat_paciente_content">               
             <td width='25%'><label>Número Expediente:</label></td>
-            <td width='25%'>
+            <td width='25%' style="font-size: 14pt;">
                     {% for expediente in datos.expedientes %}
-                            {{expediente.numero}}
+                        <b>{{expediente.numero}}</b>
                     {%endfor%}
             </td>
             <td colspan="2"><label>Nombre:</label> 
@@ -29,7 +29,7 @@
             <td><label>Sexo:</label></td><td>{{datos.idSexo}}</td>
         </tr>
         <tr class="dat_paciente_content">
-            <td><label>Fecha Nacimiento:</label></td><td>{{datos.fechaNacimiento|date("m/d/Y")}} </td>
+            <td><label>Fecha Nacimiento:</label></td><td>{{datos.fechaNacimiento|date("d/m/Y")}} </td>
             <td><label>Lugar Nacimiento:</label></td><td>{{datos.idDepartamentoDomicilio}}, {{datos.idMunicipioDomicilio}}</td>
         </tr>
         <tr class="dat_paciente_content">
@@ -44,16 +44,20 @@
             <td><label>Dirección Responsable:</label></td><td>{{datos.direccionResponsable}}</td>
         </tr>
         <tr class="dat_paciente_content">
-            <td><label>Fecha Elaboración:</label></td><td>{{datos.fechaRegistro|date("m/d/Y")}}</td>
+            <td><label>Fecha Elaboración:</label></td><td>{{datos.fechaRegistro|date("d/m/Y H:i")}}</td>
             <td><label>Elaboró :</label></td><td>{{datos.idUser}}</td>
         </tr>
         <tr class="dat_paciente_content">
-            <td><label>Fecha Modificación:</label></td><td></td>
-            <td><label>Modificó:</label></td><td></td>
-        </tr>        
+            <td><label>Fecha Modificación:</label></td><td>{{datos.fechaRegistro|date("d/m/Y H:i")}}</td>
+            <td><label>Modificó:</label></td><td>{{datos.idUserMod}}</td>
+        </tr>
+        
     </table>
+<form id="envio_paciente" method="POST">
+    <input type="hidden" id="paciente" name="paciente" value="{{datos.id}}">
+</form>
     <div class="well form-actions" width="80%">
-        <a class="btn btn-primary" href="" >Imprimir Hoja</a>
+        <a class="btn btn-primary" href="" id="imprimir_hoja" >Imprimir Hoja</a>
         <a class="btn" href="" >Asignar Consulta</a>
         <a class="btn" href="{{ admin.generateUrl('list') }}">Buscar otro Paciente</a>
         <a class="btn" href="{{ admin.generateUrl('edit',{'id':datos.getId}) }}" >Editar Datos</a>

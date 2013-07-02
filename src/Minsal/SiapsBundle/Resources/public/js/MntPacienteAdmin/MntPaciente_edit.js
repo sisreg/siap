@@ -6,23 +6,16 @@ $(document).ready(function() {
 
     $('.deshabilitados').attr('disabled', 'disabled');
     
-    $('i').popover('show');   
+    /*CALCULAR EDAD AL CARGAR EL FORMULARIO*/
+    calcular_edad();
     
-     /*DESHABILITANDO CAMPOS CUANDO CARGA FORMULARIO*/
-   /*  $('select[id$="_idDepartamentoNacimiento"]').attr('disabled', 'disabled');
-     $('select[id$="_idMunicipioNacimiento"]').attr('disabled', 'disabled');
-     $('select[id$="_idMunicipioDomicilio"]').attr('disabled', 'disabled');
-     $('select[id$="_idCantonDomicilio"]').attr('disabled', 'disabled');*/
-     
+    $('i').popover('show');   
+        
      if ($('input:checkbox[id$="_asegurado"]').is(':checked')){
         $('select[id$="_idAreaCotizacion"]').removeAttr('disabled');
         $('input:checkbox[id$="_cotizante"]').removeAttr('disabled');
         $('input[id$="_numeroAfiliacion"]').removeAttr('disabled');
-     }/*else{
-        $('select[id$="_idAreaCotizacion"]').attr('disabled', 'disabled');
-        $('input:checkbox[id$="_cotizante"]').attr('disabled', 'disabled');
-        $('input[id$="_numeroAfiliacion"]').attr('disabled', 'disabled');
-     }*/
+     }
  
     if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Ninguno') {
         $('input[id$="_numeroDocIdePaciente"]').val('');
@@ -61,17 +54,6 @@ $(document).ready(function() {
             }
         }
     });
-
-  /*  $('input:submit[value="Actualizar"]').click(function() {
-        
-        $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
-        $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
-        $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
-        $('select[id$="_idCantonDomicilio"]').removeAttr('disabled');
-        $('select[id$="_idAreaCotizacion"]').removeAttr('disabled');
-        $('input:checkbox[id$="_cotizante"]').removeAttr('disabled');
-        $('input[id$="_numeroAfiliacion"]').removeAttr('disabled');
-    });*/
     
     $('select[id$="_idDocPaciente"]').change(function(){
         $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');
@@ -91,8 +73,8 @@ $(document).ready(function() {
             }
         }
     })
-
-    $('select[id$="_idDocResponsable"]').change(function(){
+    
+    $('select[id$="_idDocResponsable"]').change(function() {
         $('input[id$="_numeroDocIdeResponsable"]').removeAttr('disabled');
         if ($('select[id$="_idDocResponsable"] option:selected').text() == 'DUI') {
             $('input[id$="_numeroDocIdeResponsable"]').mask("99999999-9")
@@ -101,16 +83,16 @@ $(document).ready(function() {
             $('input[id$="_numeroDocIdeResponsable"]').mask("9999-999999-999-9")
         }
         else {
-            if($('select[id$="_idDocResponsable"] option:selected').text() == 'Ninguno'){
+            if ($('select[id$="_idDocResponsable"] option:selected').text() == 'Ninguno') {
                 $('input[id$="_numeroDocIdeResponsable"]').val('');
                 $('input[id$="_numeroDocIdeResponsable"]').attr('disabled', 'disabled');
             }
-            else{
+            else {
                 $('input[id$="_numeroDocIdeResponsable"]').mask("99999999999999999999")
             }
         }
-    })
-
+    });
+    
     $('select[id$="_idDocProporcionoDatos"]').change(function(){
         $('input[id$="_numeroDocIdeProporDatos"]').removeAttr('disabled');
         if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'DUI') {
@@ -295,19 +277,36 @@ $(document).ready(function() {
         }
 
     });
-
-    /*CALCULAR EDAD*/
+    
+    /*CALCULAR EDAD AL CAMBIAR LA FECHA DE NACIMIENTO*/
     $('select[id$="_fechaNacimiento_year"]').change(function() {
         if($('select[id$="_fechaNacimiento_day"]').val() != '' && $('select[id$="_fechaNacimiento_month"]').val() != '' && $('select[id$="_fechaNacimiento_year"]').val() != ''){
-            var fecha_nac=$('select[id$="_fechaNacimiento_day"]').val() + '-' +$('select[id$="_fechaNacimiento_month"]').val() + '-' 
+            calcular_edad();
+        }
+
+    });
+    $('select[id$="_fechaNacimiento_month"]').change(function() {
+        if($('select[id$="_fechaNacimiento_day"]').val() != '' && $('select[id$="_fechaNacimiento_month"]').val() != '' && $('select[id$="_fechaNacimiento_year"]').val() != ''){
+            calcular_edad();
+        }
+
+    });
+    $('select[id$="_fechaNacimiento_day"]').change(function() {
+        if($('select[id$="_fechaNacimiento_day"]').val() != '' && $('select[id$="_fechaNacimiento_month"]').val() != '' && $('select[id$="_fechaNacimiento_year"]').val() != ''){
+            calcular_edad();
+        }
+
+    });
+
+    
+    function calcular_edad(){
+        var fecha_nac=$('select[id$="_fechaNacimiento_day"]').val() + '-' +$('select[id$="_fechaNacimiento_month"]').val() + '-' 
                     + $('select[id$="_fechaNacimiento_year"]').val();
             $.getJSON(Routing.generate('edad_paciente') + '?fecha_nacimiento=' + fecha_nac ,
                     function(data) {
                         $('input[id="edad"]').val(data.edad);
                     });
-        }
-
-    });
+    }
 
 });
 

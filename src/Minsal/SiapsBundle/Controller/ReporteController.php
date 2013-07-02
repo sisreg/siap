@@ -37,5 +37,34 @@ class ReporteController extends Controller {
         return $response;
     }
 
+    /**
+     * @Route("/report/paciente/{report_name}/{report_format}", name="_report_paciente", options={"expose"=true})
+     */
+    public function pacienteAction($report_name,$report_format) {
+        //$report_format='pdf';
+        $jasper_url = JASPER_URL;
+        $jasper_username = JASPER_USER;
+        $jasper_password = JASPER_PASSWORD;
+        $report_unit = "/reports/siaps/administracion/" . $report_name;
+        
+        $request = $this->getRequest();
+        $id_paciente = $request->get('paciente');
+        $report_params = array('id_paciente'=>$id_paciente);
+
+        $client = new JasperClient($jasper_url, $jasper_username, $jasper_password);          
+        
+        $contentType=(($report_format=='HTML')?'text':'application').
+							'/'.strtolower($report_format);
+
+        $result = $client->requestReport($report_unit, $report_format, $report_params);
+
+        $response = new Response();
+        $response->headers->set('Content-Type', $contentType);        
+        if (strtoupper($report_format) != 'HTML')
+            $response->headers->set('Content-disposition', 'attachment; filename="' . $report_name . '.' . strtolower($report_format) . '"');
+        $response->setContent($result);
+        
+        return $response;
+    }
 }
 ?>
