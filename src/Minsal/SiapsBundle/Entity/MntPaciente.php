@@ -359,7 +359,7 @@ class MntPaciente {
      */
     private $idMunicipioNacimiento;
 /**
-     * @var \CtlMunicipio
+     * @var \CtlDepartamento
      *
      * @ORM\ManyToOne(targetEntity="CtlDepartamento")
      * @ORM\JoinColumns({

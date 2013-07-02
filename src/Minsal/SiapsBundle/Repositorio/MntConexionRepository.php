@@ -17,7 +17,7 @@ class MntConexionRepository extends EntityRepository {
         $encripta = new Funciones();
 
         // Construir el Conector genérico
-         $config = new DBAL\Configuration();
+        $config = new DBAL\Configuration();
 
         $connectionParams = array(
             'dbname' => $conexion->getBaseDeDatos(),
@@ -27,9 +27,12 @@ class MntConexionRepository extends EntityRepository {
             'driver' => $conexion->getGestorBase(),
             'port' => $conexion->getPuerto()
         );
-
-        $conn = DBAL\DriverManager::getConnection($connectionParams, $config);
-
+        try {
+            $conn = DBAL\DriverManager::getConnection($connectionParams, $config);
+        } catch (\Exception $e) {
+            throw new \PDOException($e->getMessage());
+            echo $e->getMessage();
+        }
         return $conn;
     }
 

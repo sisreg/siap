@@ -32,12 +32,15 @@ $(document).ready(function() {
                 $("#capturar").show();
         },
         gridComplete: function() {
-            var ids = jQuery("#tBuscarPaciente").jqGrid('getDataIDs');            
+            var ids = jQuery("#tBuscarPaciente").jqGrid('getDataIDs');
             for (var i = 0; i < ids.length; i++) {
                 var cl = ids[i];
                 if (cl != 0) {
-                    ce = "<a class=\"btn sonata-action-element\" href=\"" + cl + "\/view\"><i class=\"icon-folder-open\"></i>Detalle</a>";
-                    jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
+                    if ($('#tipo').val() != 'g')
+                        ce = "<a class=\"btn sonata-action-element\" href=\"" + cl + "\/view\"><i class=\"icon-folder-open\"></i>Detalle</a>";
+                    else
+                        ce = "<a class=\"btn sonata-action-element\" href=\"create?idPacienteInicial=" + cl +"&tipo=g"+"\"><i class=\"icon-edit\"></i>Agregar</a>";
+                        jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
                 }
             }
         }
