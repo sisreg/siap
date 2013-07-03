@@ -1,8 +1,9 @@
 $(document).ready(function() {
-    $("#buscar").click(function() {
-        $("#reporteForm").attr("action", Routing.generate('_report_show') + '/primerReporte/PDF');
-        $("#reporteForm").submit();
+    $('#imprimir_hoja').click(function() {
+        
+        url = Routing.generate('_report_paciente') + '/hoja_datos_paciente/HTML?paciente='+$('#paciente').val();
+        window.open(url, '_blank');
+        return false;
     });
 
 });
-
