@@ -11,7 +11,7 @@
 		<defaultValueExpression><![CDATA["repo:/reports/siaps/cartera/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT A.nombre establecimiento, C.nombre modalidad, B.id modEstab
+		<![CDATA[SELECT A.nombre establecimiento, C.nombre modalidad, B.id modEstab, A.id idestablecimiento
 FROM 	ctl_establecimiento A,
 	mnt_modalidad_establecimiento B,
 	ctl_modalidad C
@@ -22,6 +22,7 @@ WHERE
 	<field name="establecimiento" class="java.lang.String"/>
 	<field name="modalidad" class="java.lang.String"/>
 	<field name="modestab" class="java.lang.Integer"/>
+	<field name="idestablecimiento" class="java.lang.Integer"/>
 	<variable name="establecimiento_1" class="java.lang.Integer" resetType="Column" calculation="Count">
 		<variableExpression><![CDATA[$F{establecimiento}]]></variableExpression>
 	</variable>
@@ -29,7 +30,7 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<columnHeader>
-		<band height="91">
+		<band height="81">
 			<textField>
 				<reportElement uuid="994a3d15-94ca-4205-a40f-a1180f24f494" style="Heading 4" x="2" y="61" width="572" height="20"/>
 				<textElement>
@@ -58,10 +59,18 @@ WHERE
 				</textElement>
 				<text><![CDATA[Sistema Nacional de Salud]]></text>
 			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="5dad3a48-86b0-4658-9bbb-2df80ccee3b2" x="12" y="6" width="51" height="41"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="594c022e-6c63-44ff-a9a0-fbbb9e1310e4" x="500" y="6" width="67" height="39"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
+			</image>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="80" splitType="Stretch">
+		<band height="83" splitType="Stretch">
 			<textField>
 				<reportElement uuid="21bfcb26-dc78-4b52-ab2b-7ae722413916" mode="Opaque" x="107" y="9" width="465" height="23" backcolor="#CCCCCC"/>
 				<textElement verticalAlignment="Middle">

@@ -307,17 +307,17 @@ del Jasper Server Report en la ruta
         define('JASPER_PASSWORD', 'contraseña_del_usuario');
         define('JASPER_URL','URI DEL SERVICIO algo similar a -> http://localhost:8080/jasperserver/services/repository?wsdl');
         ?>
-* Crear los directorios cache/ y logs/ con la siguiente sentencia:
+* Crear los directorios cache/ , logs/ e /imagenes con la siguiente sentencia:
 
-        mkdir -p app/cache app/logs
+        mkdir -p app/cache app/logs web/imagenes/
 
 * Siempre como **usuario normal** ejecutar:
 
          php composer.phar update
 * Aplicar las acl al directorio cache y logs:
 
-        setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/
-        setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/
+        setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/ web/imagenes/
+        setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/ web/imagenes/
 
 ###Creando el Virtual Host
 * Como **usuario root** ejecutar:
@@ -370,7 +370,7 @@ del Virtual Host. La linea debe ser parecida a la siguiente:
         X.X.X.X       siaps.localhost
 
 * Para el caso de todas las maquinas clientes. Agregar la línea anterior en el 
-archivo **/etc/hosts** para que puedan acceder a ellas.
+archivo **/etc/hosts** para que puedan acceder a ella.
 * Probar desde un navegador (recomendado Iceweasel) la siguiente url: 
 *http://siaps.localhost/* y deberá aparecer la página de inicio de sesión del 
 sistema.

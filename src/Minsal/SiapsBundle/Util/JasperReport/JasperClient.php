@@ -55,17 +55,20 @@ class JasperClient {
             foreach ($dp->files as $f) {
                 $extension = explode('/', $f->type);
                 if ($extension[0] == 'image') {
-                    $images[$f->id] = $f->data;
-                    $file = fopen("images/$f->id", "w+");
-                    fwrite($file, $f->data);
-                    fclose($file);
+                    $ruta = dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.
+                                DIRECTORY_SEPARATOR. '..'.DIRECTORY_SEPARATOR.
+                           '..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.
+                            DIRECTORY_SEPARATOR.'imagenes'.DIRECTORY_SEPARATOR;
+                    //$ruta = dirname(__FILE__).'/../../../../../web/imagenes/';
+                    $filename = $ruta . $f->id; 
+                    file_put_contents($filename, $f->data); 
                     continue;
                 }
                 if ($f->type_format == DIME::TYPE_BINARY) 
                     $result .= $f->data;
             }
         }
-        $result = str_replace('images/', '/images/', $result);
+        $result = str_replace('images/', '/imagenes/', $result);
         return $result;
     }
 

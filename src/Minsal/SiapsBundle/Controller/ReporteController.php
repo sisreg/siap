@@ -30,8 +30,8 @@ class ReporteController extends Controller {
 
         $response = new Response();
         $response->headers->set('Content-Type', $contentType);        
-        if (strtoupper($report_format) != 'HTML')
-            $response->headers->set('Content-disposition', 'attachment; filename="' . $report_name . '.' . strtolower($report_format) . '"');
+        //if (strtoupper($report_format) != 'HTML')
+            //$response->headers->set('Content-disposition', 'attachment; filename="' . $report_name . '.' . strtolower($report_format) . '"');
         $response->setContent($result);
         
         return $response;
