@@ -7,7 +7,9 @@ $(document).ready(function() {
     $('.deshabilitados').attr('disabled', 'disabled');
     
     /*CALCULAR EDAD AL CARGAR EL FORMULARIO*/
-    calcular_edad();
+   if($('select[id$="_fechaNacimiento_day"]').val() != '' && $('select[id$="_fechaNacimiento_month"]').val() != '' && $('select[id$="_fechaNacimiento_year"]').val() != ''){
+            calcular_edad();
+   }
     
     $('i').popover('show');   
         

@@ -53,9 +53,9 @@ class UserAdmin extends BaseUserAdmin
             ->add('idEstablecimiento',null,array('label'=>'Establecimiento de salud'))
         ;
     }
-
     
      
 
+    
     
 }
