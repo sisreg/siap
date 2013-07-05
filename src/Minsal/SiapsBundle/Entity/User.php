@@ -5,7 +5,7 @@ namespace Minsal\SiapsBundle\Entity;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\GroupInterface;
-//use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -68,4 +68,50 @@ class User extends BaseUser {
         return $this->firstname.' '.$this->lastname ? : '';
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Assert\NotBlank()
+     */
+    protected $groups;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add groups
+     *
+     * @param GroupInterface $groups
+     * @return User
+     */
+    public function addGroup(GroupInterface $groups)
+    {
+        $this->groups[] = $groups;
+    
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param GroupInterface $groups
+     */
+    public function removeGroup(GroupInterface $groups)
+    {
+        $this->groups->removeElement($groups);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
 }

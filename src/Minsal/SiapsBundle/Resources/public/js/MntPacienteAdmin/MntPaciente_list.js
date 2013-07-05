@@ -1,4 +1,4 @@
-$(document).ready(function() {
+    $(document).ready(function() {
     $('#dui').mask("99999999-9");
     $("#fecha_nacimiento").datepicker().mask("99-99-9999");
     $("#capturar").hide();
