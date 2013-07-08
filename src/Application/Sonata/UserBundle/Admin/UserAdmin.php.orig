@@ -57,7 +57,14 @@ class UserAdmin extends BaseUserAdmin {
                 ->add('idEstablecimiento', null, array('label' => 'Establecimiento de salud'))
         ;
     }
+<<<<<<< HEAD
     
+     
+
+    
+    
+=======
+
      public function getTemplate($name) {
         switch ($name) {
             case 'edit':
@@ -69,4 +76,5 @@ class UserAdmin extends BaseUserAdmin {
         }
     }
 
+>>>>>>> desarrollo
 }

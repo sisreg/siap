@@ -1,7 +1,7 @@
-$(document).ready(function() {
+    $(document).ready(function() {
     $('#dui').mask("99999999-9");
     $("#fecha_nacimiento").datepicker().mask("99-99-9999");
-    //$("#capturar").hide();
+    $("#capturar").hide();
     $("#buscarGlobal").hide();
     $("#limpiar").click(function() {
         $('#buscarForm')[0].reset();
@@ -30,7 +30,7 @@ $(document).ready(function() {
             });
 
         } else {
-            $("#capturar").show();
+            //$("#capturar").show();
             $('#resultadoBusqueda').show();
             $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
         }
@@ -56,6 +56,8 @@ $(document).ready(function() {
 
         } else {
             $("#capturar").show();
+            $(this).hide();
+            $("#buscar").show();
             $('#resultadoBusqueda').show();
             $('#resultadoBusqueda').load(Routing.generate('buscar_paciente_global'));
         }

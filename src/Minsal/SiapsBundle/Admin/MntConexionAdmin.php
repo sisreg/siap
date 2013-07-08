@@ -15,7 +15,7 @@ class MntConexionAdmin extends Admin {
     protected $datagridValues = array(
         '_page' => 1, // Display the first page (default = 1)
         '_sort_order' => 'ASC', // Descendant ordering (default = 'ASC')
-        '_sort_by' => 'configurado' // name of the ordered field (default = the model id field, if any)
+        '_sort_by' => 'idEstablecimiento.nombre' // name of the ordered field (default = the model id field, if any)
     );
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
@@ -31,7 +31,7 @@ class MntConexionAdmin extends Admin {
                 ->add('idEstablecimiento.nombre', 'text', array('label' => $this->getTranslator()->trans('establecimiento')))
                 ->add('host')
                 ->add('usuario')
-                ->add('gestorBase')                
+                ->add('gestorBase')
                 ->add('_action', 'actions', array(
                     'label' => $this->getTranslator()->trans('Action'),
                     'actions' => array(
@@ -57,10 +57,12 @@ class MntConexionAdmin extends Admin {
                 ->add('baseDeDatos', null, array('required' => true, 'label' => 'Nombre de la base de datos', 'max_length' => 20))
                 ->add('idEstablecimiento', 'entity', array('label' => $this->getTranslator()->trans('establecimiento'),
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
+                    'empty_value'=>'Seleccione la región',
                     'query_builder' => function(EntityRepository $repositorio) {
-                        return $repositorio
-                                ->createQueryBuilder('e')
-                                ->orderBy('e.nombre', 'ASC');
+                        $ruta_accion = explode('/', $this->getRequest()->getUri());
+                        $accion = array_pop($ruta_accion);
+                        $valor = array_pop($ruta_accion);
+                        return $repositorio->obtenerEstablecimientosCoexion($accion, $valor);
                     }))
         ;
     }
@@ -81,13 +83,13 @@ class MntConexionAdmin extends Admin {
     }
 
     public function preUpdate($conexion) {
-        $encripta=new Funciones();
-        $conexion=$conexion->setContrasenia($encripta->encriptarClave($conexion->getContrasenia()));
+        $encripta = new Funciones();
+        $conexion = $conexion->setContrasenia($encripta->encriptarClave($conexion->getContrasenia()));
     }
-    
+
     public function prePersist($conexion) {
-        $encripta=new Funciones();
-        $conexion=$conexion->setContrasenia($encripta->encriptarClave($conexion->getContrasenia()));
+        $encripta = new Funciones();
+        $conexion = $conexion->setContrasenia($encripta->encriptarClave($conexion->getContrasenia()));
     }
 
 }
