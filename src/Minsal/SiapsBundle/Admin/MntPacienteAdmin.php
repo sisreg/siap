@@ -28,7 +28,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('tercerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('fechaNacimiento', 'birthday', array(
                     'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
-                ->add('horaNacimiento', 'time', array('empty_value' => array('hour' => 'Hora', 'minute' => 'Minutos'), 'required' => false))
+                ->add('horaNacimiento', null, array('empty_value' => array('hour' => 'Hora', 'minute' => 'Minutos'), 'required' => false))
                 ->add('numeroDocIdePaciente', null, array('label' => $this->getTranslator()->trans('numeroDocIdePaciente')))
                 ->add('direccion', null, array('required' => true, 'attr' => array('class' => 'span5 mayuscula')))
                 ->add('telefonoCasa', null, array('label' => $this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
@@ -121,6 +121,7 @@ class MntPacienteAdmin extends Admin {
         $expediente->setIdEstablecimiento($establecimiento);
         $fecha_actual = new \DateTime();
         $paciente->setFechaRegistro($fecha_actual);
+        $expediente->setFechaCreacion($fecha_actual);
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $paciente->setIdUser($user);
     }
@@ -159,14 +160,6 @@ class MntPacienteAdmin extends Admin {
         }
         if ($paciente->getApellidoCasada() != $pacienteBase['apellido_casada']) {
             $auditoria->setApellidoCasada($paciente->getApellidoCasada());
-            $cambio = TRUE;
-        }
-        if ($paciente->getFechaNacimiento() != $pacienteBase['fecha_nacimiento']) {
-            $auditoria->setFechaNacimiento($paciente->getFechaNacimiento());
-            $cambio = TRUE;
-        }
-        if ($paciente->getHoraNacimiento() != $pacienteBase['hora_nacimiento']) {
-            $auditoria->setHoraNacimiento($paciente->getHoraNacimiento());
             $cambio = TRUE;
         }
         if ($paciente->getNombrePadre() != $pacienteBase['nombre_padre']) {
@@ -209,6 +202,34 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setIdSexo($paciente->getIdSexo());
             $cambio = TRUE;
         }
+        //Para verificar si la fecha o la hora de nacimiento ha cambiado las convertimos en una marca de tiempo
+        $fecha_form = $paciente->getFechaNacimiento();
+        foreach ($fecha_form as $valor) {
+            $datos[] = $valor;
+        }
+        if (strtotime($datos[0]) != strtotime($pacienteBase['fecha_nacimiento'])) {
+            $auditoria->setFechaNacimiento($paciente->getFechaNacimiento());
+            $cambio = TRUE;
+        }
+        $hora_form = $paciente->getHoraNacimiento();
+        foreach ($hora_form as $valor_hora) {
+            $datos_hora[] = $valor_hora;
+        }
+        $hora = explode(' ', $datos_hora[0]);
+        if ($pacienteBase['hora_nacimiento'] != null) {
+            if (strtotime($hora[1]) != strtotime($pacienteBase['hora_nacimiento'])) {
+                 $auditoria->setHoraNacimiento($paciente->getHoraNacimiento());
+               $cambio = TRUE;
+            }
+        } 
+        else {
+            if ($paciente->getHoraNacimiento() != null) {
+                $auditoria->setHoraNacimiento($paciente->getHoraNacimiento());
+                $cambio = TRUE;
+            }
+        }
+
+        //si alguno de los valores ha cambiado se guarda en la tabla auditoría paciente
         if ($cambio == TRUE) {
             $establecimiento = $this->getModelManager()
                     ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));

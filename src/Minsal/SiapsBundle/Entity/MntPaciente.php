@@ -79,7 +79,7 @@ class MntPaciente {
     private $fechaNacimiento;
 
     /**
-     * @var \DateTime
+     * @var \Time
      *
      * @ORM\Column(name="hora_nacimiento", type="time", nullable=true)
      */
@@ -628,7 +628,7 @@ class MntPaciente {
     /**
      * Set horaNacimiento
      *
-     * @param \DateTime $horaNacimiento
+     * @param \Time $horaNacimiento
      * @return MntPaciente
      */
     public function setHoraNacimiento($horaNacimiento) {
@@ -640,7 +640,7 @@ class MntPaciente {
     /**
      * Get horaNacimiento
      *
-     * @return \DateTime 
+     * @return \Time 
      */
     public function getHoraNacimiento() {
         return $this->horaNacimiento;

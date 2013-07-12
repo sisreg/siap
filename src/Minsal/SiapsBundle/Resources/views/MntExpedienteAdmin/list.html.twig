@@ -1,7 +1,7 @@
 {% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
 {%block stylesheets %}
     {{parent()}}
-<link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntPacienteAdmin/list.css') }}" type="text/css" media="all" />  
+<link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntExpediente/list.css') }}" type="text/css" media="all" />  
 {%endblock%}
 
 {%block javascripts %}
@@ -10,21 +10,23 @@
 <script src="{{ asset('bundles/minsalsiaps/js/maskedinput/jquery.maskedinput.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bundles/minsalsiaps/js/MntExpedienteAdmin/list.js') }}" type="text/javascript"></script>
 {%endblock%}
-{% block sonata_admin_content -%}
-<table class="table table-bordered ">
-    <tbody>
-        <tr>
-            <td colspan="4" class="sonata-ba-list-field-header "><strong>Datos del Reporte</strong></td>
-        </tr>
-        <tr>
-            <td class="sonata-ba-list-field-header "><strong>Fecha Inicial</strong></td>
-            <td><input id="fecha_inicial" name="fecha_inicial" type="text" class="fecha" /></td>
-            <td class="sonata-ba-list-field-header "><strong>Fecha Final</strong></td>
-            <td><input id="fecha_final" name="fecha_final" type="text" class="fecha" /></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-
+{% block content -%}
+<div style="text-align: center;">
+    <form action="" id="expdientes_creados">
+        <table class="table table-bordered ">
+            <tbody>
+                <tr>
+                    <td colspan="4" id="titulo_parametro" class="sonata-ba-list-field-header"><strong>Opciones de Contenido</strong></td>
+                </tr>
+                <tr>
+                    <td class="sonata-ba-list-field-header "><strong>Fecha Inicial</strong></td>
+                    <td><input id="fecha_inicial" name="fecha_inicial" type="text" class="fecha" /></td>
+                    <td class="sonata-ba-list-field-header "><strong>Fecha Final</strong></td>
+                    <td><input id="fecha_final" name="fecha_final" type="text" class="fecha" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
 {% endblock -%}
 

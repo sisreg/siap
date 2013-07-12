@@ -57,7 +57,7 @@ class UserAdmin extends BaseUserAdmin {
                 ->add('idEstablecimiento', null, array('label' => 'Establecimiento de salud'))
         ;
     }
-
+    
      public function getTemplate($name) {
         switch ($name) {
             case 'edit':
