@@ -22,8 +22,11 @@ jQuery(function($) {
         showMonthAfterYear: false,
         yearSuffix: '',
         showOn: "both",
-        buttonImage: "calendario.png",
         buttonText: "Seleccione..",
+       //showOn: "button",
+        buttonImage: "/bundles/minsalsiaps/js/datepicker/calendario.png",
+        //para que se muestre sólo la imagen
+        buttonImageOnly: true,
         minDate: "-115y",
         maxDate: "+0y",
         changeMonth: true,
