@@ -32,9 +32,9 @@ class CtlMunicipio {
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_digestyc", type="string", length=5, nullable=true)
+     * @ORM\Column(name="codigo_cnr", type="string", length=5, nullable=true)
      */
-    private $codigoDigestyc;
+    private $codigoCnr;
 
     /**
      * @var string
@@ -150,4 +150,27 @@ class CtlMunicipio {
         return $this->nombre;
     }
 
+
+    /**
+     * Set codigoCnr
+     *
+     * @param string $codigoCnr
+     * @return CtlMunicipio
+     */
+    public function setCodigoCnr($codigoCnr)
+    {
+        $this->codigoCnr = $codigoCnr;
+    
+        return $this;
+    }
+
+    /**
+     * Get codigoCnr
+     *
+     * @return string 
+     */
+    public function getCodigoCnr()
+    {
+        return $this->codigoCnr;
+    }
 }

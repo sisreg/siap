@@ -5,11 +5,16 @@
       <generator strategy="SEQUENCE"/>
     </id>
     <field name="nombre" type="string" column="nombre" length="150" nullable="true"/>
-    <field name="codigoDigestyc" type="string" column="codigo_digestyc" length="5" nullable="true"/>
+    <field name="codigoCnr" type="string" column="codigo_cnr" length="5" nullable="true"/>
     <field name="abreviatura" type="string" column="abreviatura" length="5" nullable="true"/>
     <many-to-one field="idPais" target-entity="CtlPais">
       <join-columns>
         <join-column name="id_pais" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimientoRegion" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento_region" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

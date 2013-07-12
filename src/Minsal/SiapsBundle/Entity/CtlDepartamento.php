@@ -32,9 +32,9 @@ class CtlDepartamento
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_digestyc", type="string", length=5, nullable=true)
+     * @ORM\Column(name="codigo_cnr", type="string", length=5, nullable=true)
      */
-    private $codigoDigestyc;
+    private $codigoCnr;
 
     /**
      * @var string
@@ -52,6 +52,16 @@ class CtlDepartamento
      * })
      */
     private $idPais;
+    
+     /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento_region", referencedColumnName="id")
+     * })
+     */
+    private $idEstablecimientoRegion;
 
 
 
@@ -159,5 +169,51 @@ class CtlDepartamento
     
      public function __toString() {
         return $this->nombre ? : '';
+    }
+
+    /**
+     * Set codigoCnr
+     *
+     * @param string $codigoCnr
+     * @return CtlDepartamento
+     */
+    public function setCodigoCnr($codigoCnr)
+    {
+        $this->codigoCnr = $codigoCnr;
+    
+        return $this;
+    }
+
+    /**
+     * Get codigoCnr
+     *
+     * @return string 
+     */
+    public function getCodigoCnr()
+    {
+        return $this->codigoCnr;
+    }
+
+    /**
+     * Set idEstablecimientoRegion
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoRegion
+     * @return CtlDepartamento
+     */
+    public function setIdEstablecimientoRegion(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoRegion = null)
+    {
+        $this->idEstablecimientoRegion = $idEstablecimientoRegion;
+    
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimientoRegion
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimientoRegion()
+    {
+        return $this->idEstablecimientoRegion;
     }
 }

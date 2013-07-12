@@ -73,8 +73,13 @@ class MntPacienteAdmin extends Admin {
                     'label' => $this->getTranslator()->trans('idNacionalidad')))
                 ->add('idOcupacion', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idOcupacion')))
-                ->add('idPaisNacimiento', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento')))
+                ->add('idPaisNacimiento', 'entity', array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento'),
+                    'class' => 'MinsalSiapsBundle:CtlPais',
+                    'query_builder' => function($repositorio) {
+                        return $repositorio->obtenerPaisHabilitado();
+                    }
+                ))
                 ->add('idParentescoResponsable', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
                 ->add('idParentescoProporDatos', null, array('empty_value' => 'Seleccione...',
@@ -121,17 +126,17 @@ class MntPacienteAdmin extends Admin {
     }
 
     public function preUpdate($paciente) {
-        
-        $em=$this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
-        $con=$em->getConnection();
-        $query="SELECT * FROM mnt_paciente where id=".$paciente->getId();
-        $resultado=$con->query($query);
-        $pacienteBase=$resultado->fetch();        
-        
+
+        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
+        $con = $em->getConnection();
+        $query = "SELECT * FROM mnt_paciente where id=" . $paciente->getId();
+        $resultado = $con->query($query);
+        $pacienteBase = $resultado->fetch();
+
         $auditoria = new MntAuditoriaPaciente();
 
         $cambio = false;
-        
+
         if ($paciente->getPrimerNombre() != $pacienteBase['primer_nombre']) {
             $auditoria->setPrimerNombre($paciente->getPrimerNombre());
             $cambio = TRUE;
@@ -147,7 +152,7 @@ class MntPacienteAdmin extends Admin {
         if ($paciente->getPrimerApellido() != $pacienteBase['primer_apellido']) {
             $auditoria->setPrimerApellido($paciente->getPrimerApellido());
             $cambio = TRUE;
-       }
+        }
         if ($paciente->getSegundoApellido() != $pacienteBase['segundo_apellido']) {
             $auditoria->setSegundoApellido($paciente->getSegundoApellido());
             $cambio = TRUE;
@@ -215,9 +220,8 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setIdUser($user);
             $paciente->setIdUserMod($user);
             $auditoria->setIdPaciente($paciente);
-            $this->getModelManager()->create($auditoria); 
+            $this->getModelManager()->create($auditoria);
         }
-
     }
 
     public function validate(ErrorElement $errorElement, $object) {
