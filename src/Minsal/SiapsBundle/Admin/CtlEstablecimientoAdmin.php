@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 Use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
 class CtlEstablecimientoAdmin extends Admin {
 
@@ -64,6 +65,18 @@ class CtlEstablecimientoAdmin extends Admin {
 
     public function preUpdate($establecimiento) {
         $establecimiento->setConfigurado(true);
+    }
+    
+    /**
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+     */
+    public function createQuery($context = 'list') {
+        $query = parent::createQuery($context);
+
+        return new ProxyQuery(
+                $query
+                        ->where($query->expr()->isNotNull($query->getRootAlias() . '.formula'))                       
+        );
     }
 
 }

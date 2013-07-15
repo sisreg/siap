@@ -52,6 +52,8 @@ class CtlDepartamento
      * })
      */
     private $idPais;
+    
+    
 
 
 
