@@ -33,6 +33,8 @@
             //$("#capturar").show();
             $('#resultadoBusqueda').show();
             $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
+            $("#buscarGlobal").show();
+            $(this).hide();
         }
         return false;
     });

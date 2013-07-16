@@ -26,10 +26,13 @@ $(document).ready(function() {
         viewrecords: true,
         loadComplete: function() {
             $('#lregistro').text('Total de registros: ' + $(this).getGridParam('records'));
-            $('#buscar').hide();
-            $('#buscarGlobal').show();
-            if ($('#tipo').val() == 'g')
+            if ($('#tipo').val() == 'g'){
                 $("#capturar").show();
+                $('#buscar').show();
+            }else{
+                $('#buscar').hide();
+            }
+                
         },
         gridComplete: function() {
             var ids = jQuery("#tBuscarPaciente").jqGrid('getDataIDs');

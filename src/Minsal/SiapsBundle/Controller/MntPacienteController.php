@@ -51,7 +51,7 @@ class MntPacienteController extends Controller {
         $conn = $em->getConnection();
         //CONSTANTES
         if (strcmp($tipo_busqueda, 'l') == 0)
-            $sql = "SELECT A.*,C.nombre 
+            $sql = "SELECT A.*,C.nombre,B.numero 
                 FROM mnt_paciente A, mnt_expediente B, ctl_documento_identidad C
                 WHERE B.id_paciente=A.id AND B.habilitado= TRUE AND C.id=A.id_doc_ide_paciente
                     AND A.primer_nombre::text ~* '$primerNombre' 
