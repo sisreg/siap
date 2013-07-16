@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * CtlPais
  *
  * @ORM\Table(name="ctl_pais")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\CtlPaisRepository")
  */
-class CtlPais
-{
+class CtlPais {
+
     /**
      * @var integer
      *
@@ -29,15 +29,19 @@ class CtlPais
      */
     private $nombre;
 
-
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="activo", type="boolean", nullable=true)
+     */
+    private $activo;
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -47,10 +51,9 @@ class CtlPais
      * @param string $nombre
      * @return CtlPais
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -59,12 +62,35 @@ class CtlPais
      *
      * @return string 
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
-    
+
     public function __toString() {
         return $this->nombre ? : '';
+    }
+
+
+    /**
+     * Set activo
+     *
+     * @param boolean $activo
+     * @return CtlPais
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    
+        return $this;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo()
+    {
+        return $this->activo;
     }
 }

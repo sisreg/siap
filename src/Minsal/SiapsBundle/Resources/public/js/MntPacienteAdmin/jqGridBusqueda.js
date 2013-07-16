@@ -26,10 +26,13 @@ $(document).ready(function() {
         viewrecords: true,
         loadComplete: function() {
             $('#lregistro').text('Total de registros: ' + $(this).getGridParam('records'));
-            $('#buscar').hide();
-            $('#buscarGlobal').show();
-            if ($('#tipo').val() == 'g')
+            if ($('#tipo').val() == 'g'){
                 $("#capturar").show();
+                $('#buscar').show();
+            }else{
+                $('#buscar').hide();
+            }
+                
         },
         gridComplete: function() {
             var ids = jQuery("#tBuscarPaciente").jqGrid('getDataIDs');
@@ -39,8 +42,8 @@ $(document).ready(function() {
                     if ($('#tipo').val() != 'g')
                         ce = "<a class=\"btn sonata-action-element\" href=\"" + cl + "\/view\"><i class=\"icon-folder-open\"></i>Detalle</a>";
                     else
-                        ce = "<a class=\"btn sonata-action-element\" href=\"create?idPacienteInicial=" + cl +"&tipo=g"+"\"><i class=\"icon-edit\"></i>Agregar</a>";
-                        jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
+                        ce = "<a class=\"btn sonata-action-element\" href=\"create?idPacienteInicial=" + cl + "&tipo=g" + "\"><i class=\"icon-edit\"></i>Agregar</a>";
+                    jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
                 }
             }
         }

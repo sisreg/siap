@@ -12,6 +12,7 @@ $(document).ready(function() {
 
     });
     $(":submit").click(function() {
+       
         if (!$('input:checkbox[name*="groups"]').is(':checked')) {
             ($('#error')) ? $('#error').remove() : '';
             var elem = $("<div id='error' title='Seleccionar un rol'>" +
@@ -20,7 +21,7 @@ $(document).ready(function() {
             elem.insertBefore($("#divpie"));
             $("#error").dialog();
             return false;
-        } else
+        } /*else
         if ($('input:checkbox[name*="groups"]:checked').length > 1) {
             ($('#error')) ? $('#error').remove() : '';
             var elem = $("<div id='error' title='Seleccionar un rol'>" +
@@ -29,7 +30,7 @@ $(document).ready(function() {
             elem.insertBefore($("#divpie"));
             $("#error").dialog();
             return false;
-        }
+        }*/
     });
 
 

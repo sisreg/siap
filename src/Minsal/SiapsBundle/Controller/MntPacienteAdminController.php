@@ -51,9 +51,11 @@ class MntPacienteAdminController extends Controller {
         if (strcmp($this->get('request')->get('tipo'), 'g') == 0) {
             $id = $this->get('request')->get('idPacienteInicial');
             $em = $this->getDoctrine()->getManager();
-            $conexion = $em->getRepository('MinsalSiapsBundle:MntConexion')->find(1);
+            $establecimientoPN = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento();
+            $regional = $establecimientoPN->getIdEstablecimientoPadre()->getIdEstablecimientoPadre();
+            $conexion = $em->getRepository('MinsalSiapsBundle:MntConexion')->findOneBy(array('idEstablecimiento' => $regional));
             $conn = $em->getRepository('MinsalSiapsBundle:MntConexion')->getConexionGenerica($conexion);
-            $sql = "SELECT * FROM mnt_paciente WHERE id_paciente_inicial=$id";
+            $sql = "SELECT * FROM mnt_paciente WHERE id=$id";
             $query = $conn->query($sql);
             foreach ($query->fetchAll() as $aux) {
                 $object->setPrimerNombre($aux['primer_nombre']);
@@ -87,7 +89,7 @@ class MntPacienteAdminController extends Controller {
                 $object->setConocidoPor($aux['conocido_por']);
                 $object->setIdSiff($aux['id_siff']);
                 $object->setDispensarizacionIndividual($aux['dispensarizacion_individual']);
-                $object->setIdPacienteInicial($aux['id_paciente_inicial']);
+                $object->setIdPacienteInicial($aux['id']);
                 if ($aux['area_geografica_domicilio'] != null)
                     $object->setAreaGeograficaDomicilio($em->getRepository('MinsalSiapsBundle:CtlAreaGeografica')->find($aux['area_geografica_domicilio']));
                 if ($aux['id_canton_domicilio'] != null)
@@ -173,26 +175,11 @@ class MntPacienteAdminController extends Controller {
     }
 
     public function redirectTo($object) {
-        $url = false;
 
-        if ($this->get('request')->get('btn_update_and_list')) {
-            $url = $this->admin->generateUrl('list');
-        }
-        if ($this->get('request')->get('btn_create_and_list')) {
-            $url = $this->admin->generateUrl('list');
-        }
-        if ($this->get('request')->get('btn_create_and_create')) {
-            $params = array();
-            if ($this->admin->hasActiveSubClass()) {
-                $params['subclass'] = $this->get('request')->get('subclass');
-            }
-            $url = $this->admin->generateUrl('create', $params);
-        }
-        if (!$url) {
-            $params = array();
-            $params['id'] = $object->getId();
-            $url = $this->admin->generateUrl('view', $params);
-        }
+
+        $params = array();
+        $params['id'] = $object->getId();
+        $url = $this->admin->generateUrl('view', $params);
 
         return new RedirectResponse($url);
     }

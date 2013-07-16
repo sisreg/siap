@@ -90,8 +90,8 @@ select[id$="_minute"] {
 /*
 td[class$="_delete"]{
     display: none;
-}*/
-
+}
+*/
 td[class$="_expedientes-idPaciente"]{
     display: none;
 }

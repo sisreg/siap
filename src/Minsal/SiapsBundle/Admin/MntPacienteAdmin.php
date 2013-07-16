@@ -73,8 +73,13 @@ class MntPacienteAdmin extends Admin {
                     'label' => $this->getTranslator()->trans('idNacionalidad')))
                 ->add('idOcupacion', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idOcupacion')))
-                ->add('idPaisNacimiento', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento')))
+                ->add('idPaisNacimiento', 'entity', array('empty_value' => 'Seleccione...',
+                    'required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento'),
+                    'class' => 'MinsalSiapsBundle:CtlPais',
+                    'query_builder' => function($repositorio) {
+                        return $repositorio->obtenerPaisHabilitado();
+                    }
+                ))
                 ->add('idParentescoResponsable', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
                 ->add('idParentescoProporDatos', null, array('empty_value' => 'Seleccione...',

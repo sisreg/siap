@@ -15,6 +15,7 @@
     <field name="activo" type="boolean" column="activo" nullable="true"/>
     <field name="tipoExpediente" type="string" column="tipo_expediente" nullable="true"/>
     <field name="configurado" type="boolean" column="configurado" nullable="true"/>
+    <field name="tipoFarmacia" type="boolean" column="tipo_farmacia" nullable="true"/>
     <many-to-one field="idTipoEstablecimiento" target-entity="CtlTipoEstablecimiento">
       <join-columns>
         <join-column name="id_tipo_establecimiento" referenced-column-name="id"/>

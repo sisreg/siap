@@ -95,6 +95,13 @@ class CtlEstablecimiento {
     /**
      * @var boolean
      *
+     * @ORM\Column(name="tipo_farmacia", type="boolean", nullable=true)
+     */
+    private $tipoFarmacia;
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="configurado", type="boolean", nullable=true)
      */
     private $configurado;
@@ -104,10 +111,10 @@ class CtlEstablecimiento {
      *
      * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_establecimiento_padre", referencedColumnName="id")
      * })
      */
-    private $idEstablecimiento;
+    private $idEstablecimientoPadre;
 
     /**
      * @var \CtlMunicipio
@@ -129,20 +136,34 @@ class CtlEstablecimiento {
      */
     private $idTipoEstablecimiento;
 
-   /**
-    * 
-    * @var \programas
-    * 
-    * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlPrograma")
-    * @ORM\JoinTable(name="mnt_programa_establecimiento",
-    *       joinColumns={
-    *           @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")},
-    *       inverseJoinColumns={
-    *           @ORM\JoinColumn(name="id_programa", referencedColumnName="id")}
-    * )
-    */
+    /**
+     * 
+     * @var \programas
+     * 
+     * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlPrograma")
+     * @ORM\JoinTable(name="mnt_programa_establecimiento",
+     *       joinColumns={
+     *           @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")},
+     *       inverseJoinColumns={
+     *           @ORM\JoinColumn(name="id_programa", referencedColumnName="id")}
+     * )
+     */
     private $programas;
-    
+
+    /**
+     * 
+     * @var \servicioExternos
+     * 
+     * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlServicioExterno")
+     * @ORM\JoinTable(name="mnt_servicio_externo_establecimiento",
+     *       joinColumns={
+     *           @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")},
+     *       inverseJoinColumns={
+     *           @ORM\JoinColumn(name="id_servicio_externo", referencedColumnName="id")}
+     * )
+     */
+    private $serviciosExterno;
+
     /**
      * Get id
      *
@@ -453,21 +474,20 @@ class CtlEstablecimiento {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->programas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->serviciosExterno = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add programas
      *
      * @param \Minsal\SiapsBundle\Entity\CtlPrograma $programas
      * @return CtlEstablecimiento
      */
-    public function addPrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $programas)
-    {
+    public function addPrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $programas) {
         $this->programas[] = $programas;
-    
+
         return $this;
     }
 
@@ -476,8 +496,7 @@ class CtlEstablecimiento {
      *
      * @param \Minsal\SiapsBundle\Entity\CtlPrograma $programas
      */
-    public function removePrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $programas)
-    {
+    public function removePrograma(\Minsal\SiapsBundle\Entity\CtlPrograma $programas) {
         $this->programas->removeElement($programas);
     }
 
@@ -486,8 +505,84 @@ class CtlEstablecimiento {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getProgramas()
-    {
+    public function getProgramas() {
         return $this->programas;
+    }
+
+    /**
+     * Add serviciosExterno
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlServicioExterno $serviciosExterno
+     * @return CtlEstablecimiento
+     */
+    public function addServiciosExterno(\Minsal\SiapsBundle\Entity\CtlServicioExterno $serviciosExterno) {
+        $this->serviciosExterno[] = $serviciosExterno;
+
+        return $this;
+    }
+
+    /**
+     * Remove serviciosExterno
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlServicioExterno $serviciosExterno
+     */
+    public function removeServiciosExterno(\Minsal\SiapsBundle\Entity\CtlServicioExterno $serviciosExterno) {
+        $this->serviciosExterno->removeElement($serviciosExterno);
+    }
+
+    /**
+     * Get serviciosExterno
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getServiciosExterno() {
+        return $this->serviciosExterno;
+    }
+
+
+    /**
+     * Set tipoFarmacia
+     *
+     * @param boolean $tipoFarmacia
+     * @return CtlEstablecimiento
+     */
+    public function setTipoFarmacia($tipoFarmacia)
+    {
+        $this->tipoFarmacia = $tipoFarmacia;
+    
+        return $this;
+    }
+
+    /**
+     * Get tipoFarmacia
+     *
+     * @return boolean 
+     */
+    public function getTipoFarmacia()
+    {
+        return $this->tipoFarmacia;
+    }
+
+    /**
+     * Set idEstablecimientoPadre
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoPadre
+     * @return CtlEstablecimiento
+     */
+    public function setIdEstablecimientoPadre(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoPadre = null)
+    {
+        $this->idEstablecimientoPadre = $idEstablecimientoPadre;
+    
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimientoPadre
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimientoPadre()
+    {
+        return $this->idEstablecimientoPadre;
     }
 }

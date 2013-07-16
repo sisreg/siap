@@ -32,9 +32,9 @@ class CtlCanton
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_digestyc", type="string", length=5, nullable=true)
+     * @ORM\Column(name="codigo_cnr", type="string", length=5, nullable=true)
      */
-    private $codigoDigestyc;
+    private $codigoCnr;
 
     /**
      * @var \CtlMunicipio
@@ -129,5 +129,28 @@ class CtlCanton
     
      public function __toString() {
         return $this->nombre ? : '';
+    }
+
+    /**
+     * Set codigoCnr
+     *
+     * @param string $codigoCnr
+     * @return CtlCanton
+     */
+    public function setCodigoCnr($codigoCnr)
+    {
+        $this->codigoCnr = $codigoCnr;
+    
+        return $this;
+    }
+
+    /**
+     * Get codigoCnr
+     *
+     * @return string 
+     */
+    public function getCodigoCnr()
+    {
+        return $this->codigoCnr;
     }
 }

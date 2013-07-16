@@ -51,13 +51,13 @@ class MntPacienteController extends Controller {
         $conn = $em->getConnection();
         //CONSTANTES
         if (strcmp($tipo_busqueda, 'l') == 0)
-            $sql = "SELECT * 
+            $sql = "SELECT A.*,C.nombre,B.numero 
                 FROM mnt_paciente A, mnt_expediente B, ctl_documento_identidad C
                 WHERE B.id_paciente=A.id AND B.habilitado= TRUE AND C.id=A.id_doc_ide_paciente
                     AND A.primer_nombre::text ~* '$primerNombre' 
                     AND A.primer_apellido::text ~* '$primerApellido'";
         else
-            $sql = "SELECT * 
+            $sql = "SELECT A.*,C.nombre 
                 FROM mnt_paciente A, ctl_documento_identidad C
                 WHERE C.id=A.id_doc_ide_paciente
                     AND A.primer_nombre::text ~* '$primerNombre' 
@@ -84,9 +84,9 @@ class MntPacienteController extends Controller {
         if (strcmp($tipo_busqueda, 'l') == 0)
             $query = $conn->query($sql);
         else {
-            //AHORITA LE HE PUESTO EL NUMERO 1 PORQUE ES EL UNICO VALOR QUE TENGO AQUI SE DEBE DETERMINAR 
-            //A QUE SERVIDOR REGIONAL SE DEBE DE CONECTAR
-            $conexion = $em->getRepository('MinsalSiapsBundle:MntConexion')->find(1);
+            $establecimientoPN = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento();
+            $regional=$establecimientoPN->getIdEstablecimientoPadre()->getIdEstablecimientoPadre();
+            $conexion = $em->getRepository('MinsalSiapsBundle:MntConexion')->findOneBy(array('idEstablecimiento'=>$regional));
             $conn = $em->getRepository('MinsalSiapsBundle:MntConexion')->getConexionGenerica($conexion);
             $query = $conn->query($sql);
             
@@ -102,7 +102,7 @@ class MntPacienteController extends Controller {
                     $id = $aux['id'];
                 } else {
                     $numero = '';
-                    $id = $aux['id_paciente_inicial'];
+                    $id = $aux['id'];
                 }
                 $rows[$i]['id'] = $id;
                 $rows[$i]['cell'] = array($id,

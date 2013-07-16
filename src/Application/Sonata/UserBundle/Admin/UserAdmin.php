@@ -22,7 +22,7 @@ class UserAdmin extends BaseUserAdmin {
         //parent::configureFormFields($formMapper);
         $formMapper
                 ->with('Datos Usuario')
-                ->add('firstname', null, array('required' => false))
+                ->add('firstname', null, array('required' => true))
                 ->add('lastname', null, array('required' => true))
                 ->add('username')
                 ->add('email')

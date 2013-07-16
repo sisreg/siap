@@ -6,6 +6,7 @@
     </id>
     <field name="numero" type="string" column="numero" length="10" nullable="false"/>
     <field name="habilitado" type="boolean" column="habilitado" nullable="false"/>
+    <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="true"/>
     <many-to-one field="idPaciente" target-entity="MntPaciente">
       <join-columns>
         <join-column name="id_paciente" referenced-column-name="id"/>
