@@ -10,6 +10,12 @@ minsal_siaps:
     resource: "@MinsalSiapsBundle/Controller/"
     type:     annotation
     prefix:   /
+
+minsal_laboratorio:
+    resource: "@MinsalLaboratorioBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 #FOSUSERBUNDLE   
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

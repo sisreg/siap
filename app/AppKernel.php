@@ -30,6 +30,7 @@ class AppKernel extends Kernel {
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Minsal\LaboratorioBundle\MinsalLaboratorioBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
