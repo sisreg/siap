@@ -26,9 +26,9 @@ class MntModalidadEstablecimiento {
     /**
      * @var boolean
      *
-     * @ORM\Column(name="tiene_bodega", type="boolean", nullable=false)
+     * @ORM\Column(name="tiene_farmacia", type="boolean", nullable=false)
      */
-    private $tieneBodega;
+    private $tieneFarmacia;
 
     /**
      * @var boolean
@@ -69,24 +69,24 @@ class MntModalidadEstablecimiento {
     }
 
     /**
-     * Set tieneBodega
+     * Set tieneFarmacia
      *
-     * @param boolean $tieneBodega
+     * @param boolean $tieneFarmacia
      * @return MntModalidadEstablecimiento
      */
-    public function setTieneBodega($tieneBodega) {
-        $this->tieneBodega = $tieneBodega;
+    public function setTieneFarmacia($tieneFarmacia) {
+        $this->tieneFarmacia = $tieneFarmacia;
 
         return $this;
     }
 
     /**
-     * Get tieneBodega
+     * Get tieneFarmacia
      *
      * @return boolean 
      */
-    public function getTieneBodega() {
-        return $this->tieneBodega;
+    public function getTieneFarmacia() {
+        return $this->tieneFarmacia;
     }
 
     /**

@@ -33,7 +33,7 @@ class MntModalidadEstablecimientoAdmin extends Admin {
                         $valor = array_pop($ruta_accion);
                         return $repositorio->obtenerModalidades($accion, $valor);
                     }))
-                ->add('tieneBodega', null, array('label' => 'Tiene bodega para farmacia', 'required' => false))
+                ->add('tieneFarmacia', null, array('label' => 'Tiene farmacia habilitada', 'required' => false))
                 ->add('repetitiva', null, array('label' => 'Emite recetas repetitivas', 'required' => false));
     }
 
@@ -48,7 +48,7 @@ class MntModalidadEstablecimientoAdmin extends Admin {
         $listMapper
                 ->add('idEstablecimiento.nombre', 'text', array('label' => $this->getTranslator()->trans('establecimiento')))
                 ->add('idModalidad.nombre', 'text', array('label' => $this->getTranslator()->trans('id_modalidad')))
-                ->add('tieneBodega', null, array('label' => 'Tiene bodega para farmacia'))
+                ->add('tieneFarmacia', null, array('label' => 'Tiene farmacia habilitada'))
                 ->add('repetitiva', null, array('label' => 'Emite recetas repetitivas'))
                 ->add('_action', 'actions', array(
                     'label' => $this->getTranslator()->trans('Action'),

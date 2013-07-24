@@ -84,27 +84,6 @@ class CtlMunicipio {
     }
 
     /**
-     * Set codigoDigestyc
-     *
-     * @param string $codigoDigestyc
-     * @return CtlMunicipio
-     */
-    public function setCodigoDigestyc($codigoDigestyc) {
-        $this->codigoDigestyc = $codigoDigestyc;
-
-        return $this;
-    }
-
-    /**
-     * Get codigoDigestyc
-     *
-     * @return string 
-     */
-    public function getCodigoDigestyc() {
-        return $this->codigoDigestyc;
-    }
-
-    /**
      * Set abreviatura
      *
      * @param string $abreviatura

@@ -122,6 +122,7 @@ class MntPacienteAdmin extends Admin {
         $fecha_actual = new \DateTime();
         $paciente->setFechaRegistro($fecha_actual);
         $expediente->setFechaCreacion($fecha_actual);
+        $expediente->setHoraCreacion($fecha_actual);
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $paciente->setIdUser($user);
     }

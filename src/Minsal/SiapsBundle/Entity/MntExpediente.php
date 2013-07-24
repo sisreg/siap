@@ -71,11 +71,18 @@ class MntExpediente
     private $idPaciente;
     
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="fecha_creacion", type="datetime", nullable=false)
+     * @ORM\Column(name="fecha_creacion", type="date", nullable=false)
      */
     private $fechaCreacion;
+    
+    /**
+     * @var \Time
+     *
+     * @ORM\Column(name="hora_creacion", type="time", nullable=true)
+     */
+    private $horaCreacion;
 
     /**
      * Get id
@@ -228,5 +235,28 @@ class MntExpediente
     public function getFechaCreacion()
     {
         return $this->fechaCreacion;
+    }
+
+    /**
+     * Set horaCreacion
+     *
+     * @param \DateTime $horaCreacion
+     * @return MntExpediente
+     */
+    public function setHoraCreacion($horaCreacion)
+    {
+        $this->horaCreacion = $horaCreacion;
+    
+        return $this;
+    }
+
+    /**
+     * Get horaCreacion
+     *
+     * @return \DateTime 
+     */
+    public function getHoraCreacion()
+    {
+        return $this->horaCreacion;
     }
 }

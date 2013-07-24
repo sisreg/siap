@@ -12,21 +12,26 @@
 {%endblock%}
 {% block content -%}
 <div style="text-align: center;">
-    <form action="" id="expdientes_creados">
+    <form  id="expedientes_creados" method="post" >
         <table class="table table-bordered ">
             <tbody>
                 <tr>
                     <td colspan="4" id="titulo_parametro" class="sonata-ba-list-field-header"><strong>Opciones de Contenido</strong></td>
                 </tr>
                 <tr>
-                    <td class="sonata-ba-list-field-header "><strong>Fecha Inicial</strong></td>
-                    <td><input id="fecha_inicial" name="fecha_inicial" type="text" class="fecha" /></td>
-                    <td class="sonata-ba-list-field-header "><strong>Fecha Final</strong></td>
-                    <td><input id="fecha_final" name="fecha_final" type="text" class="fecha" /></td>
+                    <td class=""><strong>Fecha Inicial</strong></td>
+                    <td><input id="fecha_inicio" name="fecha_inicio" type="text" class="fecha" /></td>
+                    <td class=" "><strong>Fecha Final</strong></td>
+                    <td><input id="fecha_fin" name="fecha_fin" type="text" class="fecha" /></td>
                 </tr>
             </tbody>
         </table>
+        <div class="well form-actions">
+            <input type="submit" class="btn" id="emitir_informe" name="btn_generate" value="Emitir Informe"/>
+            <input type="submit" class="btn" name="btn_cancel" value="Cancelar"/>
+        </div>
     </form>
+    <div id="resultado" ></div>
 </div>
 {% endblock -%}
 

@@ -52,7 +52,6 @@ class UserAdmin extends BaseUserAdmin {
                 ->add('email')
                 ->add('groups')
                 ->add('enabled', null, array('editable' => true))
-                ->add('locked', null, array())
                 ->add('createdAt')
                 ->add('idEstablecimiento', null, array('label' => 'Establecimiento de salud'))
         ;

@@ -78,7 +78,7 @@ class CtlEstablecimientoAdmin extends Admin {
 
         return new ProxyQuery(
                 $query
-                        ->where($query->expr()->isNotNull($query->getRootAlias() . '.formula'))                       
+                        ->where($query->getRootAlias().'.idTipoEstablecimiento NOT IN (12,13)')
         );
     }
 
