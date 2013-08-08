@@ -35,6 +35,7 @@ security:
             logout:
                 path:           /admin/logout
                 target:         /admin/login
+                invalidate_session: false
             anonymous:    true
         # -> end custom configuration
 
