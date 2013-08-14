@@ -85,7 +85,7 @@ consola:
 **siaps-prod.sql** ejecutando la siguiente sentencia como 
 **usuario postgres**:
 
-        pg_dump -U nombreUsuario nombreBase -f nombreArchivo.sql
+        psql -U nombreUsuario -d nombreBase -f nombreArchivo.sql
  
 3. Instalación y configuración de JasperReports Server
 -------------------------------------------------------
@@ -226,7 +226,7 @@ se debe de crear un script para que realice esta acción. Para ello como
 creara un archivo denominado **jasperreports** con el siguiente contenido:
 
         #!/bin/sh
-        
+
         ### BEGIN INIT INFO
         # Provides:          jasperreports
         # Required-Start:    $all
@@ -239,20 +239,17 @@ creara un archivo denominado **jasperreports** con el siguiente contenido:
         # Inicia el servicio de JasperServer
         case "$1" in
         'start')
-                /opt/jasperreports-server-cp-5.x.x/ctlscript.sh start
-                ;;
+	        /opt/jasperreports-server-cp-5.x.x/ctlscript.sh start
+	        ;;
         'stop')
-                /opt/jasperreports-server-cp-5.x.x/ctlscript.sh stop
-                ;;
+	        /opt/jasperreports-server-cp-5.x.x/ctlscript.sh stop
+	        ;;
         'restart')
-                /opt/jasperreports-server-cp-5.x.x/ctlscript.sh restart
-                ;;
-        'status')
-                /opt/jasperreports-server-cp-5.x.x/ctlscript.sh status
-                ;;
+        	/opt/jasperreports-server-cp-5.x.x/ctlscript.sh restart
+        	;;
         *)
-                echo "Usage: $0 { start | stop | restart | status}"
-                ;;
+	echo "Usage: $0 { start | stop | restart }"
+	;;
         esac
         exit 0
 
@@ -335,6 +332,10 @@ de JasperReport Server en la ruta
         mkdir -p app/cache app/logs web/imagenes
 
 * Siempre como **usuario normal** ejecutar:
+
+         php composer.phar install
+
+* Si da error ejecutar
 
          php composer.phar update
 
