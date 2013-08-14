@@ -10,7 +10,7 @@
 }
 #titulo_parametro{
     text-align: center;
-    height: 30px;
+    height: 20px;
 }
 .sonata-bc .fecha {width:85px;}
 div #resultadoBusqueda{padding-bottom: 25px;}
@@ -31,4 +31,13 @@ div #resultadoBusqueda{padding-bottom: 25px;}
 /*para que desplegue la imagen del calendario en linea con el input */
 .sonata-bc img {
     display: inline;
+}
+
+#lregistro{
+    text-align: left;
+    margin: 0 auto;
+}
+
+#resultado{
+     overflow: auto;
 }

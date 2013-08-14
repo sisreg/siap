@@ -27,9 +27,9 @@ div#divpie{
     position: fixed;
     top: 96%;
     height: 30px;
-    width: 85%;
+    width: 90%;
     text-align: center;
-    margin-left: 7.5%;
+    margin-left: 5%;
     /* -- CSS3 - Gradiente de fondo -- */
     /*  background: -webkit-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);
       background: -moz-linear-gradient( 0deg ,whitesmoke,#749ecb,#266ebb);*/
@@ -43,12 +43,12 @@ div#divpie{
 }
 
 div#pagina{
-    width:85%; 
+    width:90%; 
     text-align: center;
     margin-left: auto ;
     margin-right: auto ;
     background-color:whitesmoke;
-    min-height: 525px;
+    min-height: 625px;
 
     border-top: 3px solid #bebebe;
     border-left: 2px solid #535353;

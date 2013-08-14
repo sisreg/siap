@@ -5,18 +5,20 @@ $(document).ready(function() {
         datatype: 'json',
         altRows: true,
         height: "100%",
+        width:"100%",
         hidegrid: false,
-        colNames: ['idPaciente', 'NEC', 'Apellidos', 'Nombres', 'F. NAC.', 'Documento', 'Nombre Madre', 'Conocido por', 'Acciones'],
+        colNames: ['idPaciente', 'Acciones','NEC', 'Apellidos', 'Nombres', 'F. NAC.', 'Documento', 'Nombre Madre', 'Conocido por','Última \n                 Consulta'],
         colModel: [
             {name: 'id', index: 'id', editable: false},
-            {name: 'nec', index: 'nec', editable: false, width: 80, align: "center"},
+            {name: 'acciones', index: 'acciones', editable: false, width: 100, align: "center"},
+            {name: 'nec', index: 'nec', editable: false, width: 50, align: "center"},
             {name: 'apellidos', index: 'apellidos', editable: false, width: 200},
             {name: 'nombres', index: 'nombres', editable: false, width: 200},
             {name: 'fecha_nacimiento', index: 'fecha_nacimiento', editable: false, width: 70, align: "center"},
-            {name: 'documento', index: 'documento', editable: false, width: 110, align: "center"},
+            {name: 'documento', index: 'documento', editable: false, width: 85, align: "center"},
             {name: 'nombre_madre', index: 'nombre_madre', editable: false, width: 180},
-            {name: 'conocido_por', index: 'conocido_por', editable: false, width: 120},
-            {name: 'acciones', index: 'acciones', editable: false, width: 100, align: "center"}
+            {name: 'conocido_por', index: 'conocido_por', editable: false, width: 200},
+            {name: 'conocido_por', index: 'conocido_por', editable: false, width: 100}            
         ],
         multiselect: false,
         rowNum: 10,
@@ -49,6 +51,7 @@ $(document).ready(function() {
         }
     }).jqGrid('navGrid', '#pBuscarPaciente',
             {edit: false, add: false, del: false, search: false, refresh: false}
-    ).hideCol(['id']);
+    )
+    .hideCol(['id']);
 });
 

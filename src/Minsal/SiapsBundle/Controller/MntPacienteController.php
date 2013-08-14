@@ -93,6 +93,7 @@ class MntPacienteController extends Controller {
         }
 
         $numfilas = count($query->rowCount());
+        $espacio="";
         $i = 0;
         $rows = array();
         if ($numfilas > 0) {
@@ -106,7 +107,7 @@ class MntPacienteController extends Controller {
                 }
                 $rows[$i]['id'] = $id;
                 $rows[$i]['cell'] = array($id,
-                    $numero,
+                    $espacio,$numero,
                     $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
                     $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
                     date('d-m-Y', strtotime($aux['fecha_nacimiento'])),

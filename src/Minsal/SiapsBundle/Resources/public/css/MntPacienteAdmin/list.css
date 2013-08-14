@@ -5,8 +5,15 @@
 }
 .sonata-bc .fecha {width:85px;}
 .sonata-bc .nombresLargos {width:300px;}
-div #resultadoBusqueda{padding-bottom: 25px;}
-.sonata-bc .table th, .sonata-bc .table td{padding:0px; height:15px;text-align:left; line-height: 20px;vertical-align: middle;border-top:1px solid #dddddd;height: 1.3em;}
+/*div #resultadoBusqueda{padding-bottom: 25px;}*/
+.sonata-bc .table th, .sonata-bc .table td{
+    padding:0px; 
+    height:15px;
+    text-align:left; 
+    line-height: 20px;
+    vertical-align: middle;
+    border-top:1px solid #dddddd;
+    height: 1.3em;}
 .table-bordered input:hover {background-color: #E4F3C0;}
 .sonata-bc input[type="text"]{
     height: 20px;
@@ -16,4 +23,8 @@ div #resultadoBusqueda{padding-bottom: 25px;}
 /*para que desplegue la imagen del calendario en linea con el input */
 .sonata-bc img {
     display: inline;
+    
+}
+#resultadoBusqueda{
+    overflow: auto;
 }
