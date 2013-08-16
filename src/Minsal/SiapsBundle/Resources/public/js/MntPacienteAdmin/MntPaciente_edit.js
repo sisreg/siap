@@ -23,7 +23,17 @@ $(document).ready(function() {
         $('input[id$="_numeroDocIdePaciente"]').val('');
         $('input[id$="_numeroDocIdePaciente"]').attr('disabled', 'disabled');
     }
-    
+
+    if ($('select[id$="_idDocResponsable"] option:selected').text() == 'Ninguno') {
+        $('input[id$="_numeroDocIdeResponsable"]').val('');
+        $('input[id$="_numeroDocIdeResponsable"]').attr('disabled', 'disabled');
+    }
+
+    if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'Ninguno') {
+        $('input[id$="_numeroDocIdeProporDatos"]').val('');
+        $('input[id$="_numeroDocIdeProporDatos"]').attr('disabled', 'disabled');
+    }
+
     $('.telefono').mask("9999-9999");
     
     $('input[id$="_numeroAfiliacion"]').keyup(function(){
@@ -199,7 +209,6 @@ $(document).ready(function() {
         }
     });
 
-
      /*CARGAR DEPARTAMENTOS NACIMIENTO*/
     $('select[id$="_idPaisNacimiento"]').change(function() {
         $('select[id$="_idDepartamentoNacimiento"]').children().remove();
@@ -300,14 +309,13 @@ $(document).ready(function() {
 
     });
 
-    
-    function calcular_edad(){
-        var fecha_nac=$('select[id$="_fechaNacimiento_day"]').val() + '-' +$('select[id$="_fechaNacimiento_month"]').val() + '-' 
-                    + $('select[id$="_fechaNacimiento_year"]').val();
-            $.getJSON(Routing.generate('edad_paciente') + '?fecha_nacimiento=' + fecha_nac ,
-                    function(data) {
-                        $('input[id="edad"]').val(data.edad);
-                    });
+    function calcular_edad() {
+        var fecha_nac = $('select[id$="_fechaNacimiento_day"]').val() + '-' + $('select[id$="_fechaNacimiento_month"]').val() + '-'
+                + $('select[id$="_fechaNacimiento_year"]').val();
+        $.getJSON(Routing.generate('edad_paciente') + '?fecha_nacimiento=' + fecha_nac,
+                function(data) {
+                    $('input[id="edad"]').val(data.edad);
+                });
     }
 
 });

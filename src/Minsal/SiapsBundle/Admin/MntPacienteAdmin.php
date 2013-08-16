@@ -191,10 +191,13 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setIdMunicipioDomicilio($paciente->getIdMunicipioDomicilio());
             $cambio = TRUE;
         }
-       /* if ($paciente->getIdCantonDomicilio()->getId() != $pacienteBase['id_canton_domicilio']) {
-            $auditoria->setIdCantonDomicilio($paciente->getIdCantonDomicilio());
-            $cambio = TRUE;
-        }*/
+        if(($paciente->getIdCantonDomicilio())!= NULL){
+             if ($paciente->getIdCantonDomicilio()->getId() != $pacienteBase['id_canton_domicilio']) {
+                $auditoria->setIdCantonDomicilio($paciente->getIdCantonDomicilio());
+                $cambio = TRUE;
+            }
+        }
+       
         if ($paciente->getAreaGeograficaDomicilio()->getId() != $pacienteBase['area_geografica_domicilio']) {
             $auditoria->setAreaGeograficaDomicilio($paciente->getAreaGeograficaDomicilio());
             $cambio = TRUE;
@@ -212,23 +215,23 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setFechaNacimiento($paciente->getFechaNacimiento());
             $cambio = TRUE;
         }
-        $hora_form = $paciente->getHoraNacimiento();
-       /* foreach ($hora_form as $valor_hora) {
-            $datos_hora[] = $valor_hora;
-        }*/
-       // $hora = explode(' ', $datos_hora[0]);
-        if ($pacienteBase['hora_nacimiento'] != null) {
-            if (strtotime($hora[1]) != strtotime($pacienteBase['hora_nacimiento'])) {
-                 $auditoria->setHoraNacimiento($paciente->getHoraNacimiento());
-               $cambio = TRUE;
+        if($paciente->getHoraNacimiento()!=NULL){
+            $hora_form = $paciente->getHoraNacimiento();
+            foreach ($hora_form as $valor_hora) {
+                $datos_hora[] = $valor_hora;
             }
-        } 
-        else {
-            if ($paciente->getHoraNacimiento() != null) {
+            $hora = explode(' ', $datos_hora[0]);
+            if ($pacienteBase['hora_nacimiento'] != null) {
+                if (strtotime($hora[1]) != strtotime($pacienteBase['hora_nacimiento'])) {
+                    $auditoria->setHoraNacimiento($paciente->getHoraNacimiento());
+                    $cambio = TRUE;
+                }
+            } else {
                 $auditoria->setHoraNacimiento($paciente->getHoraNacimiento());
                 $cambio = TRUE;
             }
         }
+        
 
         //si alguno de los valores ha cambiado se guarda en la tabla auditoría paciente
         if ($cambio == TRUE) {

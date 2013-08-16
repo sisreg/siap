@@ -56,6 +56,7 @@ class MntPacienteController extends Controller {
                 WHERE B.id_paciente=A.id AND B.habilitado= TRUE AND C.id=A.id_doc_ide_paciente
                     AND A.primer_nombre::text ~* '$primerNombre' 
                     AND A.primer_apellido::text ~* '$primerApellido'";
+        
         else
             $sql = "SELECT A.*,C.nombre 
                 FROM mnt_paciente A, ctl_documento_identidad C
