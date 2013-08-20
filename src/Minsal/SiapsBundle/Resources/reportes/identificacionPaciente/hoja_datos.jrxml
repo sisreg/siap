@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="557" leftMargin="30" rightMargin="25" topMargin="40" bottomMargin="35" uuid="b3dbe2a0-70cd-4578-a4d9-18f1579c84c3">
-	<property name="ireport.zoom" value="0.75"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="562" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="30" uuid="b3dbe2a0-70cd-4578-a4d9-18f1579c84c3">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="292"/>
+	<property name="ireport.y" value="644"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
 	<style name="Heading 3" fontSize="14" isBold="true"/>
@@ -11,8 +11,11 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select (Select * From calcular_edad($P{id_paciente})) as edad,initcap(primer_nombre) as primer_nombre,initcap(segundo_nombre) as segundo_nombre,initcap(tercer_nombre) as tercer_nombre,initcap(primer_apellido) as primer_apellido,initcap(segundo_apellido) as segundo_apellido,
-initcap(apellido_casada) as apellido_casada,
+		<![CDATA[select 
+initcap(
+A.primer_apellido||coalesce(' '||A.segundo_apellido,'')||coalesce(' '||A.apellido_casada,'')) as apellido_paciente,
+initcap(A.primer_nombre||coalesce(' '||A.segundo_nombre,'')||coalesce(' '||A.tercer_nombre,'')) as nombre_paciente,
+(Select * From fn_calcular_edad($P{id_paciente})) as edad,
 initcap(conocido_por) as conocido_por,to_char(fecha_nacimiento,'DD/MM/YYYY') AS fecha_nacimiento
 ,hora_nacimiento,
 K.nombre as pais_nacimiento,
@@ -21,7 +24,11 @@ L.nombre as estado_civil,I.nombre as doc_paciente,A.numero_doc_ide_paciente as n
 M.nombre as ocupacion,lower(A.direccion) as direccion_paciente,telefono_casa,
 B.nombre as departamento_domicilio,C.nombre as municipio_domicilio,
 H.nombre as canton,G.nombre area_geografica,initcap(lugar_trabajo) as lugar_trabajo,telefono_trabajo,
-J.nombre as area_cotizacion, asegurado,numero_afiliacion,A.cotizante,initcap(A.nombre_padre) as nombre_padre,initcap(A.nombre_madre) as nombre_madre,initcap(A.nombre_conyuge) as nombre_conyuge,
+J.nombre as area_cotizacion, 
+CASE WHEN A.asegurado is null THEN ' ' END as asegurado,
+asegurado,numero_afiliacion,
+CASE WHEN A.cotizante is null THEN ' ' END as cotizante,
+initcap(A.nombre_padre) as nombre_padre,initcap(A.nombre_madre) as nombre_madre,initcap(A.nombre_conyuge) as nombre_conyuge,
 initcap(nombre_responsable) as nombre_responsable,lower(direccion_responsable) as direccion_responsable,telefono_responsable,D.parentesco as parentesco_responsable,
 I2.nombre as documento_responsable,numero_doc_ide_responsable,
 initcap(nombre_proporciono_datos) as nombre_proporciono_datos,I1.nombre as documento_propor_datos,numero_doc_ide_propor_datos,D1.parentesco as
@@ -52,13 +59,9 @@ inner join ctl_establecimiento O on (N.id_establecimiento=O.id)
 inner join fos_user_user P on (A.id_user=P.id)
 where A.id=$P{id_paciente};]]>
 	</queryString>
+	<field name="apellido_paciente" class="java.lang.String"/>
+	<field name="nombre_paciente" class="java.lang.String"/>
 	<field name="edad" class="java.lang.String"/>
-	<field name="primer_nombre" class="java.lang.String"/>
-	<field name="segundo_nombre" class="java.lang.String"/>
-	<field name="tercer_nombre" class="java.lang.String"/>
-	<field name="primer_apellido" class="java.lang.String"/>
-	<field name="segundo_apellido" class="java.lang.String"/>
-	<field name="apellido_casada" class="java.lang.String"/>
 	<field name="conocido_por" class="java.lang.String"/>
 	<field name="fecha_nacimiento" class="java.lang.String"/>
 	<field name="hora_nacimiento" class="java.sql.Time"/>
@@ -77,9 +80,9 @@ where A.id=$P{id_paciente};]]>
 	<field name="lugar_trabajo" class="java.lang.String"/>
 	<field name="telefono_trabajo" class="java.lang.String"/>
 	<field name="area_cotizacion" class="java.lang.String"/>
-	<field name="asegurado" class="java.lang.Boolean"/>
+	<field name="asegurado" class="java.lang.String"/>
 	<field name="numero_afiliacion" class="java.lang.String"/>
-	<field name="cotizante" class="java.lang.Boolean"/>
+	<field name="cotizante" class="java.lang.String"/>
 	<field name="nombre_padre" class="java.lang.String"/>
 	<field name="nombre_madre" class="java.lang.String"/>
 	<field name="nombre_conyuge" class="java.lang.String"/>
@@ -155,7 +158,7 @@ where A.id=$P{id_paciente};]]>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="615" splitType="Stretch">
+		<band height="604" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="1af6a41f-3fca-4fde-a8ab-d8de264a3314" x="2" y="47" width="57" height="20"/>
 				<textElement verticalAlignment="Middle">
@@ -163,41 +166,6 @@ where A.id=$P{id_paciente};]]>
 				</textElement>
 				<text><![CDATA[Apellidos:]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="b3b9207e-20c4-4bfc-bac5-079e48ffe79d" x="124" y="67" width="140" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{primer_nombre}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="e4939d48-1ba5-452d-aae8-39bfc4573999" x="266" y="67" width="140" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{segundo_nombre}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="c54c053d-cf23-4fb5-8b03-931076607a99" x="124" y="47" width="140" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{primer_apellido}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="f60396ea-0b21-4d4c-ad21-23cc4785a512" x="265" y="47" width="140" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{segundo_apellido}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="b4369a76-d9c0-465b-bf21-6a38b8e8a530" x="408" y="47" width="140" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{apellido_casada}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement uuid="cacf9b67-a255-40e3-a82d-2115b3bd3a31" x="2" y="107" width="123" height="20"/>
 				<textElement verticalAlignment="Middle">
@@ -211,13 +179,6 @@ where A.id=$P{id_paciente};]]>
 					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="c5c64e9d-8168-463e-93e9-5b094a953ebc" x="409" y="67" width="140" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tercer_nombre}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="6330a741-afda-429e-b188-af42437e80ea" x="2" y="67" width="57" height="20"/>
@@ -499,7 +460,7 @@ where A.id=$P{id_paciente};]]>
 				</textElement>
 				<text><![CDATA[Área Cotización:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="091322b5-f8c7-4d24-b1d0-7677cf40607a" x="124" y="313" width="100" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -630,7 +591,7 @@ where A.id=$P{id_paciente};]]>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Dirección Responsble:]]></text>
+				<text><![CDATA[Dirección Responsable:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="fc1af52a-9edc-42e6-a9eb-ee39275984da" x="127" y="458" width="158" height="20"/>
@@ -674,7 +635,7 @@ where A.id=$P{id_paciente};]]>
 				</textElement>
 				<text><![CDATA[No. Expediente:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="5361a6bd-77ce-4f94-b936-291aa02a7bac" x="455" y="4" width="100" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
@@ -773,40 +734,54 @@ where A.id=$P{id_paciente};]]>
 				<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="ec5ef540-dcd9-4e77-922e-95e11471f938" x="2" y="591" width="178" height="20"/>
+				<reportElement uuid="ec5ef540-dcd9-4e77-922e-95e11471f938" x="2" y="583" width="178" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Responsable Toma de Información:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="d4e5e8ce-5b49-41d7-b28f-7f6dce8769d9" x="178" y="591" width="140" height="20"/>
+				<reportElement uuid="d4e5e8ce-5b49-41d7-b28f-7f6dce8769d9" x="178" y="583" width="140" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tomo_datos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="82480422-1f28-4502-bf3c-58745bf184d2" x="322" y="591" width="107" height="20"/>
+				<reportElement uuid="82480422-1f28-4502-bf3c-58745bf184d2" x="322" y="583" width="107" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Fecha de Inscripción:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="6acef6f1-b9b1-472c-80b7-13e814a5658e" x="430" y="591" width="125" height="20"/>
+				<reportElement uuid="6acef6f1-b9b1-472c-80b7-13e814a5658e" x="430" y="583" width="125" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fecha_registro}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="d18f0620-7284-4871-8871-a244f7c0dac9" x="2" y="584" width="555" height="1"/>
+				<reportElement uuid="d18f0620-7284-4871-8871-a244f7c0dac9" x="2" y="579" width="555" height="1"/>
 			</line>
 			<textField>
 				<reportElement uuid="10074670-5bfd-425f-9e4b-1b7e5ed94ad2" x="407" y="107" width="141" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="278491fe-e995-4b13-b0af-4e983e073d59" x="124" y="47" width="413" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellido_paciente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="89f888cb-ff18-4f49-898d-32d1a22764a6" x="124" y="67" width="413" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_paciente}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -814,14 +789,14 @@ where A.id=$P{id_paciente};]]>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="25" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement uuid="e3806ae5-5338-404e-9978-25e67bb05380" x="437" y="4" width="80" height="20"/>
+				<reportElement uuid="e3806ae5-5338-404e-9978-25e67bb05380" x="437" y="0" width="80" height="20"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Pág. "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="47aa0cf6-9fc6-495f-87b6-4f94b44e3f52" x="517" y="4" width="40" height="20"/>
+				<reportElement uuid="47aa0cf6-9fc6-495f-87b6-4f94b44e3f52" x="517" y="0" width="40" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
