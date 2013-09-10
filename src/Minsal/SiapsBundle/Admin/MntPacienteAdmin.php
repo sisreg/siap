@@ -247,6 +247,7 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setIdPaciente($paciente);
             $this->getModelManager()->create($auditoria);
         }
+        
     }
 
     public function validate(ErrorElement $errorElement, $object) {

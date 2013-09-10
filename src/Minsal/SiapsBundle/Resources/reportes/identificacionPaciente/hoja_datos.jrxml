@@ -8,7 +8,7 @@
 	<style name="Heading 3" fontSize="14" isBold="true"/>
 	<style name="Heading 4" fontSize="12" isBold="true" isItalic="true"/>
 	<parameter name="id_paciente" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[7]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select 
@@ -25,9 +25,9 @@ M.nombre as ocupacion,lower(A.direccion) as direccion_paciente,telefono_casa,
 B.nombre as departamento_domicilio,C.nombre as municipio_domicilio,
 H.nombre as canton,G.nombre area_geografica,initcap(lugar_trabajo) as lugar_trabajo,telefono_trabajo,
 J.nombre as area_cotizacion, 
-CASE WHEN A.asegurado is null THEN ' ' END as asegurado,
-asegurado,numero_afiliacion,
-CASE WHEN A.cotizante is null THEN ' ' END as cotizante,
+CASE WHEN A.asegurado=true THEN 'Si' ELSE ' ' END as asegurado,
+numero_afiliacion,
+CASE WHEN A.cotizante=true THEN 'Si' ELSE ' ' END as cotizante,
 initcap(A.nombre_padre) as nombre_padre,initcap(A.nombre_madre) as nombre_madre,initcap(A.nombre_conyuge) as nombre_conyuge,
 initcap(nombre_responsable) as nombre_responsable,lower(direccion_responsable) as direccion_responsable,telefono_responsable,D.parentesco as parentesco_responsable,
 I2.nombre as documento_responsable,numero_doc_ide_responsable,

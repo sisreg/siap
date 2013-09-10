@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
+use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
 class UserAdmin extends BaseUserAdmin {
 
@@ -67,5 +68,18 @@ class UserAdmin extends BaseUserAdmin {
                 break;
         }
     }
+    
+     /**
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+     */
+   /* public function createQuery($context = 'list') {
+        $query = parent::createQuery($context);
+
+        return new ProxyQuery(
+                $query
+                        ->innerJoin('SonataUserBundle:Group','g')
+                        ->where('g.id IN (3)')
+        );
+    }*/
 
 }
