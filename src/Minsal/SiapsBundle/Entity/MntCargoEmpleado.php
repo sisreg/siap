@@ -1,16 +1,16 @@
 <?php
 
-namespace Minsal\LaboratorioBundle\Entity;
+namespace Minsal\SiapsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LabCargoEmpleadoLaboratorio
+ * MntCargoEmpleado
  *
- * @ORM\Table(name="lab_cargo_empleado_laboratorio")
+ * @ORM\Table(name="mnt_cargo_empleado")
  * @ORM\Entity
  */
-class LabCargoEmpleadoLaboratorio
+class MntCargoEmpleado
 {
     /**
      * @var integer
@@ -18,7 +18,7 @@ class LabCargoEmpleadoLaboratorio
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="lab_cargo_empleado_laboratorio_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="mnt_cargo_empleado_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
@@ -45,7 +45,7 @@ class LabCargoEmpleadoLaboratorio
      * Set cargo
      *
      * @param string $cargo
-     * @return LabCargoEmpleadoLaboratorio
+     * @return MntCargoEmpleado
      */
     public function setCargo($cargo)
     {

@@ -205,14 +205,14 @@ class MntEmpleado
     private $firmaDigital;
 
     /**
-     * @var \LabCargoEmpleadoLaboratorio
+     * @var \MntCargoEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="LabCargoEmpleadoLaboratorio")
+     * @ORM\ManyToOne(targetEntity="MntCargoEmpleado")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_cargo_empleado_laboratorio", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_cargo_empleado", referencedColumnName="id")
      * })
      */
-    private $idCargoEmpleadoLaboratorio;
+    private $idCargoEmpleado;
 
     /**
      * @var \CtlDepartamento
@@ -267,7 +267,7 @@ class MntEmpleado
     /**
      * @var \LabAreaLaboratorio
      *
-     * @ORM\ManyToOne(targetEntity="LabAreaLaboratorio")
+     * @ORM\ManyToOne(targetEntity="\Minsal\LaboratorioBundle\Entity\LabAreaLaboratorio")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_area_laboratorio", referencedColumnName="id")
      * })
@@ -885,14 +885,14 @@ class MntEmpleado
     }
 
     /**
-     * Set idCargoEmpleadoLaboratorio
+     * Set idCargoEmpleado
      *
-     * @param \Minsal\LaboratorioBundle\Entity\LabCargoEmpleadoLaboratorio $idCargoEmpleadoLaboratorio
+     * @param \Minsal\SiapsBundle\Entity\MntCargoEmpleado $idCargoEmpleado
      * @return MntEmpleado
      */
-    public function setIdCargoEmpleadoLaboratorio(\Minsal\LaboratorioBundle\Entity\LabCargoEmpleadoLaboratorio $idCargoEmpleadoLaboratorio = null)
+    public function setIdCargoEmpleadoLaboratorio(\Minsal\SiapsBundle\Entity\MntCargoEmpleado $idCargoEmpleado = null)
     {
-        $this->idCargoEmpleadoLaboratorio = $idCargoEmpleadoLaboratorio;
+        $this->idCargoEmpleado = $idCargoEmpleado;
     
         return $this;
     }
