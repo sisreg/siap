@@ -207,7 +207,7 @@ class MntEmpleado
     /**
      * @var \LabCargoEmpleadoLaboratorio
      *
-     * @ORM\ManyToOne(targetEntity="LabCargoEmpleadoLaboratorio")
+     * @ORM\ManyToOne(targetEntity="\Minsal\LaboratorioBundle\Entity\LabCargoEmpleadoLaboratorio")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_cargo_empleado_laboratorio", referencedColumnName="id")
      * })
@@ -267,7 +267,7 @@ class MntEmpleado
     /**
      * @var \LabAreaLaboratorio
      *
-     * @ORM\ManyToOne(targetEntity="LabAreaLaboratorio")
+     * @ORM\ManyToOne(targetEntity="\Minsal\LaboratorioBundle\Entity\LabAreaLaboratorio")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_area_laboratorio", referencedColumnName="id")
      * })
