@@ -69,5 +69,4 @@ class CtlEstablecimientoRepository extends EntityRepository {
                             ->where('te.id=12')
             ;
     }
-
 }
