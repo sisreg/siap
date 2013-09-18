@@ -154,7 +154,7 @@ class CtlEstablecimiento {
      * 
      * @var \servicioExternos
      * 
-     * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\CtlServicioExterno")
+     * @ORM\ManyToMany(targetEntity="Minsal\SiapsBundle\Entity\MntServicioExterno")
      * @ORM\JoinTable(name="mnt_servicio_externo_establecimiento",
      *       joinColumns={
      *           @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")},
@@ -512,10 +512,10 @@ class CtlEstablecimiento {
     /**
      * Add serviciosExterno
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlServicioExterno $serviciosExterno
+     * @param \Minsal\SiapsBundle\Entity\MntServicioExterno $serviciosExterno
      * @return CtlEstablecimiento
      */
-    public function addServiciosExterno(\Minsal\SiapsBundle\Entity\CtlServicioExterno $serviciosExterno) {
+    public function addServiciosExterno(\Minsal\SiapsBundle\Entity\MntServicioExterno $serviciosExterno) {
         $this->serviciosExterno[] = $serviciosExterno;
 
         return $this;
@@ -524,9 +524,9 @@ class CtlEstablecimiento {
     /**
      * Remove serviciosExterno
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlServicioExterno $serviciosExterno
+     * @param \Minsal\SiapsBundle\Entity\MntServicioExterno $serviciosExterno
      */
-    public function removeServiciosExterno(\Minsal\SiapsBundle\Entity\CtlServicioExterno $serviciosExterno) {
+    public function removeServiciosExterno(\Minsal\SiapsBundle\Entity\MntServicioExterno $serviciosExterno) {
         $this->serviciosExterno->removeElement($serviciosExterno);
     }
 

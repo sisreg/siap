@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlPrograma
  *
- * @ORM\Table(name="ctl_servicio_externo")
+ * @ORM\Table(name="mnt_servicio_externo")
  * @ORM\Entity
  */
-class CtlServicioExterno
+class MntServicioExterno
 {
     /**
      * @var integer
@@ -18,7 +18,7 @@ class CtlServicioExterno
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="ctl_servicio_externo_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="mnt_servicio_externo_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
@@ -35,6 +35,13 @@ class CtlServicioExterno
      * @ORM\Column(name="descripcion", type="text", nullable=true)
      */
     private $descripcion;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="abreviatura", type="string", length=10, nullable=false)
+     */
+    private $abreviatura;
 
    
     public function __toString() {
@@ -55,7 +62,7 @@ class CtlServicioExterno
      * Set nombre
      *
      * @param string $nombre
-     * @return CtlServicioExterno
+     * @return MntServicioExterno
      */
     public function setNombre($nombre)
     {
@@ -78,7 +85,7 @@ class CtlServicioExterno
      * Set descripcion
      *
      * @param string $descripcion
-     * @return CtlServicioExterno
+     * @return MntServicioExterno
      */
     public function setDescripcion($descripcion)
     {
@@ -95,5 +102,28 @@ class CtlServicioExterno
     public function getDescripcion()
     {
         return $this->descripcion;
+    }
+
+    /**
+     * Set abreviatura
+     *
+     * @param string $abreviatura
+     * @return MntServicioExterno
+     */
+    public function setAbreviatura($abreviatura)
+    {
+        $this->abreviatura = $abreviatura;
+
+        return $this;
+    }
+
+    /**
+     * Get abreviatura
+     *
+     * @return string 
+     */
+    public function getAbreviatura()
+    {
+        return $this->abreviatura;
     }
 }

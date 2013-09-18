@@ -4,7 +4,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
-    <many-to-one field="idServicioExterno" target-entity="CtlServicioExterno">
+    <many-to-one field="idServicioExterno" target-entity="MntServicioExterno">
       <join-columns>
         <join-column name="id_servicio_externo" referenced-column-name="id"/>
       </join-columns>
