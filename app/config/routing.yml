@@ -1,3 +1,8 @@
+minsal_enfermeria:
+    resource: "@MinsalEnfermeriaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 #REDIRIGIR AUTOMATICAMENTE AL LOGIN AL ESCRIBIR EL NOMBRE DE DOMINIO
 root:
     pattern: /
