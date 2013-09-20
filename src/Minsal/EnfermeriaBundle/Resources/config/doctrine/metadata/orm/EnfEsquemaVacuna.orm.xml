@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="EnfEsquemaVacuna" table="enf_esquema_vacuna">
+    <indexes>
+      <index name="IDX_49850DA62B60BE1D" columns="id_esquema"/>
+      <index name="IDX_49850DA6BE654634" columns="id_aplicacion_dosis"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <many-to-one field="idAplicacionDosis" target-entity="CtlAreaAtencion">
+      <join-columns>
+        <join-column name="id_aplicacion_dosis" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEsquema" target-entity="CtlAreaAtencion">
+      <join-columns>
+        <join-column name="id_esquema" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
