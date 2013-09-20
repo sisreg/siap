@@ -10,7 +10,7 @@ class MntAtenAreaModEstabAdminController extends Controller {
         if (false === $this->admin->isGranted('LIST')) {
             return $this->render('MinsalSiapsBundle::Accesso_denegado.html.twig', 
                     array('admin_pool' => $this->container->get('sonata.admin.pool'),
-            'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
+                        'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
             ));
         }
 
@@ -37,7 +37,7 @@ class MntAtenAreaModEstabAdminController extends Controller {
                 }
             }
         }
-        
+
         $programas = $em->getRepository("MinsalSiapsBundle:MntProgramaEstablecimiento")->findAll();
         $establecimiento=$em->getRepository("MinsalSiapsBundle:CtlEstablecimiento")->obtenerEstablecimientoConfigurado();
         return $this->render($this->admin->getTemplate('list'), array(

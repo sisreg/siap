@@ -17,7 +17,8 @@
 </form>
 <div class="justificado">
     <table>
-        <tr class="modalidad">
+        {%if programas|length != 0 %}
+        <tr class="modalidad">            
             <td colspan=2><strong>Programas</strong></td>
         </tr>
              {% for programa in programas %}
@@ -29,6 +30,7 @@
         <tr>
             <td colspan=2><br/></td>
         </tr>
+        {% endif%}
     {%  set espe=0 %} 
     {%  set otra=0 %} 
     {% for car in cartera %}

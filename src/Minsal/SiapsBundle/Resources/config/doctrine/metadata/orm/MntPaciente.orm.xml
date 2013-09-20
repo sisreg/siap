@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="MntPaciente" table="mnt_paciente">
+    <indexes>
+      <index name="IDX_3E2ACBC5220BCD31" columns="id_area_cotizacion"/>
+      <index name="IDX_3E2ACBC57F1FADD6" columns="area_geografica_domicilio"/>
+      <index name="IDX_3E2ACBC5B490DCBC" columns="id_canton_domicilio"/>
+      <index name="IDX_3E2ACBC5F4BEBFC8" columns="id_departamento_domicilio"/>
+      <index name="IDX_3E2ACBC5BB55CDF5" columns="id_departamento_nacimiento"/>
+      <index name="IDX_3E2ACBC5468B95CB" columns="id_doc_ide_paciente"/>
+      <index name="IDX_3E2ACBC5558DDFB5" columns="id_doc_ide_proporciono_datos"/>
+      <index name="IDX_3E2ACBC5ACA54FF3" columns="id_doc_ide_responsable"/>
+      <index name="IDX_3E2ACBC5D7E358F6" columns="id_estado_civil"/>
+      <index name="IDX_3E2ACBC5B3457663" columns="id_municipio_domicilio"/>
+      <index name="IDX_3E2ACBC5FA164C5C" columns="id_municipio_nacimiento"/>
+      <index name="IDX_3E2ACBC5B0DC2AB1" columns="id_nacionalidad"/>
+      <index name="IDX_3E2ACBC58C587E61" columns="id_ocupacion"/>
+      <index name="IDX_3E2ACBC5242CF91E" columns="id_pais_nacimiento"/>
+      <index name="IDX_3E2ACBC526DA8252" columns="id_parentesco_propor_datos"/>
+      <index name="IDX_3E2ACBC5FC412399" columns="id_parentesco_responsable"/>
+      <index name="IDX_3E2ACBC5A7194A90" columns="id_sexo"/>
+      <index name="IDX_3E2ACBC56B3CA4B" columns="id_user"/>
+      <index name="IDX_3E2ACBC5AC39DE56" columns="id_user_mod"/>
+    </indexes>
     <id name="id" type="bigint" column="id">
       <generator strategy="SEQUENCE"/>
     </id>

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="MntPacienteProgramaEstab" table="mnt_paciente_programa_estab">
+    <indexes>
+      <index name="IDX_D6B515707DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_D6B51570961045CB" columns="id_paciente"/>
+      <index name="IDX_D6B515704C6E5D28" columns="id_programa_establecimiento"/>
+    </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>

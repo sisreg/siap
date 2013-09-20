@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="MntAuditoriaPaciente" table="mnt_auditoria_paciente">
+    <indexes>
+      <index name="IDX_7C1E98CF7F1FADD6" columns="area_geografica_domicilio"/>
+      <index name="IDX_7C1E98CFB490DCBC" columns="id_canton_domicilio"/>
+      <index name="IDX_7C1E98CFF4BEBFC8" columns="id_departamento_domicilio"/>
+      <index name="IDX_7C1E98CF7DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_7C1E98CFB3457663" columns="id_municipio_domicilio"/>
+      <index name="IDX_7C1E98CFA7194A90" columns="id_sexo"/>
+      <index name="IDX_7C1E98CF6B3CA4B" columns="id_user"/>
+    </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>

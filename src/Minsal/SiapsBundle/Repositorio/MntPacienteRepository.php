@@ -3,7 +3,7 @@
 namespace Minsal\SiapsBundle\Repositorio;
 
 use Doctrine\ORM\EntityRepository;
-
+use Minsal\SiapsBundle\Entity\MntPaciente;
 /**
  * MntPacienteRepository
  *
@@ -12,16 +12,22 @@ class MntPacienteRepository extends EntityRepository {
 
     public function obtenerdatosPaciente($valor) {
 
-     $consulta=  $this->getEntityManager()
+        $consulta = $this->getEntityManager()
                 ->createQueryBuilder()
-                ->select('p','u','e')
+                ->select('p', 'u', 'e')
                 ->from('MinsalSiapsBundle:MntPaciente', 'p')
-                ->leftJoin('p.expedientes','e')
-                ->join('p.idUser','u')
+                ->leftJoin('p.expedientes', 'e')
+                ->join('p.idUser', 'u')
                 ->where('p.id =:valor and e.habilitado=true')
                 ->setParameter(':valor', $valor)
                 ->getQuery();
-     return $consulta->getSingleResult();
+        try {
+            return $consulta->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return new MntPaciente();
+        }
     }
+
 }
+
 ?>

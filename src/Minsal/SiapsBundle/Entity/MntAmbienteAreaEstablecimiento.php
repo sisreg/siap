@@ -5,12 +5,12 @@ namespace Minsal\SiapsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * MntServicioEstab
+ * MntAmbienteAreaEstablecimiento
  *
- * @ORM\Table(name="mnt_servicio_estab")
+ * @ORM\Table(name="mnt_ambiente_area_establecimiento")
  * @ORM\Entity
  */
-class MntServicioEstab
+class MntAmbienteAreaEstablecimiento
 {
     /**
      * @var integer
@@ -18,7 +18,7 @@ class MntServicioEstab
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="mnt_servicio_estab_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="mnt_ambiente_area_establecimiento_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
@@ -49,6 +49,16 @@ class MntServicioEstab
      */
     private $idEstablecimiento;
 
+    /**
+     * @var \MntServicioExternoEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="MntServicioExternoEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_servicio_externo_establecimiento", referencedColumnName="id")
+     * })
+     */
+    private $idServicioExternoEstablecimiento;
+
 
 
     /**
@@ -65,12 +75,12 @@ class MntServicioEstab
      * Set nombre
      *
      * @param string $nombre
-     * @return MntServicioEstab
+     * @return MntAmbienteAreaEstablecimiento
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -88,12 +98,12 @@ class MntServicioEstab
      * Set idAtenAreaModEstab
      *
      * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab
-     * @return MntServicioEstab
+     * @return MntAmbienteAreaEstablecimiento
      */
     public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null)
     {
         $this->idAtenAreaModEstab = $idAtenAreaModEstab;
-    
+
         return $this;
     }
 
@@ -111,12 +121,12 @@ class MntServicioEstab
      * Set idEstablecimiento
      *
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
-     * @return MntServicioEstab
+     * @return MntAmbienteAreaEstablecimiento
      */
     public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
     {
         $this->idEstablecimiento = $idEstablecimiento;
-    
+
         return $this;
     }
 
@@ -128,5 +138,32 @@ class MntServicioEstab
     public function getIdEstablecimiento()
     {
         return $this->idEstablecimiento;
+    }
+
+    /**
+     * Set idServicioExternoEstablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento $idServicioExternoEstablecimiento
+     * @return MntAmbienteAreaEstablecimiento
+     */
+    public function setIdServicioExternoEstablecimiento(\Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento $idServicioExternoEstablecimiento = null)
+    {
+        $this->idServicioExternoEstablecimiento = $idServicioExternoEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idServicioExternoEstablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento 
+     */
+    public function getIdServicioExternoEstablecimiento()
+    {
+        return $this->idServicioExternoEstablecimiento;
+    }
+    
+    public function __toString() {
+        return $this->nombre ?: '';
     }
 }

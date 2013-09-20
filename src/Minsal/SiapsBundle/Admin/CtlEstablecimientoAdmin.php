@@ -21,7 +21,7 @@ class CtlEstablecimientoAdmin extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('nombre',null,array('read_only'=>true))
+                ->add('nombre', null, array('read_only' => true))
                 ->add('tipoExpediente', 'choice', array('choices' => array('G' => 'Utiliza guión (xxx-xx)', 'I' => 'Infinito'),
                     'empty_value' => 'Seleccione una opción', 'required' => true))
                 ->add('programas', null, array('label' => 'Programas', 'required' => true,
@@ -68,8 +68,15 @@ class CtlEstablecimientoAdmin extends Admin {
 
     public function preUpdate($establecimiento) {
         $establecimiento->setConfigurado(true);
+        $usuariosAdministradores = $this->getModelManager()
+                    ->findBy('MinsalSiapsBundle:User', array('username' => 'like %admin'));
+        
+        foreach ($usuariosAdministradores as $usuario){
+            $usuario->setIdEstablecimiento($establecimiento);
+            $this->getModelManager()->update($usuario);
+        }
     }
-    
+
     /**
      * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
      */
@@ -78,7 +85,7 @@ class CtlEstablecimientoAdmin extends Admin {
 
         return new ProxyQuery(
                 $query
-                        ->where($query->getRootAlias().'.idTipoEstablecimiento NOT IN (12,13)')
+                        ->where($query->getRootAlias() . '.idTipoEstablecimiento NOT IN (12,13)')
         );
     }
 

@@ -5,7 +5,7 @@ namespace Minsal\SiapsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CtlPrograma
+ * MntServicioExterno
  *
  * @ORM\Table(name="mnt_servicio_externo")
  * @ORM\Entity
@@ -35,15 +35,15 @@ class MntServicioExterno
      * @ORM\Column(name="descripcion", type="text", nullable=true)
      */
     private $descripcion;
-    
+
     /**
      * @var string
      *
-     * @ORM\Column(name="abreviatura", type="string", length=10, nullable=false)
+     * @ORM\Column(name="abreviatura", type="string", length=10, nullable=true)
      */
     private $abreviatura;
 
-   
+
     public function __toString() {
        return $this->nombre ?: '';
     }
@@ -67,7 +67,7 @@ class MntServicioExterno
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -90,7 +90,7 @@ class MntServicioExterno
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 

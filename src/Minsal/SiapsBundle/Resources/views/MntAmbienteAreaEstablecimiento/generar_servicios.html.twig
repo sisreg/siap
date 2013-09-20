@@ -1,0 +1,34 @@
+<legend>Generación de los servicios de hospitalización</legend>
+{% if porSexo == 'true' %}
+    
+        {% for i in range(1, 2, 1) %}
+            {% if i==1 %}
+                {% for j in range(1, numeroAmbientes, 1) %}
+                    <div id="sonata-ba-field-container-idAreaModEstab" class="control-group">
+                        <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                             <input type="text" class="span5" name="{{ j }}_muj_nombre" value="{{especialidades.nombre}} Mujeres {{j}}"/>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% for j in 1..numeroAmbientes %}
+                    <div id="sonata-ba-field-container-idAreaModEstab" class="control-group">
+                        <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                             <input type="text" class="span5" name="{{ j }}_hom_nombre" value="{{especialidades.nombre}} Hombres {{j}}" />
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        {% endfor %}
+{% else %}  
+        {% for j in range(1, numeroAmbientes, 1) %}
+                    <div id="sonata-ba-field-container-idAreaModEstab" class="control-group">
+                        <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
+                             <input type="text" class="span5" name="{{ j }}_nombre" value="{{especialidades.nombre}} {{j}}"/>
+                        </div>
+                    </div>
+         {% endfor %}
+
+{% endif %}
+

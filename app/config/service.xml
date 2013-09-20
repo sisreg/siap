@@ -22,6 +22,12 @@
             <argument>Minsal\SiapsBundle\Entity\MntAreaModEstab</argument>
             <argument>SonataAdminBundle:CRUD</argument>
         </service>
+        <service id="sonata.admin.ambienteestablecimiento" class="Minsal\SiapsBundle\Admin\MntAmbienteAreaEstablecimientoAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Administración" label="Servicios de Hospitalización"/>
+            <argument />
+            <argument>Minsal\SiapsBundle\Entity\MntAmbienteAreaEstablecimiento</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
         <service id="sonata.admin.atenareamodalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntAtenAreaModEstabAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Administración" label="Cartera de servicios"/>
             <argument />

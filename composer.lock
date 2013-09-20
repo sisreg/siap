@@ -483,12 +483,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-                "reference": "c811f96f0cf83b997e3a3ed037cac729bbe3e803"
+                "reference": "3caec4826e58fe47520b591f965b4adcdfc8a6c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/c811f96f0cf83b997e3a3ed037cac729bbe3e803",
-                "reference": "c811f96f0cf83b997e3a3ed037cac729bbe3e803",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/3caec4826e58fe47520b591f965b4adcdfc8a6c8",
+                "reference": "3caec4826e58fe47520b591f965b4adcdfc8a6c8",
                 "shasum": ""
             },
             "require": {
@@ -500,7 +500,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "2.2.x-dev"
                 }
             },
             "autoload": {
@@ -532,7 +532,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2013-09-05 11:23:37"
+            "time": "2013-09-16 10:15:05"
         },
         {
             "name": "doctrine/inflector",
@@ -1687,12 +1687,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "ff23eda91c46b9d9d76f544d0a84eba727e01ca4"
+                "reference": "0cc5bcdf370342ae2be7c62b5098e499285b431a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/ff23eda91c46b9d9d76f544d0a84eba727e01ca4",
-                "reference": "ff23eda91c46b9d9d76f544d0a84eba727e01ca4",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/0cc5bcdf370342ae2be7c62b5098e499285b431a",
+                "reference": "0cc5bcdf370342ae2be7c62b5098e499285b431a",
                 "shasum": ""
             },
             "require": {
@@ -1756,7 +1756,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-09-13 13:27:37"
+            "time": "2013-09-18 14:40:22"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -1765,12 +1765,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "c5e224cac3aa15b3abd840dfd677fbe4149df40f"
+                "reference": "6467106ac152471af53effeeb8caf19e4c6856a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/c5e224cac3aa15b3abd840dfd677fbe4149df40f",
-                "reference": "c5e224cac3aa15b3abd840dfd677fbe4149df40f",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/6467106ac152471af53effeeb8caf19e4c6856a2",
+                "reference": "6467106ac152471af53effeeb8caf19e4c6856a2",
                 "shasum": ""
             },
             "require": {
@@ -1818,7 +1818,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2013-09-05 08:50:39"
+            "time": "2013-09-19 09:59:00"
         },
         {
             "name": "sonata-project/cache-bundle",
@@ -1827,12 +1827,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCacheBundle.git",
-                "reference": "5638e91ab20d1efd22bac27d76b61fe5df0b871d"
+                "reference": "564a45eab357048a5635ad38fb88a0e8d76cdbbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/5638e91ab20d1efd22bac27d76b61fe5df0b871d",
-                "reference": "5638e91ab20d1efd22bac27d76b61fe5df0b871d",
+                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/564a45eab357048a5635ad38fb88a0e8d76cdbbd",
+                "reference": "564a45eab357048a5635ad38fb88a0e8d76cdbbd",
                 "shasum": ""
             },
             "require": {
@@ -1883,7 +1883,7 @@
             "keywords": [
                 "cache block"
             ],
-            "time": "2013-08-13 14:41:17"
+            "time": "2013-09-16 13:57:35"
         },
         {
             "name": "sonata-project/doctrine-extensions",
@@ -1940,12 +1940,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "f670a436692fee5acbe1d720c23f9bb6645058cd"
+                "reference": "a12cdc5db9e14e5d900e71cec26c97d2005c0800"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/f670a436692fee5acbe1d720c23f9bb6645058cd",
-                "reference": "f670a436692fee5acbe1d720c23f9bb6645058cd",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/a12cdc5db9e14e5d900e71cec26c97d2005c0800",
+                "reference": "a12cdc5db9e14e5d900e71cec26c97d2005c0800",
                 "shasum": ""
             },
             "require": {
@@ -1988,7 +1988,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2013-09-13 13:56:15"
+            "time": "2013-09-19 10:00:16"
         },
         {
             "name": "sonata-project/easy-extends-bundle",
@@ -2155,12 +2155,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataIntlBundle.git",
-                "reference": "7a2c2fc3d49ef430fba5699b571b585254a5b183"
+                "reference": "e3a3bae55343509a7db73fe76658e3a2b589d5c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/7a2c2fc3d49ef430fba5699b571b585254a5b183",
-                "reference": "7a2c2fc3d49ef430fba5699b571b585254a5b183",
+                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/e3a3bae55343509a7db73fe76658e3a2b589d5c3",
+                "reference": "e3a3bae55343509a7db73fe76658e3a2b589d5c3",
                 "shasum": ""
             },
             "require": {
@@ -2206,7 +2206,7 @@
                 "sonata",
                 "time"
             ],
-            "time": "2013-08-23 14:35:55"
+            "time": "2013-09-14 14:42:16"
         },
         {
             "name": "sonata-project/jquery-bundle",
@@ -2263,12 +2263,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataUserBundle.git",
-                "reference": "938f37f61ffc3dda7ca82c52245279b8ced49dbb"
+                "reference": "9ba7aa586218314afec05e34abf0c2621bd80cc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/938f37f61ffc3dda7ca82c52245279b8ced49dbb",
-                "reference": "938f37f61ffc3dda7ca82c52245279b8ced49dbb",
+                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/9ba7aa586218314afec05e34abf0c2621bd80cc3",
+                "reference": "9ba7aa586218314afec05e34abf0c2621bd80cc3",
                 "shasum": ""
             },
             "require": {
@@ -2320,7 +2320,7 @@
                 "sonata",
                 "user"
             ],
-            "time": "2013-09-13 07:41:01"
+            "time": "2013-09-15 18:56:01"
         },
         {
             "name": "swiftmailer/swiftmailer",

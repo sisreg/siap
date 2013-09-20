@@ -3,6 +3,7 @@
 namespace Minsal\SiapsBundle\Repositorio;
 
 use Doctrine\ORM\EntityRepository;
+use Minsal\SiapsBundle\Entity\CtlEstablecimiento;
 
 /**
  * CtlEstablecimientoRepository
@@ -11,7 +12,6 @@ use Doctrine\ORM\EntityRepository;
 class CtlEstablecimientoRepository extends EntityRepository {
 
     public function obtenerEstablecimientoConfigurado() {
-
         $establecimiento = $this->getEntityManager()
                 ->createQueryBuilder()
                 ->select('e')
@@ -19,7 +19,11 @@ class CtlEstablecimientoRepository extends EntityRepository {
                 ->where('e.configurado = true')
                 ->getQuery();
 
-        return $establecimiento->getSingleResult();
+        try {
+            return $establecimiento->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return new CtlEstablecimiento();
+        }
     }
 
     public function obtenerEstabConfigurado() {
@@ -69,4 +73,5 @@ class CtlEstablecimientoRepository extends EntityRepository {
                             ->where('te.id=12')
             ;
     }
+
 }
