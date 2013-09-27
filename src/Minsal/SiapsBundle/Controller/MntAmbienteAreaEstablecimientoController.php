@@ -80,7 +80,7 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
         $request = $this->getRequest();
 
         $em = $this->getDoctrine()->getEntityManager();
-        if (!is_null($request->get('idAtenAreaModEstab'))) {
+        if ($request->get('idAtenAreaModEstab')!='') {
             $dql = "SELECT B.nombre as nombre
                 FROM MinsalSiapsBundle:MntAtenAreaModEstab A
                 JOIN A.idAtencion B
@@ -97,15 +97,15 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
         else
             $especialidad = new \Minsal\SiapsBundle\Entity\CtlAtencion();
 
-        if (is_null($request->get('idServicioExternoEstablecimiento'))) {
-            $dql = "SELECT B.nombre as nombre
+        if ($request->get('idServicioExterno')!='') {
+            $dql = "SELECT B.abreviatura
                 FROM MinsalSiapsBundle:MntServicioExternoEstablecimiento A
                 JOIN A.idServicioExterno B
                 WHERE A.id= :id";
 
             try {
                 $servicioExterno = $em->createQuery($dql)
-                        ->setParameter('id', $request->get('idServicioExternoEstablecimiento'))
+                        ->setParameter('id', $request->get('idServicioExterno'))
                         ->getSingleResult();
             } catch (\Doctrine\ORM\NoResultException $e) {
                 $servicioExterno = new \Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento();

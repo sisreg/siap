@@ -41,7 +41,7 @@ $(document).ready(function() {
 
     $('#resultados').hide();
     $('input[name="btn_generar"]').hide().click(function() {
-        $('#resultados').load(Routing.generate('generar_servicios_hospitalarios') + '?idAtenAreaModEstab=' + $('select[id$="_idAtenAreaModEstab"]').val() + "&porSexo=" + $('#por_sexo').is(':checked') + "&numeroAmbientes=" + $('#numero_ambientes').val() + "&idServicioExternoEstablecimiento=" + $('select[id$="_idServicioExternoEstablecimiento"]').val());
+        $('#resultados').load(Routing.generate('generar_servicios_hospitalarios') + '?idAtenAreaModEstab=' + $('select[id$="_idAtenAreaModEstab"]').val() + "&porSexo=" + $('#por_sexo').is(':checked') + "&numeroAmbientes=" + $('#numero_ambientes').val() + "&idServicioExterno=" + $('select[id$="_idServicioExternoEstablecimiento"]').val());
         $('#resultados').show();
     })
 
