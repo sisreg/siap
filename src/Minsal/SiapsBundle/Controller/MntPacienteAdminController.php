@@ -43,7 +43,9 @@ class MntPacienteAdminController extends Controller {
         $templateKey = 'edit';
 
         if (false === $this->admin->isGranted('CREATE')) {
-            throw new AccessDeniedException();
+            return $this->render('MinsalSiapsBundle::Accesso_denegado.html.twig', array('admin_pool' => $this->container->get('sonata.admin.pool'),
+                        'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
+            ));
         }
 
         $object = $this->admin->getNewInstance();
@@ -175,8 +177,6 @@ class MntPacienteAdminController extends Controller {
     }
 
     public function redirectTo($object) {
-
-
         $params = array();
         $params['id'] = $object->getId();
         $url = $this->admin->generateUrl('view', $params);
