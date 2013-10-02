@@ -8,6 +8,7 @@
         $('#resultadoBusqueda').hide();
         $("#buscar").show();
         $("#buscarGlobal").hide();
+        $("#capturar").hide();
         return false;
     });
 
@@ -33,8 +34,8 @@
             //$("#capturar").show();
             $('#resultadoBusqueda').show();
             $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
-            $("#buscarGlobal").show();
-            $(this).hide();
+           // $("#buscarGlobal").show();
+            //$(this).hide();
         }
         return false;
     });

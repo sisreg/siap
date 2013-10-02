@@ -60,6 +60,16 @@ class MntAreaModEstab
      *      )
      */
     private $atenciones;
+    
+    /**
+     * @var \idServicioExternoEstab
+     *
+     * @ORM\ManyToOne(targetEntity="MntServicioExternoEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_servicio_externo_estab", referencedColumnName="id")
+     * })
+     */
+    private $idServicioExternoEstab;
 
     /**
      * Get id
@@ -142,7 +152,7 @@ class MntAreaModEstab
     
     /*Método __toString*/
     public function __toString() {
-        return (string)  $this->idModalidadEstab.' - '.$this->idAreaAtencion ? : '';
+        return (string)  $this->idModalidadEstab.' - '.$this->idAreaAtencion . ' - ' . $this->idServicioExternoEstab ? : '';
     }
     /**
      * Constructor
@@ -183,5 +193,28 @@ class MntAreaModEstab
     public function getAtenciones()
     {
         return $this->atenciones;
+    }
+
+    /**
+     * Set idServicioExternoEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\idServicioExternoEstablecimiento $idServicioExternoEstab
+     * @return MntAreaModEstab
+     */
+    public function setIdServicioExternoEstab(\Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento $idServicioExternoEstab = null)
+    {
+        $this->idServicioExternoEstab = $idServicioExternoEstab;
+
+        return $this;
+    }
+
+    /**
+     * Get idServicioExternoEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento 
+     */
+    public function getIdServicioExternoEstab()
+    {
+        return $this->idServicioExternoEstab;
     }
 }

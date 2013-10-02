@@ -4,7 +4,7 @@ namespace Minsal\SiapsBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+//use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Minsal\Metodos\Funciones;
 
 class MntPacienteAdminController extends Controller {

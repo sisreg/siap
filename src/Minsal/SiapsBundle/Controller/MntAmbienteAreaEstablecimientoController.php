@@ -18,11 +18,16 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
     public function getAreaModalidadAction() {
 
         $em = $this->getDoctrine()->getEntityManager();
-        $dql = "SELECT A.id as id,CONCAT(D.nombre, '-',B.nombre) as nombre
+        $dql = "SELECT A.id as id,(
+                        CASE WHEN F.nombre IS NOT NULL THEN CONCAT(D.nombre, '-',B.nombre,'-',F.nombre) 
+                                ELSE CONCAT(D.nombre, '-',B.nombre) 
+                        END)  as nombre
                 FROM MinsalSiapsBundle:MntAreaModEstab A
                 JOIN A.idAreaAtencion B
                 JOIN A.idModalidadEstab C
                 JOIN C.idModalidad D
+                LEFT JOIN A.idServicioExternoEstab E
+                LEFT JOIN E.idServicioExterno F
                 WHERE B.id = 3";
         $areas['areas'] = $em->createQuery($dql)
                 ->getArrayResult();
@@ -80,42 +85,43 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
         $request = $this->getRequest();
 
         $em = $this->getDoctrine()->getEntityManager();
-        if ($request->get('idAtenAreaModEstab')!='') {
-            $dql = "SELECT B.nombre as nombre
-                FROM MinsalSiapsBundle:MntAtenAreaModEstab A
-                JOIN A.idAtencion B
-                WHERE A.id= :id";
 
-            try {
-                $especialidad = $em->createQuery($dql)
-                        ->setParameter('id', $request->get('idAtenAreaModEstab'))
-                        ->getSingleResult();
-            } catch (\Doctrine\ORM\NoResultException $e) {
-                $especialidad = new \Minsal\SiapsBundle\Entity\CtlAtencion();
-            }
-        }
-        else
-            $especialidad = new \Minsal\SiapsBundle\Entity\CtlAtencion();
-
-        if ($request->get('idServicioExterno')!='') {
-            $dql = "SELECT B.abreviatura
-                FROM MinsalSiapsBundle:MntServicioExternoEstablecimiento A
-                JOIN A.idServicioExterno B
-                WHERE A.id= :id";
-
-            try {
-                $servicioExterno = $em->createQuery($dql)
-                        ->setParameter('id', $request->get('idServicioExterno'))
-                        ->getSingleResult();
-            } catch (\Doctrine\ORM\NoResultException $e) {
-                $servicioExterno = new \Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento();
-            }
-        }
-        else
-            $servicioExterno = new \Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento();
+        $dql = "SELECT A.id
+              FROM MinsalSiapsBundle:MntAtenAreaModEstab A
+              JOIN A.idAreaModEstab B
+              JOIN B.idServicioExternoEstab C
+              JOIN C.idServicioExterno D
+              WHERE A.id= :id";
         
+        try {
+            $area = $em->createQuery($dql)
+                    ->setParameter('id', $request->get('idAtenAreaModEstab'))
+                    ->getSingleResult();
+            $dql = "SELECT CONCAT(B.nombre,' ',E.abreviatura) as nombre
+                    FROM MinsalSiapsBundle:MntAtenAreaModEstab A
+                    JOIN A.idAtencion B
+                    JOIN A.idAreaModEstab C
+                    JOIN C.idServicioExternoEstab D
+                    JOIN D.idServicioExterno E
+                    WHERE A.id= :id";
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            $dql = "SELECT B.nombre as nombre
+                    FROM MinsalSiapsBundle:MntAtenAreaModEstab A
+                    JOIN A.idAtencion B
+                    WHERE A.id= :id";
+        }
+
+
+        try {
+            $especialidad = $em->createQuery($dql)
+                    ->setParameter('id', $request->get('idAtenAreaModEstab'))
+                    ->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            $especialidad = new \Minsal\SiapsBundle\Entity\CtlAtencion();
+        }
+
+
         return $this->render('MinsalSiapsBundle:MntAmbienteAreaEstablecimiento:generar_servicios.html.twig', array('especialidades' => $especialidad,
-                    'serviciosExternos' => $servicioExterno,
                     'porSexo' => $request->get('porSexo'),
                     'numeroAmbientes' => $request->get('numeroAmbientes')
         ));

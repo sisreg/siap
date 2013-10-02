@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="mnt_servicio_externo_establecimiento", indexes={@ORM\Index(name="fki_servicio_externo_servicio_externo_establecimiento", columns={"id_servicio_externo"}), @ORM\Index(name="IDX_6C7E62007DFA12F6", columns={"id_establecimiento"})})
  * @ORM\Entity
  */
-class MntServicioExternoEstablecimiento
-{
+class MntServicioExternoEstablecimiento {
+
     /**
      * @var integer
      *
@@ -42,15 +42,12 @@ class MntServicioExternoEstablecimiento
      */
     private $idServicioExterno;
 
-
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -60,8 +57,7 @@ class MntServicioExternoEstablecimiento
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
      * @return MntServicioExternoEstablecimiento
      */
-    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
-    {
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null) {
         $this->idEstablecimiento = $idEstablecimiento;
 
         return $this;
@@ -72,8 +68,7 @@ class MntServicioExternoEstablecimiento
      *
      * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
      */
-    public function getIdEstablecimiento()
-    {
+    public function getIdEstablecimiento() {
         return $this->idEstablecimiento;
     }
 
@@ -83,8 +78,7 @@ class MntServicioExternoEstablecimiento
      * @param \Minsal\SiapsBundle\Entity\MntServicioExterno $idServicioExterno
      * @return MntServicioExternoEstablecimiento
      */
-    public function setIdServicioExterno(\Minsal\SiapsBundle\Entity\MntServicioExterno $idServicioExterno = null)
-    {
+    public function setIdServicioExterno(\Minsal\SiapsBundle\Entity\MntServicioExterno $idServicioExterno = null) {
         $this->idServicioExterno = $idServicioExterno;
 
         return $this;
@@ -95,12 +89,12 @@ class MntServicioExternoEstablecimiento
      *
      * @return \Minsal\SiapsBundle\Entity\MntServicioExterno 
      */
-    public function getIdServicioExterno()
-    {
+    public function getIdServicioExterno() {
         return $this->idServicioExterno;
     }
-    
+
     public function __toString() {
-       return $this->idServicioExterno->getNombre() ?: '';
+        return $this->idServicioExterno->getNombre() ? : '';
     }
+
 }

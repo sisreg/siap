@@ -1,27 +1,6 @@
 <legend>Generación de los servicios de hospitalización</legend>
 {% if porSexo == 'true' %}
-    {% if serviciosExternos %}
-        {% for i in range(1, 2, 1) %}
-            {% if i==1 %}
-                {% for j in range(1, numeroAmbientes, 1) %}
-                    <div id="sonata-ba-field-container-idAreaModEstab" class="control-group">
-                        <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-                             <input type="text" style="width: 400px" class="span5" name="{{ j }}_muj_nombre" value="{{especialidades.nombre}} Mujeres {{j}} {{serviciosExternos.abreviatura}}"/>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                {% for j in 1..numeroAmbientes %}
-                    <div id="sonata-ba-field-container-idAreaModEstab" class="control-group">
-                        <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-                             <input type="text" style="width: 400px" class="span5" name="{{ j }}_hom_nombre" value="{{especialidades.nombre}} Hombres {{j}} {{serviciosExternos.abreviatura}}" />
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        {% for i in range(1, 2, 1) %}
+      {% for i in range(1, 2, 1) %}
             {% if i==1 %}
                 {% for j in range(1, numeroAmbientes, 1) %}
                     <div id="sonata-ba-field-container-idAreaModEstab" class="control-group">
@@ -40,7 +19,6 @@
                 {% endfor %}
             {% endif %}
         {% endfor %}
-    {% endif %}
 {% else %}  
         {% for j in range(1, numeroAmbientes, 1) %}
                     <div id="sonata-ba-field-container-idAreaModEstab" class="control-group">

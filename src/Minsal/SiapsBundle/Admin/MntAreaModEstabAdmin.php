@@ -32,6 +32,9 @@ class MntAreaModEstabAdmin extends Admin {
                     'label' => 'Área de atención',
                     'required' => true
                 ))
+                ->add('idServicioExternoEstab', null, array('empty_value' => 'Seleccione el servicio externo',
+                    'label' => 'Servicio Externo'
+                ))
                 ->add('atenciones', null, array(
                     'required' => true,
                     'multiple' => true,
@@ -52,6 +55,7 @@ class MntAreaModEstabAdmin extends Admin {
                 ->add('idEstablecimiento.nombre', 'text', array('label' => 'Establecimiento'))
                 ->add('idModalidadEstab.idModalidad', 'text', array('label' => 'Modalidad'))
                 ->add('idAreaAtencion', null, array('label' => 'Área de atención'))
+                 ->add('idServicioExternoEstab', null, array('label' => 'Servicio Externo'))
                 ->add('_action', 'actions', array(
                     'label' => $this->getTranslator()->trans('Action'),
                     'actions' => array(

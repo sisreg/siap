@@ -20,7 +20,6 @@ class MntAmbienteAreaEstablecimientoAdmin extends Admin {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
                 ->add('nombre', null, array('label' => 'Ambiente'))
-                ->add('idServicioExternoEstablecimiento.idServicioExterno', null, array('label' => 'Servicio Externo'))
                 ->add('idAtenAreaModEstab', null, array('label' => 'Especialidad'))
         ;
     }
@@ -28,7 +27,6 @@ class MntAmbienteAreaEstablecimientoAdmin extends Admin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->addIdentifier('nombre')
-                ->add('idServicioExternoEstablecimiento.idServicioExterno', 'text', array('label' => 'Servicio Externo'))
                 ->add('idAtenAreaModEstab', null, array('label' => 'Especialidad'))
                 ->add('_action', 'actions', array(
                     'label' => $this->getTranslator()->trans('Action'),
@@ -42,7 +40,6 @@ class MntAmbienteAreaEstablecimientoAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
                 ->add('idAtenAreaModEstab', null, array('label' => 'Especialidad','empty_value' => 'Seleccione...','required'=> true ))
-                ->add('idServicioExternoEstablecimiento', null, array('label' => 'Servicio Externo','empty_value' => 'Seleccione...'))
                 ->add('nombre')
 
         ;
@@ -77,7 +74,6 @@ class MntAmbienteAreaEstablecimientoAdmin extends Admin {
         $showMapper
                 ->add('nombre')
                 ->add('idAtenAreaModEstab')
-                ->add('idServicioExternoEstablecimiento')
         ;
     }
 
