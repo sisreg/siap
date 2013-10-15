@@ -55,7 +55,7 @@ class MntAreaModEstabAdmin extends Admin {
                 ->add('idEstablecimiento.nombre', 'text', array('label' => 'Establecimiento'))
                 ->add('idModalidadEstab.idModalidad', 'text', array('label' => 'Modalidad'))
                 ->add('idAreaAtencion', null, array('label' => 'Área de atención'))
-                 ->add('idServicioExternoEstab', null, array('label' => 'Servicio Externo'))
+                ->add('idServicioExternoEstab', null, array('label' => 'Servicio Externo'))
                 ->add('_action', 'actions', array(
                     'label' => $this->getTranslator()->trans('Action'),
                     'actions' => array(

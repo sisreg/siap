@@ -31,7 +31,7 @@ class MntAtenAreaModEstabAdmin extends Admin {
         $collection->remove('create');
         $collection->remove('delete');
     }
-
+    
 }
 
 ?>

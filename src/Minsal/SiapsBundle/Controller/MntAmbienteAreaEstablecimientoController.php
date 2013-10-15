@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\DBAL as DBAL;
+//use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+//use Doctrine\DBAL as DBAL;
+use Minsal\SiapsBundle\Entity\MntAmbienteAreaEstablecimiento;
 
 class MntAmbienteAreaEstablecimientoController extends Controller {
 
@@ -92,12 +94,12 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
               JOIN B.idServicioExternoEstab C
               JOIN C.idServicioExterno D
               WHERE A.id= :id";
-        
+
         try {
             $area = $em->createQuery($dql)
                     ->setParameter('id', $request->get('idAtenAreaModEstab'))
                     ->getSingleResult();
-            $dql = "SELECT CONCAT(B.nombre,' ',E.abreviatura) as nombre
+            $dql = "SELECT CONCAT(B.nombre,' ',E.abreviatura) as nombre, A.id as id
                     FROM MinsalSiapsBundle:MntAtenAreaModEstab A
                     JOIN A.idAtencion B
                     JOIN A.idAreaModEstab C
@@ -105,12 +107,11 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
                     JOIN D.idServicioExterno E
                     WHERE A.id= :id";
         } catch (\Doctrine\ORM\NoResultException $e) {
-            $dql = "SELECT B.nombre as nombre
+            $dql = "SELECT B.nombre as nombre, A.id as id
                     FROM MinsalSiapsBundle:MntAtenAreaModEstab A
                     JOIN A.idAtencion B
                     WHERE A.id= :id";
         }
-
 
         try {
             $especialidad = $em->createQuery($dql)
@@ -120,11 +121,42 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
             $especialidad = new \Minsal\SiapsBundle\Entity\CtlAtencion();
         }
 
+        if ($request->get('numeroAmbientes') == "")
+            $ambientes = 0;
+        else
+            $ambientes = $request->get('numeroAmbientes');
+
 
         return $this->render('MinsalSiapsBundle:MntAmbienteAreaEstablecimiento:generar_servicios.html.twig', array('especialidades' => $especialidad,
                     'porSexo' => $request->get('porSexo'),
-                    'numeroAmbientes' => $request->get('numeroAmbientes')
+                    'numeroAmbientes' => $ambientes
         ));
+    }
+
+    /**
+     * @Route("/guardar/hospitalizacion/{sexo}/{numero_ambientes}/{id_aten_area_mod_estab}", name="guardar_hopitalizacion", options={"expose"=true})
+     * @Method("POST")
+     */
+    public function guardarHospitalizacionAction($sexo, $numero_ambientes, $id_aten_area_mod_estab) {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $establecimiento = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
+                    ->findOneBy(array('configurado' => true));
+        
+        $area =$em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')
+                    ->findOneBy(array('id' => $id_aten_area_mod_estab));
+        
+        if ($numero_ambientes == 0 && $sexo == 'false') {
+            $ambiente = new MntAmbienteAreaEstablecimiento();
+            $ambiente->setIdAtenAreaModEstab($area);
+            $ambiente->setIdEstablecimiento($establecimiento);
+            $ambiente->setNombre($request->get('nombre'));
+            $em->persist($ambiente);
+            $em->flush();
+        }
+        
+          return $this->redirect($this->generateUrl('estudiante_show', array('id' => $entity->getId())));
     }
 
 }

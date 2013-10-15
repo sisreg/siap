@@ -44,7 +44,7 @@
                                     {% if form_group.description != false %}
                                             <p>{{ form_group.description|raw }}</p>
                                     {% endif %}
-                                            <!-- ESTE AGREGA LAS MODALIDADES QUE POSEEN HOSPITALIZACIÓN -->
+                                            <!-- ESTE AGREGA LAS MODALIDADES QUE POSEEN HOSPITALIZACIÓN 
                                             <div id="sonata-ba-field-container-areasModadlidad" class="control-group">
                                                 <label class=" control-label"> Modalidades de la Hospitalización </label>
                                                 <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
@@ -53,7 +53,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            {{form_row(form[form_group.fields.idAtenAreaModEstab])}}
+                                            {form_row(form[form_group.fields.idAtenAreaModEstab])}}
                                             <div id="sonata-ba-field-container-porSexo" class="control-group">
                                                 <label class=" control-label">Dividir ambientes por sexo</label>
                                                 <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
@@ -65,10 +65,12 @@
                                                 <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
                                                     <input type="text" value="" class="span5" name="numero_ambientes" id="numero_ambientes">
                                                 </div>
-                                            </div>
+                                            </div>-->
+                                            {{ form_row(form[form_group.fields.nombre])}}
                                         </div>
                                     </fieldset>
                                 </div>
+                                            
                     {% endfor %}
                             </div>
 

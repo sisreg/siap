@@ -25,6 +25,9 @@ $(document).ready(function() {
             $('#por_sexo').attr('disabled', 'disabled');
             $('#numero_ambientes').attr('disabled', 'disabled');
             $('input[name="btn_generar"]').hide();
+            $('input[name="btn_guardar"]').hide();
+            $('input[name="btn_guardar_otro"]').hide();
+            $('#resultados').hide();
             $.getJSON(Routing.generate('get_especialidades') + '?idAreaModEstab=' + $('#areas-modalidad').val(),
                     function(data) {
                         $.each(data.especialidades, function(indice, especialidad) {
@@ -39,7 +42,9 @@ $(document).ready(function() {
         $('#por_sexo').removeAttr('disabled');
         $('#numero_ambientes').removeAttr('disabled');
         $('input[name="btn_generar"]').show();
-
+        $('input[name="btn_guardar"]').hide();
+        $('input[name="btn_guardar_otro"]').hide();
+        $('#resultados').hide();
     });
     $('input[name="btn_guardar"]').hide();
     $('input[name="btn_guardar_otro"]').hide();
@@ -48,7 +53,9 @@ $(document).ready(function() {
     $('input[name="btn_generar"]').hide().click(function() {
         $('#resultados').load(Routing.generate('generar_servicios_hospitalarios') + '?idAtenAreaModEstab=' + $('select[id$="_idAtenAreaModEstab"]').val() + "&porSexo=" + $('#por_sexo').is(':checked') + "&numeroAmbientes=" + $('#numero_ambientes').val());
         $('#resultados').show();
-    })
+        $('input[name="btn_guardar"]').show();
+        $('input[name="btn_guardar_otro"]').show();
+    });
 
 
 });

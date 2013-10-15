@@ -23,9 +23,9 @@ class EnfEsquemaVacuna
     private $id;
 
     /**
-     * @var \CtlAreaAtencion
+     * @var \EnfAplicacionDosis
      *
-     * @ORM\ManyToOne(targetEntity="CtlAreaAtencion")
+     * @ORM\ManyToOne(targetEntity="EnfEsquema")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_esquema", referencedColumnName="id")
      * })
@@ -33,9 +33,9 @@ class EnfEsquemaVacuna
     private $idEsquema;
 
     /**
-     * @var \CtlAreaAtencion
+     * @var \EnfAplicacionDosis
      *
-     * @ORM\ManyToOne(targetEntity="CtlAreaAtencion")
+     * @ORM\ManyToOne(targetEntity="EnfAplicacionDosis")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_aplicacion_dosis", referencedColumnName="id")
      * })
@@ -57,10 +57,10 @@ class EnfEsquemaVacuna
     /**
      * Set idEsquema
      *
-     * @param \Minsal\EnfermeriaBundle\Entity\CtlAreaAtencion $idEsquema
+     * @param \Minsal\EnfermeriaBundle\Entity\EnfAplicacionDosis $idEsquema
      * @return EnfEsquemaVacuna
      */
-    public function setIdEsquema(\Minsal\EnfermeriaBundle\Entity\CtlAreaAtencion $idEsquema = null)
+    public function setIdEsquema(\Minsal\EnfermeriaBundle\Entity\EnfAplicacionDosis $idEsquema = null)
     {
         $this->idEsquema = $idEsquema;
 
@@ -70,7 +70,7 @@ class EnfEsquemaVacuna
     /**
      * Get idEsquema
      *
-     * @return \Minsal\EnfermeriaBundle\Entity\CtlAreaAtencion 
+     * @return \Minsal\EnfermeriaBundle\Entity\EnfAplicacionDosis 
      */
     public function getIdEsquema()
     {
@@ -80,10 +80,10 @@ class EnfEsquemaVacuna
     /**
      * Set idAplicacionDosis
      *
-     * @param \Minsal\EnfermeriaBundle\Entity\CtlAreaAtencion $idAplicacionDosis
+     * @param \Minsal\EnfermeriaBundle\Entity\EnfAplicacionDosis $idAplicacionDosis
      * @return EnfEsquemaVacuna
      */
-    public function setIdAplicacionDosis(\Minsal\EnfermeriaBundle\Entity\CtlAreaAtencion $idAplicacionDosis = null)
+    public function setIdAplicacionDosis(\Minsal\EnfermeriaBundle\Entity\EnfAplicacionDosis $idAplicacionDosis = null)
     {
         $this->idAplicacionDosis = $idAplicacionDosis;
 
@@ -93,7 +93,7 @@ class EnfEsquemaVacuna
     /**
      * Get idAplicacionDosis
      *
-     * @return \Minsal\EnfermeriaBundle\Entity\CtlAreaAtencion 
+     * @return \Minsal\EnfermeriaBundle\Entity\EnfAplicacionDosis 
      */
     public function getIdAplicacionDosis()
     {

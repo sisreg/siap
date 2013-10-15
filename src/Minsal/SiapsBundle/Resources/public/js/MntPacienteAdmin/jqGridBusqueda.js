@@ -28,12 +28,12 @@ $(document).ready(function() {
         viewrecords: true,
         loadComplete: function() {
             $('#lregistro').text('Total de registros: ' + $(this).getGridParam('records'));
-            if ($('#tipo').val() == 'g'){
+            /*if ($('#tipo').val() == 'g'){
                 $("#capturar").show();
                 $('#buscar').show();
             }else{
                 $('#buscar').hide();
-            }
+            }*/
                 
         },
         gridComplete: function() {

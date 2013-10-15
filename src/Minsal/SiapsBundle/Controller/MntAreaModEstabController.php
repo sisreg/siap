@@ -17,7 +17,7 @@ class MntAreaModEstabController extends Controller {
         $em = $this->getDoctrine()->getEntityManager();
         $resp = '';
 
-        $atenciones = $em->getRepository('MinsalSiapsBundle:CtlAtencion')->findAll();
+        $atenciones = $em->getRepository('MinsalSiapsBundle:CtlAtencion')->obtenerAtenciones();
 
         foreach ($atenciones as $k => $atencion) {
             if ($atencion->getIdAtencionPadre() === null) {

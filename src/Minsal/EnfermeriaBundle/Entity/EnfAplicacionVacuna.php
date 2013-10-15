@@ -60,7 +60,7 @@ class EnfAplicacionVacuna
     /**
      * @var \FarmCatalogoProducto
      *
-     * @ORM\ManyToOne(targetEntity="FarmCatalogoProducto")
+     * @ORM\ManyToOne(targetEntity="\Minsal\FarmaciaBundle\Entity\FarmCatalogoProducto")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_catalogo_producto", referencedColumnName="id")
      * })
@@ -197,10 +197,10 @@ class EnfAplicacionVacuna
     /**
      * Set idCatalogoProducto
      *
-     * @param \Minsal\EnfermeriaBundle\Entity\FarmCatalogoProducto $idCatalogoProducto
+     * @param \Minsal\FarmaciaBundle\Entity\FarmCatalogoProducto $idCatalogoProducto
      * @return EnfAplicacionVacuna
      */
-    public function setIdCatalogoProducto(\Minsal\EnfermeriaBundle\Entity\FarmCatalogoProducto $idCatalogoProducto = null)
+    public function setIdCatalogoProducto(\Minsal\FarmaciaBundle\Entity\FarmCatalogoProducto $idCatalogoProducto = null)
     {
         $this->idCatalogoProducto = $idCatalogoProducto;
 
@@ -210,7 +210,7 @@ class EnfAplicacionVacuna
     /**
      * Get idCatalogoProducto
      *
-     * @return \Minsal\EnfermeriaBundle\Entity\FarmCatalogoProducto 
+     * @return \Minsal\FarmaciaBundle\Entity\FarmCatalogoProducto 
      */
     public function getIdCatalogoProducto()
     {

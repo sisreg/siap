@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
-use Sonata\AdminBundle\Show\ShowMapper;
+use Doctrine\ORM\EntityRepository;
 
 class MntAmbienteAreaEstablecimientoAdmin extends Admin {
 
@@ -20,14 +20,24 @@ class MntAmbienteAreaEstablecimientoAdmin extends Admin {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
                 ->add('nombre', null, array('label' => 'Ambiente'))
-                ->add('idAtenAreaModEstab', null, array('label' => 'Especialidad'))
+                ->add('idAtenAreaModEstab.idAreaModEstab', null, array('label' => 'Área Atención'), null, array('required' => false,
+                    'query_builder' => function(EntityRepository $er) {
+                        $qb = $er->createQueryBuilder('o');
+                        $qb->select('o')
+                        ->Join('o.idAreaAtencion', 'a')
+                        ->where('a.id = 3')
+                        ;
+
+                        return $qb;
+                    }))
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->addIdentifier('nombre')
-                ->add('idAtenAreaModEstab', null, array('label' => 'Especialidad'))
+                ->addIdentifier('nombre', null, array('label' => 'Nombre del Ambiente'))
+                ->add('idAtenAreaModEstab', 'text', array('label' => 'Especialidad'))
+                ->add('idAtenAreaModEstab.idAreaModEstab', 'text', array('label' => 'Área de atención'))
                 ->add('_action', 'actions', array(
                     'label' => $this->getTranslator()->trans('Action'),
                     'actions' => array(
@@ -39,7 +49,7 @@ class MntAmbienteAreaEstablecimientoAdmin extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('idAtenAreaModEstab', null, array('label' => 'Especialidad','empty_value' => 'Seleccione...','required'=> true ))
+                ->add('idAtenAreaModEstab', null, array('label' => 'Especialidad', 'empty_value' => 'Seleccione...'))
                 ->add('nombre')
 
         ;
@@ -70,12 +80,7 @@ class MntAmbienteAreaEstablecimientoAdmin extends Admin {
         $ambiente->setIdEstablecimiento($establecimiento);
     }
 
-    protected function configureShowField(ShowMapper $showMapper) {
-        $showMapper
-                ->add('nombre')
-                ->add('idAtenAreaModEstab')
-        ;
-    }
+   
 
 }
 

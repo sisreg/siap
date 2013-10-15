@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="562" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="30" uuid="b3dbe2a0-70cd-4578-a4d9-18f1579c84c3">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="292"/>
-	<property name="ireport.y" value="644"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="579"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
 	<style name="Heading 3" fontSize="14" isBold="true"/>
@@ -41,22 +41,22 @@ inner join ctl_departamento B on (A.id_departamento_domicilio=B.id)
 inner join ctl_municipio C on (A.id_municipio_domicilio=C.id)
 left join ctl_departamento B1 on (A.id_departamento_nacimiento=B1.id)
 left join ctl_municipio C1 on (A.id_municipio_nacimiento=C1.id)
-inner join ctl_parentesco D on (A.id_parentesco_responsable=D.id)
-inner join ctl_parentesco D1 on (A.id_parentesco_propor_datos=D1.id)
-inner join ctl_sexo E on (A.id_sexo=E.id)
-inner join ctl_area_geografica G on (A.area_geografica_domicilio=G.id)
+left join ctl_parentesco D on (A.id_parentesco_responsable=D.id)
+left join ctl_parentesco D1 on (A.id_parentesco_propor_datos=D1.id)
+left join ctl_sexo E on (A.id_sexo=E.id)
+left join ctl_area_geografica G on (A.area_geografica_domicilio=G.id)
 left join ctl_nacionalidad F on (A.id_nacionalidad=F.id)
 left join ctl_canton H on (A.id_canton_domicilio=H.id)
-inner join ctl_documento_identidad I on (a.id_doc_ide_paciente=I.id)
-inner join ctl_documento_identidad I1 on (a.id_doc_ide_proporciono_datos=I1.id)
-inner join ctl_documento_identidad I2 on (a.id_doc_ide_responsable=I2.id)
+left join ctl_documento_identidad I on (a.id_doc_ide_paciente=I.id)
+left join ctl_documento_identidad I1 on (a.id_doc_ide_proporciono_datos=I1.id)
+left join ctl_documento_identidad I2 on (a.id_doc_ide_responsable=I2.id)
 left join ctl_area_cotizante J on (A.id_area_cotizacion=J.id)
-inner join ctl_pais K on (A.id_pais_nacimiento=K.id)
-inner join ctl_estado_civil L on (A.id_estado_civil=L.id)
-inner join ctl_ocupacion M on (A.id_ocupacion=M.id)
-inner join mnt_expediente N on (A.id=N.id_paciente)
-inner join ctl_establecimiento O on (N.id_establecimiento=O.id)
-inner join fos_user_user P on (A.id_user=P.id)
+left join ctl_pais K on (A.id_pais_nacimiento=K.id)
+left join ctl_estado_civil L on (A.id_estado_civil=L.id)
+left join ctl_ocupacion M on (A.id_ocupacion=M.id)
+left join mnt_expediente N on (A.id=N.id_paciente)
+left join ctl_establecimiento O on (N.id_establecimiento=O.id)
+left join fos_user_user P on (A.id_user=P.id)
 where A.id=$P{id_paciente};]]>
 	</queryString>
 	<field name="apellido_paciente" class="java.lang.String"/>
@@ -285,7 +285,7 @@ where A.id=$P{id_paciente};]]>
 				</textElement>
 				<text><![CDATA[Doc. Identidad:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="a86b9f0e-ce62-4cea-8e05-de75804229be" x="124" y="187" width="116" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -523,7 +523,7 @@ where A.id=$P{id_paciente};]]>
 				</textElement>
 				<text><![CDATA[Parentesco Responsable:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="85a60f28-e55c-4d4f-9c83-7a465ec4c4b4" x="127" y="418" width="105" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -565,7 +565,7 @@ where A.id=$P{id_paciente};]]>
 				</textElement>
 				<text><![CDATA[Doc. Ident. Responsable:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="3ec924c3-633e-488a-b3d8-6295be50d28d" x="127" y="438" width="105" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -684,7 +684,7 @@ where A.id=$P{id_paciente};]]>
 				</textElement>
 				<text><![CDATA[Doc. Identidad:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="2f14856b-4247-4190-ba1b-2d4aad2bc388" x="100" y="521" width="100" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -712,7 +712,7 @@ where A.id=$P{id_paciente};]]>
 				</textElement>
 				<text><![CDATA[Parentesco:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="7b1f304b-b5e8-49b6-924e-069acee1fb94" x="100" y="501" width="105" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
