@@ -35,7 +35,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('direccion', null, array('required' => true, 'attr' => array('class' => 'span5 mayuscula')))
                 ->add('telefonoCasa', null, array('label' => $this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
                 ->add('lugarTrabajo', null, array('attr' => array('class' => 'span5 mayuscula')))
-                ->add('telefonoTrabajo', null, array('label' => $this->getTranslator()->trans('telefonotrabajo'), 'attr' => array('class' => 'span5 telefono')))
+                ->add('telefonoTrabajo', null, array('label' => 'Telefono Trabajo', 'attr' => array('class' => 'span5 telefono')))
                 ->add('idAreaCotizacion', null, array('empty_value' => 'Seleccione...',
                     'label' => $this->getTranslator()->trans('idAreaCotizacion'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('asegurado')
