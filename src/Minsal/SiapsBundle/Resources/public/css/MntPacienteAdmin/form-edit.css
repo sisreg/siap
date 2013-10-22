@@ -1,17 +1,18 @@
 /**********  Para tablas ******************/
-.dat_paciente, span[id$="_expedientes"] table.table-bordered{
+.dat_paciente{
     text-align: left;
     border: 2px solid #E3E3E3;
 }
-
-span[id$="_expedientes"] table.table-bordered{
-    width: 60%;
-}
-
-span[id$="_expedientes"] table.table-bordered th, span[id$="_expedientes"] table.table-bordered td{
+.sonata-bc .form-horizontal .control-group:before span[id$="_expedientes"] table.table-bordered {
     text-align: center;
+    border: 2px solid #E3E3E3;
+    clear: both;
+    display: inline;
 }
-
+span[id$="_expedientes"] table.table-bordered{
+    width: 80%;
+    border: 2px solid #E3E3E3;
+}
 .dat_paciente label{
      padding-left: 1em;
      text-align: left;  
@@ -48,7 +49,6 @@ span[id$="_expedientes"] table.table-bordered th, span[id$="_expedientes"] table
 
 .sonata-bc .dat_paciente .control-group, .sonata-bc .dat_paciente .control-group label{
     margin-bottom: 0;
-    display: inline;
 }
 
 .sonata-bc .form-horizontal .dat_paciente .controls {
@@ -92,10 +92,9 @@ td[class$="_delete"]{
     display: none;
 }
 */
-td[class$="_expedientes-idPaciente"]{
+td[class$="_expedientes-idPaciente control-group"]{
     display: none;
 }
-
 div.field-container thead th:nth-child(4){
     display: none;
 }
