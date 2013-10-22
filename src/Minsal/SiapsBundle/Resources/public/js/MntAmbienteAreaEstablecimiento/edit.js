@@ -56,7 +56,10 @@ $(document).ready(function() {
         $('input[name="btn_guardar"]').show();
         $('input[name="btn_guardar_otro"]').show();
     });
-
+    
+    $('form').submit(function() {
+        $('select[id$="_idAtenAreaModEstab"]').removeAttr('disabled');
+    });
 
 });
 

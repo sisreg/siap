@@ -42,7 +42,7 @@ class UserAdmin extends BaseUserAdmin {
                         return $repositorio->obtenerEstabConfigurado();
                     }))
                 ->add('enabled', null, array('required' => true))
-                ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => true, 'multiple' => true,'by_reference' => true))
+                ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => true, 'multiple' => true, 'by_reference' => true))
                 ->end()
         ;
     }
@@ -57,8 +57,8 @@ class UserAdmin extends BaseUserAdmin {
                 ->add('idEstablecimiento', null, array('label' => 'Establecimiento de salud'))
         ;
     }
-    
-     public function getTemplate($name) {
+
+    public function getTemplate($name) {
         switch ($name) {
             case 'edit':
                 return 'MinsalSiapsBundle:UserAdmin:edit.html.twig';
@@ -68,18 +68,5 @@ class UserAdmin extends BaseUserAdmin {
                 break;
         }
     }
-    
-     /**
-     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
-     */
-   /* public function createQuery($context = 'list') {
-        $query = parent::createQuery($context);
-
-        return new ProxyQuery(
-                $query
-                        ->innerJoin('SonataUserBundle:Group','g')
-                        ->where('g.id IN (3)')
-        );
-    }*/
 
 }

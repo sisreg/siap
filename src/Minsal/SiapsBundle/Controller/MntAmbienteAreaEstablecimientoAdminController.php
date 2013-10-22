@@ -132,17 +132,8 @@ class MntAmbienteAreaEstablecimientoAdminController extends Controller {
                         'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
             ));
         }
-
-        $this->admin->setSubject($object);
-
-        /** @var $form \Symfony\Component\Form\Form */
-        $form = $this->createFormBuilder($object)
-            //->add('idAtenAreaModEstab')
-            ->add('nombre')
-            ->getForm();
-        
-        //$form = $this->admin->getForm();
-        //$form->setData($object);
+        $form = $this->admin->getForm();
+        $form->setData($object);
 
         if ($this->getRestMethod() == 'POST') {
             $form->bind($this->get('request'));
@@ -151,6 +142,7 @@ class MntAmbienteAreaEstablecimientoAdminController extends Controller {
 
             // persist if the form was valid and if in preview mode the preview was approved
             if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
+
                 $this->admin->update($object);
 
                 if ($this->isXmlHttpRequest()) {
@@ -178,15 +170,68 @@ class MntAmbienteAreaEstablecimientoAdminController extends Controller {
             }
         }
 
-        $view    = $form->createView();
+        $view = $form->createView();
 
         // set the theme for the current Admin Form
         $this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
 
-        return $this->render(/*$this->admin->getTemplate($templateKey)*/'MinsalSiapsBundle:MntAmbienteAreaEstablecimiento:editar.html.twig', array(
+        return $this->render(
+                        'MinsalSiapsBundle:MntAmbienteAreaEstablecimiento:editar.html.twig', array(
                     'action' => 'edit',
                     'form' => $view,
                     'object' => $object,
+        ));
+    }
+
+    /**
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException|\Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
+     * @param mixed $id
+     *
+     * @return Response|RedirectResponse
+     */
+    public function deleteAction($id) {
+        $id = $this->get('request')->get($this->admin->getIdParameter());
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        if (false === $this->admin->isGranted('DELETE', $object)) {
+            return $this->render('MinsalSiapsBundle::Accesso_denegado.html.twig', array('admin_pool' => $this->container->get('sonata.admin.pool'),
+                        'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
+            ));
+        }
+
+        if ($this->getRestMethod() == 'DELETE') {
+            // check the csrf token
+            $this->validateCsrfToken('sonata.delete');
+
+            try {
+                $this->admin->delete($object);
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'ok'));
+                }
+
+                $this->addFlash('sonata_flash_success', 'flash_delete_success');
+            } catch (ModelManagerException $e) {
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'error'));
+                }
+
+                $this->addFlash('sonata_flash_error', 'flash_delete_error');
+            }
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
+        }
+
+        return $this->render($this->admin->getTemplate('delete'), array(
+                    'object' => $object,
+                    'action' => 'delete',
+                    'csrf_token' => $this->getCsrfToken('sonata.delete')
         ));
     }
 

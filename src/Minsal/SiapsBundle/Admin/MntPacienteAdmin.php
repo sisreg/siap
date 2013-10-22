@@ -26,9 +26,11 @@ class MntPacienteAdmin extends Admin {
                 ->add('primerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('segundoNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('tercerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
-                ->add('fechaNacimiento', 'birthday', array( 
+                ->add('fechaNacimiento', 'birthday', array(
                     'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
                 ->add('horaNacimiento', null, array('empty_value' => array('hour' => 'Hora', 'minute' => 'Minutos'), 'required' => false))
+                ->add('idSexo', null, array('empty_value' => 'Seleccione...',
+                    'label' => 'Sexo'))
                 ->add('numeroDocIdePaciente', null, array('label' => $this->getTranslator()->trans('numeroDocIdePaciente')))
                 ->add('direccion', null, array('required' => true, 'attr' => array('class' => 'span5 mayuscula')))
                 ->add('telefonoCasa', null, array('label' => $this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
@@ -84,8 +86,6 @@ class MntPacienteAdmin extends Admin {
                     'required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
                 ->add('idParentescoProporDatos', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idParentescoProporDatos')))
-                ->add('idSexo', null, array('empty_value' => 'Seleccione...',
-                    'label' => 'Sexo'))
                 ->add('expedientes', 'sonata_type_collection', array(
                     'label' => 'Expedientes Clínicos',
                     'required' => true), array(
@@ -112,8 +112,6 @@ class MntPacienteAdmin extends Admin {
                 break;
         }
     }
-
-    
 
     public function prePersist($paciente) {
         foreach ($paciente->getExpedientes() as $expediente) {
@@ -363,6 +361,13 @@ class MntPacienteAdmin extends Admin {
 
     protected function configureRoutes(RouteCollection $collection) {
         $collection->add('view', $this->getRouterIdParameter() . '/view');
+    }
+
+    //PARA LIMITAR EL NUMERO DE EXPEDIENTES A AGREGAR LA PRIMERA VEZ
+    public function getFormTheme() {
+        return array_merge(
+                parent::getFormTheme(), array('MinsalSiapsBundle:Form:form_admin_fields.html.twig')
+        );
     }
 
 }
