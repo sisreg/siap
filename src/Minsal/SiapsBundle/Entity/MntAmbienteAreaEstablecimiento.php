@@ -50,18 +50,6 @@ class MntAmbienteAreaEstablecimiento
     private $idEstablecimiento;
 
     /**
-     * @var \MntServicioExternoEstablecimiento
-     *
-     * @ORM\ManyToOne(targetEntity="MntServicioExternoEstablecimiento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_servicio_externo_establecimiento", referencedColumnName="id")
-     * })
-     */
-    private $idServicioExternoEstablecimiento;
-
-
-
-    /**
      * Get id
      *
      * @return integer 

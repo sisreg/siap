@@ -17,7 +17,6 @@ class MntExpedienteAdmin extends Admin {
                 ->add('idCreacionExpediente', null, array('required' => true,
                     'preferred_choices' => array($esdomed),
                     'label' => $this->getTranslator()->trans('idCreacionExpediente')))
-                ->add('idPaciente', null, array('label' => $this->getTranslator()->trans('idPaciente')))
         ;
     }
      public function getTemplate($name) {

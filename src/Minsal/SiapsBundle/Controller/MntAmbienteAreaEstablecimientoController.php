@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\DBAL as DBAL;
+//use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+//use Doctrine\DBAL as DBAL;
+use Minsal\SiapsBundle\Entity\MntAmbienteAreaEstablecimiento;
 
 class MntAmbienteAreaEstablecimientoController extends Controller {
 
@@ -18,11 +20,16 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
     public function getAreaModalidadAction() {
 
         $em = $this->getDoctrine()->getEntityManager();
-        $dql = "SELECT A.id as id,CONCAT(D.nombre, '-',B.nombre) as nombre
+        $dql = "SELECT A.id as id,(
+                        CASE WHEN F.nombre IS NOT NULL THEN CONCAT(D.nombre, '-',B.nombre,'-',F.nombre) 
+                                ELSE CONCAT(D.nombre, '-',B.nombre) 
+                        END)  as nombre
                 FROM MinsalSiapsBundle:MntAreaModEstab A
                 JOIN A.idAreaAtencion B
                 JOIN A.idModalidadEstab C
                 JOIN C.idModalidad D
+                LEFT JOIN A.idServicioExternoEstab E
+                LEFT JOIN E.idServicioExterno F
                 WHERE B.id = 3";
         $areas['areas'] = $em->createQuery($dql)
                 ->getArrayResult();
@@ -80,45 +87,76 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
         $request = $this->getRequest();
 
         $em = $this->getDoctrine()->getEntityManager();
-        if (!is_null($request->get('idAtenAreaModEstab'))) {
-            $dql = "SELECT B.nombre as nombre
-                FROM MinsalSiapsBundle:MntAtenAreaModEstab A
-                JOIN A.idAtencion B
-                WHERE A.id= :id";
 
-            try {
-                $especialidad = $em->createQuery($dql)
-                        ->setParameter('id', $request->get('idAtenAreaModEstab'))
-                        ->getSingleResult();
-            } catch (\Doctrine\ORM\NoResultException $e) {
-                $especialidad = new \Minsal\SiapsBundle\Entity\CtlAtencion();
-            }
+        $dql = "SELECT A.id
+              FROM MinsalSiapsBundle:MntAtenAreaModEstab A
+              JOIN A.idAreaModEstab B
+              JOIN B.idServicioExternoEstab C
+              JOIN C.idServicioExterno D
+              WHERE A.id= :id";
+
+        try {
+            $area = $em->createQuery($dql)
+                    ->setParameter('id', $request->get('idAtenAreaModEstab'))
+                    ->getSingleResult();
+            $dql = "SELECT CONCAT(B.nombre,' ',E.abreviatura) as nombre, A.id as id
+                    FROM MinsalSiapsBundle:MntAtenAreaModEstab A
+                    JOIN A.idAtencion B
+                    JOIN A.idAreaModEstab C
+                    JOIN C.idServicioExternoEstab D
+                    JOIN D.idServicioExterno E
+                    WHERE A.id= :id";
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            $dql = "SELECT B.nombre as nombre, A.id as id
+                    FROM MinsalSiapsBundle:MntAtenAreaModEstab A
+                    JOIN A.idAtencion B
+                    WHERE A.id= :id";
         }
-        else
+
+        try {
+            $especialidad = $em->createQuery($dql)
+                    ->setParameter('id', $request->get('idAtenAreaModEstab'))
+                    ->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
             $especialidad = new \Minsal\SiapsBundle\Entity\CtlAtencion();
-
-        if (is_null($request->get('idServicioExternoEstablecimiento'))) {
-            $dql = "SELECT B.nombre as nombre
-                FROM MinsalSiapsBundle:MntServicioExternoEstablecimiento A
-                JOIN A.idServicioExterno B
-                WHERE A.id= :id";
-
-            try {
-                $servicioExterno = $em->createQuery($dql)
-                        ->setParameter('id', $request->get('idServicioExternoEstablecimiento'))
-                        ->getSingleResult();
-            } catch (\Doctrine\ORM\NoResultException $e) {
-                $servicioExterno = new \Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento();
-            }
         }
+
+        if ($request->get('numeroAmbientes') == "")
+            $ambientes = 0;
         else
-            $servicioExterno = new \Minsal\SiapsBundle\Entity\MntServicioExternoEstablecimiento();
-        
+            $ambientes = $request->get('numeroAmbientes');
+
+
         return $this->render('MinsalSiapsBundle:MntAmbienteAreaEstablecimiento:generar_servicios.html.twig', array('especialidades' => $especialidad,
-                    'serviciosExternos' => $servicioExterno,
                     'porSexo' => $request->get('porSexo'),
-                    'numeroAmbientes' => $request->get('numeroAmbientes')
+                    'numeroAmbientes' => $ambientes
         ));
+    }
+
+    /**
+     * @Route("/guardar/hospitalizacion/{sexo}/{numero_ambientes}/{id_aten_area_mod_estab}", name="guardar_hopitalizacion", options={"expose"=true})
+     * @Method("POST")
+     */
+    public function guardarHospitalizacionAction($sexo, $numero_ambientes, $id_aten_area_mod_estab) {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $establecimiento = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
+                    ->findOneBy(array('configurado' => true));
+        
+        $area =$em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')
+                    ->findOneBy(array('id' => $id_aten_area_mod_estab));
+        
+        if ($numero_ambientes == 0 && $sexo == 'false') {
+            $ambiente = new MntAmbienteAreaEstablecimiento();
+            $ambiente->setIdAtenAreaModEstab($area);
+            $ambiente->setIdEstablecimiento($establecimiento);
+            $ambiente->setNombre($request->get('nombre'));
+            $em->persist($ambiente);
+            $em->flush();
+        }
+        
+          return $this->redirect($this->generateUrl('estudiante_show', array('id' => $entity->getId())));
     }
 
 }

@@ -69,9 +69,16 @@ class CtlEstablecimientoAdmin extends Admin {
     public function preUpdate($establecimiento) {
         $establecimiento->setConfigurado(true);
         $usuariosAdministradores = $this->getModelManager()
-                    ->findBy('MinsalSiapsBundle:User', array('username' => 'like %admin'));
+                ->getEntityManager('MinsalSiapsBundle:User')
+                ->createQuery("
+                    SELECT u
+                    FROM MinsalSiapsBundle:User u
+                    JOIN u.groups G
+                    WHERE u.username LIKE '%admin' 
+                            AND G.name LIKE '%Admin'")
+                ->getResult();
         
-        foreach ($usuariosAdministradores as $usuario){
+        foreach ($usuariosAdministradores as $usuario) {
             $usuario->setIdEstablecimiento($establecimiento);
             $this->getModelManager()->update($usuario);
         }

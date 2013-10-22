@@ -26,7 +26,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('primerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('segundoNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('tercerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
-                ->add('fechaNacimiento', 'birthday', array(
+                ->add('fechaNacimiento', 'birthday', array( 
                     'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
                 ->add('horaNacimiento', null, array('empty_value' => array('hour' => 'Hora', 'minute' => 'Minutos'), 'required' => false))
                 ->add('numeroDocIdePaciente', null, array('label' => $this->getTranslator()->trans('numeroDocIdePaciente')))
@@ -90,7 +90,8 @@ class MntPacienteAdmin extends Admin {
                     'label' => 'Expedientes Clínicos',
                     'required' => true), array(
                     'edit' => 'inline',
-                    'inline' => 'table'
+                    'inline' => 'table',
+                    'limit' => 1
                 ))
 
         ;
@@ -111,6 +112,8 @@ class MntPacienteAdmin extends Admin {
                 break;
         }
     }
+
+    
 
     public function prePersist($paciente) {
         foreach ($paciente->getExpedientes() as $expediente) {
@@ -191,13 +194,13 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setIdMunicipioDomicilio($paciente->getIdMunicipioDomicilio());
             $cambio = TRUE;
         }
-        if(($paciente->getIdCantonDomicilio())!= NULL){
-             if ($paciente->getIdCantonDomicilio()->getId() != $pacienteBase['id_canton_domicilio']) {
+        if (($paciente->getIdCantonDomicilio()) != NULL) {
+            if ($paciente->getIdCantonDomicilio()->getId() != $pacienteBase['id_canton_domicilio']) {
                 $auditoria->setIdCantonDomicilio($paciente->getIdCantonDomicilio());
                 $cambio = TRUE;
             }
         }
-       
+
         if ($paciente->getAreaGeograficaDomicilio()->getId() != $pacienteBase['area_geografica_domicilio']) {
             $auditoria->setAreaGeograficaDomicilio($paciente->getAreaGeograficaDomicilio());
             $cambio = TRUE;
@@ -215,7 +218,7 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setFechaNacimiento($paciente->getFechaNacimiento());
             $cambio = TRUE;
         }
-        if($paciente->getHoraNacimiento()!=NULL){
+        if ($paciente->getHoraNacimiento() != NULL) {
             $hora_form = $paciente->getHoraNacimiento();
             foreach ($hora_form as $valor_hora) {
                 $datos_hora[] = $valor_hora;
@@ -231,7 +234,7 @@ class MntPacienteAdmin extends Admin {
                 $cambio = TRUE;
             }
         }
-        
+
 
         //si alguno de los valores ha cambiado se guarda en la tabla auditoría paciente
         if ($cambio == TRUE) {
@@ -247,7 +250,6 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setIdPaciente($paciente);
             $this->getModelManager()->create($auditoria);
         }
-        
     }
 
     public function validate(ErrorElement $errorElement, $object) {

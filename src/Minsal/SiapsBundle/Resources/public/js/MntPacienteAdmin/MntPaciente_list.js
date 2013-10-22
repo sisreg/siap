@@ -1,4 +1,4 @@
-    $(document).ready(function() {
+$(document).ready(function() {
     $('#dui').mask("99999999-9");
     $("#fecha_nacimiento").datepicker().mask("99-99-9999");
     $("#capturar").hide();
@@ -8,6 +8,7 @@
         $('#resultadoBusqueda').hide();
         $("#buscar").show();
         $("#buscarGlobal").hide();
+        $("#capturar").hide();
         return false;
     });
 
@@ -30,11 +31,11 @@
             });
 
         } else {
-            //$("#capturar").show();
+            $("#capturar").show();
             $('#resultadoBusqueda').show();
             $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
-            $("#buscarGlobal").show();
-            $(this).hide();
+            // $("#buscarGlobal").show();
+            //$("#buscar").show();
         }
         return false;
     });
@@ -65,7 +66,7 @@
         }
         return false;
     });
-    
+
     //PASANDO A MAYUSCULAS LOS ELEMENTOS
     $("#primer_apellido").keyup(function() {
         $(this).val(limpiar_nombres($("#primer_apellido").val()));

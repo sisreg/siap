@@ -32,7 +32,7 @@ class EnfCarnetVacuna
     /**
      * @var \MntExpediente
      *
-     * @ORM\ManyToOne(targetEntity="MntExpediente")
+     * @ORM\ManyToOne(targetEntity="\Minsal\SiapsBundle\Entity\MntExpediente")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_expediente", referencedColumnName="id")
      * })
@@ -42,7 +42,7 @@ class EnfCarnetVacuna
     /**
      * @var \CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="\Minsal\SiapsBundle\Entity\CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
@@ -52,7 +52,7 @@ class EnfCarnetVacuna
     /**
      * @var \MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="\Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id")
      * })
@@ -107,10 +107,10 @@ class EnfCarnetVacuna
     /**
      * Set idExpediente
      *
-     * @param \Minsal\EnfermeriaBundle\Entity\MntExpediente $idExpediente
+     * @param \Minsal\SiapsBundle\Entity\MntExpediente $idExpediente
      * @return EnfCarnetVacuna
      */
-    public function setIdExpediente(\Minsal\EnfermeriaBundle\Entity\MntExpediente $idExpediente = null)
+    public function setIdExpediente(\Minsal\SiapsBundle\Entity\MntExpediente $idExpediente = null)
     {
         $this->idExpediente = $idExpediente;
 
@@ -120,7 +120,7 @@ class EnfCarnetVacuna
     /**
      * Get idExpediente
      *
-     * @return \Minsal\EnfermeriaBundle\Entity\MntExpediente 
+     * @return \Minsal\SiapsBundle\Entity\MntExpediente 
      */
     public function getIdExpediente()
     {
@@ -130,10 +130,10 @@ class EnfCarnetVacuna
     /**
      * Set idEstablecimiento
      *
-     * @param \Minsal\EnfermeriaBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
      * @return EnfCarnetVacuna
      */
-    public function setIdEstablecimiento(\Minsal\EnfermeriaBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
     {
         $this->idEstablecimiento = $idEstablecimiento;
 
@@ -143,7 +143,7 @@ class EnfCarnetVacuna
     /**
      * Get idEstablecimiento
      *
-     * @return \Minsal\EnfermeriaBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
      */
     public function getIdEstablecimiento()
     {
@@ -153,10 +153,10 @@ class EnfCarnetVacuna
     /**
      * Set idEmpleado
      *
-     * @param \Minsal\EnfermeriaBundle\Entity\MntEmpleado $idEmpleado
+     * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado
      * @return EnfCarnetVacuna
      */
-    public function setIdEmpleado(\Minsal\EnfermeriaBundle\Entity\MntEmpleado $idEmpleado = null)
+    public function setIdEmpleado(\Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado = null)
     {
         $this->idEmpleado = $idEmpleado;
 
@@ -166,7 +166,7 @@ class EnfCarnetVacuna
     /**
      * Get idEmpleado
      *
-     * @return \Minsal\EnfermeriaBundle\Entity\MntEmpleado 
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
      */
     public function getIdEmpleado()
     {

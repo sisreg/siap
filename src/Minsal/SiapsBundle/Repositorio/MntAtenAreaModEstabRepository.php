@@ -83,7 +83,7 @@ class MntAtenAreaModEstabRepository extends EntityRepository {
 
         return $consulta->getResult();
     }
-
+    
 }
 
 ?>

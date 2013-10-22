@@ -52,16 +52,15 @@ class MntPacienteController extends Controller {
         //CONSTANTES
         if (strcmp($tipo_busqueda, 'l') == 0)
             $sql = "SELECT A.*,C.nombre,B.numero 
-                FROM mnt_paciente A, mnt_expediente B, ctl_documento_identidad C
-                WHERE B.id_paciente=A.id AND B.habilitado= TRUE AND C.id=A.id_doc_ide_paciente
+                FROM mnt_paciente A LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente, mnt_expediente B
+                WHERE B.id_paciente=A.id AND B.habilitado= TRUE
                     AND A.primer_nombre::text ~* '$primerNombre' 
                     AND A.primer_apellido::text ~* '$primerApellido'";
         
         else
             $sql = "SELECT A.*,C.nombre 
-                FROM mnt_paciente A, ctl_documento_identidad C
-                WHERE C.id=A.id_doc_ide_paciente
-                    AND A.primer_nombre::text ~* '$primerNombre' 
+               FROM mnt_paciente A LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente
+                WHERE A.primer_nombre::text ~* '$primerNombre' 
                     AND A.primer_apellido::text ~* '$primerApellido'";
         //VARIABLES
         if ($segundoNombre != '')

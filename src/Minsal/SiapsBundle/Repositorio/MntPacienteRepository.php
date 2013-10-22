@@ -17,7 +17,7 @@ class MntPacienteRepository extends EntityRepository {
                 ->select('p', 'u', 'e')
                 ->from('MinsalSiapsBundle:MntPaciente', 'p')
                 ->leftJoin('p.expedientes', 'e')
-                ->join('p.idUser', 'u')
+                ->leftjoin('p.idUser', 'u')
                 ->where('p.id =:valor and e.habilitado=true')
                 ->setParameter(':valor', $valor)
                 ->getQuery();

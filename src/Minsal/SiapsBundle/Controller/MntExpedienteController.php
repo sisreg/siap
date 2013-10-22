@@ -49,7 +49,7 @@ class MntExpedienteController extends Controller {
             $rows[$i]['id'] = $aux->getId();
             $rows[$i]['cell'] = array($aux->getNumero(),
                 $aux->getFechaCreacion()->format('d-m-Y'),
-                $aux->getIdPaciente()->getPrimerNombre(),
+                $aux->getIdPaciente()->getPrimerApellido()." ".$aux->getIdPaciente()->getSegundoApellido()." ". $aux->getIdPaciente()->getApellidoCasada().", ".$aux->getIdPaciente()->getPrimerNombre()." ".$aux->getIdPaciente()->getSegundoNombre()." ".$aux->getIdPaciente()->getTercerNombre(),
                 $aux->getIdPaciente()->getIdSexo()->getNombre(),
                 $aux->getIdPaciente()->getFechaNacimiento()->format('d-m-Y')
             );
