@@ -171,7 +171,7 @@ $(document).ready(function() {
             $('input[id$="_telefonoResponsable"]').val("");
         }
         else {
-            if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Conyuge') {
+            if($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Compañero(a)' || $('select[id$="_idParentescoResponsable"] option:selected').text() == 'Esposo(a)'){
                 $('input[id$="_nombreResponsable"]').val($('input[id$="_nombreConyuge"]').val());
                 $('select[id$="_idDocResponsable"]').val("");
                 $('input[id$="_numeroDocIdeResponsable"]').val("");
