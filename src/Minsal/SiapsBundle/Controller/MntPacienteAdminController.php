@@ -123,6 +123,21 @@ class MntPacienteAdminController extends Controller {
                 if ($aux['id_sexo'] != null)
                     $object->setIdSexo($em->getRepository('MinsalSiapsBundle:CtlSexo')->find($aux['id_sexo']));
             }
+        }else {
+            $object->setPrimerNombre($this->get('request')->get('primer_nombre'));
+            $object->setPrimerApellido($this->get('request')->get('primer_apellido'));
+            $object->setSegundoApellido($this->get('request')->get('segundo_apellido'));
+            $object->setSegundoNombre($this->get('request')->get('segundo_nombre'));
+            $object->setTercerNombre($this->get('request')->get('tercer_nombre'));
+            $object->setNombreMadre($this->get('request')->get('nombre_madre'));
+            $object->setConocidoPor($this->get('request')->get('conocido_por'));
+            if ($this->get('request')->get('fecha_nacimiento') != '')
+                $object->setFechaNacimiento(new \DateTime($this->get('request')->get('fecha_nacimiento')));
+            if ($this->get('request')->get('dui') != '') {
+                $em = $this->getDoctrine()->getManager();
+                $object->setIdDocPaciente($em->getRepository('MinsalSiapsBundle:CtlDocumentoIdentidad')->find(1));
+                $object->setNumeroDocIdePaciente($this->get('request')->get('dui'));
+            }
         }
 
 

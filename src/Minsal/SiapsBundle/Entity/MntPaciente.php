@@ -1404,7 +1404,7 @@ class MntPaciente {
     }
 
     public function __toString() {
-        return $this->segundoApellido . ' ' . $this->primerNombre ? : '';
+        return $this->primerApellido.' '.$this->segundoApellido.' '.$this->apellidoCasada . ',' . $this->primerNombre.' '.$this->segundoNombre ? : '';
     }
 
     /**

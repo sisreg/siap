@@ -16,10 +16,10 @@ span[id$="_expedientes"] table.table-bordered{
     border: 2px solid #E3E3E3;
 }
 .dat_paciente label{
-     padding-left: 1em;
-     text-align: left;  
-     display: inline;
-     margin-bottom: 0;
+    padding-left: 1em;
+    text-align: left;  
+    display: inline;
+    margin-bottom: 0;
 }
 
 .dat_paciente input{
@@ -42,11 +42,11 @@ span[id$="_expedientes"] table.table-bordered{
 }
 
 .sonata-bc .row-fluid textarea.span5[id$="_observacion"] {
-   width: 70%;
+    width: 70%;
 }
 
 .sonata-bc .row-fluid input.span5[id$="_direccion"], .sonata-bc .row-fluid input.span5[id$="_direccionResponsable"] {
-   width: 95%;
+    width: 95%;
 }
 
 .sonata-bc .dat_paciente .control-group, .sonata-bc .dat_paciente .control-group label{
@@ -82,9 +82,16 @@ span[id$="_expedientes"] table.table-bordered{
     vertical-align: middle;
     padding-bottom: 0.3em;
 }
+input[id$="_fechaNacimiento"]{
+    width : 90px;
+    margin-left:0;
+}
 
+#form_paciente .ui-datepicker-trigger{ 
+    display: inline; 
+}
 select[id$="_hour"]{
-     width : 70px;
+    width : 70px;
 }
 select[id$="_minute"] { 
     width : 90px;

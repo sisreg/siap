@@ -27,7 +27,8 @@ class MntPacienteAdmin extends Admin {
                 ->add('segundoNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('tercerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('fechaNacimiento', 'birthday', array(
-                    'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')))
+                    'widget'=>'single_text','format'=>'dd-MM-yyyy'
+                    /*'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')*/))
                 ->add('horaNacimiento', null, array('empty_value' => array('hour' => 'Hora', 'minute' => 'Minutos'), 'required' => false))
                 ->add('idSexo', null, array('empty_value' => 'Seleccione...',
                     'label' => 'Sexo'))
