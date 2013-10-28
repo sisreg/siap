@@ -2,6 +2,8 @@
 .dat_paciente{
     text-align: left;
     border: 2px solid #E3E3E3;
+    position: relative;
+    left: 100px;
 }
 .sonata-bc .form-horizontal .control-group:before span[id$="_expedientes"] table.table-bordered {
     text-align: center;
@@ -88,14 +90,15 @@ select[id$="_minute"] {
     width : 90px;
 }
 
-td[class$="_delete control-group"]{
+td[class$="_delete control-group widthChange"]{
     display: none;
 }
 
 td[class$="_expedientes-idPaciente control-group"]{
     display: none;
 }
-div.field-container thead th:nth-child(4),div.field-container thead th:nth-child(1){
+
+div.field-container thead th:nth-child(1){
     display: none;
 }
 

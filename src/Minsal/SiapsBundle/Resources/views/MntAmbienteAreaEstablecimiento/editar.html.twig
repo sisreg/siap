@@ -41,36 +41,11 @@
                             <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">
                                 <fieldset>
                                     <div class="sonata-ba-collapsed-fields">
-                                    {% if form_group.description != false %}
-                                            <p>{{ form_group.description|raw }}</p>
-                                    {% endif %}
-                                            <!-- ESTE AGREGA LAS MODALIDADES QUE POSEEN HOSPITALIZACIÓN 
-                                            <div id="sonata-ba-field-container-areasModadlidad" class="control-group">
-                                                <label class=" control-label"> Modalidades de la Hospitalización </label>
-                                                <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-                                                    <select id="areas-modalidad" class="span5">
-                                                        <option value="0">Seleccione --</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            {form_row(form[form_group.fields.idAtenAreaModEstab])}}
-                                            <div id="sonata-ba-field-container-porSexo" class="control-group">
-                                                <label class=" control-label">Dividir ambientes por sexo</label>
-                                                <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-                                                    <input type="checkbox" name="por_sexo" id="por_sexo">
-                                                </div>
-                                            </div>
-                                            <div id="sonata-ba-field-container-numeroAmbientes" class="control-group">
-                                                <label class=" control-label">Número de ambientes</label>
-                                                <div class="controls sonata-ba-field sonata-ba-field-standard-natural ">
-                                                    <input type="text" value="" class="span5" name="numero_ambientes" id="numero_ambientes">
-                                                </div>
-                                            </div>-->
-                                            {{ form_row(form[form_group.fields.nombre])}}
+                                             {{ form_rest(form) }}
                                         </div>
                                     </fieldset>
                                 </div>
-                                            
+
                     {% endfor %}
                             </div>
 
@@ -101,17 +76,17 @@
                             {% if admin.hasroute('list') %}
                                 <input type="submit" class="btn" name="btn_update_and_list" value="{{ 'btn_update_and_return_to_list'|trans({}, 'SonataAdminBundle') }}"/>
                             {% endif %}
-
+                           {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
+                                {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+                                <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}">{{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
+                            {% endif %}
 
                         {% else %}
-                                <input class="btn btn-primary" type="button" name="btn_generar" value="Generar"/>
+
                         {% endif %}
                     {% endif %}
                             </div>
-            {% endblock formactions %}
-                            <fieldset id="resultados" style="width: 700px; display: block; vertical-align: top; margin-left: 89px;">
-
-                            </fieldset>    
+            {% endblock formactions %}  
                         </form>
     {% endif%}
 

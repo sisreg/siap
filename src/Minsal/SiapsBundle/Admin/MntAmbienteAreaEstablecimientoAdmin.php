@@ -80,7 +80,11 @@ class MntAmbienteAreaEstablecimientoAdmin extends Admin {
         $ambiente->setIdEstablecimiento($establecimiento);
     }
 
-   
+//PARA QUITAR EL BORRAR DE LA LISTA 
+    public function getBatchActions() {
+        $actions = parent::getBatchActions();
+        $actions['delete'] = null;
+    }
 
 }
 

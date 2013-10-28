@@ -4,7 +4,7 @@ namespace Minsal\SiapsBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
-
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class MntExpedienteAdmin extends Admin {
 
@@ -28,6 +28,15 @@ class MntExpedienteAdmin extends Admin {
                 return parent::getTemplate($name);
                 break;
         }
+    }
+    
+     protected function configureRoutes(RouteCollection $collection) {
+        $collection->remove('delete');
+    }
+    
+     public function getBatchActions() {
+        $actions = parent::getBatchActions();
+        $actions['delete'] = null;
     }
 
 }
