@@ -1,7 +1,21 @@
 $(document).ready(function() {
     $('#dui').mask("99999999-9");
     $("#fecha_nacimiento").datepicker().mask("99-99-9999");
-    $("#capturar").hide();
+
+    $("#capturar").hide().click(function() {
+        var url = $(this).attr("href");
+        url += "?primer_nombre=" + $("#primer_nombre").val() + "&primer_apellido=" + $("#primer_apellido").val();
+        url += "&segundo_apellido=" + $("#segundo_apellido").val();
+        url += "&segundo_nombre=" + $("#segundo_nombre").val();
+        url += "&tercer_nombre=" + $("#tercer_nombre").val();
+        url += "&nombre_madre=" + $("#nombre_madre").val();
+        url += "&conocido_por=" + $("#conocido_por").val();
+        url += "&fecha_nacimiento=" + $("#fecha_nacimiento").val();
+        url += "&dui=" + $("#dui").val();
+        $(this).attr("href", url);
+    });
+
+
     $("#buscarGlobal").hide();
     $("#limpiar").click(function() {
         $('#buscarForm')[0].reset();

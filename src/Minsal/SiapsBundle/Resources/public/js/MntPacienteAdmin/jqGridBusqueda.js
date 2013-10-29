@@ -11,12 +11,12 @@ $(document).ready(function() {
         colModel: [
             {name: 'id', index: 'id', editable: false},
             {name: 'acciones', index: 'acciones', editable: false, width: 100, align: "center"},
-            {name: 'nec', index: 'nec', editable: false, width: 50, align: "center"},
+            {name: 'nec', index: 'nec', editable: false, width: 100, align: "center"},
             {name: 'apellidos', index: 'apellidos', editable: false, width: 200},
             {name: 'nombres', index: 'nombres', editable: false, width: 200},
             {name: 'fecha_nacimiento', index: 'fecha_nacimiento', editable: false, width: 70, align: "center"},
-            {name: 'documento', index: 'documento', editable: false, width: 85, align: "center"},
-            {name: 'nombre_madre', index: 'nombre_madre', editable: false, width: 180},
+            {name: 'documento', index: 'documento', editable: false, width: 130, align: "center"},
+            {name: 'nombre_madre', index: 'nombre_madre', editable: false, width: 240},
             {name: 'conocido_por', index: 'conocido_por', editable: false, width: 200},
             {name: 'conocido_por', index: 'conocido_por', editable: false, width: 100}            
         ],

@@ -12,9 +12,9 @@ jQuery(function($) {
             'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
             'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-        dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
-        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mi&eacute;', 'Juv', 'Vie', 'S&aacute;b'],
-        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&aacute;'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié;', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
         weekHeader: 'Sm',
         dateFormat: 'dd-mm-yy',
         firstDay: 1,
@@ -23,15 +23,14 @@ jQuery(function($) {
         yearSuffix: '',
         showOn: "both",
         buttonText: "Seleccione..",
-       //showOn: "button",
         buttonImage: "/bundles/minsalsiaps/js/datepicker/calendario.png",
         //para que se muestre sólo la imagen
         buttonImageOnly: true,
-        minDate: "-115y",
+        minDate: "-100y",
         maxDate: "+0y",
         changeMonth: true,
         changeYear: true,
-        yearRange: "c-115:c+10"
+        yearRange: "c-100:c+10"
     };
     $.datepicker.setDefaults($.datepicker.regional['es']);
 });
