@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="562" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="30" uuid="b3dbe2a0-70cd-4578-a4d9-18f1579c84c3">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="579"/>
+	<property name="ireport.y" value="387"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
 	<style name="Heading 3" fontSize="14" isBold="true"/>
@@ -15,7 +15,7 @@
 initcap(
 A.primer_apellido||coalesce(' '||A.segundo_apellido,'')||coalesce(' '||A.apellido_casada,'')) as apellido_paciente,
 initcap(A.primer_nombre||coalesce(' '||A.segundo_nombre,'')||coalesce(' '||A.tercer_nombre,'')) as nombre_paciente,
-(Select * From fn_calcular_edad($P{id_paciente})) as edad,
+(Select * From fn_calcular_edad($P{id_paciente},'completa')) as edad,
 initcap(conocido_por) as conocido_por,to_char(fecha_nacimiento,'DD/MM/YYYY') AS fecha_nacimiento
 ,hora_nacimiento,
 K.nombre as pais_nacimiento,
