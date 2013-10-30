@@ -1,4 +1,4 @@
-Sistema Integral de Atención al Paciente - SIAPS
+Sistema Integral de Atención al Paciente - SIAP
 ====================================================
 Sistema enfocado a la Atención del Paciente; que contiene todo el historial 
 clínico de un paciente dentro del primer nivel de atención. Lo que permite
@@ -11,9 +11,9 @@ La intalación se divide en las siguientes etapas:
 1. Instalación y configuración del entorno Web.
 2. Instalación y configuración de la base de datos.
 3. Instalación y configuración de JasperReports Server.
-4. Instalación y configuración del SIAPS.
+4. Instalación y configuración del SIAP.
 
-A continuación se describen las etapas de configuración para que el SIAPS pueda
+A continuación se describen las etapas de configuración para que el SIAP pueda
 funcionar en un establecimiento.
 
 1. Instalación y configuración del entorno Web
@@ -34,7 +34,8 @@ Como **usuario root** escribir en una terminal:
 
         aptitude install apache2-mpm-prefork php5 php5-gd php-apc libgd2-xpm acl \
         php5-mcrypt curl git libapache2-mod-php5 php5-intl php-pear php5-cli \
-        php5-pgsql postgresql openjdk-7-jdk openjdk-7-jre
+        php5-pgsql postgresql openjdk-7-jdk openjdk-7-jre ttf-mscorefonts-installer
+        
 
 * Editar el archivo /etc/php5/apache2/php.ini como **usuario root**; con cualquier
 editor de texto, puede ser nano o vi; ir a la sección *Module Settings* y 
@@ -82,7 +83,7 @@ consola:
 * Clonar el siguiente repositorio de git como usuario normal:
 	git clone git@git.salud.gob.sv:SIAPS/db_siaps.git
 * Entrar al directorio y realizar la carga con el archivo denominado 
-**siaps-prod.sql** ejecutando la siguiente sentencia como 
+**siap-prod.sql** ejecutando la siguiente sentencia como 
 **usuario postgres**:
 
         psql -U nombreUsuario -d nombreBase -f nombreArchivo.sql
@@ -197,7 +198,7 @@ jasperadmin ; contraseña -> jasperadmin*.
 
 ###Carga de los reportes
 * Para importar los reportes necesarios para la instalación de los módulos del 
-SIAPS como **usuario root** ubicarse en la carpeta de instalación de 
+SIAP como **usuario root** ubicarse en la carpeta de instalación de 
 **JasperReports Server** y entrar al directorio *buildomatic*  con la siguiente 
 sentencia:
 
@@ -270,7 +271,7 @@ menú dirigirse a Administrar → Usuarios y editar al usuario con la nueva
 contraseña.
 
 
-4. Instalación y configuración del SIAPS.
+4. Instalación y configuración del SIAP.
 ---------------------------------------
 La instalación puede realizarse de dos formas:
 
@@ -363,12 +364,12 @@ el valor indicado.
 
         cd /etc/apache2/sites-available/
 
-* Con un editor de texto crear el archivo **siaps.localhost** con el siguiente
+* Con un editor de texto crear el archivo **siap.localhost** con el siguiente
 contenido:
 
         # Inicio del archivo
         <VirtualHost VARIABLE_RETORNADA>
-        ServerName siaps.localhost
+        ServerName siap.localhost
         DocumentRoot /var/www/siaps/web  ##Esta debe ser la ruta donde está el proyecto!
         DirectoryIndex app.php
         <Directory /var/www/siaps/web >  ##Esta debe ser la ruta donde está el proyecto!
@@ -377,17 +378,17 @@ contenido:
                 Order allow,deny
                 allow from all
         </Directory>
-        ErrorLog ${APACHE_LOG_DIR}/siaps.localhost-error.log
+        ErrorLog ${APACHE_LOG_DIR}/siap.localhost-error.log
         # Possible values include: debug, info, notice, warn, error, crit,
         # alert, emerg.
         LogLevel warn
-        CustomLog ${APACHE_LOG_DIR}/siaps.localhost-access.log combined
+        CustomLog ${APACHE_LOG_DIR}/siap.localhost-access.log combined
         </VirtualHost>
         # Fin del archivo
 
 * Guardar el archivo. Luego, como **root** ejecutar:
 
-        a2ensite siaps.localhost
+        a2ensite siap.localhost
 
 * Habilitar el modo de reescritura con la siguiente sentencia:
 
@@ -400,10 +401,15 @@ contenido:
 * Se debe agregar en el archivo **/etc/hosts** la IP junto con el ServerName 
 del Virtual Host. La línea debe ser similar a la siguiente:
 
-        X.X.X.X       siaps.localhost
+        X.X.X.X       siap.localhost
 
 * Para el caso de todas las maquinas clientes. Agregar la línea anterior en el 
 archivo **/etc/hosts** para que puedan acceder al sistema.
+*Configurar Iceweasel para poder visualizar los reportes en la ventana del navegador. Abrir en el menú de 
+Herramientas la opción "Editar" y seleccionar "Preferencias". Aparecerá una ventana en donde se debe seleccionar
+la opción "Aplicaciones" luego en el campo de búsqueda digitar "pdf", deberá aparecer en el tipo de contenido
+Portable Document Format(PDF) y en la acción debe seleccionarse "Previsualizar en Iceweasel".
 * Probar desde un navegador (recomendado Iceweasel/Firefox) la siguiente url: 
-*http://siaps.localhost/* y deberá aparecer la página de inicio de sesión del 
+*http://siap.localhost/* y deberá aparecer la página de inicio de sesión del 
 sistema.
+
