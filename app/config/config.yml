@@ -19,8 +19,8 @@ framework:
     default_locale:  "%locale%"
     trusted_proxies: ~
     session:         
-      #sesión de 25 minutos
-        lifetime: 3000 
+      #sesión de 8 Horas
+        lifetime: 28800
     fragments:       ~
 
 # Twig Configuration
