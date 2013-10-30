@@ -80,8 +80,8 @@ class ReporteController extends Controller {
         $report_unit = "/reports/siaps/identificacion/" . $report_name;
 
         $request = $this->getRequest();
-         $fecha_inicio = $request->get('fecha_inicio');
-         $fecha_fin = $request->get('fecha_fin'); 
+        $fecha_inicio = $request->get('fecha_inicio');
+        $fecha_fin = $request->get('fecha_fin');
         $report_params = array('fecha_inicio' => $fecha_inicio, 'fecha_fin' => $fecha_fin);
         $client = new JasperClient($jasper_url, $jasper_username, $jasper_password);
 

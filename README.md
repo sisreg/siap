@@ -71,22 +71,22 @@ md5. La línea debería quedar como se muestra a continuación:
 ###Creación del usuario
 * Como **usuario postgres** ejecutar la siguiente sentencia desde consola:
 
-        createuser -DRSP nombreUsuario
+        createuser -DRSP siap
 
 ###Creación de la base de datos
 * Siempre como **usuario postgres** ejecutar la siguiente sentencia desde
 consola:
 
-        createdb nombreBaseDatos -O nombreUsuario
+        createdb siap -O siap
 
 ###Carga del script
 * Clonar el siguiente repositorio de git como usuario normal:
-	git clone git@git.salud.gob.sv:SIAPS/db_siaps.git
+	git clone http://git.salud.gob.sv/SIAPS/db_siaps.git
 * Entrar al directorio y realizar la carga con el archivo denominado 
 **siap-prod.sql** ejecutando la siguiente sentencia como 
 **usuario postgres**:
 
-        psql -U nombreUsuario -d nombreBase -f nombreArchivo.sql
+        psql -U siap -d siap -f siap-prod.sql
  
 3. Instalación y configuración de JasperReports Server
 -------------------------------------------------------
@@ -344,6 +344,10 @@ de JasperReport Server en la ruta
 
         setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/ web/imagenes
         setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/ web/imagenes
+* Limpiar cache de producción con la siguiente instrucción:
+    php app/console cache:clear --env=prod
+* Agregar los estilos y javascript a producción con la siguiente instrucción:
+    php app/console assets:install --symlink --env=prod
 
 ###Creando el Virtual Host
 * Como **usuario root** ejecutar:
