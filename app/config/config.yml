@@ -20,7 +20,7 @@ framework:
     trusted_proxies: ~
     session:         
       #sesión de 25 minutos
-        lifetime: 3000 
+        lifetime: 28800 
     fragments:       ~
 
 # Twig Configuration

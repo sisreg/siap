@@ -28,12 +28,12 @@
             <argument>Minsal\SiapsBundle\Entity\MntAmbienteAreaEstablecimiento</argument>
             <argument>MinsalSiapsBundle:MntAmbienteAreaEstablecimientoAdmin</argument>
         </service>
-        <service id="sonata.admin.atenareamodalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntAtenAreaModEstabAdmin">
+        <!--service id="sonata.admin.atenareamodalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntAtenAreaModEstabAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Administración" label="Cartera de servicios"/>
             <argument />
             <argument>Minsal\SiapsBundle\Entity\MntAtenAreaModEstab</argument>
             <argument>MinsalSiapsBundle:MntAtenAreaModEstabAdmin</argument>
-        </service>
+        </service-->
         <service id="sonata.admin.conexion" class="Minsal\SiapsBundle\Admin\MntConexionAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Administración" label="Conexiones a bases regionales"/>
             <argument />
