@@ -34,7 +34,8 @@ Como **usuario root** escribir en una terminal:
 
         aptitude install apache2-mpm-prefork php5 php5-gd php-apc libgd2-xpm acl \
         php5-mcrypt curl git libapache2-mod-php5 php5-intl php-pear php5-cli \
-        php5-pgsql postgresql openjdk-7-jdk openjdk-7-jre
+        php5-pgsql postgresql openjdk-7-jdk openjdk-7-jre ttf-mscorefonts-installer
+        
 
 * Editar el archivo /etc/php5/apache2/php.ini como **usuario root**; con cualquier
 editor de texto, puede ser nano o vi; ir a la sección *Module Settings* y 
