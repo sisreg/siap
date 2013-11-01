@@ -74,6 +74,8 @@ class ReporteController extends Controller {
      */
     public function exportarReporteAction($report_name, $report_format) {
         //$report_format='pdf';
+        //$usuario = $this->container->get('security.context')->getToken()->getUser();
+        //var_dump($usuario);exit;
         $jasper_url = JASPER_URL;
         $jasper_username = JASPER_USER;
         $jasper_password = JASPER_PASSWORD;
@@ -82,6 +84,7 @@ class ReporteController extends Controller {
         $request = $this->getRequest();
         $fecha_inicio = $request->get('fecha_inicio');
         $fecha_fin = $request->get('fecha_fin');
+        
         $report_params = array('fecha_inicio' => $fecha_inicio, 'fecha_fin' => $fecha_fin);
         $client = new JasperClient($jasper_url, $jasper_username, $jasper_password);
 

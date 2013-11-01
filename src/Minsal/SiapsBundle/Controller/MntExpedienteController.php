@@ -19,7 +19,8 @@ class MntExpedienteController extends Controller {
         $datos = array();
         $request = $this->getRequest();
         parse_str($request->get('datos'), $datos);
-       
+       $usuario = $this->container->get('security.context')->getToken()->getUser();
+        var_dump($usuario);exit;
         return $this->render('MinsalSiapsBundle:MntExpedienteAdmin:expedientes_creados.html.twig', array(
                     'fecha_inicio' => $datos['fecha_inicio'], 'fecha_fin' => $datos['fecha_fin']));
     }
