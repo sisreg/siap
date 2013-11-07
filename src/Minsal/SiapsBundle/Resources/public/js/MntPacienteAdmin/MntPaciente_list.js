@@ -4,7 +4,8 @@ $(document).ready(function() {
 
     $("#capturar").hide().click(function() {
         var url = $(this).attr("href");
-        url += "?primer_nombre=" + $("#primer_nombre").val() + "&primer_apellido=" + $("#primer_apellido").val();
+        url += "?primer_nombre=" + $("#primer_nombre").val();
+        url += "&primer_apellido=" + $("#primer_apellido").val();
         url += "&segundo_apellido=" + $("#segundo_apellido").val();
         url += "&segundo_nombre=" + $("#segundo_nombre").val();
         url += "&tercer_nombre=" + $("#tercer_nombre").val();
@@ -12,11 +13,13 @@ $(document).ready(function() {
         url += "&conocido_por=" + $("#conocido_por").val();
         url += "&fecha_nacimiento=" + $("#fecha_nacimiento").val();
         url += "&dui=" + $("#dui").val();
+        url += "&nec=" + $("#nec").val();
         $(this).attr("href", url);
     });
 
 
     $("#buscarGlobal").hide();
+
     $("#limpiar").click(function() {
         $('#buscarForm')[0].reset();
         $('#resultadoBusqueda').hide();
@@ -27,29 +30,45 @@ $(document).ready(function() {
     });
 
     $("#buscar").click(function() {
-        if ($("#primer_apellido").val() == '' && $("#primer_nombre").val() == '') {
-            //SE ELIMINA O SE CREA EL ELEMENTO
-            ($('#error')) ? $('#error').remove() : '';
-            //SE LE ASIGNA VALOR AL ELEMENTO
-            var elem = $("<div id='error' title='Campos Obligatorios'>" +
-                    "Los campos:\n\
-                <ul><li> <strong>Primer Apellido</strong> </li><li><strong>Primer Nombre</strong></li></ul>\n\
-                <center>Son obligatorios<center></div>");
-            //SE AGREGA LUEGO DEL FORMULARIO
-            elem.insertAfter($("#buscarForm"));
-            //SE DEFINEN LAS PROPIEDADES DE LA VENTANA Y SE ABRE.
-            $("#error").dialog({
-                close: function() {
-                    $("#primer_apellido").focus();
-                }
-            });
-
-        } else {
+        if ($("#nec").val() != '') {
             $("#capturar").show();
-            $('#resultadoBusqueda').show();
             $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
+            $('#resultadoBusqueda').show();
             // $("#buscarGlobal").show();
             //$("#buscar").show();
+        } else {
+            if ($("#dui").val() != '') {
+                $("#capturar").show();
+                $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
+                $('#resultadoBusqueda').show();
+                // $("#buscarGlobal").show();
+                //$("#buscar").show();
+            } else {
+                if ($("#primer_apellido").val() == '' && $("#primer_nombre").val() == '') {
+                    //SE ELIMINA O SE CREA EL ELEMENTO
+                    ($('#error')) ? $('#error').remove() : '';
+                    //SE LE ASIGNA VALOR AL ELEMENTO
+                    var elem = $("<div id='error' title='Campos Obligatorios'>" +
+                            "Los campos:\n\
+                <ul><li> <strong>Primer Apellido</strong> </li><li><strong>Primer Nombre</strong></li></ul>\n\
+                <center>Son obligatorios<center></div>");
+                    //SE AGREGA LUEGO DEL FORMULARIO
+                    elem.insertAfter($("#buscarForm"));
+                    //SE DEFINEN LAS PROPIEDADES DE LA VENTANA Y SE ABRE.
+                    $("#error").dialog({
+                        close: function() {
+                            $("#primer_apellido").focus();
+                        }
+                    });
+
+                } else {
+                    $("#capturar").show();
+                    $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
+                    $('#resultadoBusqueda').show();
+                    // $("#buscarGlobal").show();
+                    //$("#buscar").show();
+                }
+            }
         }
         return false;
     });

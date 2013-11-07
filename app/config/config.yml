@@ -129,7 +129,7 @@ sonata_admin:
         edit:    SonataAdminBundle:CRUD:edit.html.twig 
          # se personalizó la plantilla de dashboard
         dashboard: MinsalSiapsBundle:Core:dashboard.html.twig
-
+       
     dashboard:
         blocks:
             # display a dashboard block

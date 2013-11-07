@@ -53,16 +53,22 @@ class MntPacienteController extends Controller {
         if (strcmp($tipo_busqueda, 'l') == 0)
             $sql = "SELECT A.*,C.nombre,B.numero 
                 FROM mnt_paciente A LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente, mnt_expediente B
-                WHERE B.id_paciente=A.id AND B.habilitado= TRUE
-                    AND A.primer_nombre::text ~* '$primerNombre' 
-                    AND A.primer_apellido::text ~* '$primerApellido'";
-        
+                WHERE B.id_paciente=A.id AND B.habilitado= TRUE";        
         else
             $sql = "SELECT A.*,C.nombre 
                FROM mnt_paciente A LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente
-                WHERE A.primer_nombre::text ~* '$primerNombre' 
-                    AND A.primer_apellido::text ~* '$primerApellido'";
-        //VARIABLES
+                WHERE ";
+        
+
+        if ($primerNombre != '')
+             if (strcmp($tipo_busqueda, 'l') == 0)
+                $primerNombre = "  AND A.primer_nombre::text ~* '$primerNombre'";
+             else
+                 $primerNombre = "A.primer_nombre::text ~* '$primerNombre'";
+        if ($primerApellido != '')
+            $primerApellido=" AND A.primer_apellido::text ~* '$primerApellido'";
+        if ($segundoNombre != '')
+            $segundoNombre = " AND A.segundo_nombre::text ~* '$segundoNombre'";
         if ($segundoNombre != '')
             $segundoNombre = " AND A.segundo_nombre::text ~* '$segundoNombre'";
         if ($tercerNombre != '')
@@ -80,7 +86,7 @@ class MntPacienteController extends Controller {
         if ($dui != '')
             $dui = " AND A.numero_doc_ide_paciente::text ~*'$dui'";
 
-        $sql.=$segundoNombre . $tercerNombre . $segundoApellido . $nombreMadre . $conocidoPor . $fechaNacimiento . $nec . $dui . " ORDER BY A.primer_Apellido";
+        $sql.=$primerNombre.$primerApellido.$segundoNombre . $tercerNombre . $segundoApellido . $nombreMadre . $conocidoPor . $fechaNacimiento . $nec . $dui . " ORDER BY A.primer_Apellido";
         if (strcmp($tipo_busqueda, 'l') == 0)
             $query = $conn->query($sql);
         else {
