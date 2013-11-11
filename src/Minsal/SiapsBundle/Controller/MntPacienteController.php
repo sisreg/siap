@@ -69,8 +69,6 @@ class MntPacienteController extends Controller {
             $primerApellido=" AND A.primer_apellido::text ~* '$primerApellido'";
         if ($segundoNombre != '')
             $segundoNombre = " AND A.segundo_nombre::text ~* '$segundoNombre'";
-        if ($segundoNombre != '')
-            $segundoNombre = " AND A.segundo_nombre::text ~* '$segundoNombre'";
         if ($tercerNombre != '')
             $tercerNombre = " AND A.tercer_nombre::text ~* '$tercerNombre'";
         if ($segundoApellido != '')

@@ -11,7 +11,7 @@
 		<defaultValueExpression><![CDATA[7]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select 
+		<![CDATA[select
 initcap(
 A.primer_apellido||coalesce(' '||A.segundo_apellido,'')||coalesce(' '||A.apellido_casada,'')) as apellido_paciente,
 initcap(A.primer_nombre||coalesce(' '||A.segundo_nombre,'')||coalesce(' '||A.tercer_nombre,'')) as nombre_paciente,
@@ -24,7 +24,7 @@ L.nombre as estado_civil,I.nombre as doc_paciente,A.numero_doc_ide_paciente as n
 M.nombre as ocupacion,lower(A.direccion) as direccion_paciente,telefono_casa,
 B.nombre as departamento_domicilio,C.nombre as municipio_domicilio,
 H.nombre as canton,G.nombre area_geografica,initcap(lugar_trabajo) as lugar_trabajo,telefono_trabajo,
-J.nombre as area_cotizacion, 
+J.nombre as area_cotizacion,
 CASE WHEN A.asegurado=true THEN 'Si' ELSE ' ' END as asegurado,
 numero_afiliacion,
 CASE WHEN A.cotizante=true THEN 'Si' ELSE ' ' END as cotizante,
@@ -121,8 +121,8 @@ where A.id=$P{id_paciente};]]>
 				<text><![CDATA[Formulario de Identificación del Expediente Clínico]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="8aaa5ea7-b2ba-4b66-b1e5-2a4f4f667ee6" style="Heading 4" x="180" y="56" width="174" height="20"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement uuid="8aaa5ea7-b2ba-4b66-b1e5-2a4f4f667ee6" style="Heading 4" x="67" y="56" width="417" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{establecimiento}]]></textFieldExpression>
@@ -141,12 +141,12 @@ where A.id=$P{id_paciente};]]>
 				</textElement>
 				<text><![CDATA[Sistema Nacional de Salud]]></text>
 			</staticText>
-			<image scaleImage="FillFrame">
-				<reportElement uuid="b6b80dec-ca4d-4115-b0d8-a127c1478a32" x="4" y="7" width="62" height="58"/>
+			<image>
+				<reportElement uuid="1865519f-cc33-47d5-8413-9b4a382cd6d9" x="2" y="1" width="62" height="58"/>
 				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
 			</image>
-			<image scaleImage="FillFrame">
-				<reportElement uuid="c031537e-6c6b-40da-b2d3-89070e9f89d1" x="486" y="12" width="66" height="53"/>
+			<image>
+				<reportElement uuid="2af6a919-d104-4e2f-ae02-10817e62f582" x="493" y="0" width="66" height="53"/>
 				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
 			</image>
 		</band>
@@ -622,9 +622,9 @@ where A.id=$P{id_paciente};]]>
 				<text><![CDATA[Código ECOSF:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="04806bc0-b04a-49f0-81c3-663c43ed0673" x="109" y="5" width="100" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+				<reportElement uuid="04806bc0-b04a-49f0-81c3-663c43ed0673" x="109" y="-10" width="176" height="45"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="30" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{numero_expediente}]]></textFieldExpression>
 			</textField>

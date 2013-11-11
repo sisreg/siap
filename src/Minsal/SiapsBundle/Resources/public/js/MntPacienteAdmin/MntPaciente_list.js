@@ -44,6 +44,12 @@ $(document).ready(function() {
                 // $("#buscarGlobal").show();
                 //$("#buscar").show();
             } else {
+	       if ($("#fecha_nacimiento").val() != '') {
+		 $("#capturar").show();
+                $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
+                $('#resultadoBusqueda').show();
+	      }
+	       else{
                 if ($("#primer_apellido").val() == '' && $("#primer_nombre").val() == '') {
                     //SE ELIMINA O SE CREA EL ELEMENTO
                     ($('#error')) ? $('#error').remove() : '';
@@ -67,7 +73,8 @@ $(document).ready(function() {
                     $('#resultadoBusqueda').show();
                     // $("#buscarGlobal").show();
                     //$("#buscar").show();
-                }
+                }		 
+	      }
             }
         }
         return false;
