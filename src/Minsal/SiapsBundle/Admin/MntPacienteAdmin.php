@@ -27,8 +27,8 @@ class MntPacienteAdmin extends Admin {
                 ->add('segundoNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('tercerNombre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('fechaNacimiento', 'birthday', array(
-                    'widget'=>'single_text','format'=>'dd-MM-yyyy'
-                    /*'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día')*/))
+                    'widget' => 'single_text', 'format' => 'dd-MM-yyyy'
+                /* 'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día') */                ))
                 ->add('horaNacimiento', null, array('empty_value' => array('hour' => 'Hora', 'minute' => 'Minutos'), 'required' => false))
                 ->add('idSexo', null, array('empty_value' => 'Seleccione...',
                     'label' => 'Sexo'))
@@ -115,6 +115,7 @@ class MntPacienteAdmin extends Admin {
     }
 
     public function prePersist($paciente) {
+
         foreach ($paciente->getExpedientes() as $expediente) {
             $expediente->setIdPaciente($paciente);
         }
@@ -130,7 +131,7 @@ class MntPacienteAdmin extends Admin {
     }
 
     public function preUpdate($paciente) {
-
+        $paciente->setPrimerNombre(chop($paciente->getPrimerNombre()));
         $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
         $con = $em->getConnection();
         $query = "SELECT * FROM mnt_paciente where id=" . $paciente->getId();
@@ -257,10 +258,6 @@ class MntPacienteAdmin extends Admin {
             $errorElement->with('expedientes')
                     ->addViolation('Debe agregar un número de expediente')
                     ->end();
-        } elseif (count($object->getExpedientes()) > 1) {
-            $errorElement->with('expedientes')
-                    ->addViolation('No puede agregar más de un número de expediente')
-                    ->end();
         } else {
             $establecimiento = $this->getModelManager()
                     ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
@@ -275,14 +272,37 @@ class MntPacienteAdmin extends Admin {
                 }
             } else {
                 foreach ($object->getExpedientes() as $expediente) {
-                    if (preg_match('/[0-9]{1,}/', $expediente->getNumero()) == 0) {
-                        $errorElement->with('numeroDocIdePaciente')
-                                ->addViolation('El formato del número de DUI es incorrecto')
+                    if (preg_match('/[\d]{1,}-[\d]{2}/', $expediente->getNumero()) == 0) {
+                        $errorElement->with('numero')
+                                ->addViolation('El formato del número de expediente es incorrecto')
                                 ->end();
                     }
                 }
             }
+            $ruta_accion = explode('/', $this->getRequest()->getUri());
+            $accion = array_pop($ruta_accion);
+            list($accion, $unique) = explode('?', $accion);
+            if ($accion == 'create') {
+                foreach ($object->getExpedientes() as $expediente) {
+                    $dql = "SELECT count(e) as resul
+                  FROM MinsalSiapsBundle:MntExpediente e
+                  WHERE e.numero LIKE :variable";
+
+                    $repuesta = $this->getModelManager()
+                            ->getEntityManager('MinsalSiapsBundle:MntExpediente')
+                            ->createQuery($dql)
+                            ->setParameter('variable', $expediente->getNumero())
+                            ->getArrayResult();
+                }
+                if ($repuesta[0]['resul'] == 1) {
+                    $errorElement->with('numero')
+                            ->addViolation('Este expediente ya existe digite otro')
+                            ->end();
+                }
+            }
         }
+
+
         //Verificando los formatos de acuerdo el documento seleccionado
         if ($object->getIdDocPaciente() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdePaciente();

@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * MntExpediente
  *
  * @ORM\Table(name="mnt_expediente")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\MntExpedienteRepository")
  */
 class MntExpediente
 {

@@ -5,6 +5,7 @@ $(document).ready(function() {
     });
 
     $('.deshabilitados').attr('disabled', 'disabled');
+
     $('input[id$="_fechaNacimiento"]').datepicker().mask("99-99-9999").focusout(function() {
         calcular_edad();
     });
@@ -16,6 +17,7 @@ $(document).ready(function() {
     if ($('input[id$="_fechaNacimiento"]').val() != '') {
         calcular_edad();
     }
+
     $('i').popover('show');
 
     if ($('input:checkbox[id$="_asegurado"]').is(':checked')) {
@@ -27,16 +29,49 @@ $(document).ready(function() {
     if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Ninguno') {
         $('input[id$="_numeroDocIdePaciente"]').val('');
         $('input[id$="_numeroDocIdePaciente"]').attr('disabled', 'disabled');
+    } else {
+        if ($('select[id$="_idDocPaciente"] option:selected').text() == 'DUI') {
+            $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');
+            $('input[id$="_numeroDocIdePaciente"]').mask("99999999-9")
+        } else if ($('select[id$="_idDocPaciente"] option:selected').text() == 'NIT') {
+            $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');
+            $('input[id$="_numeroDocIdePaciente"]').mask("9999-999999-999-9")
+        } else if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Partida Nacimiento') {
+            $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');
+            $('input[id$="_numeroDocIdePaciente"]').unmask();
+        }
     }
 
     if ($('select[id$="_idDocResponsable"] option:selected').text() == 'Ninguno') {
         $('input[id$="_numeroDocIdeResponsable"]').val('');
         $('input[id$="_numeroDocIdeResponsable"]').attr('disabled', 'disabled');
+    } else {
+        if ($('select[id$="_idDocResponsable"] option:selected').text() == 'DUI') {
+            $('input[id$="_numeroDocIdeResponsable"]').removeAttr('disabled');
+            $('input[id$="_numeroDocIdeResponsable"]').mask("99999999-9")
+        } else if ($('select[id$="_idDocResponsable"] option:selected').text() == 'NIT') {
+            $('input[id$="_numeroDocIdeResponsable"]').removeAttr('disabled');
+            $('input[id$="_numeroDocIdeResponsable"]').mask("9999-999999-999-9")
+        } else if ($('select[id$="_idDocResponsable"] option:selected').text() == 'Partida Nacimiento') {
+            $('input[id$="_numeroDocIdeResponsable"]').removeAttr('disabled');
+            $('input[id$="_numeroDocIdeResponsable"]').unmask();
+        }
     }
 
     if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'Ninguno') {
         $('input[id$="_numeroDocIdeProporDatos"]').val('');
         $('input[id$="_numeroDocIdeProporDatos"]').attr('disabled', 'disabled');
+    } else {
+        if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'DUI') {
+            $('input[id$="_numeroDocIdeProporDatos"]').removeAttr('disabled');
+            $('input[id$="_numeroDocIdeProporDatos"]').mask("99999999-9")
+        } else if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'NIT') {
+            $('input[id$="_numeroDocIdeProporDatos"]').removeAttr('disabled');
+            $('input[id$="_numeroDocIdeProporDatos"]').mask("9999-999999-999-9")
+        } else if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'Partida Nacimiento') {
+            $('input[id$="_numeroDocIdeProporDatos"]').removeAttr('disabled');
+            $('input[id$="_numeroDocIdeProporDatos"]').unmask();
+        }
     }
 
     $('.telefono').mask("9999-9999");
@@ -76,10 +111,10 @@ $(document).ready(function() {
     $('select[id$="_idDocPaciente"]').change(function() {
         $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');
         if ($('select[id$="_idDocPaciente"] option:selected').text() == 'DUI') {
-            $('input[id$="_numeroDocIdePaciente"]').mask("99999999-9")
+            $('input[id$="_numeroDocIdePaciente"]').val('').mask("99999999-9")
         }
         else if ($('select[id$="_idDocPaciente"] option:selected').text() == 'NIT') {
-            $('input[id$="_numeroDocIdePaciente"]').mask("9999-999999-999-9")
+            $('input[id$="_numeroDocIdePaciente"]').val('').mask("9999-999999-999-9")
         }
         else {
             if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Ninguno') {
@@ -87,7 +122,12 @@ $(document).ready(function() {
                 $('input[id$="_numeroDocIdePaciente"]').attr('disabled', 'disabled');
             }
             else {
-                $('input[id$="_numeroDocIdePaciente"]').mask("99999999999999999999")
+                if ($('select[id$="_idDocPaciente"] option:selected').text() != 'Partida Nacimiento') {
+                    $('input[id$="_numeroDocIdePaciente"]').val('');
+                    $('input[id$="_numeroDocIdePaciente"]').mask("99999999999999999999")
+                } else {
+                    $('input[id$="_numeroDocIdePaciente"]').val('').unmask();
+                }
             }
         }
     })
@@ -95,10 +135,10 @@ $(document).ready(function() {
     $('select[id$="_idDocResponsable"]').change(function() {
         $('input[id$="_numeroDocIdeResponsable"]').removeAttr('disabled');
         if ($('select[id$="_idDocResponsable"] option:selected').text() == 'DUI') {
-            $('input[id$="_numeroDocIdeResponsable"]').mask("99999999-9")
+            $('input[id$="_numeroDocIdeResponsable"]').val('').mask("99999999-9")
         }
         else if ($('select[id$="_idDocResponsable"] option:selected').text() == 'NIT') {
-            $('input[id$="_numeroDocIdeResponsable"]').mask("9999-999999-999-9")
+            $('input[id$="_numeroDocIdeResponsable"]').val('').mask("9999-999999-999-9")
         }
         else {
             if ($('select[id$="_idDocResponsable"] option:selected').text() == 'Ninguno') {
@@ -106,7 +146,12 @@ $(document).ready(function() {
                 $('input[id$="_numeroDocIdeResponsable"]').attr('disabled', 'disabled');
             }
             else {
-                $('input[id$="_numeroDocIdeResponsable"]').mask("99999999999999999999")
+                if ($('select[id$="_idDocResponsable"] option:selected').text() != 'Partida Nacimiento') {
+                    $('input[id$="_numeroDocIdeResponsable"]').val('');
+                    $('input[id$="_numeroDocIdeResponsable"]').mask("99999999999999999999")
+                } else {
+                    $('input[id$="_numeroDocIdeResponsable"]').val('').unmask();
+                }
             }
         }
     });
@@ -114,9 +159,11 @@ $(document).ready(function() {
     $('select[id$="_idDocProporcionoDatos"]').change(function() {
         $('input[id$="_numeroDocIdeProporDatos"]').removeAttr('disabled');
         if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'DUI') {
+            $('input[id$="_numeroDocIdeProporDatos"]').val('');
             $('input[id$="_numeroDocIdeProporDatos"]').mask("99999999-9")
         }
         else if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'NIT') {
+            $('input[id$="_numeroDocIdeProporDatos"]').val('');
             $('input[id$="_numeroDocIdeProporDatos"]').mask("9999-999999-999-9")
         }
         else {
@@ -125,7 +172,12 @@ $(document).ready(function() {
                 $('input[id$="_numeroDocIdeProporDatos"]').attr('disabled', 'disabled');
             }
             else {
-                $('input[id$="_numeroDocIdeProporDatos"]').mask("99999999999999999999")
+                if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() != 'Partida Nacimiento') {
+                    $('input[id$="_numeroDocIdeProporDatos"]').val('');
+                    $('input[id$="_numeroDocIdeProporDatos"]').mask("99999999999999999999")
+                } else {
+                    $('input[id$="_numeroDocIdeProporDatos"]').val('').unmask();
+                }
             }
         }
     })
@@ -148,9 +200,10 @@ $(document).ready(function() {
 
     /*LIMPIAR APELLIDO CASADA SI ES HOMBRE*/
     $('select[id$="_idSexo"]').change(function() {
-        if ($('select[id$="_idSexo"]').val() != '1') {
-            $('input[id$="_apellidoCasada"]').val('');
-        }
+        if ($('select[id$="_idSexo"]').val() != '1')
+            $('input[id$="_apellidoCasada"]').attr('disabled', 'disabled');
+        else
+            $('input[id$="_apellidoCasada"]').removeAttr('disabled');
     });
 
     /*LLENAR DATOS PERSONA RESPONSABLE*/
@@ -171,7 +224,7 @@ $(document).ready(function() {
             $('input[id$="_telefonoResponsable"]').val("");
         }
         else {
-            if($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Compañero(a)' || $('select[id$="_idParentescoResponsable"] option:selected').text() == 'Esposo(a)'){
+            if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Compañero(a)' || $('select[id$="_idParentescoResponsable"] option:selected').text() == 'Esposo(a)') {
                 $('input[id$="_nombreResponsable"]').val($('input[id$="_nombreConyuge"]').val());
                 $('select[id$="_idDocResponsable"]').val("");
                 $('input[id$="_numeroDocIdeResponsable"]').val("");
@@ -276,6 +329,11 @@ $(document).ready(function() {
         $('select[id$="_idCantonDomicilio"]').children().remove();
         $('select[id$="_idCantonDomicilio"]').append('<option value="">Seleccione...</option>');
     });
+    
+    /*CUANDO CARGA EL MUNICIPIO DE DOMICILIO*/
+    if($('select[id$="_idDepartamentoDomicilio"]').val()!=''){
+        $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
+    };
 
     /*CARGAR CANTONES DE DOMICILIO*/
     $('select[id$="_areaGeograficaDomicilio"]').change(function() {

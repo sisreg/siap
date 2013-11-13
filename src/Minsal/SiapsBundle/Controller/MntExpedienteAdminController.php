@@ -20,5 +20,5 @@ class MntExpedienteAdminController extends Controller {
                     'establecimiento' => $establecimiento
         ));
     }
-
+    
 }
