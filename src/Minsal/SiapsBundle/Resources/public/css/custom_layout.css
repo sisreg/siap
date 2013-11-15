@@ -60,6 +60,13 @@ div#pagina{
     font-size: 15px;
 }
 
+#pagina .usuario{
+    text-align: left;
+    padding-left: 10px;
+    font-size: 14px;
+    color: #2B3B75;
+}
+
 .icono{
     height:50px;
     width: 50px;

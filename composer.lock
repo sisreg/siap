@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "023a368f3905ea9e756d1ad81008c32c",
+    "hash": "934ff0a6a386d4cc828a567722f07043",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -119,7 +119,8 @@
                 {
                     "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/"
+                    "homepage": "http://www.jwage.com/",
+                    "role": "Creator"
                 },
                 {
                     "name": "Guilherme Blanco",
@@ -850,6 +851,77 @@
                 "User management"
             ],
             "time": "2013-09-23 08:24:12"
+        },
+        {
+            "name": "genemu/form-bundle",
+            "version": "v2.1.4",
+            "target-dir": "Genemu/Bundle/FormBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/genemu/GenemuFormBundle.git",
+                "reference": "29d449950bef5202c57d5d20f7ddc9d254e6f16a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/genemu/GenemuFormBundle/zipball/29d449950bef5202c57d5d20f7ddc9d254e6f16a",
+                "reference": "29d449950bef5202c57d5d20f7ddc9d254e6f16a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/form": ">=2.1,<2.3-dev",
+                "symfony/framework-bundle": ">=2.1,<2.3-dev"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "1.*",
+                "doctrine/mongodb-odm-bundle": "*",
+                "doctrine/orm": "2.*",
+                "phpunit/phpunit": "3.7.*",
+                "propel/propel-bundle": "*",
+                "symfony/doctrine-bridge": ">=2.1,<2.3-dev",
+                "symfony/finder": "2.*"
+            },
+            "suggest": {
+                "symfony/doctrine-bundle": "In order to use some form types with Doctrine",
+                "symfony/finder": "For an image type",
+                "symfony/mongodb-odm-bundle": "For MongoDB integration",
+                "symfony/twig-bridge": "For integration into Twig templates"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Genemu\\Bundle\\FormBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Chauvel",
+                    "email": "olivier@generation-multiple.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/genemu/GenemuFormBundle/contributors"
+                },
+                {
+                    "name": "Bilal Amarni",
+                    "email": "bilal.amarni@gmail.com"
+                }
+            ],
+            "description": "Extra form types for your Symfony2 projects",
+            "keywords": [
+                "extra form",
+                "form"
+            ],
+            "time": "2013-05-01 15:40:40"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1692,19 +1764,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "b794b728ae7ac50ec7b923e2ff273b2597affa2e"
+                "reference": "d3861f5f6a5f0e63d105ed9f5874ef04e951d9c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/b794b728ae7ac50ec7b923e2ff273b2597affa2e",
-                "reference": "b794b728ae7ac50ec7b923e2ff273b2597affa2e",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/d3861f5f6a5f0e63d105ed9f5874ef04e951d9c4",
+                "reference": "d3861f5f6a5f0e63d105ed9f5874ef04e951d9c4",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.2",
                 "knplabs/knp-menu-bundle": "~1.1",
                 "sensio/generator-bundle": "~2.2",
-                "sonata-project/block-bundle": "~2.2,>=2.2.7",
+                "sonata-project/block-bundle": "~2.2,>=2.2.1",
                 "sonata-project/exporter": "1.*",
                 "sonata-project/jquery-bundle": "1.8.*",
                 "symfony/class-loader": "~2.2",
@@ -1762,7 +1834,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-11-01 17:10:12"
+            "time": "2013-10-21 08:35:15"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -1771,12 +1843,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "ff56bb0135fbfe0d270a47049a7d35f8610c4776"
+                "reference": "7ffc4212df6ec3fda34031789eb6cdb0ca258f11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/ff56bb0135fbfe0d270a47049a7d35f8610c4776",
-                "reference": "ff56bb0135fbfe0d270a47049a7d35f8610c4776",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/7ffc4212df6ec3fda34031789eb6cdb0ca258f11",
+                "reference": "7ffc4212df6ec3fda34031789eb6cdb0ca258f11",
                 "shasum": ""
             },
             "require": {
@@ -1824,7 +1896,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2013-10-24 09:04:49"
+            "time": "2013-10-03 16:32:12"
         },
         {
             "name": "sonata-project/cache-bundle",
@@ -1833,12 +1905,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCacheBundle.git",
-                "reference": "bc6957dd5c22ee891de979b49b4c0e1479d4db90"
+                "reference": "60b14fb3ed324a5ee28900c114f3892df70dea48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/bc6957dd5c22ee891de979b49b4c0e1479d4db90",
-                "reference": "bc6957dd5c22ee891de979b49b4c0e1479d4db90",
+                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/60b14fb3ed324a5ee28900c114f3892df70dea48",
+                "reference": "60b14fb3ed324a5ee28900c114f3892df70dea48",
                 "shasum": ""
             },
             "require": {
@@ -1889,7 +1961,7 @@
             "keywords": [
                 "cache block"
             ],
-            "time": "2013-10-31 10:35:02"
+            "time": "2013-10-03 16:31:31"
         },
         {
             "name": "sonata-project/doctrine-extensions",
@@ -1946,12 +2018,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "84aa85cdb53dbab7204ece9510541f713102d297"
+                "reference": "13aed13d566dac9defc8f4524fa0655d3a80b931"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/84aa85cdb53dbab7204ece9510541f713102d297",
-                "reference": "84aa85cdb53dbab7204ece9510541f713102d297",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/13aed13d566dac9defc8f4524fa0655d3a80b931",
+                "reference": "13aed13d566dac9defc8f4524fa0655d3a80b931",
                 "shasum": ""
             },
             "require": {
@@ -1994,7 +2066,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2013-10-26 14:59:53"
+            "time": "2013-10-21 19:11:47"
         },
         {
             "name": "sonata-project/easy-extends-bundle",
@@ -2271,17 +2343,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataUserBundle.git",
-                "reference": "9070416b87c54fecf1375e2630820b4c9c7a54e3"
+                "reference": "56024376c2d1850aa2aa3abe4fb128f8bf16dd38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/9070416b87c54fecf1375e2630820b4c9c7a54e3",
-                "reference": "9070416b87c54fecf1375e2630820b4c9c7a54e3",
+                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/56024376c2d1850aa2aa3abe4fb128f8bf16dd38",
+                "reference": "56024376c2d1850aa2aa3abe4fb128f8bf16dd38",
                 "shasum": ""
             },
             "require": {
                 "friendsofsymfony/user-bundle": "~1.3",
-                "sonata-project/admin-bundle": "~2.2.7",
+                "sonata-project/admin-bundle": "~2.2",
                 "sonata-project/doctrine-extensions": "~1.0",
                 "sonata-project/easy-extends-bundle": "~2.1",
                 "sonata-project/google-authenticator": "~1.0",
@@ -2326,7 +2398,7 @@
                 "sonata",
                 "user"
             ],
-            "time": "2013-10-24 15:30:07"
+            "time": "2013-10-18 14:15:28"
         },
         {
             "name": "swiftmailer/swiftmailer",

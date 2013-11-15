@@ -12,6 +12,20 @@ use Doctrine\DBAL as DBAL;
 
 class MntPacienteController extends Controller {
 
+     /**
+      * @Route("/profile/show", name="fos_user_profile_show")
+      */
+     public function raiz() {        
+         //$this->container->get('session')->getFlashBag()->set('notice', 'change_password.flash.success');
+         $this->get('session')->getFlashBag()->add(
+             'notice',
+             'change_password.flash.success'
+         );
+         //return new RedirectResponse($this->admin->generateUrl('_inicio'));
+         //return $this->redirect($this->generateUrl('_inicio'));
+         return $this->redirect($this->generateUrl('_inicio'));
+    }
+    
     /**
      * @Route("/buscar/paciente", name="buscar_paciente", options={"expose"=true})
      */
@@ -34,15 +48,15 @@ class MntPacienteController extends Controller {
     public function cargarBusquedaJSON() {
         //OBTENIENDO PARÁMETROS DE BUSQUEDA
         $request = $this->getRequest();
-        $primerNombre = $request->get('primer_nombre');
-        $segundoNombre = $request->get('segundo_nombre');
-        $tercerNombre = $request->get('tercer_nombre');
-        $primerApellido = $request->get('primer_apellido');
-        $segundoApellido = $request->get('segundo_apellido');
-        $nombreMadre = $request->get('nombre_madre');
+        $primerNombre = chop(ltrim($request->get('primer_nombre')));
+        $segundoNombre = chop(ltrim($request->get('segundo_nombre')));
+        $tercerNombre = chop(ltrim($request->get('tercer_nombre')));
+        $primerApellido = chop(ltrim($request->get('primer_apellido')));
+        $segundoApellido = chop(ltrim($request->get('segundo_apellido')));
+        $nombreMadre = chop(ltrim($request->get('nombre_madre')));
         $fechaNacimiento = $request->get('fecha_nacimiento');
-        $conocidoPor = $request->get('conocido_por');
-        $nec = $request->get('nec');
+        $conocidoPor = chop(ltrim($request->get('conocido_por')));
+        $nec = chop(ltrim($request->get('nec')));
         $dui = $request->get('dui');
         $tipo_busqueda = $request->get('tipo_busqueda');
 

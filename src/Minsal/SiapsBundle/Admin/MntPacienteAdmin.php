@@ -115,7 +115,12 @@ class MntPacienteAdmin extends Admin {
     }
 
     public function prePersist($paciente) {
-
+        $paciente->setPrimerNombre(chop(ltrim($paciente->getPrimerNombre())));
+        $paciente->setSegundoNombre(chop(ltrim($paciente->getSegundoNombre())));
+        $paciente->setTercerNombre(chop(ltrim($paciente->getTercerNombre())));
+        $paciente->setPrimerApellido(chop(ltrim($paciente->getPrimerApellido())));
+        $paciente->setSegundoApellido(chop(ltrim($paciente->getSegundoApellido())));
+        $paciente->setApellidoCasada(chop(ltrim($paciente->getApellidoCasada())));
         foreach ($paciente->getExpedientes() as $expediente) {
             $expediente->setIdPaciente($paciente);
         }
@@ -131,7 +136,13 @@ class MntPacienteAdmin extends Admin {
     }
 
     public function preUpdate($paciente) {
-        $paciente->setPrimerNombre(chop($paciente->getPrimerNombre()));
+        $paciente->setPrimerNombre(chop(ltrim($paciente->getPrimerNombre())));
+        $paciente->setSegundoNombre(chop(ltrim($paciente->getSegundoNombre())));
+        $paciente->setTercerNombre(chop(ltrim($paciente->getTercerNombre())));
+        $paciente->setPrimerApellido(chop(ltrim($paciente->getPrimerApellido())));
+        $paciente->setSegundoApellido(chop(ltrim($paciente->getSegundoApellido())));
+        $paciente->setApellidoCasada(chop(ltrim($paciente->getApellidoCasada())));
+
         $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
         $con = $em->getConnection();
         $query = "SELECT * FROM mnt_paciente where id=" . $paciente->getId();
@@ -279,29 +290,59 @@ class MntPacienteAdmin extends Admin {
                     }
                 }
             }
-            $ruta_accion = explode('/', $this->getRequest()->getUri());
-            $accion = array_pop($ruta_accion);
-            list($accion, $unique) = explode('?', $accion);
-            if ($accion == 'create') {
-                foreach ($object->getExpedientes() as $expediente) {
+            foreach ($object->getExpedientes() as $expediente) {
+                if (is_null($object->getId())) {
                     $dql = "SELECT count(e) as resul
                   FROM MinsalSiapsBundle:MntExpediente e
+                  JOIN e.idPaciente p
                   WHERE e.numero LIKE :variable";
-
                     $repuesta = $this->getModelManager()
                             ->getEntityManager('MinsalSiapsBundle:MntExpediente')
                             ->createQuery($dql)
                             ->setParameter('variable', $expediente->getNumero())
                             ->getArrayResult();
+                } else {
+                    $dql = "SELECT count(e) as resul
+                  FROM MinsalSiapsBundle:MntExpediente e
+                  JOIN e.idPaciente p
+                  WHERE e.numero LIKE :variable AND p.id != :paciente";
+                    $repuesta = $this->getModelManager()
+                            ->getEntityManager('MinsalSiapsBundle:MntExpediente')
+                            ->createQuery($dql)
+                            ->setParameter('variable', $expediente->getNumero())
+                            ->setParameter('paciente', $object->getId())
+                            ->getArrayResult();
                 }
-                if ($repuesta[0]['resul'] == 1) {
-                    $errorElement->with('numero')
-                            ->addViolation('Este expediente ya existe digite otro')
-                            ->end();
-                }
+            }
+            if ($repuesta[0]['resul'] == 1) {
+                $errorElement->with('numero')
+                        ->addViolation('Este expediente ya existe digite otro')
+                        ->end();
             }
         }
 
+        if (is_null($object->getId())) {
+            $dql = "SELECT count(p) as resul
+                  FROM MinsalSiapsBundle:MntPaciente p
+                  WHERE p.primerNombre = :primer_nombre AND p.segundoNombre = :segundo_nombre AND
+                        p.primerApellido = :primer_apellido AND p.segundoApellido = :segundo_apellido AND
+                        p.fechaNacimiento = :fecha_nacimiento";
+            $repuesta = $this->getModelManager()
+                    ->getEntityManager('MinsalSiapsBundle:MntExpediente')
+                    ->createQuery($dql)
+                    ->setParameters(array(
+                        'primer_nombre'=> (chop(ltrim($object->getPrimerNombre()))),
+                        'segundo_nombre'=>(chop(ltrim($object->getSegundoNombre()))),
+                        'primer_apellido'=>(chop(ltrim($object->getPrimerApellido()))),
+                        'segundo_apellido'=> (chop(ltrim($object->getSegundoApellido()))),
+                        'fecha_nacimiento'=>$object->getFechaNacimiento()
+                    ))
+                    ->getArrayResult();
+            if($repuesta[0]['resul']==1)
+                $errorElement->with('primerNombre')
+                        ->addViolation('Ya existe esta persona, debe buscarla para saber su número de expediente')
+                        ->end();
+        }
 
         //Verificando los formatos de acuerdo el documento seleccionado
         if ($object->getIdDocPaciente() == 'DUI') {
