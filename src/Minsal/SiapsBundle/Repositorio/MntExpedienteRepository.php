@@ -29,8 +29,13 @@ class MntExpedienteRepository extends EntityRepository {
                          FROM MinsalSiapsBundle:MntExpediente e
                          WHERE e.numero LIKE '%-$anio'"
                 )->getSingleResult();
-            list($numero,$anio)=  explode('-', $numero['numero']);
-            $numero++;
+            if(!is_null( $numero['numero'])){
+                 list($numero,$anio)=  explode('-', $numero['numero']);
+                 $numero++;
+            }
+            else{
+                $numero=1;
+            }
             $nuevo=$numero.'-'.$anio;
             return $nuevo;
         }else{
@@ -40,7 +45,12 @@ class MntExpedienteRepository extends EntityRepository {
                          FROM MinsalSiapsBundle:MntExpediente e
                          "
                 )->getSingleResult();
-            return $numero['numero']++;
+             if(!is_null($numero['numero'])){
+                 return $numero['numero']++;
+             }
+             else
+                 return 1;
+            
         }
     }
 
