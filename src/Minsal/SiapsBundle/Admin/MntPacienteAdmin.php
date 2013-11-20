@@ -372,7 +372,7 @@ class MntPacienteAdmin extends Admin {
         //Validando número de documento para el responsable  
         if ($object->getIdDocResponsable() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdeResponsable();
-            if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
+            if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdeResponsable')
                         ->addViolation('El formato del número de DUI es incorrecto')
                         ->end();
@@ -397,7 +397,7 @@ class MntPacienteAdmin extends Admin {
         //Validando número de documento para la persona que proporcionó datos
         if ($object->getIdDocProporcionoDatos() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdeProporDatos();
-            if (preg_match('/[0-9]{8}-[1-9]{1}/', $numero_doc) == 0) {
+            if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdeProporDatos')
                         ->addViolation('El formato del número de DUI es incorrecto')
                         ->end();
