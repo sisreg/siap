@@ -15,42 +15,29 @@ class MntExpedienteRepository extends EntityRepository {
 
     public function obtenerExpedienteSugerido() {
         $formato = $this->getEntityManager()
-                ->createQuery(
-                        'SELECT e.tipoExpediente
+                        ->createQuery(
+                                'SELECT e.tipoExpediente
                          FROM MinsalSiapsBundle:CtlEstablecimiento e
                          WHERE e.configurado=true'
-                )->getSingleResult();
-        
-        if($formato['tipoExpediente']=='G'){
-            $anio=date("y");
-            $numero = $this->getEntityManager()
-                ->createQuery(
-                        "SELECT MAX(e.numero) numero
-                         FROM MinsalSiapsBundle:MntExpediente e
-                         WHERE e.numero LIKE '%-$anio'"
-                )->getSingleResult();
-            if(!is_null( $numero['numero'])){
-                 list($numero,$anio)=  explode('-', $numero['numero']);
-                 $numero++;
-            }
-            else{
-                $numero=1;
-            }
-            $nuevo=$numero.'-'.$anio;
-            return $nuevo;
-        }else{
-            $numero = $this->getEntityManager()
-                ->createQuery(
-                        "SELECT MAX(e.numero) numero
-                         FROM MinsalSiapsBundle:MntExpediente e
-                         "
-                )->getSingleResult();
-             if(!is_null($numero['numero'])){
-                 return $numero['numero']++;
-             }
-             else
-                 return 1;
-            
+                        )->getSingleResult();
+        $conn = $this->getEntityManager()->getConnection();
+        if ($formato['tipoExpediente'] == 'G') {
+            $anio = date("y");
+            $sql = "SELECT max(cast(split_part(numero,'-',1) as integer))+1 as numero from mnt_expediente WHERE numero like '%-$anio'";
+            $query = $conn->query($sql);
+            $query = $query->fetch();
+            if (!is_null($query['numero']))
+                return $query['numero'] . '-' . $anio;
+            else
+                return '1-' . $anio;
+        } else {
+            $sql = "SELECT max(cast(numero as integer))+1 as numero from mnt_expediente";
+            $query = $conn->query($sql);
+            $query = $query->fetch();
+            if (!is_null($query['numero']))
+                return $query['numero'];
+            else
+                return 1;
         }
     }
 
