@@ -248,26 +248,38 @@ $(document).ready(function() {
 
         }
     });
-
     /*LLENAR DATOS PERSONA PROPORCIONÓ DATOS*/
-    $('select[id$="_idParentescoProporDatos"]').change(function() {
-        if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == $('select[id$="_idParentescoResponsable"] option:selected').text()) {
-            $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreResponsable"]').val());
-            $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocResponsable"]').val());
-            $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
+     $('select[id$="_idParentescoProporDatos"]').change(function() {
+        if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Madre') {
+            $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreMadre"]').val());
+            $('select[id$="_idDocProporcionoDatos"]').val("");
+            $('input[id$="_numeroDocIdeProporDatos"]').val("");
+
         }
-        else if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'El paciente') {
-            $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_primerNombre"]').val() + ' ' + $('input[id$="_primerApellido"]').val());
-            $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocPaciente"]').val());
-            $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdePaciente"]').val());
-        }
-        else {
-            $('input[id$="_nombreProporcionoDatos"]').val("");
+        else if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Padre') {
+            $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombrePadre"]').val());
             $('select[id$="_idDocProporcionoDatos"]').val("");
             $('input[id$="_numeroDocIdeProporDatos"]').val("");
         }
-    });
+        else {
+            if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Compañero(a)' || $('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Esposo(a)') {
+                $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreConyuge"]').val());
+                $('select[id$="_idDocProporcionoDatos"]').val("");
+                $('input[id$="_numeroDocIdeProporDatos"]').val("");
+            }
+            else if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'El paciente') {
+                $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_primerNombre"]').val() + ' ' + $('input[id$="_primerApellido"]').val());
+                $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocPaciente"]').val());
+                $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdePaciente"]').val());
+            }
+            else {
+                $('input[id$="_nombreProporcionoDatos"]').val("");
+                $('select[id$="_idDocProporcionoDatos"]').val("");
+                $('input[id$="_numeroDocIdeProporDatos"]').val("");
+            }
 
+        }
+    });
     /*CARGAR DEPARTAMENTOS NACIMIENTO*/
     $('select[id$="_idPaisNacimiento"]').change(function() {
         $('select[id$="_idDepartamentoNacimiento"]').children().remove();
