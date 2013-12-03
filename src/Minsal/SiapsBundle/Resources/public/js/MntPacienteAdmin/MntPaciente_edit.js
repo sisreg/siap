@@ -9,11 +9,7 @@ $(document).ready(function() {
     $('input[id$="_fechaNacimiento"]').datepicker().mask("99-99-9999").focusout(function() {
         calcular_edad();
     });
-    /*CALCULAR EDAD AL CARGAR EL FORMULARIO*/
-    /*PARA CUANDO ES SEPARADO LA FECHA
-     * if($('select[id$="_fechaNacimiento_day"]').val() != '' && $('select[id$="_fechaNacimiento_month"]').val() != '' && $('select[id$="_fechaNacimiento_year"]').val() != ''){
-     calcular_edad();
-     }*/
+
     if ($('input[id$="_fechaNacimiento"]').val() != '') {
         calcular_edad();
     }
@@ -224,7 +220,7 @@ $(document).ready(function() {
             $('input[id$="_telefonoResponsable"]').val("");
         }
         else {
-            if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Compañero(a)' || $('select[id$="_idParentescoResponsable"] option:selected').text() == 'Esposo(a)') {
+            if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Compañero(a) ' || $('select[id$="_idParentescoResponsable"] option:selected').text() == 'Esposo(a)') {
                 $('input[id$="_nombreResponsable"]').val($('input[id$="_nombreConyuge"]').val());
                 $('select[id$="_idDocResponsable"]').val("");
                 $('input[id$="_numeroDocIdeResponsable"]').val("");
@@ -249,23 +245,37 @@ $(document).ready(function() {
         }
     });
     /*LLENAR DATOS PERSONA PROPORCIONÓ DATOS*/
-     $('select[id$="_idParentescoProporDatos"]').change(function() {
+    $('select[id$="_idParentescoProporDatos"]').change(function() {
         if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Madre') {
             $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreMadre"]').val());
-            $('select[id$="_idDocProporcionoDatos"]').val("");
-            $('input[id$="_numeroDocIdeProporDatos"]').val("");
-
+            if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Madre') {
+                $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocResponsable"]').val());
+                $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
+            } else {
+                $('select[id$="_idDocProporcionoDatos"]').val("");
+                $('input[id$="_numeroDocIdeProporDatos"]').val("");
+            }
         }
         else if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Padre') {
             $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombrePadre"]').val());
-            $('select[id$="_idDocProporcionoDatos"]').val("");
-            $('input[id$="_numeroDocIdeProporDatos"]').val("");
-        }
-        else {
-            if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Compañero(a)' || $('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Esposo(a)') {
-                $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreConyuge"]').val());
+            if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Padre') {
+                $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocResponsable"]').val());
+                $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
+            } else {
                 $('select[id$="_idDocProporcionoDatos"]').val("");
                 $('input[id$="_numeroDocIdeProporDatos"]').val("");
+            }
+        }
+        else {
+            if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Compañero(a) ' || $('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Esposo(a)') {
+                $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreConyuge"]').val());
+                if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Compañero(a) ' || $('select[id$="_idParentescoResponsable"] option:selected').text() == 'Esposo(a)') {
+                    $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocResponsable"]').val());
+                    $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
+                } else {
+                    $('select[id$="_idDocProporcionoDatos"]').val("");
+                    $('input[id$="_numeroDocIdeProporDatos"]').val("");
+                }
             }
             else if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'El paciente') {
                 $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_primerNombre"]').val() + ' ' + $('input[id$="_primerApellido"]').val());
@@ -341,11 +351,38 @@ $(document).ready(function() {
         $('select[id$="_idCantonDomicilio"]').children().remove();
         $('select[id$="_idCantonDomicilio"]').append('<option value="">Seleccione...</option>');
     });
-    
-    /*CUANDO CARGA EL MUNICIPIO DE DOMICILIO*/
-    if($('select[id$="_idDepartamentoDomicilio"]').val()!=''){
+
+    /*CUANDO CARGA EL MUNICIPIO DE DOMICILIO SI ESTA LLENO*/
+    if ($('select[id$="_idDepartamentoNacimiento"]').val() != '') {
+        $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
+        valor = $('select[id$="_idMunicipioNacimiento"]').val();
+        $('select[id$="_idMunicipioNacimiento"]').children().remove();
+        $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoNacimiento"]').val(),
+                function(data) {
+                    $.each(data.municipios, function(indice, munic) {
+                        if (valor == munic.id)
+                            $('select[id$="_idMunicipioNacimiento"]').append('<option selected="selected" value="' + munic.id + '">' + munic.nombre + '</option>');
+                        else
+                            $('select[id$="_idMunicipioNacimiento"]').append('<option value="' + munic.id + '">' + munic.nombre + '</option>');
+                    });
+                });
+        $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
+    }
+    ;
+    if ($('select[id$="_idDepartamentoDomicilio"]').val() != '') {
+        valorDoc = $('select[id$="_idMunicipioDomicilio"]').val();
+        $('select[id$="_idMunicipioDomicilio"]').children().remove();
+        $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').val(),
+                function(data) {
+                    $.each(data.municipios, function(indice, municDoc) {
+                        if (valorDoc == municDoc.id)
+                            $('select[id$="_idMunicipioDomicilio"]').append('<option selected="selected" value="' + municDoc.id + '">' + municDoc.nombre + '</option>');
+                        else
+                            $('select[id$="_idMunicipioDomicilio"]').append('<option value="' + municDoc.id + '">' + municDoc.nombre + '</option>');
+                    });
+                });
         $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
-    };
+    }
 
     /*CARGAR CANTONES DE DOMICILIO*/
     $('select[id$="_areaGeograficaDomicilio"]').change(function() {
@@ -365,25 +402,6 @@ $(document).ready(function() {
 
     });
 
-    /*CALCULAR EDAD AL CAMBIAR LA FECHA DE NACIMIENTO
-     $('select[id$="_fechaNacimiento_year"]').change(function() {
-     if($('select[id$="_fechaNacimiento_day"]').val() != '' && $('select[id$="_fechaNacimiento_month"]').val() != '' && $('select[id$="_fechaNacimiento_year"]').val() != ''){
-     calcular_edad();
-     }
-     
-     });
-     $('select[id$="_fechaNacimiento_month"]').change(function() {
-     if($('select[id$="_fechaNacimiento_day"]').val() != '' && $('select[id$="_fechaNacimiento_month"]').val() != '' && $('select[id$="_fechaNacimiento_year"]').val() != ''){
-     calcular_edad();
-     }
-     
-     });
-     $('select[id$="_fechaNacimiento_day"]').change(function() {
-     if($('select[id$="_fechaNacimiento_day"]').val() != '' && $('select[id$="_fechaNacimiento_month"]').val() != '' && $('select[id$="_fechaNacimiento_year"]').val() != ''){
-     calcular_edad();
-     }
-     
-     });*/
     function calcular_edad() {
         $.getJSON(Routing.generate('edad_paciente') + '?fecha_nacimiento=' + $('input[id$="_fechaNacimiento"]').val(),
                 function(data) {
