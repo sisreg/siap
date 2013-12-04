@@ -12,20 +12,17 @@ use Doctrine\DBAL as DBAL;
 
 class MntPacienteController extends Controller {
 
-     /**
-      * @Route("/profile/show", name="fos_user_profile_show")
-      */
-     public function raiz() {        
-         //$this->container->get('session')->getFlashBag()->set('notice', 'change_password.flash.success');
-         $this->get('session')->getFlashBag()->add(
-             'notice',
-             'change_password.flash.success'
-         );
-         //return new RedirectResponse($this->admin->generateUrl('_inicio'));
-         //return $this->redirect($this->generateUrl('_inicio'));
-         return $this->redirect($this->generateUrl('_inicio'));
+    /**
+     * @Route("/profile/show", name="fos_user_profile_show")
+     */
+    public function raiz() {
+        $this->get('session')->getFlashBag()->add(
+                'notice', 'change_password.flash.success'
+        );
+
+        return $this->redirect($this->generateUrl('_inicio'));
     }
-    
+
     /**
      * @Route("/buscar/paciente", name="buscar_paciente", options={"expose"=true})
      */
@@ -67,20 +64,20 @@ class MntPacienteController extends Controller {
         if (strcmp($tipo_busqueda, 'l') == 0)
             $sql = "SELECT A.*,C.nombre,B.numero 
                 FROM mnt_paciente A LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente, mnt_expediente B
-                WHERE B.id_paciente=A.id AND B.habilitado= TRUE";        
+                WHERE B.id_paciente=A.id AND B.habilitado= TRUE";
         else
             $sql = "SELECT A.*,C.nombre 
                FROM mnt_paciente A LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente
                 WHERE ";
-        
+
 
         if ($primerNombre != '')
-             if (strcmp($tipo_busqueda, 'l') == 0)
+            if (strcmp($tipo_busqueda, 'l') == 0)
                 $primerNombre = "  AND A.primer_nombre::text ~* '$primerNombre'";
-             else
-                 $primerNombre = "A.primer_nombre::text ~* '$primerNombre'";
+            else
+                $primerNombre = "A.primer_nombre::text ~* '$primerNombre'";
         if ($primerApellido != '')
-            $primerApellido=" AND A.primer_apellido::text ~* '$primerApellido'";
+            $primerApellido = " AND A.primer_apellido::text ~* '$primerApellido'";
         if ($segundoNombre != '')
             $segundoNombre = " AND A.segundo_nombre::text ~* '$segundoNombre'";
         if ($tercerNombre != '')
@@ -98,20 +95,19 @@ class MntPacienteController extends Controller {
         if ($dui != '')
             $dui = " AND A.numero_doc_ide_paciente::text ~*'$dui'";
 
-        $sql.=$primerNombre.$primerApellido.$segundoNombre . $tercerNombre . $segundoApellido . $nombreMadre . $conocidoPor . $fechaNacimiento . $nec . $dui . " ORDER BY A.primer_Apellido";
+        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $nombreMadre . $conocidoPor . $fechaNacimiento . $nec . $dui . " ORDER BY A.primer_Apellido";
         if (strcmp($tipo_busqueda, 'l') == 0)
             $query = $conn->query($sql);
         else {
             $establecimientoPN = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento();
-            $regional=$establecimientoPN->getIdEstablecimientoPadre()->getIdEstablecimientoPadre();
-            $conexion = $em->getRepository('MinsalSiapsBundle:MntConexion')->findOneBy(array('idEstablecimiento'=>$regional));
+            $regional = $establecimientoPN->getIdEstablecimientoPadre()->getIdEstablecimientoPadre();
+            $conexion = $em->getRepository('MinsalSiapsBundle:MntConexion')->findOneBy(array('idEstablecimiento' => $regional));
             $conn = $em->getRepository('MinsalSiapsBundle:MntConexion')->getConexionGenerica($conexion);
             $query = $conn->query($sql);
-            
         }
 
         $numfilas = count($query->rowCount());
-        $espacio="";
+        $espacio = "";
         $i = 0;
         $rows = array();
         if ($numfilas > 0) {
@@ -125,7 +121,7 @@ class MntPacienteController extends Controller {
                 }
                 $rows[$i]['id'] = $id;
                 $rows[$i]['cell'] = array($id,
-                    $espacio,$numero,
+                    $espacio, $numero,
                     $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
                     $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
                     date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
