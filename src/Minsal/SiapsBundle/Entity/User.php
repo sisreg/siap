@@ -39,15 +39,13 @@ class User extends BaseUser {
         return $this->id;
     }
 
-
     /**
      * Set idEstablecimiento
      *
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
      * @return User
      */
-    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
-    {
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null) {
         $this->idEstablecimiento = $idEstablecimiento;
 
         return $this;
@@ -58,14 +56,14 @@ class User extends BaseUser {
      *
      * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
      */
-    public function getIdEstablecimiento()
-    {
+    public function getIdEstablecimiento() {
         return $this->idEstablecimiento;
     }
-    
-     /*Método __toString*/
+
+    /* Método __toString */
+
     public function __toString() {
-        return $this->firstname.' '.$this->lastname ? : '';
+        return $this->firstname . ' ' . $this->lastname ? : '';
     }
 
     /**
@@ -77,22 +75,20 @@ class User extends BaseUser {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add groups
      *
      * @param GroupInterface $groups
      * @return User
      */
-    public function addGroup(GroupInterface $groups)
-    {
+    public function addGroup(GroupInterface $groups) {
         $this->groups[] = $groups;
-    
+
         return $this;
     }
 
@@ -101,8 +97,7 @@ class User extends BaseUser {
      *
      * @param GroupInterface $groups
      */
-    public function removeGroup(GroupInterface $groups)
-    {
+    public function removeGroup(GroupInterface $groups) {
         $this->groups->removeElement($groups);
     }
 
@@ -111,8 +106,8 @@ class User extends BaseUser {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getGroups()
-    {
+    public function getGroups() {
         return $this->groups;
     }
+
 }

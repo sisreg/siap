@@ -72,16 +72,16 @@ $(document).ready(function() {
 
     $('.telefono').mask("9999-9999");
 
-    $('input[id$="_numeroAfiliacion"]').keyup(function() {
+    $('input[id$="_numeroAfiliacion"]').blur(function() {
         $(this).val(($(this).val()).replace(/[^\d]/g, ''))
     }
     );
 
-    $('input.limpiar').keyup(function() {
+    $('input.limpiar').blur(function() {
         $(this).val(limpiar_nombres($(this).val()))
     });
 
-    $('.mayuscula').keyup(function() {
+    $('.mayuscula').blur(function() {
         $(this).val($(this).val().toUpperCase())
     });
 

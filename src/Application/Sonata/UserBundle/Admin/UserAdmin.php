@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
-use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+//use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
 class UserAdmin extends BaseUserAdmin {
 
@@ -26,7 +26,7 @@ class UserAdmin extends BaseUserAdmin {
                 ->add('firstname', null, array('required' => true))
                 ->add('lastname', null, array('required' => true))
                 ->add('username')
-                ->add('email')
+                ->add('email', null, array('required' => false))
                 ->add('plainPassword', 'repeated', array(
                     'required' => true,
                     'type' => 'password',
@@ -50,11 +50,9 @@ class UserAdmin extends BaseUserAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->addIdentifier('username')
-                ->add('email')
                 ->add('groups')
                 ->add('enabled', null, array('editable' => true))
                 ->add('createdAt')
-                ->add('idEstablecimiento', null, array('label' => 'Establecimiento de salud'))
         ;
     }
 
@@ -68,5 +66,5 @@ class UserAdmin extends BaseUserAdmin {
                 break;
         }
     }
-
+    
 }
