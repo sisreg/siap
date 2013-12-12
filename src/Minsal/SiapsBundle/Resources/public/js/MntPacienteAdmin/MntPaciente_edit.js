@@ -32,7 +32,7 @@ $(document).ready(function() {
         } else if ($('select[id$="_idDocPaciente"] option:selected').text() == 'NIT') {
             $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');
             $('input[id$="_numeroDocIdePaciente"]').mask("9999-999999-999-9")
-        } else if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Partida Nacimiento') {
+        } else if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Partida Nacimiento' ||  $('select[id$="_idDocPaciente"] option:selected').text() == 'Otros') {
             $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');
             $('input[id$="_numeroDocIdePaciente"]').unmask();
         }
@@ -48,7 +48,7 @@ $(document).ready(function() {
         } else if ($('select[id$="_idDocResponsable"] option:selected').text() == 'NIT') {
             $('input[id$="_numeroDocIdeResponsable"]').removeAttr('disabled');
             $('input[id$="_numeroDocIdeResponsable"]').mask("9999-999999-999-9")
-        } else if ($('select[id$="_idDocResponsable"] option:selected').text() == 'Partida Nacimiento') {
+        } else if ($('select[id$="_idDocResponsable"] option:selected').text() == 'Partida Nacimiento' || $('select[id$="_idDocResponsable"] option:selected').text() == 'Otros') {
             $('input[id$="_numeroDocIdeResponsable"]').removeAttr('disabled');
             $('input[id$="_numeroDocIdeResponsable"]').unmask();
         }
@@ -64,7 +64,7 @@ $(document).ready(function() {
         } else if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'NIT') {
             $('input[id$="_numeroDocIdeProporDatos"]').removeAttr('disabled');
             $('input[id$="_numeroDocIdeProporDatos"]').mask("9999-999999-999-9")
-        } else if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'Partida Nacimiento') {
+        } else if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'Partida Nacimiento' || $('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'Otros') {
             $('input[id$="_numeroDocIdeProporDatos"]').removeAttr('disabled');
             $('input[id$="_numeroDocIdeProporDatos"]').unmask();
         }
@@ -118,7 +118,7 @@ $(document).ready(function() {
                 $('input[id$="_numeroDocIdePaciente"]').attr('disabled', 'disabled');
             }
             else {
-                if ($('select[id$="_idDocPaciente"] option:selected').text() != 'Partida Nacimiento') {
+                if ($('select[id$="_idDocPaciente"] option:selected').text() != 'Partida Nacimiento' || $('select[id$="_idDocPaciente"] option:selected').text() != 'Otros') {
                     $('input[id$="_numeroDocIdePaciente"]').val('');
                     $('input[id$="_numeroDocIdePaciente"]').mask("99999999999999999999")
                 } else {
@@ -142,7 +142,7 @@ $(document).ready(function() {
                 $('input[id$="_numeroDocIdeResponsable"]').attr('disabled', 'disabled');
             }
             else {
-                if ($('select[id$="_idDocResponsable"] option:selected').text() != 'Partida Nacimiento') {
+                if ($('select[id$="_idDocResponsable"] option:selected').text() != 'Partida Nacimiento' || $('select[id$="_idDocResponsable"] option:selected').text() != 'Otros') {
                     $('input[id$="_numeroDocIdeResponsable"]').val('');
                     $('input[id$="_numeroDocIdeResponsable"]').mask("99999999999999999999")
                 } else {
@@ -168,7 +168,7 @@ $(document).ready(function() {
                 $('input[id$="_numeroDocIdeProporDatos"]').attr('disabled', 'disabled');
             }
             else {
-                if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() != 'Partida Nacimiento') {
+                if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() != 'Partida Nacimiento' || $('select[id$="_idDocResponsable"] option:selected').text() != 'Otros') {
                     $('input[id$="_numeroDocIdeProporDatos"]').val('');
                     $('input[id$="_numeroDocIdeProporDatos"]').mask("99999999999999999999")
                 } else {

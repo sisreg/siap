@@ -275,17 +275,25 @@ class MntPacienteAdmin extends Admin {
             $formatoExpediente = $establecimiento->getTipoExpediente();
             if ($formatoExpediente == 'G') {
                 foreach ($object->getExpedientes() as $expediente) {
-                    if (preg_match('/[\d]{1,}-[\d]{2}/', $expediente->getNumero()) == 0) {
+                    if (preg_match('/^\d{1,}-\d{2}$/', $expediente->getNumero()) == 0) {
                         $errorElement->with('numero')
                                 ->addViolation('El formato del número de expediente es incorrecto')
+                                ->end();
+                    } elseif (preg_match('/(0-\d{2})/', $expediente->getNumero()) == 1) {
+                        $errorElement->with('numero')
+                                ->addViolation('El formato del número no puede iniciar solo con el 0')
                                 ->end();
                     }
                 }
             } else {
                 foreach ($object->getExpedientes() as $expediente) {
-                    if (preg_match('/[\d]{1,}-[\d]{2}/', $expediente->getNumero()) == 0) {
+                    if (preg_match('/^\d{1,}$/', $expediente->getNumero()) == 0) {
                         $errorElement->with('numero')
                                 ->addViolation('El formato del número de expediente es incorrecto')
+                                ->end();
+                    }elseif (preg_match('/(0-\d{2})/', $expediente->getNumero()) == 1) {
+                        $errorElement->with('numero')
+                                ->addViolation('El numero de expediente no puede ser 0')
                                 ->end();
                     }
                 }
@@ -331,14 +339,14 @@ class MntPacienteAdmin extends Admin {
                     ->getEntityManager('MinsalSiapsBundle:MntExpediente')
                     ->createQuery($dql)
                     ->setParameters(array(
-                        'primer_nombre'=> (chop(ltrim($object->getPrimerNombre()))),
-                        'segundo_nombre'=>(chop(ltrim($object->getSegundoNombre()))),
-                        'primer_apellido'=>(chop(ltrim($object->getPrimerApellido()))),
-                        'segundo_apellido'=> (chop(ltrim($object->getSegundoApellido()))),
-                        'fecha_nacimiento'=>$object->getFechaNacimiento()
+                        'primer_nombre' => (chop(ltrim($object->getPrimerNombre()))),
+                        'segundo_nombre' => (chop(ltrim($object->getSegundoNombre()))),
+                        'primer_apellido' => (chop(ltrim($object->getPrimerApellido()))),
+                        'segundo_apellido' => (chop(ltrim($object->getSegundoApellido()))),
+                        'fecha_nacimiento' => $object->getFechaNacimiento()
                     ))
                     ->getArrayResult();
-            if($repuesta[0]['resul']==1)
+            if ($repuesta[0]['resul'] == 1)
                 $errorElement->with('primerNombre')
                         ->addViolation('Ya existe esta persona, debe buscarla para saber su número de expediente')
                         ->end();
