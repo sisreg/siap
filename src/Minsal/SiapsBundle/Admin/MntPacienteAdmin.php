@@ -279,11 +279,11 @@ class MntPacienteAdmin extends Admin {
                         $errorElement->with('numero')
                                 ->addViolation('El formato del número de expediente es incorrecto')
                                 ->end();
-                    } elseif (preg_match('/(0-\d{2})/', $expediente->getNumero()) == 1) {
+                    } /*elseif (preg_match('/(0-\d{2})/', $expediente->getNumero()) == 1) {
                         $errorElement->with('numero')
                                 ->addViolation('El formato del número no puede iniciar solo con el 0')
                                 ->end();
-                    }
+                    }*/
                 }
             } else {
                 foreach ($object->getExpedientes() as $expediente) {
@@ -291,11 +291,11 @@ class MntPacienteAdmin extends Admin {
                         $errorElement->with('numero')
                                 ->addViolation('El formato del número de expediente es incorrecto')
                                 ->end();
-                    }elseif (preg_match('/(0-\d{2})/', $expediente->getNumero()) == 1) {
+                    }/*elseif (preg_match('/(0-\d{2})/', $expediente->getNumero()) == 1) {
                         $errorElement->with('numero')
                                 ->addViolation('El numero de expediente no puede ser 0')
                                 ->end();
-                    }
+                    }*/
                 }
             }
             foreach ($object->getExpedientes() as $expediente) {
