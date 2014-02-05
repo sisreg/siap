@@ -24,13 +24,14 @@
         "sonata-project/block-bundle": "2.*@dev",
         "sonata-project/jquery-bundle": "1.8.*",
         "knplabs/knp-menu-bundle": "1.1.*@dev",
+        "sonata-project/core-bundle": "~2.2@dev",
         "sonata-project/exporter": "1.*",
         "sonata-project/admin-bundle": "dev-master",
         "sonata-project/doctrine-orm-admin-bundle": "dev-master",
         "sonata-project/intl-bundle": "dev-master",
         "sonata-project/easy-extends-bundle": "*",
         "sonata-project/user-bundle": "dev-master",
-        "friendsofsymfony/jsrouting-bundle": "~1.1"
+        "friendsofsymfony/jsrouting-bundle": "~1.1"        
     },
     "scripts": {
         "post-install-cmd": [
