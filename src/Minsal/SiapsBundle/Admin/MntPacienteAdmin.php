@@ -217,7 +217,7 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setIdSexo($paciente->getIdSexo());
             $cambio = TRUE;
         }
-        //Para verificar si la fecha o la hora de nacimiento ha cambiado las convertimos en una marca de tiempo
+//Para verificar si la fecha o la hora de nacimiento ha cambiado las convertimos en una marca de tiempo
         $fecha_form = $paciente->getFechaNacimiento();
         foreach ($fecha_form as $valor) {
             $datos[] = $valor;
@@ -244,7 +244,7 @@ class MntPacienteAdmin extends Admin {
         }
 
 
-        //si alguno de los valores ha cambiado se guarda en la tabla auditoría paciente
+//si alguno de los valores ha cambiado se guarda en la tabla auditoría paciente
         if ($cambio == TRUE) {
             $establecimiento = $this->getModelManager()
                     ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
@@ -261,7 +261,7 @@ class MntPacienteAdmin extends Admin {
     }
 
     public function validate(ErrorElement $errorElement, $object) {
-        //Verificando que haya ingresado número de expediente
+//Verificando que haya ingresado número de expediente
         if (count($object->getExpedientes()) == 0) {
             $errorElement->with('expedientes')
                     ->addViolation('Debe agregar un número de expediente')
@@ -276,22 +276,24 @@ class MntPacienteAdmin extends Admin {
                         $errorElement->with('numero')
                                 ->addViolation('El formato del número de expediente es incorrecto')
                                 ->end();
-                    } elseif (preg_match('/^([1-9]+0*)-(\d{2})$/', $expediente->getNumero()) == 0) {
-                        $errorElement->with('numero')
-                                ->addViolation('El formato del número no puede iniciar solo con el 0')
-                                ->end();
+                    } elseif (preg_match('/^([1-9]+0*[1-9]+)-(\d{2})$/', $expediente->getNumero()) == 0) {
+                        if (preg_match('/^([1-9]+0*)-(\d{2})$/', $expediente->getNumero()) == 0)
+                            $errorElement->with('numero')
+                                    ->addViolation('El numero de expediente no puede ser 0 ó contener 0 al inicio')
+                                    ->end();
                     }
-                }
+                }//192129
             } else {
                 foreach ($object->getExpedientes() as $expediente) {
                     if (preg_match('/^\d{1,}$/', $expediente->getNumero()) == 0) {
                         $errorElement->with('numero')
-                                ->addViolation('El formato del número de expediente es incorrecto')
+                                ->addViolation('El numero de expediente no puede ser 0 ó contener 0 al inicio')
                                 ->end();
-                    }elseif (preg_match('/^([1-9]+0*)$/', $expediente->getNumero()) == 0) {
-                        $errorElement->with('numero')
-                                ->addViolation('El numero de expediente no puede ser 0')
-                                ->end();
+                    } elseif (preg_match('/^([1-9]+0*[1-9]+)$/', $expediente->getNumero()) == 0) {
+                        if (preg_match('/^([1-9]+0*)$/', $expediente->getNumero()) == 0)
+                            $errorElement->with('numero')
+                                    ->addViolation('El numero de expediente no puede ser 0 ó contener 0 al inicio')
+                                    ->end();
                     }
                 }
             }
@@ -349,7 +351,7 @@ class MntPacienteAdmin extends Admin {
                         ->end();
         }
 
-        //Verificando los formatos de acuerdo el documento seleccionado
+//Verificando los formatos de acuerdo el documento seleccionado
         if ($object->getIdDocPaciente() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdePaciente();
             if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
@@ -374,7 +376,7 @@ class MntPacienteAdmin extends Admin {
                 }
             }
         }
-        //Validando número de documento para el responsable  
+//Validando número de documento para el responsable  
         if ($object->getIdDocResponsable() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdeResponsable();
             if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
@@ -399,7 +401,7 @@ class MntPacienteAdmin extends Admin {
                 }
             }
         }
-        //Validando número de documento para la persona que proporcionó datos
+//Validando número de documento para la persona que proporcionó datos
         if ($object->getIdDocProporcionoDatos() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdeProporDatos();
             if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
@@ -430,7 +432,7 @@ class MntPacienteAdmin extends Admin {
         $collection->add('view', $this->getRouterIdParameter() . '/view');
     }
 
-    //PARA LIMITAR EL NUMERO DE EXPEDIENTES A AGREGAR LA PRIMERA VEZ
+//PARA LIMITAR EL NUMERO DE EXPEDIENTES A AGREGAR LA PRIMERA VEZ
     public function getFormTheme() {
         return array_merge(
                 parent::getFormTheme(), array('MinsalSiapsBundle:Form:form_admin_fields.html.twig')
