@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="mnt_aten_area_mod_estab")
  * @ORM\Entity(repositoryClass="Minsal\SiapsBundle\Repositorio\MntAtenAreaModEstabRepository")
  */
-class MntAtenAreaModEstab
-{
+class MntAtenAreaModEstab {
+
     /**
      * @var integer
      *
@@ -52,15 +52,37 @@ class MntAtenAreaModEstab
      */
     private $idEstablecimiento;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_ambiente", type="string", length=80)
+     */
+    private $nombreAmbiente;
 
+    /**
+     * @var \MntAmbienteIndependiente
+     *
+     * @ORM\ManyToOne(targetEntity="MntAmbienteIndependiente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_ambiente_independiente", referencedColumnName="id")
+     * })
+     */
+    private $idAmbienteIndependiente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="condicion", type="string", length=1)
+     * 
+     */
+    private $condicion;
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -70,10 +92,9 @@ class MntAtenAreaModEstab
      * @param \Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab
      * @return MntAtenAreaModEstab
      */
-    public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null)
-    {
+    public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null) {
         $this->idAreaModEstab = $idAreaModEstab;
-    
+
         return $this;
     }
 
@@ -82,8 +103,7 @@ class MntAtenAreaModEstab
      *
      * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
      */
-    public function getIdAreaModEstab()
-    {
+    public function getIdAreaModEstab() {
         return $this->idAreaModEstab;
     }
 
@@ -93,10 +113,9 @@ class MntAtenAreaModEstab
      * @param \Minsal\SiapsBundle\Entity\CtlAtencion $idAtencion
      * @return MntAtenAreaModEstab
      */
-    public function setIdAtencion(\Minsal\SiapsBundle\Entity\CtlAtencion $idAtencion = null)
-    {
+    public function setIdAtencion(\Minsal\SiapsBundle\Entity\CtlAtencion $idAtencion = null) {
         $this->idAtencion = $idAtencion;
-    
+
         return $this;
     }
 
@@ -105,8 +124,7 @@ class MntAtenAreaModEstab
      *
      * @return \Minsal\SiapsBundle\Entity\CtlAtencion 
      */
-    public function getIdAtencion()
-    {
+    public function getIdAtencion() {
         return $this->idAtencion;
     }
 
@@ -116,10 +134,9 @@ class MntAtenAreaModEstab
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
      * @return MntAtenAreaModEstab
      */
-    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
-    {
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null) {
         $this->idEstablecimiento = $idEstablecimiento;
-    
+
         return $this;
     }
 
@@ -128,13 +145,77 @@ class MntAtenAreaModEstab
      *
      * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
      */
-    public function getIdEstablecimiento()
-    {
+    public function getIdEstablecimiento() {
         return $this->idEstablecimiento;
     }
-    
-    /*Método __toString*/
+
+    /* Método __toString */
+
     public function __toString() {
-        return (string) $this->idAtencion ? : '';
+        return $this->nombreAmbiente ? : '';
     }
+
+    /**
+     * Set nombreAmbiente
+     *
+     * @param string $nombreAmbiente
+     * @return MntAtenAreaModEstab
+     */
+    public function setNombreAmbiente($nombreAmbiente) {
+        $this->nombreAmbiente = $nombreAmbiente;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreAmbiente
+     *
+     * @return string 
+     */
+    public function getNombreAmbiente() {
+        return $this->nombreAmbiente;
+    }
+
+    /**
+     * Set condicion
+     *
+     * @param string $condicion
+     * @return MntAtenAreaModEstab
+     */
+    public function setCondicion($condicion) {
+        $this->condicion = $condicion;
+
+        return $this;
+    }
+
+    /**
+     * Get condicion
+     *
+     * @return string 
+     */
+    public function getCondicion() {
+        return $this->condicion;
+    }
+
+    /**
+     * Set idAmbienteIndependiente
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAmbienteIndependiente $idAmbienteIndependiente
+     * @return MntAtenAreaModEstab
+     */
+    public function setIdAmbienteIndependiente(\Minsal\SiapsBundle\Entity\MntAmbienteIndependiente $idAmbienteIndependiente = null) {
+        $this->idAmbienteIndependiente = $idAmbienteIndependiente;
+
+        return $this;
+    }
+
+    /**
+     * Get idAmbienteIndependiente
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAmbienteIndependiente 
+     */
+    public function getIdAmbienteIndependiente() {
+        return $this->idAmbienteIndependiente;
+    }
+
 }

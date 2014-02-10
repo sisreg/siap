@@ -22,18 +22,12 @@
             <argument>Minsal\SiapsBundle\Entity\MntAreaModEstab</argument>
             <argument>SonataAdminBundle:CRUD</argument>
         </service>
-        <service id="sonata.admin.ambienteestablecimiento" class="Minsal\SiapsBundle\Admin\MntAmbienteAreaEstablecimientoAdmin">
+       <service id="sonata.admin.ambientes" class="Minsal\SiapsBundle\Admin\MntAtenAreaModEstabAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Administración" label="Servicios de Hospitalización"/>
-            <argument />
-            <argument>Minsal\SiapsBundle\Entity\MntAmbienteAreaEstablecimiento</argument>
-            <argument>MinsalSiapsBundle:MntAmbienteAreaEstablecimientoAdmin</argument>
-        </service>
-        <!--service id="sonata.admin.atenareamodalidadestablecimiento" class="Minsal\SiapsBundle\Admin\MntAtenAreaModEstabAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="Administración" label="Cartera de servicios"/>
             <argument />
             <argument>Minsal\SiapsBundle\Entity\MntAtenAreaModEstab</argument>
             <argument>MinsalSiapsBundle:MntAtenAreaModEstabAdmin</argument>
-        </service-->
+        </service>
         <service id="sonata.admin.conexion" class="Minsal\SiapsBundle\Admin\MntConexionAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Administración" label="Conexiones a bases regionales"/>
             <argument />

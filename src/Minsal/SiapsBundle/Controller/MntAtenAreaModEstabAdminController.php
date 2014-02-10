@@ -3,49 +3,244 @@
 namespace Minsal\SiapsBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Minsal\SiapsBundle\Entity\MntAtenAreaModEstab;
 
 class MntAtenAreaModEstabAdminController extends Controller {
 
-    public function listAction() {
-        if (false === $this->admin->isGranted('LIST')) {
-            return $this->render('MinsalSiapsBundle::Accesso_denegado.html.twig', 
-                    array('admin_pool' => $this->container->get('sonata.admin.pool'),
+    /**
+     * REESCRITO PARA QUE CUANDO SEA LA BUSQUEDA DE LA REGIONAL LE CARGUE POR DEFECTO LOS VALORES QUE POSEE
+     * EL PACIENTE Y ASÍ SOLO LLENE LOS CAMPOS QUE HAGAN FALTA
+     * 
+     * return the Response object associated to the create action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return Response
+     */
+    public function createAction() {
+        // the key used to lookup the template
+        $templateKey = 'edit';
+
+        if (false === $this->admin->isGranted('CREATE')) {
+            return $this->render('MinsalSiapsBundle::Accesso_denegado.html.twig', array('admin_pool' => $this->container->get('sonata.admin.pool'),
                         'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
             ));
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $modalidades = $em->getRepository("MinsalSiapsBundle:MntAtenAreaModEstab")->obtenerModalidadesUtilizada();
-        $cartera = array();
-        $i = 0;
-        foreach ($modalidades as $modalidad) {
-            $cartera[$i] = array('nombre' => $modalidad['nombre'], 'estilo' => 'modalidad', 'label' => 'Modalidad', 'tipo' => 3);
-            $i++;
-            $areasAtencion = $em->getRepository("MinsalSiapsBundle:MntAtenAreaModEstab")->obtenerAreaAtencionUtilizada($modalidad['id']);
-            foreach ($areasAtencion as $area) {
-                $cartera[$i] = array('nombre' => $area['nombre'], 'estilo' => 'areaAtencion', 'label' => 'Área de Atención', 'tipo' => 0);
-                $i++;
-                $atencionesPadres = $em->getRepository("MinsalSiapsBundle:MntAtenAreaModEstab")->obtenerAtencionesPadresModalidad($modalidad['id'], $area['id']);
-                foreach ($atencionesPadres as $padre) {
-                    $cartera[$i] = array('nombre' => $padre['nombre'], 'estilo' => 'atencion', 'label' => '', 'tipo' => $padre['tipo']);
-                    $i++;
-                    $atencionesHijas = $em->getRepository("MinsalSiapsBundle:MntAtenAreaModEstab")->obtenerAtencionesHijasModalidad($modalidad['id'], $area['id'], $padre['id']);
-                    foreach ($atencionesHijas as $hija) {
-                        $cartera[$i] = array('nombre' => $hija['nombre'], 'estilo' => 'atencionHijo', 'label' => '', 'tipo' => 0);
-                        $i++;
+        $object = $this->admin->getNewInstance();
+
+        $this->admin->setSubject($object);
+
+        /** @var $form \Symfony\Component\Form\Form */
+        $form = $this->admin->getForm();
+        $form->setData($object);
+
+        if ($this->getRestMethod() == 'POST') {
+            $form->bind($this->get('request'));
+            $request = $this->get('request');
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $establecimiento = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
+                    ->findOneBy(array('configurado' => true));
+            $area = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')
+                    ->findOneBy(array('id' => $object->getIdAtencion()));
+            if ($request->get('numero_ambientes') == '') {
+                if ($request->get('por_sexo') == 'on') {
+                    $ambiente = new MntAtenAreaModEstab();
+                    $ambiente->setIdAtencion($area->getIdAtencion());
+                    $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
+                    $ambiente->setNombreAmbiente($request->get('muj_nombre'));
+                    $this->admin->create($ambiente);
+                    $ambiente = new MntAtenAreaModEstab();
+                    $ambiente->setIdAtencion($area->getIdAtencion());
+                    $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
+                    $ambiente->setIdEstablecimiento($establecimiento);
+                    $ambiente->setNombreAmbiente($request->get('hom_nombre'));
+                    $this->admin->create($ambiente);
+                } else {
+                    $ambiente = new MntAtenAreaModEstab();
+                    $ambiente->setIdAtencion($area->getIdAtencion());
+                    $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
+                    $ambiente->setIdEstablecimiento($establecimiento);
+                    $ambiente->setNombreAmbiente($request->get('nombre'));
+                    $this->admin->create($ambiente);
+                }
+            } else {
+                if ($request->get('por_sexo') == 'on') {
+                    for ($i = 1; $i <= $request->get('numero_ambientes'); $i++) {
+                        $ambiente = new MntAtenAreaModEstab();
+                        $ambiente->setIdAtencion($area->getIdAtencion());
+                        $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
+                        $ambiente->setIdEstablecimiento($establecimiento);
+                        $ambiente->setNombreAmbiente($request->get($i . '_muj_nombre'));
+                        $this->admin->create($ambiente);
+                        $ambiente = new MntAtenAreaModEstab();
+                        $ambiente->setIdAtencion($area->getIdAtencion());
+                        $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
+                        $ambiente->setIdEstablecimiento($establecimiento);
+                        $ambiente->setNombreAmbiente($request->get($i . '_hom_nombre'));
+                        $this->admin->create($ambiente);
+                    }
+                } else {
+                    for ($i = 1; $i <= $request->get('numero_ambientes'); $i++) {
+                        $ambiente = new MntAtenAreaModEstab();
+                        $ambiente->setIdAtencion($area->getIdAtencion());
+                        $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
+                        $ambiente->setIdEstablecimiento($establecimiento);
+                        $ambiente->setNombreAmbiente($request->get($i . '_nombre'));
+                        $this->admin->create($ambiente);
                     }
                 }
             }
+            // redirect to edit mode
+
+            $this->addFlash('sonata_flash_success', 'flash_create_success');
+            return $this->redirectTo($object);
         }
 
-        $programas = $em->getRepository("MinsalSiapsBundle:MntProgramaEstablecimiento")->findAll();
-        $establecimiento=$em->getRepository("MinsalSiapsBundle:CtlEstablecimiento")->obtenerEstablecimientoConfigurado();
-        return $this->render($this->admin->getTemplate('list'), array(
-                    'cartera' => $cartera,
-                    'programas' => $programas,
-                    'action' => 'list',
-                    'establecimiento' => $establecimiento
+        $view = $form->createView();
+
+        // set the theme for the current Admin Form
+        $this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
+
+        return $this->render($this->admin->getTemplate($templateKey), array(
+                    'action' => 'create',
+                    'form' => $view,
+                    'object' => $object,
+        ));
+    }
+
+    /**
+     * return the Response object associated to the edit action
+     *
+     *
+     * @param mixed $id
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @return Response
+     */
+    public function editAction($id = null) {
+        // the key used to lookup the template
+        $templateKey = 'edit';
+
+        $id = $this->get('request')->get($this->admin->getIdParameter());
+
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        if (false === $this->admin->isGranted('EDIT', $object)) {
+            return $this->render('MinsalSiapsBundle::Accesso_denegado.html.twig', array('admin_pool' => $this->container->get('sonata.admin.pool'),
+                        'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
+            ));
+        }
+        $form = $this->admin->getForm();
+        $form->setData($object);
+
+        if ($this->getRestMethod() == 'POST') {
+            $form->bind($this->get('request'));
+
+            $isFormValid = $form->isValid();
+
+            // persist if the form was valid and if in preview mode the preview was approved
+            if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
+
+                $this->admin->update($object);
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array(
+                                'result' => 'ok',
+                                'objectId' => $this->admin->getNormalizedIdentifier($object)
+                    ));
+                }
+
+                $this->addFlash('sonata_flash_success', 'flash_edit_success');
+
+                // redirect to edit mode
+                return $this->redirectTo($object);
+            }
+
+            // show an error message if the form failed validation
+            if (!$isFormValid) {
+                if (!$this->isXmlHttpRequest()) {
+                    $this->addFlash('sonata_flash_error', 'flash_edit_error');
+                }
+            } elseif ($this->isPreviewRequested()) {
+                // enable the preview template if the form was valid and preview was requested
+                $templateKey = 'preview';
+                $this->admin->getShow();
+            }
+        }
+
+        $view = $form->createView();
+
+        // set the theme for the current Admin Form
+        $this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
+
+        return $this->render(
+                        'MinsalSiapsBundle:MntAmbienteAreaEstablecimiento:editar.html.twig', array(
+                    'action' => 'edit',
+                    'form' => $view,
+                    'object' => $object,
+        ));
+    }
+
+    /**
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException|\Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
+     * @param mixed $id
+     *
+     * @return Response|RedirectResponse
+     */
+    public function deleteAction($id) {
+        $id = $this->get('request')->get($this->admin->getIdParameter());
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        if (false === $this->admin->isGranted('DELETE', $object)) {
+            return $this->render('MinsalSiapsBundle::Accesso_denegado.html.twig', array('admin_pool' => $this->container->get('sonata.admin.pool'),
+                        'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
+            ));
+        }
+
+        if ($this->getRestMethod() == 'DELETE') {
+            // check the csrf token
+            $this->validateCsrfToken('sonata.delete');
+
+            try {
+                $this->admin->delete($object);
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'ok'));
+                }
+
+                $this->addFlash('sonata_flash_success', 'flash_delete_success');
+            } catch (ModelManagerException $e) {
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'error'));
+                }
+
+                $this->addFlash('sonata_flash_error', 'flash_delete_error');
+            }
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
+        }
+
+        return $this->render($this->admin->getTemplate('delete'), array(
+                    'object' => $object,
+                    'action' => 'delete',
+                    'csrf_token' => $this->getCsrfToken('sonata.delete')
         ));
     }
 
 }
+
+?>

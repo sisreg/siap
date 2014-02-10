@@ -1,50 +1,47 @@
 <?php
 
-namespace Minsal\EnfermeriaBundle\Entity;
+namespace Minsal\SiapsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * EnfDosisVacuna
+ * MntAmbienteIndependiente
  *
- * @ORM\Table(name="enf_dosis_vacuna")
+ * @ORM\Table(name="mnt_ambiente_independiente")
  * @ORM\Entity
  */
-class EnfDosisVacuna
-{
+class MntAmbienteIndependiente {
+
     /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="enf_dosis_vacuna_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="ctl_tipo_atencion_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=25, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=50, nullable=false)
      */
     private $nombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="abreviatura", type="string", length=6, nullable=true)
+     * @ORM\Column(name="abreviatura", type="string", length=8)
      */
     private $abreviatura;
-
-
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -52,10 +49,9 @@ class EnfDosisVacuna
      * Set nombre
      *
      * @param string $nombre
-     * @return EnfDosisVacuna
+     * @return MntAmbienteIndependiente
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
 
         return $this;
@@ -66,16 +62,22 @@ class EnfDosisVacuna
      *
      * @return string 
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
+
+    /* Método __toString */
+
+    public function __toString() {
+        return $this->nombre ? : '';
+    }
+
 
     /**
      * Set abreviatura
      *
      * @param string $abreviatura
-     * @return EnfDosisVacuna
+     * @return MntAmbienteIndependiente
      */
     public function setAbreviatura($abreviatura)
     {

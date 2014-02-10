@@ -18,22 +18,24 @@ class AppKernel extends Kernel {
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Minsal\SiapsBundle\MinsalSiapsBundle(),
+            //BLOQUE FOS BUNDLE
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            //BLOQUE SONATA BUNDLE
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             new Sonata\CoreBundle\SonataCoreBundle(),
+            //BLOQUE APPLICATION SONATA USER BUNDLE
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new Minsal\LaboratorioBundle\MinsalLaboratorioBundle(),
-            new Minsal\EnfermeriaBundle\MinsalEnfermeriaBundle(),
-            new Minsal\FarmaciaBundle\MinsalFarmaciaBundle(),
+            //BLOQUE KNP BUNDLE
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            //BLOQUE MINSAL BUNDLES
+            new Minsal\SiapsBundle\MinsalSiapsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

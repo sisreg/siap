@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 //use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 //use Doctrine\DBAL as DBAL;
-use Minsal\SiapsBundle\Entity\MntAmbienteAreaEstablecimiento;
+use Minsal\SiapsBundle\Entity\MntAreaModEstab;
 
 class MntAmbienteAreaEstablecimientoController extends Controller {
 
@@ -148,15 +148,16 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
                     ->findOneBy(array('id' => $id_aten_area_mod_estab));
         
         if ($numero_ambientes == 0 && $sexo == 'false') {
-            $ambiente = new MntAmbienteAreaEstablecimiento();
-            $ambiente->setIdAtenAreaModEstab($area);
+            $ambiente = new MntAreaModEstab();
+            $ambiente->setIdAtencion($area->getIdAtencion());
+            $ambiente->setIdAreaAtencion($area->getIdAreaAtencion());
             $ambiente->setIdEstablecimiento($establecimiento);
             $ambiente->setNombre($request->get('nombre'));
             $em->persist($ambiente);
             $em->flush();
         }
         
-          return $this->redirect($this->generateUrl('estudiante_show', array('id' => $entity->getId())));
+          return $this->redirect($this->generateUrl('admin_minsal_siaps_mntatenareamodestab_list', array()));
     }
 
 }
