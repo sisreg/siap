@@ -9,11 +9,17 @@ root:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path:  /admin/login
         permanent: true
-
+#BLOQUE MINSAL BUNDLES
 minsal_siaps:
     resource: "@MinsalSiapsBundle/Controller/"
     type:     annotation
     prefix:   /
+
+minsal_seguimiento:
+    resource: "@MinsalSeguimientoBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 
 #FOSUSERBUNDLE   
 fos_js_routing:

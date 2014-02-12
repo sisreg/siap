@@ -36,6 +36,7 @@ class AppKernel extends Kernel {
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             //BLOQUE MINSAL BUNDLES
             new Minsal\SiapsBundle\MinsalSiapsBundle(),
+            new Minsal\SeguimientoBundle\MinsalSeguimientoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

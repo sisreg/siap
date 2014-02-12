@@ -43,6 +43,7 @@
 'numero' : 'Número'
 
 'Mnt Paciente View' : ''
-'Mnt Ambiente Area Establecimiento Edit' : ''
 change_password.flash.success: 'Cambio Contraseña Con Éxito'
 fos_user.password.mismatch: 'La nueva constraseña no coinciden'
+#SEGUIMIENTOBUNDLE
+'Sec Ingreso List' : ''

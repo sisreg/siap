@@ -19,7 +19,7 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
      */
     public function getAreaModalidadAction() {
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql = "SELECT A.id as id,(
                         CASE WHEN F.nombre IS NOT NULL THEN CONCAT(D.nombre, '-',B.nombre,'-',F.nombre) 
                                 ELSE CONCAT(D.nombre, '-',B.nombre) 
@@ -44,7 +44,7 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
     public function getEspecialidadesHospitalizacionAction() {
         $request = $this->getRequest();
         $idAreaModEstab = $request->get('idAreaModEstab');
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql = "SELECT A.id as id,C.nombre as nombre
                 FROM MinsalSiapsBundle:MntAtenAreaModEstab A
                 JOIN A.idAreaModEstab B
@@ -65,7 +65,7 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
     public function getServiciosHospitalariosAction() {
         $request = $this->getRequest();
         $idAreaModEstab = $request->get('idAreaModEstab');
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql = "SELECT A.id as id,C.nombre as nombre
                 FROM MinsalSiapsBundle:MntAtenAreaModEstab A
                 JOIN A.idAreaModEstab B
@@ -86,7 +86,7 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
     public function generarServiciosHospitalariosAction() {
         $request = $this->getRequest();
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $dql = "SELECT A.id
               FROM MinsalSiapsBundle:MntAtenAreaModEstab A
@@ -139,7 +139,7 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
      */
     public function guardarHospitalizacionAction($sexo, $numero_ambientes, $id_aten_area_mod_estab) {
         $request = $this->getRequest();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $establecimiento = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
                     ->findOneBy(array('configurado' => true));

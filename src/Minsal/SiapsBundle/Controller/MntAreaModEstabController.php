@@ -14,7 +14,7 @@ class MntAreaModEstabController extends Controller {
      */
     public function getAtencionesAction() {
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $resp = '';
 
         $atenciones = $em->getRepository('MinsalSiapsBundle:CtlAtencion')->obtenerAtenciones();

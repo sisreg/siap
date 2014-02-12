@@ -29,7 +29,7 @@ class MntExpedienteController extends Controller {
     public function expedientesCreadosListado() {
         //OBTENIENDO PARÁMETROS DE BUSQUEDA
         $request = $this->getRequest();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql = "SELECT e 
                 FROM MinsalSiapsBundle:MntExpediente e 
                 JOIN e.idPaciente p

@@ -14,7 +14,7 @@ class MntPacienteAdminController extends Controller {
                         'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
             ));
         }
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $valor = $this->get('request')->get('id');
         $datos_paciente = $em->getRepository("MinsalSiapsBundle:MntPaciente")->obtenerDatosPaciente($valor);
         $conn = $em->getConnection();

@@ -69,7 +69,7 @@ class CtlEstablecimientoAdmin extends Admin {
     public function preUpdate($establecimiento) {
         $establecimiento->setConfigurado(true);
         $usuariosAdministradores = $this->getModelManager()
-                ->getEntityManager('MinsalSiapsBundle:User')
+                ->getManager('MinsalSiapsBundle:User')
                 ->createQuery("
                     SELECT u
                     FROM MinsalSiapsBundle:User u

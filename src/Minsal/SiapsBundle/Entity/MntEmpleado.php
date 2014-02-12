@@ -264,17 +264,7 @@ class MntEmpleado
      */
     private $idTipoEmpleado;
 
-    /**
-     * @var \LabAreaLaboratorio
-     *
-     * @ORM\ManyToOne(targetEntity="\Minsal\LaboratorioBundle\Entity\LabAreaLaboratorio")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_area_laboratorio", referencedColumnName="id")
-     * })
-     */
-    private $idAreaLaboratorio;
-
-
+   
 
     /**
      * Get id
@@ -295,7 +285,7 @@ class MntEmpleado
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
@@ -318,7 +308,7 @@ class MntEmpleado
     public function setApellido($apellido)
     {
         $this->apellido = $apellido;
-    
+
         return $this;
     }
 
@@ -341,7 +331,7 @@ class MntEmpleado
     public function setFechaNacimiento($fechaNacimiento)
     {
         $this->fechaNacimiento = $fechaNacimiento;
-    
+
         return $this;
     }
 
@@ -364,7 +354,7 @@ class MntEmpleado
     public function setNit($nit)
     {
         $this->nit = $nit;
-    
+
         return $this;
     }
 
@@ -387,7 +377,7 @@ class MntEmpleado
     public function setDui($dui)
     {
         $this->dui = $dui;
-    
+
         return $this;
     }
 
@@ -410,7 +400,7 @@ class MntEmpleado
     public function setNup($nup)
     {
         $this->nup = $nup;
-    
+
         return $this;
     }
 
@@ -433,7 +423,7 @@ class MntEmpleado
     public function setInpep($inpep)
     {
         $this->inpep = $inpep;
-    
+
         return $this;
     }
 
@@ -456,7 +446,7 @@ class MntEmpleado
     public function setIpsfa($ipsfa)
     {
         $this->ipsfa = $ipsfa;
-    
+
         return $this;
     }
 
@@ -479,7 +469,7 @@ class MntEmpleado
     public function setIsss($isss)
     {
         $this->isss = $isss;
-    
+
         return $this;
     }
 
@@ -502,7 +492,7 @@ class MntEmpleado
     public function setNumeroMarcacion($numeroMarcacion)
     {
         $this->numeroMarcacion = $numeroMarcacion;
-    
+
         return $this;
     }
 
@@ -525,7 +515,7 @@ class MntEmpleado
     public function setPasaporte($pasaporte)
     {
         $this->pasaporte = $pasaporte;
-    
+
         return $this;
     }
 
@@ -548,7 +538,7 @@ class MntEmpleado
     public function setLicenciaConducir($licenciaConducir)
     {
         $this->licenciaConducir = $licenciaConducir;
-    
+
         return $this;
     }
 
@@ -571,7 +561,7 @@ class MntEmpleado
     public function setNumeroJuntaVigilancia($numeroJuntaVigilancia)
     {
         $this->numeroJuntaVigilancia = $numeroJuntaVigilancia;
-    
+
         return $this;
     }
 
@@ -594,7 +584,7 @@ class MntEmpleado
     public function setNumeroTelefono($numeroTelefono)
     {
         $this->numeroTelefono = $numeroTelefono;
-    
+
         return $this;
     }
 
@@ -617,7 +607,7 @@ class MntEmpleado
     public function setNumeroCelular($numeroCelular)
     {
         $this->numeroCelular = $numeroCelular;
-    
+
         return $this;
     }
 
@@ -640,7 +630,7 @@ class MntEmpleado
     public function setCorreoElectronico($correoElectronico)
     {
         $this->correoElectronico = $correoElectronico;
-    
+
         return $this;
     }
 
@@ -663,7 +653,7 @@ class MntEmpleado
     public function setContactoEmergencia($contactoEmergencia)
     {
         $this->contactoEmergencia = $contactoEmergencia;
-    
+
         return $this;
     }
 
@@ -686,7 +676,7 @@ class MntEmpleado
     public function setTelefonoEmergencia($telefonoEmergencia)
     {
         $this->telefonoEmergencia = $telefonoEmergencia;
-    
+
         return $this;
     }
 
@@ -709,7 +699,7 @@ class MntEmpleado
     public function setSeguroDeVida($seguroDeVida)
     {
         $this->seguroDeVida = $seguroDeVida;
-    
+
         return $this;
     }
 
@@ -732,7 +722,7 @@ class MntEmpleado
     public function setTieneDiscapacidad($tieneDiscapacidad)
     {
         $this->tieneDiscapacidad = $tieneDiscapacidad;
-    
+
         return $this;
     }
 
@@ -755,7 +745,7 @@ class MntEmpleado
     public function setFechaIngresoPublico($fechaIngresoPublico)
     {
         $this->fechaIngresoPublico = $fechaIngresoPublico;
-    
+
         return $this;
     }
 
@@ -778,7 +768,7 @@ class MntEmpleado
     public function setFechaIngresoMinsal($fechaIngresoMinsal)
     {
         $this->fechaIngresoMinsal = $fechaIngresoMinsal;
-    
+
         return $this;
     }
 
@@ -801,7 +791,7 @@ class MntEmpleado
     public function setCorrelativo($correlativo)
     {
         $this->correlativo = $correlativo;
-    
+
         return $this;
     }
 
@@ -824,7 +814,7 @@ class MntEmpleado
     public function setCodigoFarmacia($codigoFarmacia)
     {
         $this->codigoFarmacia = $codigoFarmacia;
-    
+
         return $this;
     }
 
@@ -847,7 +837,7 @@ class MntEmpleado
     public function setHabilitadoFarmacia($habilitadoFarmacia)
     {
         $this->habilitadoFarmacia = $habilitadoFarmacia;
-    
+
         return $this;
     }
 
@@ -870,7 +860,7 @@ class MntEmpleado
     public function setFirmaDigital($firmaDigital)
     {
         $this->firmaDigital = $firmaDigital;
-    
+
         return $this;
     }
 
@@ -890,21 +880,21 @@ class MntEmpleado
      * @param \Minsal\SiapsBundle\Entity\MntCargoEmpleado $idCargoEmpleado
      * @return MntEmpleado
      */
-    public function setIdCargoEmpleadoLaboratorio(\Minsal\SiapsBundle\Entity\MntCargoEmpleado $idCargoEmpleado = null)
+    public function setIdCargoEmpleado(\Minsal\SiapsBundle\Entity\MntCargoEmpleado $idCargoEmpleado = null)
     {
         $this->idCargoEmpleado = $idCargoEmpleado;
-    
+
         return $this;
     }
 
     /**
-     * Get idCargoEmpleadoLaboratorio
+     * Get idCargoEmpleado
      *
-     * @return \Minsal\LaboratorioBundle\Entity\LabCargoEmpleadoLaboratorio 
+     * @return \Minsal\SiapsBundle\Entity\MntCargoEmpleado 
      */
-    public function getIdCargoEmpleadoLaboratorio()
+    public function getIdCargoEmpleado()
     {
-        return $this->idCargoEmpleadoLaboratorio;
+        return $this->idCargoEmpleado;
     }
 
     /**
@@ -916,7 +906,7 @@ class MntEmpleado
     public function setIdDepartamento(\Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamento = null)
     {
         $this->idDepartamento = $idDepartamento;
-    
+
         return $this;
     }
 
@@ -939,7 +929,7 @@ class MntEmpleado
     public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
     {
         $this->idEstablecimiento = $idEstablecimiento;
-    
+
         return $this;
     }
 
@@ -962,7 +952,7 @@ class MntEmpleado
     public function setIdMunicipio(\Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipio = null)
     {
         $this->idMunicipio = $idMunicipio;
-    
+
         return $this;
     }
 
@@ -985,7 +975,7 @@ class MntEmpleado
     public function setIdPais(\Minsal\SiapsBundle\Entity\CtlPais $idPais = null)
     {
         $this->idPais = $idPais;
-    
+
         return $this;
     }
 
@@ -1008,7 +998,7 @@ class MntEmpleado
     public function setIdTipoEmpleado(\Minsal\SiapsBundle\Entity\MntTipoEmpleado $idTipoEmpleado = null)
     {
         $this->idTipoEmpleado = $idTipoEmpleado;
-    
+
         return $this;
     }
 
@@ -1020,28 +1010,5 @@ class MntEmpleado
     public function getIdTipoEmpleado()
     {
         return $this->idTipoEmpleado;
-    }
-
-    /**
-     * Set idAreaLaboratorio
-     *
-     * @param \Minsal\LaboratorioBundle\Entity\LabAreaLaboratorio $idAreaLaboratorio
-     * @return MntEmpleado
-     */
-    public function setIdAreaLaboratorio(\Minsal\LaboratorioBundle\Entity\LabAreaLaboratorio $idAreaLaboratorio = null)
-    {
-        $this->idAreaLaboratorio = $idAreaLaboratorio;
-    
-        return $this;
-    }
-
-    /**
-     * Get idAreaLaboratorio
-     *
-     * @return \Minsal\LaboratorioBundle\Entity\LabAreaLaboratorio 
-     */
-    public function getIdAreaLaboratorio()
-    {
-        return $this->idAreaLaboratorio;
     }
 }

@@ -25,21 +25,21 @@ class MntCie10
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo", type="string", length=5, nullable=false)
+     * @ORM\Column(name="idcie10", type="string", length=5, nullable=false)
      */
     private $codigo;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="codigo_grupo", type="integer", nullable=false)
+     * @ORM\Column(name="codgrupo", type="integer", nullable=false)
      */
     private $codigoGrupo = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="grupo_m", type="integer", nullable=false)
+     * @ORM\Column(name="grupom", type="integer", nullable=false)
      */
     private $grupoM = '0';
 
@@ -60,14 +60,14 @@ class MntCie10
     /**
      * @var integer
      *
-     * @ORM\Column(name="sexo", type="integer", nullable=true)
+     * @ORM\Column(name="sexo_cie10", type="integer", nullable=true)
      */
     private $sexo = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="salida", type="integer", nullable=true)
+     * @ORM\Column(name="c_salida", type="integer", nullable=true)
      */
     private $salida;
 

@@ -58,7 +58,7 @@ class MntPacienteController extends Controller {
         $tipo_busqueda = $request->get('tipo_busqueda');
 
         //INICIALIZANDO VARIABLE DOCTRINE
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $conn = $em->getConnection();
         //CONSTANTES
         if (strcmp($tipo_busqueda, 'l') == 0)
@@ -153,7 +153,7 @@ class MntPacienteController extends Controller {
 
         $request = $this->getRequest();
         $idPais = $request->get('idPais');
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql = "SELECT d FROM MinsalSiapsBundle:CtlDepartamento d
                     WHERE d.idPais = :idPais ";
         $departamentos['deptos'] = $em->createQuery($dql)
@@ -171,7 +171,7 @@ class MntPacienteController extends Controller {
 
         $request = $this->getRequest();
         $idDepartamento = $request->get('idDepartamento');
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql = "SELECT m FROM MinsalSiapsBundle:CtlMunicipio m
                     WHERE m.idDepartamento = :idDepartamento ";
         $municipios['municipios'] = $em->createQuery($dql)
@@ -189,7 +189,7 @@ class MntPacienteController extends Controller {
 
         $request = $this->getRequest();
         $idMunicipio = $request->get('idMunicipio');
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql = "SELECT c FROM MinsalSiapsBundle:CtlCanton c
                     WHERE c.idMunicipio = :idMunicipio ";
         $cantones['cantones'] = $em->createQuery($dql)
@@ -208,7 +208,7 @@ class MntPacienteController extends Controller {
         $fecha_nacimiento = $request->get('fecha_nacimiento');
         $fecha_actual = getdate();
         $fecha_actual = $fecha_actual['mday'] . '-' . $fecha_actual['mon'] . '-' . $fecha_actual['year'];
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $conn = $em->getConnection();
         $calcular = new Funciones();
         $datos['edad'] = $calcular->calcularEdad($conn, $fecha_nacimiento);

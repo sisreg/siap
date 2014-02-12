@@ -140,7 +140,7 @@ class MntPacienteAdmin extends Admin {
         $paciente->setSegundoApellido(chop(ltrim($paciente->getSegundoApellido())));
         $paciente->setApellidoCasada(chop(ltrim($paciente->getApellidoCasada())));
 
-        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
+        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
         $con = $em->getConnection();
         $query = "SELECT * FROM mnt_paciente where id=" . $paciente->getId();
         $resultado = $con->query($query);
@@ -304,7 +304,7 @@ class MntPacienteAdmin extends Admin {
                   JOIN e.idPaciente p
                   WHERE e.numero LIKE :variable";
                     $repuesta = $this->getModelManager()
-                            ->getEntityManager('MinsalSiapsBundle:MntExpediente')
+                            ->getManager('MinsalSiapsBundle:MntExpediente')
                             ->createQuery($dql)
                             ->setParameter('variable', $expediente->getNumero())
                             ->getArrayResult();
@@ -314,7 +314,7 @@ class MntPacienteAdmin extends Admin {
                   JOIN e.idPaciente p
                   WHERE e.numero LIKE :variable AND p.id != :paciente";
                     $repuesta = $this->getModelManager()
-                            ->getEntityManager('MinsalSiapsBundle:MntExpediente')
+                            ->getManager('MinsalSiapsBundle:MntExpediente')
                             ->createQuery($dql)
                             ->setParameter('variable', $expediente->getNumero())
                             ->setParameter('paciente', $object->getId())
@@ -335,7 +335,7 @@ class MntPacienteAdmin extends Admin {
                         p.primerApellido = :primer_apellido AND p.segundoApellido = :segundo_apellido AND
                         p.fechaNacimiento = :fecha_nacimiento";
             $repuesta = $this->getModelManager()
-                    ->getEntityManager('MinsalSiapsBundle:MntExpediente')
+                    ->getManager('MinsalSiapsBundle:MntExpediente')
                     ->createQuery($dql)
                     ->setParameters(array(
                         'primer_nombre' => (chop(ltrim($object->getPrimerNombre()))),

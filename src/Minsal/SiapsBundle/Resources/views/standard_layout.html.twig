@@ -38,7 +38,7 @@ file that was distributed with this source code.
         <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/colors.css') }}" type="text/css" media="all" />
         <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/custom_colors.css') }}" type="text/css" media="all" />
         <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/x-editable/css/bootstrap-editable.css') }}" type="text/css" media="all" />
-        
+
         <!-- AGREGADAS POR EQUIPO SIAPS-->
         <link href="{{ asset('bundles/minsalsiaps/imagenes/escudo.png') }}" type="image/png" rel="Shortcut Icon" />
         <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/custom_layout.css') }}" type="text/css" media="all" />     
@@ -160,7 +160,7 @@ file that was distributed with this source code.
                                         {% for menu in admin.breadcrumbs(action) %}
                                             {% if not loop.last  %}
                                                         {% if menu.label=='Dashboard' or menu.label=='⌂' %}
-                                                                    <li><a href="{{ menu.uri }}">Inicio</a><span class="divider">/</span></li>
+                                                                    <li><a href="{{ menu.uri }}">Inicio <i class="icon-home"></i></a><span class="divider">/</span></li>
                                                         {% else %}
                                                                         <li><a href="{{ menu.uri }}">{{ menu.label|trans }}</a><span class="divider">/</span></li>
                                                         {% endif %}

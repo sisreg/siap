@@ -38,7 +38,7 @@ class MntAmbienteAreaEstablecimientoAdminController extends Controller {
         if ($this->getRestMethod() == 'POST') {
             $form->bind($this->get('request'));
             $request = $this->get('request');
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
 
             $establecimiento = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
                     ->findOneBy(array('configurado' => true));
