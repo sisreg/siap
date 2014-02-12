@@ -32,7 +32,7 @@ $(document).ready(function() {
         } else if ($('select[id$="_idDocPaciente"] option:selected').text() == 'NIT') {
             $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');
             $('input[id$="_numeroDocIdePaciente"]').mask("9999-999999-999-9")
-        } else if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Partida Nacimiento' ||  $('select[id$="_idDocPaciente"] option:selected').text() == 'Otros') {
+        } else if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Partida Nacimiento' || $('select[id$="_idDocPaciente"] option:selected').text() == 'Otros') {
             $('input[id$="_numeroDocIdePaciente"]').removeAttr('disabled');
             $('input[id$="_numeroDocIdePaciente"]').unmask();
         }
@@ -118,11 +118,12 @@ $(document).ready(function() {
                 $('input[id$="_numeroDocIdePaciente"]').attr('disabled', 'disabled');
             }
             else {
-                if ($('select[id$="_idDocPaciente"] option:selected').text() != 'Partida Nacimiento' || $('select[id$="_idDocPaciente"] option:selected').text() != 'Otros') {
+                if ($('select[id$="_idDocPaciente"] option:selected').text() == 'Partida Nacimiento' || $('select[id$="_idDocPaciente"] option:selected').text() == 'Otros' || $('select[id$="_idDocPaciente"] option:selected').text() == 'Pasaporte') {
+                    $('input[id$="_numeroDocIdePaciente"]').val('').unmask();
+                } else {
                     $('input[id$="_numeroDocIdePaciente"]').val('');
                     $('input[id$="_numeroDocIdePaciente"]').mask("99999999999999999999")
-                } else {
-                    $('input[id$="_numeroDocIdePaciente"]').val('').unmask();
+
                 }
             }
         }
@@ -142,11 +143,12 @@ $(document).ready(function() {
                 $('input[id$="_numeroDocIdeResponsable"]').attr('disabled', 'disabled');
             }
             else {
-                if ($('select[id$="_idDocResponsable"] option:selected').text() != 'Partida Nacimiento' || $('select[id$="_idDocResponsable"] option:selected').text() != 'Otros') {
+                if ($('select[id$="_idDocResponsable"] option:selected').text() == 'Partida Nacimiento' || $('select[id$="_idDocResponsable"] option:selected').text() == 'Otros' || $('select[id$="_idDocResponsable"] option:selected').text() == 'Pasaporte') {
+                    $('input[id$="_numeroDocIdeResponsable"]').val('').unmask();
+                } else {
                     $('input[id$="_numeroDocIdeResponsable"]').val('');
                     $('input[id$="_numeroDocIdeResponsable"]').mask("99999999999999999999")
-                } else {
-                    $('input[id$="_numeroDocIdeResponsable"]').val('').unmask();
+
                 }
             }
         }
@@ -168,11 +170,11 @@ $(document).ready(function() {
                 $('input[id$="_numeroDocIdeProporDatos"]').attr('disabled', 'disabled');
             }
             else {
-                if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() != 'Partida Nacimiento' || $('select[id$="_idDocResponsable"] option:selected').text() != 'Otros') {
+                if ($('select[id$="_idDocProporcionoDatos"] option:selected').text() == 'Partida Nacimiento' || $('select[id$="_idDocResponsable"] option:selected').text() == 'Otros' || $('select[id$="_idDocResponsable"] option:selected').text() == 'Pasaporte') {
+                    $('input[id$="_numeroDocIdeProporDatos"]').val('').unmask();
+                } else {
                     $('input[id$="_numeroDocIdeProporDatos"]').val('');
                     $('input[id$="_numeroDocIdeProporDatos"]').mask("99999999999999999999")
-                } else {
-                    $('input[id$="_numeroDocIdeProporDatos"]').val('').unmask();
                 }
             }
         }
@@ -196,12 +198,16 @@ $(document).ready(function() {
 
     /*LIMPIAR APELLIDO CASADA SI ES HOMBRE*/
     $('select[id$="_idSexo"]').change(function() {
-        if ($('select[id$="_idSexo"]').val() != '1')
+        if ($('select[id$="_idSexo"]').val() == '1')
             $('input[id$="_apellidoCasada"]').attr('disabled', 'disabled');
         else
             $('input[id$="_apellidoCasada"]').removeAttr('disabled');
     });
 
+    if ($('select[id$="_idSexo"]').val() == '1')
+        $('input[id$="_apellidoCasada"]').attr('disabled', 'disabled');
+    else
+        $('input[id$="_apellidoCasada"]').removeAttr('disabled');
     /*LLENAR DATOS PERSONA RESPONSABLE*/
     $('select[id$="_idParentescoResponsable"]').change(function() {
         if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Madre') {
