@@ -162,9 +162,9 @@ class SecIngreso {
     private $motivoReferencia;
 
      /**
-     * @var \\Minsal\SiapsBundle\Entity\User
+     * @var \Minsal\SiapsBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="\Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_usuario_registra", referencedColumnName="id",nullable=false)
      * })
@@ -180,9 +180,9 @@ class SecIngreso {
     
     
     /**
-     * @var \\Minsal\SiapsBundle\Entity\User
+     * @var \Minsal\SiapsBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="\Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_usuario_modifica", referencedColumnName="id",nullable=false)
      * })
@@ -201,7 +201,7 @@ class SecIngreso {
      *
      * @ORM\ManyToOne(targetEntity="\Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id",nullable=false)
+     *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id",nullable=true)
      * })
      */
     private $idEmpleado;
@@ -634,10 +634,10 @@ class SecIngreso {
     /**
      * Set idUsuarioRegistra
      *
-     * @param \Minsal\SeguimientoBundle\Entity\User $idUsuarioRegistra
+     * @param \Minsal\SiapsBundle\Entity\User $idUsuarioRegistra
      * @return SecIngreso
      */
-    public function setIdUsuarioRegistra(\Minsal\SeguimientoBundle\Entity\User $idUsuarioRegistra)
+    public function setIdUsuarioRegistra(\Minsal\SiapsBundle\Entity\User $idUsuarioRegistra)
     {
         $this->idUsuarioRegistra = $idUsuarioRegistra;
 
@@ -647,7 +647,7 @@ class SecIngreso {
     /**
      * Get idUsuarioRegistra
      *
-     * @return \Minsal\SeguimientoBundle\Entity\User 
+     * @return \Minsal\SiapsBundle\Entity\User 
      */
     public function getIdUsuarioRegistra()
     {
@@ -657,10 +657,10 @@ class SecIngreso {
     /**
      * Set idUsuarioModifica
      *
-     * @param \Minsal\SeguimientoBundle\Entity\User $idUsuarioModifica
+     * @param \Minsal\SiapsBundle\Entity\User $idUsuarioModifica
      * @return SecIngreso
      */
-    public function setIdUsuarioModifica(\Minsal\SeguimientoBundle\Entity\User $idUsuarioModifica)
+    public function setIdUsuarioModifica(\Minsal\SiapsBundle\Entity\User $idUsuarioModifica)
     {
         $this->idUsuarioModifica = $idUsuarioModifica;
 
@@ -670,7 +670,7 @@ class SecIngreso {
     /**
      * Get idUsuarioModifica
      *
-     * @return \Minsal\SeguimientoBundle\Entity\User 
+     * @return \Minsal\SiapsBundle\Entity\User 
      */
     public function getIdUsuarioModifica()
     {
@@ -678,7 +678,7 @@ class SecIngreso {
     }
     
     public function __toString() {
-        return $this->idExpediente?:'';
+        return (string) $this->idExpediente->getIdPaciente()?:'';
     }
 
     /**

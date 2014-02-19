@@ -50,7 +50,8 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
                 JOIN A.idAreaModEstab B
                 JOIN A.idAtencion C
                 WHERE A.idAreaModEstab = :idAreaModEstab 
-                        AND C.idTipoAtencion = 1";
+                        AND C.idTipoAtencion = 1
+                        AND A.nombreAmbiente IS NULL";
         $especialidades['especialidades'] = $em->createQuery($dql)
                 ->setParameter('idAreaModEstab', $idAreaModEstab)
                 ->getArrayResult();

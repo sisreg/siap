@@ -29,12 +29,18 @@ class SecIngresoAdmin extends Admin {
                                 ->createQueryBuilder('sci')
                                 ->where('sci.habilitado = true');
                     }))
-                ->add('fecha', 'date', array('required' => true, 
+                ->add('fecha', 'date', array('required' => true,
                     'label' => 'Fecha del Ingreso',
                     'widget' => 'single_text', 'format' => 'dd-MM-yyyy',
-                    'attr'=>(array('value'=>date("d-m-Y")))))
+                    'attr' => (array('value' => date("d-m-Y")))))
                 ->add('hora', 'time', array('required' => true, 'label' => 'Hora del Ingreso'))
-                ->add('embarazada', null, array('label' => 'Embarazada','required' => false,))
+                ->add('idAtenAreaModEstab', 'entity', array('label' => 'Especialidad',
+                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab', 'read_only' => 'true',
+                    'empty_value' => 'Seleccione ...'))
+                ->add('idAmbienteIngreso', 'entity', array('label' => 'Servicio de Ingreso',
+                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab', 'read_only' => 'true',
+                    'empty_value' => 'Seleccione ...'))
+                ->add('embarazada', null, array('label' => 'Embarazada', 'required' => false,))
                 ->add('semanasAmenorrea', 'number', array('required' => false, 'label' => 'Semanas de amenorrea'))
                 ->add('fechaProbableParto', 'date', array('required' => false,
                     'label' => 'Fecha Probable de Parto',
@@ -42,7 +48,7 @@ class SecIngresoAdmin extends Admin {
                 ->add('diagnostico', 'textarea', array('required' => true, 'label' => 'Diagnóstico de Ingreso'))
                 //->add('idCie10', null, array('label' => 'Código CIE-10'))
                 ->add('idTipoAccidente', 'entity', array('label' => 'Tipo de Accidente',
-                    'class' => 'MinsalSeguimientoBundle:SecTipoAccidente','required' => false,
+                    'class' => 'MinsalSeguimientoBundle:SecTipoAccidente', 'required' => false,
                     'empty_value' => 'Seleccione si existierá',
                     'query_builder' => function(EntityRepository $repositorio) {
                         return $repositorio
@@ -50,21 +56,38 @@ class SecIngresoAdmin extends Admin {
                                 ->where('spi.habilitado = true');
                     }))
                 ->add('idEmpleado', null, array('required' => false, 'label' => 'Nombre del médico que indico el ingreso'))
-                ->add('idEstablecimientoReferencia', 'entity', array('label' => 'Nombre del Establecimiento','required' => false,
+                ->add('idEstablecimientoReferencia', 'entity', array('label' => 'Nombre del Establecimiento', 'required' => false,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'empty_value' => 'Seleccione..',
                     'query_builder' => function(EntityRepository $repositorio) {
                         return $repositorio
-                                ->createQueryBuilder('e')                                
+                                ->createQueryBuilder('e')
                                 ->where('e.idTipoEstablecimiento NOT IN (12,13)');
                     }))
-                ->add('motivoReferencia', 'textarea', array('required' => false, 'label' => 'Motivo'))         
+                ->add('motivoReferencia', 'textarea', array('required' => false, 'label' => 'Motivo'))
         ;
     }
 
     public function validate(ErrorElement $errorElement, $ingreso) {
-       
-        var_dump( $ingreso->getHora()->format('H:i'));exit();
+        //     var_dump($ingreso->getHora()->format('H'));
+        $fechaActual = new \DateTime();
+        list($hora, $minutos) = explode(":", $ingreso->getHora()->format('H:i'));
+        if ($ingreso->getfecha()->format('d-m-Y') == $fechaActual->format('d-m-Y')) {
+            if ($fechaActual->format('H') < $hora)
+                $errorElement->with('hora')
+                        ->addViolation('La hora del ingreso no puede ser mayor que la hoara actual')
+                        ->end();
+            elseif ($fechaActual->format('H') == $hora) {
+                if ($fechaActual->format('i') < $minutos)
+                    $errorElement->with('hora')
+                            ->addViolation('La hora del ingreso no puede ser mayor que la hora actual')
+                            ->end();
+            }
+        }elseif ($ingreso->getfecha()->format('d-m-Y') > $fechaActual->format('d-m-Y')) {
+            $errorElement->with('fecha')
+                    ->addViolation('La fecha del ingreso no puede ser mayor que la fecha actual')
+                    ->end();
+        }
     }
 
     public function getTemplate($name) {
@@ -83,13 +106,17 @@ class SecIngresoAdmin extends Admin {
     }
 
     public function prePersist($ingreso) {
-        
+
+        $estado = $this->getModelManager()
+                ->find('MinsalSeguimientoBundle:SecEstadoPaciente', 2);
+        $ingreso->setIdEstado($estado);
+        $ingreso->setIdUsuarioRegistra($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser());
+        $ingreso->setFechaRegistro(new \DateTime());
     }
-    
-    protected function configureRoutes(RouteCollection $collection)
-    {
-       
-       $collection->add('create', 'create/'.'id_paciente');//POR SI SE ENVIA PARAMETROS
+
+    protected function configureRoutes(RouteCollection $collection) {
+
+        $collection->add('create', 'create/' . 'id_paciente'); //POR SI SE ENVIA PARAMETROS
     }
 
 }

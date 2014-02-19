@@ -19,7 +19,9 @@ class SecIngresoAdminController extends Controller {
         $templateKey = 'edit';
 
         if (false === $this->admin->isGranted('CREATE')) {
-            throw new AccessDeniedException();
+            return $this->render('MinsalSiapsBundle::Accesso_denegado.html.twig', array('admin_pool' => $this->container->get('sonata.admin.pool'),
+                        'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
+            ));
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -30,14 +32,19 @@ class SecIngresoAdminController extends Controller {
         $aux = explode(' ', $edad);
         if (strstr($aux[1], 'año')) {
             if ($aux[0] >= 11 && $aux[0] <= 50)
-                $embarazo = true;
+                $embarazo = '1';
             else
-                $embarazo = false;
+                $embarazo = '0';
         }
         else
-            $embarazo = false;
+            $embarazo = '0';
+        //DECLARO EL OBJETO INGRESO EN ESTE CASO
         $object = $this->admin->getNewInstance();
-
+        
+        //ASIGNO EL NUMERO DE EXPEDIENTE
+        foreach ($datos_paciente->getExpedientes() as $expediente)
+            $object->setIdExpediente($expediente);
+        
         $this->admin->setSubject($object);
 
         /** @var $form \Symfony\Component\Form\Form */
@@ -91,8 +98,39 @@ class SecIngresoAdminController extends Controller {
                     'object' => $object,
                     'datos' => $datos_paciente,
                     'edad' => $edad,
-                    'embarazo'=>$embarazo
+                    'embarazo' => $embarazo
         ));
+    }
+    
+     public function redirectTo($object) {
+          $url = false;
+
+        if ($this->get('request')->get('btn_update_and_list')) {
+            $url = $this->admin->generateUrl('list');
+        }
+        if ($this->get('request')->get('btn_create_and_list')) {
+            $url = $this->admin->generateUrl('list');
+        }
+
+        if ($this->get('request')->get('btn_create_and_create')) {
+            $params = array();
+            if ($this->admin->hasActiveSubClass()) {
+                $params['subclass'] = $this->get('request')->get('subclass');
+            }
+            $url = $this->admin->generateUrl('create', $params);
+        }
+
+        if (!$url) {
+            $url = $this->admin->generateObjectUrl('edit', $object);
+        }
+
+        return new RedirectResponse($url);
+        
+        $params = array();
+        $params['id'] = $object->getId();
+        $url = $this->admin->generateUrl('view', $params);
+
+        return new RedirectResponse($url);
     }
 
 }

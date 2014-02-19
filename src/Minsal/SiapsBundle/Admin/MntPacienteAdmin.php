@@ -304,7 +304,7 @@ class MntPacienteAdmin extends Admin {
                   JOIN e.idPaciente p
                   WHERE e.numero LIKE :variable";
                     $repuesta = $this->getModelManager()
-                            ->getManager('MinsalSiapsBundle:MntExpediente')
+                            ->getEntityManager('MinsalSiapsBundle:MntExpediente')
                             ->createQuery($dql)
                             ->setParameter('variable', $expediente->getNumero())
                             ->getArrayResult();
@@ -314,7 +314,7 @@ class MntPacienteAdmin extends Admin {
                   JOIN e.idPaciente p
                   WHERE e.numero LIKE :variable AND p.id != :paciente";
                     $repuesta = $this->getModelManager()
-                            ->getManager('MinsalSiapsBundle:MntExpediente')
+                            ->getEntityManager('MinsalSiapsBundle:MntExpediente')
                             ->createQuery($dql)
                             ->setParameter('variable', $expediente->getNumero())
                             ->setParameter('paciente', $object->getId())
@@ -335,7 +335,7 @@ class MntPacienteAdmin extends Admin {
                         p.primerApellido = :primer_apellido AND p.segundoApellido = :segundo_apellido AND
                         p.fechaNacimiento = :fecha_nacimiento";
             $repuesta = $this->getModelManager()
-                    ->getManager('MinsalSiapsBundle:MntExpediente')
+                    ->getEntityManager('MinsalSiapsBundle:MntExpediente')
                     ->createQuery($dql)
                     ->setParameters(array(
                         'primer_nombre' => (chop(ltrim($object->getPrimerNombre()))),
