@@ -34,7 +34,8 @@ tr.ui-search-toolbar select {margin: 1px 0 0 0}
 .ui-jqgrid tr.jqgrow { outline-style: none; }
 .ui-jqgrid tr.jqgroup { outline-style: none; }
 /* SE AGREGO EL FONT-SIZE Y SE CAMBIO EL HEIGHT DE 22 A 30*/
-.ui-jqgrid tr.jqgrow td {font-weight: normal; font-size: 11px; overflow: hidden; white-space: pre; height: 30px;padding: 0 2px 0 2px;border-bottom-width: 1px; border-bottom-color: inherit; border-bottom-style: solid;}
+/* SE CAMBIO EL white-space A NORMAL PARA QUE APAREZCAN BIEN LOS BOTONES DENTRO DEL GRID*/
+.ui-jqgrid tr.jqgrow td {font-weight: normal; font-size: 11px; overflow: hidden; white-space: normal; height: 30px;padding: 0 2px 0 2px;border-bottom-width: 1px; border-bottom-color: inherit; border-bottom-style: solid;}
 /**/
 .ui-jqgrid tr.jqgfirstrow td {padding: 0 2px 0 2px;border-right-width: 1px; border-right-style: solid;}
 .ui-jqgrid tr.jqgroup td {font-weight: normal; overflow: hidden; white-space: pre; height: 22px;padding: 0 2px 0 2px;border-bottom-width: 1px; border-bottom-color: inherit; border-bottom-style: solid;}

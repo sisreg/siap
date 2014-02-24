@@ -55,8 +55,9 @@ $(document).ready(function() {
         $('#resultados').show();
         $('input[name="btn_guardar"]').show();
         $('input[name="btn_guardar_otro"]').show();
+        $('#idAtenModEstab').val($('select[id$="_idAtencion"]').val());
     });
-    
+
     $('form').submit(function() {
         $('select[id$="_idAtencion"]').removeAttr('disabled');
     });

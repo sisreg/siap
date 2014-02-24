@@ -1,0 +1,33 @@
+/*PARA BOTONES DENTRO DEL JQGRID*/
+/*Para campos de busqueda*/
+.sonata-bc .nombres {width:135px;}
+.sonata-bc .sonata-ba-list-field-header {
+    font-size: 10pt;
+}
+.sonata-bc .fecha {width:85px;}
+.sonata-bc .nombresLargos {width:300px;}
+/*div #resultadoBusqueda{padding-bottom: 25px;}*/
+.sonata-bc .table th, .sonata-bc .table td{
+    padding:0px; 
+    height:15px;
+    text-align:left; 
+    line-height: 20px;
+    vertical-align: middle;
+    border-top:1px solid #dddddd;
+    height: 1.3em;}
+.table-bordered input:hover {background-color: #E4F3C0;}
+.sonata-bc input[type="text"]{
+    height: 20px;
+    margin: 4px;
+   vertical-align: middle;
+}
+/*para que desplegue la imagen del calendario en linea con el input */
+.sonata-bc img {
+    display: inline;
+    
+}
+#resultadoBusqueda{
+    overflow: auto;
+    alignment-adjust: central;
+    width: 100%;
+}

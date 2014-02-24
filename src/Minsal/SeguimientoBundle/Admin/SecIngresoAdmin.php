@@ -95,6 +95,12 @@ class SecIngresoAdmin extends Admin {
             case 'edit':
                 return 'MinsalSeguimientoBundle:SecIngreso:edit.html.twig';
                 break;
+            case 'list':
+                return 'MinsalSeguimientoBundle:SecIngreso:list.html.twig';
+                break;
+            case 'resumen':
+                return 'MinsalSeguimientoBundle:SecIngreso:resumen.html.twig';
+                break;
             default:
                 return parent::getTemplate($name);
                 break;
@@ -102,11 +108,11 @@ class SecIngresoAdmin extends Admin {
     }
 
     public function preUpdate($ingreso) {
-        
+        $ingreso->setIdUsuarioModifica($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser());
+        $ingreso->setFechaModificacion(new \DateTime());
     }
 
     public function prePersist($ingreso) {
-
         $estado = $this->getModelManager()
                 ->find('MinsalSeguimientoBundle:SecEstadoPaciente', 2);
         $ingreso->setIdEstado($estado);
@@ -115,8 +121,8 @@ class SecIngresoAdmin extends Admin {
     }
 
     protected function configureRoutes(RouteCollection $collection) {
-
-        $collection->add('create', 'create/' . 'id_paciente'); //POR SI SE ENVIA PARAMETROS
+        $collection->add('create', 'create/id_paciente'); //POR SI SE ENVIA PARAMETROS
+        $collection->add('resumen', 'resumen/');
     }
 
 }

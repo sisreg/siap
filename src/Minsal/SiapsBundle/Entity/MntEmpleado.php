@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="mnt_empleado")
  * @ORM\Entity
  */
-class MntEmpleado
-{
+class MntEmpleado {
+
     /**
      * @var integer
      *
@@ -46,13 +46,6 @@ class MntEmpleado
     /**
      * @var string
      *
-     * @ORM\Column(name="nit", type="string", length=17, nullable=true)
-     */
-    private $nit;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="dui", type="string", length=12, nullable=true)
      */
     private $dui;
@@ -60,65 +53,9 @@ class MntEmpleado
     /**
      * @var string
      *
-     * @ORM\Column(name="nup", type="string", length=15, nullable=true)
-     */
-    private $nup;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="inpep", type="string", length=15, nullable=true)
-     */
-    private $inpep;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ipsfa", type="string", length=10, nullable=true)
-     */
-    private $ipsfa;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="isss", type="string", length=10, nullable=true)
-     */
-    private $isss;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="numero_marcacion", type="string", length=5, nullable=true)
-     */
-    private $numeroMarcacion;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pasaporte", type="string", length=15, nullable=true)
-     */
-    private $pasaporte;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="licencia_conducir", type="string", length=20, nullable=true)
-     */
-    private $licenciaConducir;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="numero_junta_vigilancia", type="string", length=20, nullable=true)
      */
     private $numeroJuntaVigilancia;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="numero_telefono", type="string", length=10, nullable=true)
-     */
-    private $numeroTelefono;
 
     /**
      * @var string
@@ -133,48 +70,6 @@ class MntEmpleado
      * @ORM\Column(name="correo_electronico", type="string", length=50, nullable=true)
      */
     private $correoElectronico;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="contacto_emergencia", type="string", length=100, nullable=true)
-     */
-    private $contactoEmergencia;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telefono_emergencia", type="string", length=10, nullable=true)
-     */
-    private $telefonoEmergencia;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="seguro_de_vida", type="boolean", nullable=false)
-     */
-    private $seguroDeVida;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="tiene_discapacidad", type="boolean", nullable=true)
-     */
-    private $tieneDiscapacidad;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_ingreso_publico", type="date", nullable=true)
-     */
-    private $fechaIngresoPublico;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_ingreso_minsal", type="date", nullable=true)
-     */
-    private $fechaIngresoMinsal;
 
     /**
      * @var integer
@@ -215,16 +110,6 @@ class MntEmpleado
     private $idCargoEmpleado;
 
     /**
-     * @var \CtlDepartamento
-     *
-     * @ORM\ManyToOne(targetEntity="CtlDepartamento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_departamento", referencedColumnName="id")
-     * })
-     */
-    private $idDepartamento;
-
-    /**
      * @var \CtlEstablecimiento
      *
      * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
@@ -233,26 +118,6 @@ class MntEmpleado
      * })
      */
     private $idEstablecimiento;
-
-    /**
-     * @var \CtlMunicipio
-     *
-     * @ORM\ManyToOne(targetEntity="CtlMunicipio")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_municipio", referencedColumnName="id")
-     * })
-     */
-    private $idMunicipio;
-
-    /**
-     * @var \CtlPais
-     *
-     * @ORM\ManyToOne(targetEntity="CtlPais")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_pais", referencedColumnName="id")
-     * })
-     */
-    private $idPais;
 
     /**
      * @var \MntTipoEmpleado
@@ -264,7 +129,47 @@ class MntEmpleado
      */
     private $idTipoEmpleado;
 
-   
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
+     * })
+     */
+    private $idusuarioreg;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idusuariomod", referencedColumnName="id")
+     * })
+     */
+    private $idusuariomod;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechahorareg", type="date")
+     */
+    private $fechahorareg;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechahoramod", type="date")
+     */
+    private $fechahoramod;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="nombreempleado", type="string", length=200)
+     */
+    private $nombreempleado;
+
 
     /**
      * Get id
@@ -346,29 +251,6 @@ class MntEmpleado
     }
 
     /**
-     * Set nit
-     *
-     * @param string $nit
-     * @return MntEmpleado
-     */
-    public function setNit($nit)
-    {
-        $this->nit = $nit;
-
-        return $this;
-    }
-
-    /**
-     * Get nit
-     *
-     * @return string 
-     */
-    public function getNit()
-    {
-        return $this->nit;
-    }
-
-    /**
      * Set dui
      *
      * @param string $dui
@@ -392,167 +274,6 @@ class MntEmpleado
     }
 
     /**
-     * Set nup
-     *
-     * @param string $nup
-     * @return MntEmpleado
-     */
-    public function setNup($nup)
-    {
-        $this->nup = $nup;
-
-        return $this;
-    }
-
-    /**
-     * Get nup
-     *
-     * @return string 
-     */
-    public function getNup()
-    {
-        return $this->nup;
-    }
-
-    /**
-     * Set inpep
-     *
-     * @param string $inpep
-     * @return MntEmpleado
-     */
-    public function setInpep($inpep)
-    {
-        $this->inpep = $inpep;
-
-        return $this;
-    }
-
-    /**
-     * Get inpep
-     *
-     * @return string 
-     */
-    public function getInpep()
-    {
-        return $this->inpep;
-    }
-
-    /**
-     * Set ipsfa
-     *
-     * @param string $ipsfa
-     * @return MntEmpleado
-     */
-    public function setIpsfa($ipsfa)
-    {
-        $this->ipsfa = $ipsfa;
-
-        return $this;
-    }
-
-    /**
-     * Get ipsfa
-     *
-     * @return string 
-     */
-    public function getIpsfa()
-    {
-        return $this->ipsfa;
-    }
-
-    /**
-     * Set isss
-     *
-     * @param string $isss
-     * @return MntEmpleado
-     */
-    public function setIsss($isss)
-    {
-        $this->isss = $isss;
-
-        return $this;
-    }
-
-    /**
-     * Get isss
-     *
-     * @return string 
-     */
-    public function getIsss()
-    {
-        return $this->isss;
-    }
-
-    /**
-     * Set numeroMarcacion
-     *
-     * @param string $numeroMarcacion
-     * @return MntEmpleado
-     */
-    public function setNumeroMarcacion($numeroMarcacion)
-    {
-        $this->numeroMarcacion = $numeroMarcacion;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroMarcacion
-     *
-     * @return string 
-     */
-    public function getNumeroMarcacion()
-    {
-        return $this->numeroMarcacion;
-    }
-
-    /**
-     * Set pasaporte
-     *
-     * @param string $pasaporte
-     * @return MntEmpleado
-     */
-    public function setPasaporte($pasaporte)
-    {
-        $this->pasaporte = $pasaporte;
-
-        return $this;
-    }
-
-    /**
-     * Get pasaporte
-     *
-     * @return string 
-     */
-    public function getPasaporte()
-    {
-        return $this->pasaporte;
-    }
-
-    /**
-     * Set licenciaConducir
-     *
-     * @param string $licenciaConducir
-     * @return MntEmpleado
-     */
-    public function setLicenciaConducir($licenciaConducir)
-    {
-        $this->licenciaConducir = $licenciaConducir;
-
-        return $this;
-    }
-
-    /**
-     * Get licenciaConducir
-     *
-     * @return string 
-     */
-    public function getLicenciaConducir()
-    {
-        return $this->licenciaConducir;
-    }
-
-    /**
      * Set numeroJuntaVigilancia
      *
      * @param string $numeroJuntaVigilancia
@@ -573,29 +294,6 @@ class MntEmpleado
     public function getNumeroJuntaVigilancia()
     {
         return $this->numeroJuntaVigilancia;
-    }
-
-    /**
-     * Set numeroTelefono
-     *
-     * @param string $numeroTelefono
-     * @return MntEmpleado
-     */
-    public function setNumeroTelefono($numeroTelefono)
-    {
-        $this->numeroTelefono = $numeroTelefono;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroTelefono
-     *
-     * @return string 
-     */
-    public function getNumeroTelefono()
-    {
-        return $this->numeroTelefono;
     }
 
     /**
@@ -642,144 +340,6 @@ class MntEmpleado
     public function getCorreoElectronico()
     {
         return $this->correoElectronico;
-    }
-
-    /**
-     * Set contactoEmergencia
-     *
-     * @param string $contactoEmergencia
-     * @return MntEmpleado
-     */
-    public function setContactoEmergencia($contactoEmergencia)
-    {
-        $this->contactoEmergencia = $contactoEmergencia;
-
-        return $this;
-    }
-
-    /**
-     * Get contactoEmergencia
-     *
-     * @return string 
-     */
-    public function getContactoEmergencia()
-    {
-        return $this->contactoEmergencia;
-    }
-
-    /**
-     * Set telefonoEmergencia
-     *
-     * @param string $telefonoEmergencia
-     * @return MntEmpleado
-     */
-    public function setTelefonoEmergencia($telefonoEmergencia)
-    {
-        $this->telefonoEmergencia = $telefonoEmergencia;
-
-        return $this;
-    }
-
-    /**
-     * Get telefonoEmergencia
-     *
-     * @return string 
-     */
-    public function getTelefonoEmergencia()
-    {
-        return $this->telefonoEmergencia;
-    }
-
-    /**
-     * Set seguroDeVida
-     *
-     * @param boolean $seguroDeVida
-     * @return MntEmpleado
-     */
-    public function setSeguroDeVida($seguroDeVida)
-    {
-        $this->seguroDeVida = $seguroDeVida;
-
-        return $this;
-    }
-
-    /**
-     * Get seguroDeVida
-     *
-     * @return boolean 
-     */
-    public function getSeguroDeVida()
-    {
-        return $this->seguroDeVida;
-    }
-
-    /**
-     * Set tieneDiscapacidad
-     *
-     * @param boolean $tieneDiscapacidad
-     * @return MntEmpleado
-     */
-    public function setTieneDiscapacidad($tieneDiscapacidad)
-    {
-        $this->tieneDiscapacidad = $tieneDiscapacidad;
-
-        return $this;
-    }
-
-    /**
-     * Get tieneDiscapacidad
-     *
-     * @return boolean 
-     */
-    public function getTieneDiscapacidad()
-    {
-        return $this->tieneDiscapacidad;
-    }
-
-    /**
-     * Set fechaIngresoPublico
-     *
-     * @param \DateTime $fechaIngresoPublico
-     * @return MntEmpleado
-     */
-    public function setFechaIngresoPublico($fechaIngresoPublico)
-    {
-        $this->fechaIngresoPublico = $fechaIngresoPublico;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaIngresoPublico
-     *
-     * @return \DateTime 
-     */
-    public function getFechaIngresoPublico()
-    {
-        return $this->fechaIngresoPublico;
-    }
-
-    /**
-     * Set fechaIngresoMinsal
-     *
-     * @param \DateTime $fechaIngresoMinsal
-     * @return MntEmpleado
-     */
-    public function setFechaIngresoMinsal($fechaIngresoMinsal)
-    {
-        $this->fechaIngresoMinsal = $fechaIngresoMinsal;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaIngresoMinsal
-     *
-     * @return \DateTime 
-     */
-    public function getFechaIngresoMinsal()
-    {
-        return $this->fechaIngresoMinsal;
     }
 
     /**
@@ -875,6 +435,75 @@ class MntEmpleado
     }
 
     /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return MntEmpleado
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set fechahoramod
+     *
+     * @param \DateTime $fechahoramod
+     * @return MntEmpleado
+     */
+    public function setFechahoramod($fechahoramod)
+    {
+        $this->fechahoramod = $fechahoramod;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahoramod
+     *
+     * @return \DateTime 
+     */
+    public function getFechahoramod()
+    {
+        return $this->fechahoramod;
+    }
+
+    /**
+     * Set nombreempleado
+     *
+     * @param string $nombreempleado
+     * @return MntEmpleado
+     */
+    public function setNombreempleado($nombreempleado)
+    {
+        $this->nombreempleado = $nombreempleado;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreempleado
+     *
+     * @return string 
+     */
+    public function getNombreempleado()
+    {
+        return $this->nombreempleado;
+    }
+
+    /**
      * Set idCargoEmpleado
      *
      * @param \Minsal\SiapsBundle\Entity\MntCargoEmpleado $idCargoEmpleado
@@ -895,29 +524,6 @@ class MntEmpleado
     public function getIdCargoEmpleado()
     {
         return $this->idCargoEmpleado;
-    }
-
-    /**
-     * Set idDepartamento
-     *
-     * @param \Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamento
-     * @return MntEmpleado
-     */
-    public function setIdDepartamento(\Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamento = null)
-    {
-        $this->idDepartamento = $idDepartamento;
-
-        return $this;
-    }
-
-    /**
-     * Get idDepartamento
-     *
-     * @return \Minsal\SiapsBundle\Entity\CtlDepartamento 
-     */
-    public function getIdDepartamento()
-    {
-        return $this->idDepartamento;
     }
 
     /**
@@ -944,52 +550,6 @@ class MntEmpleado
     }
 
     /**
-     * Set idMunicipio
-     *
-     * @param \Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipio
-     * @return MntEmpleado
-     */
-    public function setIdMunicipio(\Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipio = null)
-    {
-        $this->idMunicipio = $idMunicipio;
-
-        return $this;
-    }
-
-    /**
-     * Get idMunicipio
-     *
-     * @return \Minsal\SiapsBundle\Entity\CtlMunicipio 
-     */
-    public function getIdMunicipio()
-    {
-        return $this->idMunicipio;
-    }
-
-    /**
-     * Set idPais
-     *
-     * @param \Minsal\SiapsBundle\Entity\CtlPais $idPais
-     * @return MntEmpleado
-     */
-    public function setIdPais(\Minsal\SiapsBundle\Entity\CtlPais $idPais = null)
-    {
-        $this->idPais = $idPais;
-
-        return $this;
-    }
-
-    /**
-     * Get idPais
-     *
-     * @return \Minsal\SiapsBundle\Entity\CtlPais 
-     */
-    public function getIdPais()
-    {
-        return $this->idPais;
-    }
-
-    /**
      * Set idTipoEmpleado
      *
      * @param \Minsal\SiapsBundle\Entity\MntTipoEmpleado $idTipoEmpleado
@@ -1010,5 +570,55 @@ class MntEmpleado
     public function getIdTipoEmpleado()
     {
         return $this->idTipoEmpleado;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return MntEmpleado
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idusuariomod
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuariomod
+     * @return MntEmpleado
+     */
+    public function setIdusuariomod(\Minsal\SiapsBundle\Entity\User $idusuariomod = null)
+    {
+        $this->idusuariomod = $idusuariomod;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuariomod
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuariomod()
+    {
+        return $this->idusuariomod;
+    }
+    
+    public function __toString() {
+        return $this->nombreempleado?:'';
     }
 }

@@ -70,7 +70,11 @@ $(document).ready(function() {
                 });
     });
     /*COLOCAR HORA ACTUAL DEL SISTEMA*/
-    if$('select[id$="_hora_hour"]')
+    if ($('select[id$="_hora_hour"]').val() == '0' ){
+        var dia = new Date();
+        $('select[id$="_hora_hour"]').val(dia.getHours())
+        $('select[id$="_hora_minute"]').val(dia.getMinutes())
+    }
     
 
 

@@ -14,10 +14,11 @@
     <input type="hidden" id="paciente" name="paciente" value="{{datos.id}}">
 </form>
 <div class="well form-actions" width="80%">
-    <a class="btn btn-primary" href="" id="imprimir_hoja" >Imprimir Hoja</a>
-    <!--a class="btn" href="" >Asignar Consulta</a-->
-    <a class="btn" href="{{ admin.generateUrl('list') }}">Buscar otro Paciente</a>
-    <a class="btn" href="{{ admin.generateUrl('edit',{'id':datos.getId}) }}" >Editar Datos</a>
-    <a class="btn" href="{{ path('admin_minsal_seguimiento_secingreso_create',{'id_paciente':datos.getId}) }}" >Ingresar Paciente</a>
+    <a class="btn btn-primary" href="" id="imprimir_hoja" ><i class="icon-print"></i>Identificación Paciente</a>
+    <a class="btn" href="" id="imprimir_hoja" ><i class="icon-print"></i>Hoja de Consulta</a>
+    <a class="btn" href="{{ admin.generateUrl('list') }}"><i class="icon-search"></i>Buscar otro Paciente</a>
+    <a class="btn" href="{{ admin.generateUrl('edit',{'id':datos.getId}) }}" ><i class="icon-edit"></i>Editar Datos</a>
+    <a class="btn" href="{{ path('admin_minsal_seguimiento_secingreso_create',{'id_paciente':datos.getId}) }}" ><i class="icon-briefcase"></i>Ingresar Paciente</a>
+    
 </div>
 {%endblock%}

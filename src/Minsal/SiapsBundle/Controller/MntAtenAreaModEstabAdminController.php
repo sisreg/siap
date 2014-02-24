@@ -43,7 +43,7 @@ class MntAtenAreaModEstabAdminController extends Controller {
             $establecimiento = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
                     ->findOneBy(array('configurado' => true));
             $area = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')
-                    ->findOneBy(array('id' => $object->getIdAtencion()));
+                    ->findOneBy(array('id' => (int) $request->get('idAtenModEstab')));
             if ($request->get('numero_ambientes') == '') {
                 if ($request->get('por_sexo') == 'on') {
                     $ambiente = new MntAtenAreaModEstab();

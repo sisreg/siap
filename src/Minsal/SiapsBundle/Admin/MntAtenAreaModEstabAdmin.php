@@ -20,7 +20,7 @@ class MntAtenAreaModEstabAdmin extends Admin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('idAtencion', null, array('label' => 'Especialidad'))
+             //   ->add('idAtencion', null, array('label' => 'Especialidad'))
                 ->add('nombreAmbiente', null, array('label' => 'Servicio'))
         ;
     }
