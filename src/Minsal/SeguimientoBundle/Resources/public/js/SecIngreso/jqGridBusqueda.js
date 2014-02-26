@@ -40,9 +40,8 @@ $(document).ready(function() {
                 }
             }
         }
-    })
-            .jqGrid('navGrid', '#pBuscarPaciente',
+    }).jqGrid('navGrid', '#pBuscarPaciente',
                     {edit: false, add: false, del: false, search: false, refresh: false}
-            ).hideCol(['id']);
+        ).hideCol(['id']);
 
 });
