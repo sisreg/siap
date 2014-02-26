@@ -1,0 +1,16 @@
+{%block javascripts %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#btningreso{{ idPaciente }}').click(function() {
+            url = Routing.generate('hoja_ingreso_egreso') + '/hojaIngresoEgreso/PDF?paciente={{idPaciente}}'
+            window.open(url, '_blank');
+            return false;
+        });
+
+    });
+</script>
+{%endblock%}
+<a id="btningreso{{ idPaciente }}" href="" class="btn sonata-action-element">
+    <i class="icon-book"></i>Hoja de Ingreso
+</a>

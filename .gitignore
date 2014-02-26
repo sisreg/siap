@@ -23,7 +23,7 @@ nbproject/
 *~
 
 #Archivo de configuración del JasperServerReport
-src/Minsal/SiapsBundle/Util/JasperReport/_jasperserverreports.php
+src/Minsal/Util/JasperReport/_jasperserverreports.php
 
 #Directorio que utiliza el JasperServerReport para abrir las imagenes
 web/imagenes/*

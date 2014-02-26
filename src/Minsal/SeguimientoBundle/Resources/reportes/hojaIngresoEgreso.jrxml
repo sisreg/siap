@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hojaIngresoEgreso" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="96e2e82d-337e-4b41-a0b8-a100dfe5e290">
-	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.zoom" value="1.3310000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1995"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -24,13 +24,16 @@
 		</box>
 	</style>
 	<subDataset name="Table Dataset 1" uuid="1069a443-fa01-4860-96c1-c55b0399962b"/>
+	<parameter name="id_paciente" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
 /*DATOS DEL PACIENTE*/
 initcap(
 C.primer_apellido||coalesce(' '||C.segundo_apellido,'')||coalesce(' '||C.apellido_casada,'')) as apellido_paciente,
 initcap(C.primer_nombre||coalesce(' '||C.segundo_nombre,'')||coalesce(' '||C.tercer_nombre,'')) as nombre_paciente,
-(Select * From fn_calcular_edad(1,'completa')) as edad,
+(Select * From fn_calcular_edad($P{id_paciente},'completa')) as edad,
 to_char(C.fecha_nacimiento,'DD/MM/YYYY') AS fecha_nacimiento,
 B.numero expediente,
 CASE WHEN C.numero_doc_ide_paciente IS NULL THEN '-' ELSE C.numero_doc_ide_paciente END numero_documento,
@@ -93,7 +96,7 @@ FROM sec_ingreso A
      LEFT JOIN mnt_empleado T ON T.id=A.id_empleado
      LEFT JOIN mnt_cargo_empleado U ON U.id=T.id_cargo_empleado
      INNER JOIN fos_user_user V ON V.id=A.id_usuario_registra
-WHERE B.habilitado=true AND C.id=1]]>
+WHERE B.habilitado=true AND C.id=$P{id_paciente}]]>
 	</queryString>
 	<field name="apellido_paciente" class="java.lang.String"/>
 	<field name="nombre_paciente" class="java.lang.String"/>
@@ -985,7 +988,7 @@ a=ambos]]></fieldDescription>
 		</band>
 		<band height="752">
 			<rectangle>
-				<reportElement x="3" y="363" width="569" height="101" uuid="67d50916-45ec-479c-be8d-3e7fe419abd9"/>
+				<reportElement x="3" y="363" width="570" height="101" uuid="67d50916-45ec-479c-be8d-3e7fe419abd9"/>
 			</rectangle>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="258" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="de58154f-206b-4b66-a43e-a235540332a3"/>
@@ -2091,14 +2094,14 @@ a=ambos]]></fieldDescription>
 				<reportElement mode="Transparent" x="453" y="441" width="12" height="12" uuid="09d10142-ae03-4ba4-8d7c-e933227ab12f"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="473" y="441" width="90" height="12" uuid="0fd5ecf5-9742-4ffa-bd6e-977b89c9ed10"/>
+				<reportElement x="469" y="441" width="90" height="12" uuid="0fd5ecf5-9742-4ffa-bd6e-977b89c9ed10"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Durante el Puerperio]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement mode="Transparent" x="558" y="441" width="12" height="12" uuid="9c721670-9728-46cd-973e-b4ca0254bc42"/>
+				<reportElement mode="Transparent" x="557" y="441" width="12" height="12" uuid="9c721670-9728-46cd-973e-b4ca0254bc42"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="1" y="474" width="87" height="12" uuid="3e9c0748-19a9-4bda-8bde-7e2d9729bba1"/>

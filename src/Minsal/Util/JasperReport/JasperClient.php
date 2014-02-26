@@ -1,6 +1,6 @@
 <?php
 
-namespace Minsal\SiapsBundle\Util\JasperReport;
+namespace Minsal\Util\JasperReport;
 
 class JasperClient {
 

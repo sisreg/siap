@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Minsal\SiapsBundle\Util\JasperReport\JasperClient as JasperClient;
+use Minsal\Util\JasperReport\JasperClient as JasperClient;
 
-include (__DIR__ . '/../Util/JasperReport/_jasperserverreports.php');
+include_once (__DIR__ . '/../../Util/JasperReport/_jasperserverreports.php');
 
 class ReporteController extends Controller {
 

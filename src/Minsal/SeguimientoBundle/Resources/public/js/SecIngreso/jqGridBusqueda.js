@@ -31,12 +31,11 @@ $(document).ready(function() {
             for (var i = 0; i < ids.length; i++) {
                 var cl = ids[i];
                 if (cl != 0) {
-                    ce = "<a class=\"btn sonata-action-element\" href=\"" + cl + "\/view\"><i class=\"icon-book\"></i>Hoja Ingreso</a>";
-                    ce += "<br/>";
+                    ce = "<div id='ingreso" + cl + "'></div>";
                     ce += "<div id='boton" + cl + "'></div>";
                     jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
                     $('#boton' + cl).load(Routing.generate('boton_editar', {'idRegistro': cl}));
-
+                    $('#ingreso' + cl).load(Routing.generate('boton_ingreso_egreso', {'idIngreso': cl}));
                 }
             }
         }

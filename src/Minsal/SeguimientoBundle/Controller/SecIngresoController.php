@@ -112,13 +112,13 @@ class SecIngresoController extends Controller {
 
         return $this->render('MinsalSeguimientoBundle:SecIngreso:resultado_busqueda.html.twig', array());
     }
-    
+
     /**
      * @Route("/boton/editar/{idRegistro}", name="boton_editar", options={"expose"=true})
      */
     public function botonEditarAction($idRegistro) {
 
-        return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_editar.html.twig', array('idRegistro'=>$idRegistro));
+        return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_editar.html.twig', array('idRegistro' => $idRegistro));
     }
 
     /**
@@ -136,7 +136,7 @@ class SecIngresoController extends Controller {
         $fechaNacimiento = $request->get('fecha_nacimiento');
         $nec = chop(ltrim($request->get('nec')));
         $servicio = $request->get('servicio_ingreso');
-        
+
 
         //INICIALIZANDO VARIABLE DOCTRINE
         $em = $this->getDoctrine()->getManager();
@@ -169,12 +169,12 @@ class SecIngresoController extends Controller {
         if ($nec != '')
             $nec = " AND B.numero='$nec'";
         if ($servicio != '')
-            $servicio  = " AND E.id_ambiente_ingreso='$servicio'";
-        $fechas='';
-        if($primerNombre == '' && $primerApellido == '' && $nec=='' && $fechaNacimiento=='')
-            $fechas=" AND date(E.fecha) BETWEEN date('yesterday'::date) AND current_date";
+            $servicio = " AND E.id_ambiente_ingreso='$servicio'";
+        $fechas = '';
+        if ($primerNombre == '' && $primerApellido == '' && $nec == '' && $fechaNacimiento == '')
+            $fechas = " AND date(E.fecha) BETWEEN date('yesterday'::date) AND current_date";
 
-        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec .$servicio.$fechas. " ORDER BY A.primer_Apellido";
+        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec . $servicio . $fechas . " ORDER BY A.primer_Apellido";
 
         $query = $conn->query($sql);
 
@@ -193,7 +193,7 @@ class SecIngresoController extends Controller {
                     date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
                     $aux['ambiente'],
                     $aux['diagnostico'],
-                    date('d-m-Y', strtotime($aux['fecha']))." ".date('H:i', strtotime($aux['hora']))
+                    date('d-m-Y', strtotime($aux['fecha'])) . " " . date('H:i', strtotime($aux['hora']))
                 );
                 $i++;
             }
@@ -209,6 +209,21 @@ class SecIngresoController extends Controller {
                "rows":' . $datos . '}';
 
         return new Response($jsonresponse);
+    }
+
+    /**
+     * @Route("/boton/ingreso/egreso/{idIngreso}", name="boton_ingreso_egreso", options={"expose"=true})
+     */
+    public function botonIngresoEgresoAction($idIngreso) {
+        $em = $this->getDoctrine()->getManager();
+        $dql = "SELECT C.id as id
+                FROM MinsalSeguimientoBundle:SecIngreso A
+                JOIN A.idExpediente B
+                JOIN B.idPaciente C
+                WHERE A.id=$idIngreso";
+        $paciente= $em->createQuery($dql)
+                ->getSingleResult();
+        return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_ingreso_egreso.html.twig', array('idPaciente' => $paciente['id']));
     }
 
 }
