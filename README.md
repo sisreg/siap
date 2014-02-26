@@ -320,7 +320,7 @@ contenido similar al siguiente:
 base de datos.
 * Agregar un archivo llamado **_jasperserverreports.php** para la configuración 
 de JasperReport Server en la ruta 
-**src/Minsal/SiapsBundle/Util/JasperReport/** con la siguiente estructura:
+**src/Minsal/Util/JasperReport/** con la siguiente estructura:
 
         <?php
         define('JASPER_USER', 'usuario_jasper_server');
