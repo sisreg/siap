@@ -274,26 +274,33 @@ class MntPacienteAdmin extends Admin {
                 foreach ($object->getExpedientes() as $expediente) {
                     if (preg_match('/^\d{1,}-\d{2}$/', $expediente->getNumero()) == 0) {
                         $errorElement->with('numero')
-                                ->addViolation('El formato del número de expediente es incorrecto')
+                                ->addViolation('El formato del número de expediente es incorrecto o contiene letras')
                                 ->end();
-                    } elseif (preg_match('/^([1-9]+0*[1-9]+)-(\d{2})$/', $expediente->getNumero()) == 0) {
-                        if (preg_match('/^([1-9]+0*)-(\d{2})$/', $expediente->getNumero()) == 0)
+                    } else {
+                        list($entero, $anio) = explode('-', $expediente->getNumero());
+                        $entero = (int) $entero;
+                        if($entero==0)
                             $errorElement->with('numero')
-                                    ->addViolation('El numero de expediente no puede ser 0 ó contener 0 al inicio')
+                                    ->addViolation('El numero de expediente no puede ser 0')
                                     ->end();
+                        else
+                            $expediente->setNumero((string)$entero.'-'.$anio);
                     }
-                }//192129
+                }
             } else {
                 foreach ($object->getExpedientes() as $expediente) {
                     if (preg_match('/^\d{1,}$/', $expediente->getNumero()) == 0) {
                         $errorElement->with('numero')
-                                ->addViolation('El numero de expediente no puede ser 0 ó contener 0 al inicio')
+                                ->addViolation('El formato del número de expediente es incorrecto o contiene letras')
                                 ->end();
-                    } elseif (preg_match('/^([1-9]+0*[1-9]+)$/', $expediente->getNumero()) == 0) {
-                        if (preg_match('/^([1-9]+0*)$/', $expediente->getNumero()) == 0)
+                    } else {
+                        $numero=(int)$expediente->getNumero();
+                        if ($numero == 0)
                             $errorElement->with('numero')
-                                    ->addViolation('El numero de expediente no puede ser 0 ó contener 0 al inicio')
+                                    ->addViolation('El numero de expediente no puede ser 0')
                                     ->end();
+                        else
+                            $expediente->setNumero((string)$numero);
                     }
                 }
             }
