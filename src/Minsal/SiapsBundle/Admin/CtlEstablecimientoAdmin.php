@@ -73,14 +73,18 @@ class CtlEstablecimientoAdmin extends Admin {
                 ->createQuery("
                     SELECT u
                     FROM MinsalSiapsBundle:User u
-                    JOIN u.groups G
-                    WHERE u.username LIKE '%admin' 
+                    LEFT JOIN u.groups G
+                    WHERE u.username LIKE '_%admin' 
                             OR G.name LIKE '%Admin'")
                 ->getResult();
-        
         foreach ($usuariosAdministradores as $usuario) {
             $usuario->setIdEstablecimiento($establecimiento);
             $this->getModelManager()->update($usuario);
+            if ($usuario->getUsername() == 'citasadmin') {
+                $empleado = $usuario->getIdEmpleado();
+                $empleado->setIdEstablecimiento($establecimiento);
+                $this->getModelManager()->update($empleado);
+            }
         }
     }
 

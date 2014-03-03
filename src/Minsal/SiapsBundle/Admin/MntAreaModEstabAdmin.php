@@ -22,8 +22,8 @@ class MntAreaModEstabAdmin extends Admin {
                     'read_only' => true,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function($repositorio) {
-                        return $repositorio->obtenerEstabConfigurado();
-                    }))
+                return $repositorio->obtenerEstabConfigurado();
+            }))
                 ->add('idModalidadEstab', 'entity', array('label' => $this->getTranslator()->trans('id_modalidad'),
                     'empty_value' => 'Seleccione la modalidad',
                     'class' => 'MinsalSiapsBundle:MntModalidadEstablecimiento'
@@ -88,6 +88,22 @@ class MntAreaModEstabAdmin extends Admin {
     public function getBatchActions() {
         $actions = parent::getBatchActions();
         $actions['delete'] = null;
+    }
+
+    public function postPersist($mntAreaModEstab) {
+        if ($mntAreaModEstab->getIdModalidadEstab()->getIdModalidad()->getId() == 1) {
+            if ($mntAreaModEstab->getIdAreaAtencion()->getId() == 1) {
+                $usuario = $this->getModelManager()
+                        ->getEntityManager('MinsalSiapsBundle:User')
+                        ->createQuery("
+                    SELECT u
+                    FROM MinsalSiapsBundle:User u
+                    WHERE u.username LIKE 'citasadmin'")
+                        ->getSingleResult();
+                $usuario->setIdAreaModEstab($mntAreaModEstab);
+                $this->getModelManager()->update($usuario);
+            }
+        }
     }
 
 }

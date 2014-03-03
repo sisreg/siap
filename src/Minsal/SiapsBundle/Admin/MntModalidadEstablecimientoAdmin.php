@@ -22,17 +22,17 @@ class MntModalidadEstablecimientoAdmin extends Admin {
                     'read_only' => true,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function($repositorio) {
-                        return $repositorio->obtenerEstabConfigurado();
-                    }))
+                return $repositorio->obtenerEstabConfigurado();
+            }))
                 ->add('idModalidad', 'entity', array('label' => $this->getTranslator()->trans('id_modalidad'),
                     'empty_value' => 'Seleccione la modalidad',
                     'class' => 'MinsalSiapsBundle:CtlModalidad',
                     'query_builder' => function($repositorio) {
-                        $ruta_accion = explode('/', $this->getRequest()->getUri());
-                        $accion = array_pop($ruta_accion);
-                        $valor = array_pop($ruta_accion);
-                        return $repositorio->obtenerModalidades($accion, $valor);
-                    }))
+                $ruta_accion = explode('/', $this->getRequest()->getUri());
+                $accion = array_pop($ruta_accion);
+                $valor = array_pop($ruta_accion);
+                return $repositorio->obtenerModalidades($accion, $valor);
+            }))
                 ->add('tieneFarmacia', null, array('label' => 'Tiene farmacia habilitada', 'required' => false))
                 ->add('repetitiva', null, array('label' => 'Emite recetas repetitivas', 'required' => false));
     }
@@ -61,13 +61,34 @@ class MntModalidadEstablecimientoAdmin extends Admin {
         ;
     }
 
-    public function validate(ErrorElement $errorElement, $object) {
-        
-    }
-
     public function getBatchActions() {
         $actions = parent::getBatchActions();
         $actions['delete'] = null;
+    }
+
+    public function postPersist($mntModalidadEstablecimiento) {
+        if ($mntModalidadEstablecimiento->getIdModalidad()->getId() == 1) {
+            $usuario = $this->getModelManager()
+                    ->getEntityManager('MinsalSiapsBundle:User')
+                    ->createQuery("
+                    SELECT u
+                    FROM MinsalSiapsBundle:User u
+                    WHERE u.username LIKE 'farmaadmin'")
+                    ->getSingleResult();
+            $usuario->setIdModalidadEstab($mntModalidadEstablecimiento);
+            $this->getModelManager()->update($usuario);
+        } elseif($mntModalidadEstablecimiento->getIdModalidad()->getId() == 2) {
+            $usuario = $this->getModelManager()
+                    ->getEntityManager('MinsalSiapsBundle:User')
+                    ->createQuery("
+                    SELECT u
+                    FROM MinsalSiapsBundle:User u
+                    WHERE u.username LIKE 'fosaludadmin'")
+                    ->getSingleResult();
+            $usuario->setEnabled(true);
+            $usuario->setIdModalidadEstab($mntModalidadEstablecimiento);
+            $this->getModelManager()->update($usuario);
+        }
     }
 
 }

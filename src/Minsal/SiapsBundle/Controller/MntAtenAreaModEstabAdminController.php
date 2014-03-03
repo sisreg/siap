@@ -40,8 +40,8 @@ class MntAtenAreaModEstabAdminController extends Controller {
             $request = $this->get('request');
             $em = $this->getDoctrine()->getManager();
 
-            $establecimiento = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
-                    ->findOneBy(array('configurado' => true));
+            //$establecimiento = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
+            //        ->findOneBy(array('configurado' => true));
             $area = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')
                     ->findOneBy(array('id' => (int) $request->get('idAtenModEstab')));
             if ($request->get('numero_ambientes') == '') {
@@ -54,14 +54,14 @@ class MntAtenAreaModEstabAdminController extends Controller {
                     $ambiente = new MntAtenAreaModEstab();
                     $ambiente->setIdAtencion($area->getIdAtencion());
                     $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
-                    $ambiente->setIdEstablecimiento($establecimiento);
+                    //$ambiente->setIdEstablecimiento($establecimiento);
                     $ambiente->setNombreAmbiente($request->get('hom_nombre'));
                     $this->admin->create($ambiente);
                 } else {
                     $ambiente = new MntAtenAreaModEstab();
                     $ambiente->setIdAtencion($area->getIdAtencion());
                     $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
-                    $ambiente->setIdEstablecimiento($establecimiento);
+                    //$ambiente->setIdEstablecimiento($establecimiento);
                     $ambiente->setNombreAmbiente($request->get('nombre'));
                     $this->admin->create($ambiente);
                 }
@@ -71,13 +71,13 @@ class MntAtenAreaModEstabAdminController extends Controller {
                         $ambiente = new MntAtenAreaModEstab();
                         $ambiente->setIdAtencion($area->getIdAtencion());
                         $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
-                        $ambiente->setIdEstablecimiento($establecimiento);
+                        //$ambiente->setIdEstablecimiento($establecimiento);
                         $ambiente->setNombreAmbiente($request->get($i . '_muj_nombre'));
                         $this->admin->create($ambiente);
                         $ambiente = new MntAtenAreaModEstab();
                         $ambiente->setIdAtencion($area->getIdAtencion());
                         $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
-                        $ambiente->setIdEstablecimiento($establecimiento);
+                        //$ambiente->setIdEstablecimiento($establecimiento);
                         $ambiente->setNombreAmbiente($request->get($i . '_hom_nombre'));
                         $this->admin->create($ambiente);
                     }
@@ -86,7 +86,7 @@ class MntAtenAreaModEstabAdminController extends Controller {
                         $ambiente = new MntAtenAreaModEstab();
                         $ambiente->setIdAtencion($area->getIdAtencion());
                         $ambiente->setIdAreaModEstab($area->getIdAreaModEstab());
-                        $ambiente->setIdEstablecimiento($establecimiento);
+                      //  $ambiente->setIdEstablecimiento($establecimiento);
                         $ambiente->setNombreAmbiente($request->get($i . '_nombre'));
                         $this->admin->create($ambiente);
                     }
