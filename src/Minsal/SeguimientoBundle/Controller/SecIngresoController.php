@@ -137,7 +137,6 @@ class SecIngresoController extends Controller {
         $nec = chop(ltrim($request->get('nec')));
         $servicio = $request->get('servicio_ingreso');
 
-
         //INICIALIZANDO VARIABLE DOCTRINE
         $em = $this->getDoctrine()->getManager();
         $conn = $em->getConnection();
@@ -145,10 +144,10 @@ class SecIngresoController extends Controller {
 
         $sql = "SELECT A.*,E.id id_ingreso,C.nombre,B.numero,D.nombre_ambiente ambiente,E.diagnostico,E.fecha,E.hora
                 FROM mnt_paciente A 
-                     LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente
                      INNER JOIN mnt_expediente B ON B.id_paciente=A.id
-                     INNER JOIN sec_ingreso E ON E.id_expediente=B.id
-                     INNER JOIN mnt_aten_area_mod_estab D ON E.id_ambiente_ingreso=D.id
+                     LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente                     
+                     LEFT JOIN sec_ingreso E ON E.id_expediente=B.id
+                     LEFT JOIN mnt_aten_area_mod_estab D ON E.id_ambiente_ingreso=D.id
                 WHERE  B.habilitado= TRUE ";
 
 
@@ -169,13 +168,13 @@ class SecIngresoController extends Controller {
         if ($nec != '')
             $nec = " AND B.numero='$nec'";
         if ($servicio != '')
-            $servicio = " AND E.id_ambiente_ingreso='$servicio'";
+            $servicio = " AND E.id_ambiente_ingreso=$servicio";
         $fechas = '';
-        if ($primerNombre == '' && $primerApellido == '' && $nec == '' && $fechaNacimiento == '')
-            $fechas = " AND date(E.fecha) BETWEEN date('yesterday'::date) AND current_date";
+        if ($primerNombre == '' && $primerApellido == '' && $nec == '' && $fechaNacimiento == '' && $servicio == '')
+            $fechas = " AND date(E.fecha) = current_date";
 
         $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec . $servicio . $fechas . " ORDER BY A.primer_Apellido";
-
+        
         $query = $conn->query($sql);
 
         $numfilas = count($query->rowCount());
@@ -223,7 +222,7 @@ class SecIngresoController extends Controller {
                 WHERE A.id=$idIngreso";
         $paciente= $em->createQuery($dql)
                 ->getSingleResult();
-        return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_ingreso_egreso.html.twig', array('idPaciente' => $paciente['id']));
+        return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_ingreso_egreso.html.twig', array('idPaciente' => $paciente['id'],'idIngreso'=>$idIngreso));
     }
 
 }

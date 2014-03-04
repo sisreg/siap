@@ -27,6 +27,9 @@
 	<parameter name="id_paciente" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="id_ingreso" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
 /*DATOS DEL PACIENTE*/
@@ -96,7 +99,7 @@ FROM sec_ingreso A
      LEFT JOIN mnt_empleado T ON T.id=A.id_empleado
      LEFT JOIN mnt_cargo_empleado U ON U.id=T.id_cargo_empleado
      INNER JOIN fos_user_user V ON V.id=A.id_usuario_registra
-WHERE B.habilitado=true AND C.id=$P{id_paciente}]]>
+WHERE B.habilitado=true AND C.id=$P{id_paciente} AND A.id=$P{id_ingreso}]]>
 	</queryString>
 	<field name="apellido_paciente" class="java.lang.String"/>
 	<field name="nombre_paciente" class="java.lang.String"/>

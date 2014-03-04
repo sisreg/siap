@@ -67,4 +67,13 @@ class UserAdmin extends BaseUserAdmin {
         }
     }
     
+     /*public function createQuery($context = 'list') {
+        $query = parent::createQuery($context);
+
+        return new ProxyQuery(
+                $query
+                        ->where($query->getRootAlias() . '.idTipoEstablecimiento NOT IN (12,13)')
+        );
+    }*/
+    
 }

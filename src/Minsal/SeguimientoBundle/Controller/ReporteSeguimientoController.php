@@ -23,7 +23,11 @@ class ReporteSeguimientoController extends Controller {
 
         $request = $this->getRequest();
         $id_paciente = $request->get('paciente');
-        $report_params = array('id_paciente' => $id_paciente);
+        $id_ingreso = $request->get('ingreso');
+        $report_params = array(
+            'id_paciente' => $id_paciente,
+            'id_ingreso' => $id_ingreso
+        );
 
         $client = new JasperClient($jasper_url, $jasper_username, $jasper_password);
 
@@ -38,7 +42,7 @@ class ReporteSeguimientoController extends Controller {
 
         return $response;
     }
-    
+
 }
 
 ?>

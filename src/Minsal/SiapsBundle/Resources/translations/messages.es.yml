@@ -45,5 +45,6 @@
 'Mnt Paciente View' : ''
 change_password.flash.success: 'Cambio Contraseña Con Éxito'
 fos_user.password.mismatch: 'La nueva constraseña no coinciden'
+'Mnt Empleado List' : 'Listado de Médicos'
 #SEGUIMIENTOBUNDLE
 'Sec Ingreso List' : ''

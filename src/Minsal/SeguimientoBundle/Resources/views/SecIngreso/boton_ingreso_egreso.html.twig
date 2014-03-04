@@ -3,7 +3,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#btningreso{{ idPaciente }}').click(function() {
-            url = Routing.generate('hoja_ingreso_egreso') + '/hojaIngresoEgreso/PDF?paciente={{idPaciente}}'
+            url = Routing.generate('hoja_ingreso_egreso') + '/hojaIngresoEgreso/PDF?paciente={{idPaciente}}&ingreso={{idIngreso}}'
             window.open(url, '_blank');
             return false;
         });

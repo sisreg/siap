@@ -17,18 +17,18 @@ class SecIngresoAdmin extends Admin {
                     'class' => 'MinsalSeguimientoBundle:SecProcedenciaIngreso',
                     'empty_value' => 'Seleccione la procedencia del ingreso',
                     'query_builder' => function(EntityRepository $repositorio) {
-                        return $repositorio
-                                ->createQueryBuilder('spi')
-                                ->where('spi.habilitado = true');
-                    }))
+                return $repositorio
+                        ->createQueryBuilder('spi')
+                        ->where('spi.habilitado = true');
+            }))
                 ->add('idCircunstanciaIngreso', 'entity', array('label' => 'Circunstancia de ingreso',
                     'class' => 'MinsalSeguimientoBundle:SecCircunstanciaIngreso',
                     'empty_value' => 'Seleccione la circunstancia del ingreso',
                     'query_builder' => function(EntityRepository $repositorio) {
-                        return $repositorio
-                                ->createQueryBuilder('sci')
-                                ->where('sci.habilitado = true');
-                    }))
+                return $repositorio
+                        ->createQueryBuilder('sci')
+                        ->where('sci.habilitado = true');
+            }))
                 ->add('fecha', 'date', array('required' => true,
                     'label' => 'Fecha del Ingreso',
                     'widget' => 'single_text', 'format' => 'dd-MM-yyyy',
@@ -51,19 +51,26 @@ class SecIngresoAdmin extends Admin {
                     'class' => 'MinsalSeguimientoBundle:SecTipoAccidente', 'required' => false,
                     'empty_value' => 'Seleccione si existierá',
                     'query_builder' => function(EntityRepository $repositorio) {
-                        return $repositorio
-                                ->createQueryBuilder('spi')
-                                ->where('spi.habilitado = true');
-                    }))
-                ->add('idEmpleado', null, array('required' => false, 'label' => 'Nombre del médico que indico el ingreso'))
+                return $repositorio
+                        ->createQueryBuilder('spi')
+                        ->where('spi.habilitado = true');
+            }))
+                ->add('idEmpleado', 'entity', array('required' => false, 'label' => 'Nombre del médico que indico el ingreso',
+                    'class' => 'MinsalSiapsBundle:MntEmpleado',
+                    'empty_value' => 'Seleccione',
+                    'query_builder' => function(EntityRepository $repositorio) {
+                return $repositorio
+                        ->createQueryBuilder('me')
+                        ->where('me.idTipoEmpleado = 4');
+            }))
                 ->add('idEstablecimientoReferencia', 'entity', array('label' => 'Nombre del Establecimiento', 'required' => false,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'empty_value' => 'Seleccione..',
                     'query_builder' => function(EntityRepository $repositorio) {
-                        return $repositorio
-                                ->createQueryBuilder('e')
-                                ->where('e.idTipoEstablecimiento NOT IN (12,13)');
-                    }))
+                return $repositorio
+                        ->createQueryBuilder('e')
+                        ->where('e.idTipoEstablecimiento NOT IN (12,13)');
+            }))
                 ->add('motivoReferencia', 'textarea', array('required' => false, 'label' => 'Motivo'))
         ;
     }
@@ -87,6 +94,25 @@ class SecIngresoAdmin extends Admin {
             $errorElement->with('fecha')
                     ->addViolation('La fecha del ingreso no puede ser mayor que la fecha actual')
                     ->end();
+        }
+
+        if (is_null($ingreso->getId())) {
+            $posiblePaciente = $this->getModelManager()
+                    ->getEntityManager('MinsalSeguimientoBundle:SecIngreso')
+                    ->createQuery("
+                    SELECT p.id
+                    FROM MinsalSeguimientoBundle:SecIngreso i
+                    JOIN i.idExpediente e
+                    JOIN e.idPaciente p
+                    WHERE p.id= :id AND i.fecha = :actual")
+                    ->setParameter('id', $ingreso->getIdExpediente()->getIdPaciente()->getId())
+                    ->setParameter('actual', $fechaActual->format('d-m-Y'))
+                    ->getResult();
+            foreach ($posiblePaciente as $paciente) {
+                $errorElement->with('diagnostico')
+                        ->addViolation('No se puede ingresar a este paciente porque ha sido ingresado anteriormente')
+                        ->end();
+            }
         }
     }
 

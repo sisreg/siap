@@ -83,7 +83,7 @@ fos_user:
 
     group:
         group_class:  Application\Sonata\UserBundle\Entity\Group
-
+    
     profile:  # Authentication Form
         form:
             type:               fos_user_profile
@@ -141,7 +141,7 @@ sonata_user:
     class:
         user:         Minsal\SiapsBundle\Entity\User
         group:        Application\Sonata\UserBundle\Entity\Group
-
+    
     profile:  # Profile Form (firstname, lastname, etc ...)
         form:
             type:               sonata_user_profile

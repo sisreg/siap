@@ -93,4 +93,8 @@ class MntTipoEmpleado
     {
         return $this->tipo;
     }
+    
+    public function __toString() {
+        return $this->codigo.' '.$this->tipo?:'';
+    }
 }

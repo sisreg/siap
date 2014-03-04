@@ -34,35 +34,40 @@ $(document).ready(function() {
             });
 
     $("#buscar").click(function() {
-        if ($("#nec").val() != '') {
-           
+        if ($("#servicio_ingreso").val() != '') {
             $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
             $('#resultadoBusqueda').show();
         } else {
-            if ($("#fecha_nacimiento").val() != '') {
+            if ($("#nec").val() != '') {
+
                 $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
                 $('#resultadoBusqueda').show();
-            }
-            else {
-                if ($("#primer_apellido").val() == '' && $("#primer_nombre").val() == '') {
-                    //SE ELIMINA O SE CREA EL ELEMENTO
-                    ($('#error')) ? $('#error').remove() : '';
-                    //SE LE ASIGNA VALOR AL ELEMENTO
-                    var elem = $("<div id='error' title='Campos Obligatorios'>" +
-                            "Los campos:\n\
-                <ul><li> <strong>Primer Apellido</strong> </li><li><strong>Primer Nombre</strong></li></ul>\n\
-                <center>Son obligatorios<center></div>");
-                    //SE AGREGA LUEGO DEL FORMULARIO
-                    elem.insertAfter($("#buscarForm"));
-                    //SE DEFINEN LAS PROPIEDADES DE LA VENTANA Y SE ABRE.
-                    $("#error").dialog({
-                        close: function() {
-                            $("#primer_apellido").focus();
-                        }
-                    });
-                } else {
+            } else {
+                if ($("#fecha_nacimiento").val() != '') {
                     $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
                     $('#resultadoBusqueda').show();
+                }
+                else {
+                    if ($("#primer_apellido").val() == '' && $("#primer_nombre").val() == '') {
+                        //SE ELIMINA O SE CREA EL ELEMENTO
+                        ($('#error')) ? $('#error').remove() : '';
+                        //SE LE ASIGNA VALOR AL ELEMENTO
+                        var elem = $("<div id='error' title='Campos Obligatorios'>" +
+                                "Los campos:\n\
+                <ul><li> <strong>Primer Apellido</strong> </li><li><strong>Primer Nombre</strong></li></ul>\n\
+                <center>Son obligatorios<center></div>");
+                        //SE AGREGA LUEGO DEL FORMULARIO
+                        elem.insertAfter($("#buscarForm"));
+                        //SE DEFINEN LAS PROPIEDADES DE LA VENTANA Y SE ABRE.
+                        $("#error").dialog({
+                            close: function() {
+                                $("#primer_apellido").focus();
+                            }
+                        });
+                    } else {
+                        $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
+                        $('#resultadoBusqueda').show();
+                    }
                 }
             }
         }

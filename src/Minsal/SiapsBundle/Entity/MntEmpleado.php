@@ -152,14 +152,14 @@ class MntEmpleado {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechahorareg", type="date")
+     * @ORM\Column(name="fechahorareg", type="datetime")
      */
     private $fechahorareg;
     
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechahoramod", type="date")
+     * @ORM\Column(name="fechahoramod", type="datetime")
      */
     private $fechahoramod;
     

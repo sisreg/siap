@@ -27,6 +27,8 @@ $(document).ready(function() {
         viewrecords: true,
         loadComplete: function() {
             $('#lregistro').text('Total de pacientes: ' + $(this).getGridParam('records'));
+        },
+        gridComplete: function() {
             var ids = jQuery("#tBuscarPaciente").jqGrid('getDataIDs');
             for (var i = 0; i < ids.length; i++) {
                 var cl = ids[i];
@@ -40,7 +42,7 @@ $(document).ready(function() {
             }
         }
     }).jqGrid('navGrid', '#pBuscarPaciente',
-                    {edit: false, add: false, del: false, search: false, refresh: false}
-        ).hideCol(['id']);
+            {edit: false, add: false, del: false, search: false, refresh: false}
+    ).hideCol(['id']);
 
 });
