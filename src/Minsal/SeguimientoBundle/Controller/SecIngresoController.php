@@ -173,7 +173,8 @@ class SecIngresoController extends Controller {
         if ($primerNombre == '' && $primerApellido == '' && $nec == '' && $fechaNacimiento == '' && $servicio == '')
             $fechas = " AND date(E.fecha) = current_date";
 
-        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec . $servicio . $fechas . " ORDER BY A.primer_Apellido";
+        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec . $servicio . $fechas ;
+        $sql.= " ORDER BY A.primer_Apellido ASC, E.fecha DESC";
         
         $query = $conn->query($sql);
 
