@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\DBAL as DBAL;
 
 class MntExpedienteController extends Controller {
+    /*
+     * DESCRIPCIÓN: Método que devuelve la vista para mostrar el resultado de 
+     * los expedientes creados en un determinado rango de fechas.
+     * ANALISTA PROGRAMADOR: Victoria López
+     */
 
     /**
      * @Route("/expedientes/creados", name="expedientes_creados", options={"expose"=true})
@@ -22,6 +27,12 @@ class MntExpedienteController extends Controller {
         return $this->render('MinsalSiapsBundle:MntExpedienteAdmin:expedientes_creados.html.twig', array(
                     'fecha_inicio' => $datos['fecha_inicio'], 'fecha_fin' => $datos['fecha_fin']));
     }
+
+    /*
+     * DESCRIPCIÓN: Método que devuelve el JSON de los expedientes creados
+     * para el JQGRID
+     * ANALISTA PROGRAMADOR: Victoria López
+     */
 
     /**
      * @Route("/expedientes/creados/listado", name="expedientes_creados_listado", options={"expose"=true})
@@ -42,12 +53,12 @@ class MntExpedienteController extends Controller {
         $numfilas = count($expedientes);
         $i = 0;
         $rows = array();
-        /*'Número Expediente', 'Fecha de Creación', 'Nombre Paciente', 'Sexo', 'Fecha de Nacimiento'*/
+        /* 'Número Expediente', 'Fecha de Creación', 'Nombre Paciente', 'Sexo', 'Fecha de Nacimiento' */
         foreach ($expedientes as $aux) {
             $rows[$i]['id'] = $aux->getId();
             $rows[$i]['cell'] = array($aux->getNumero(),
                 $aux->getFechaCreacion()->format('d-m-Y'),
-                $aux->getIdPaciente()->getPrimerApellido()." ".$aux->getIdPaciente()->getSegundoApellido()." ". $aux->getIdPaciente()->getApellidoCasada().", ".$aux->getIdPaciente()->getPrimerNombre()." ".$aux->getIdPaciente()->getSegundoNombre()." ".$aux->getIdPaciente()->getTercerNombre(),
+                $aux->getIdPaciente()->getPrimerApellido() . " " . $aux->getIdPaciente()->getSegundoApellido() . " " . $aux->getIdPaciente()->getApellidoCasada() . ", " . $aux->getIdPaciente()->getPrimerNombre() . " " . $aux->getIdPaciente()->getSegundoNombre() . " " . $aux->getIdPaciente()->getTercerNombre(),
                 $aux->getIdPaciente()->getIdSexo()->getNombre(),
                 $aux->getIdPaciente()->getFechaNacimiento()->format('d-m-Y')
             );

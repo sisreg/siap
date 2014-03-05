@@ -11,17 +11,11 @@ use Minsal\Metodos\Funciones;
 use Doctrine\DBAL as DBAL;
 
 class MntPacienteController extends Controller {
-
-    /**
-     * @Route("/profile/show", name="fos_user_profile_show")
+    /*
+     * DESCRIPCIÓN: Método que devuelve la vista para la busqueda local 
+     * del paciente
+     * ANALISTA PROGRAMADOR: Karen Peñate
      */
-    public function raiz() {
-        $this->get('session')->getFlashBag()->add(
-                'notice', 'change_password.flash.success'
-        );
-
-        return $this->redirect($this->generateUrl('_inicio'));
-    }
 
     /**
      * @Route("/buscar/paciente", name="buscar_paciente", options={"expose"=true})
@@ -31,6 +25,12 @@ class MntPacienteController extends Controller {
         return $this->render('MinsalSiapsBundle:MntPacienteAdmin:resultado_busqueda.html.twig', array('tipo_busqueda' => 'l'));
     }
 
+    /*
+     * DESCRIPCIÓN: Método que devuelve la vista para la busqueda global 
+     * del paciente
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
     /**
      * @Route("/buscar/paciente/global", name="buscar_paciente_global", options={"expose"=true})
      */
@@ -38,6 +38,13 @@ class MntPacienteController extends Controller {
 
         return $this->render('MinsalSiapsBundle:MntPacienteAdmin:resultado_busqueda.html.twig', array('tipo_busqueda' => 'g'));
     }
+
+    /*
+     * DESCRIPCIÓN: Método que devuelve un JSON de la busqueda de los pacientes
+     * según los parámetros enviados. Dicha consulta se realiza con el gestor
+     * POSTGRESQL por el tipo de consulta que se realiza
+     * ANALISTA PROGRAMADOR: Karen Peñate - Victoria López
+     */
 
     /**
      * @Route("/cargar/paciente", name="cargar_paciente", options={"expose"=true})
@@ -151,59 +158,11 @@ class MntPacienteController extends Controller {
         return new Response($jsonresponse);
     }
 
-    /**
-     * @Route("/departamentos/get", name="get_departamentos", options={"expose"=true})
-     * @Method("GET")
+    /*
+     * DESCRIPCIÓN: Método que se devuelve en un JSON la edad de un determinado
+     * paciente.
+     * ANALISTA PROGRAMADOR: Karen Peñate
      */
-    public function getDepartamentosAction() {
-
-        $request = $this->getRequest();
-        $idPais = $request->get('idPais');
-        $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT d FROM MinsalSiapsBundle:CtlDepartamento d
-                    WHERE d.idPais = :idPais ";
-        $departamentos['deptos'] = $em->createQuery($dql)
-                ->setParameter('idPais', $idPais)
-                ->getArrayResult();
-
-        return new Response(json_encode($departamentos));
-    }
-
-    /**
-     * @Route("/municipios/get", name="get_municipios", options={"expose"=true})
-     * @Method("GET")
-     */
-    public function getMunicipiosAction() {
-
-        $request = $this->getRequest();
-        $idDepartamento = $request->get('idDepartamento');
-        $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT m FROM MinsalSiapsBundle:CtlMunicipio m
-                    WHERE m.idDepartamento = :idDepartamento ";
-        $municipios['municipios'] = $em->createQuery($dql)
-                ->setParameter('idDepartamento', $idDepartamento)
-                ->getArrayResult();
-
-        return new Response(json_encode($municipios));
-    }
-
-    /**
-     * @Route("/cantones/get", name="get_cantones", options={"expose"=true})
-     * @Method("GET")
-     */
-    public function getCantonesAction() {
-
-        $request = $this->getRequest();
-        $idMunicipio = $request->get('idMunicipio');
-        $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT c FROM MinsalSiapsBundle:CtlCanton c
-                    WHERE c.idMunicipio = :idMunicipio ";
-        $cantones['cantones'] = $em->createQuery($dql)
-                ->setParameter('idMunicipio', $idMunicipio)
-                ->getArrayResult();
-
-        return new Response(json_encode($cantones));
-    }
 
     /**
      * @Route("/paciente/edad}", name="edad_paciente", options={"expose"=true})

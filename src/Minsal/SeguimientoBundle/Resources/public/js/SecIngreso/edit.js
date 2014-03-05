@@ -1,3 +1,6 @@
+/*  src/Minsal/SeguimientoBundle/Resource/public/js/SecIngreso/edit.html.twig
+ *  Se utiliza para la creación y actualización de los ingresos.
+ */
 $(document).ready(function() {
     $('i').popover('show');
 
@@ -8,7 +11,7 @@ $(document).ready(function() {
     $('div[id$="_fechaProbableParto"]').hide();
     $('div[id$="_semanasAmenorrea"]').hide();
 
-    if ($("#sexo").val() != 2 || $("#embarazo").val() == '0')
+    if ($("#sexo").val() != 1 || $("#embarazo").val() == '0')
         $('div[id$="_embarazada"]').hide();
 
     $('input:checkbox[name*="embarazada"]').click(function() {

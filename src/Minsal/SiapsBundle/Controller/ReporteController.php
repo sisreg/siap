@@ -11,6 +11,13 @@ use Minsal\Util\JasperReport\JasperClient as JasperClient;
 include_once (__DIR__ . '/../../Util/JasperReport/_jasperserverreports.php');
 
 class ReporteController extends Controller {
+    /*
+     * DESCRIPCIÓN: Método que genera la cartera de servicios
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     * PARAMETROS ENTRADA:
+     *          report_name     =>  Nombre del reporte
+     *          report_format   =>  Formato del reporte
+     */
 
     /**
      * @Route("/report/show/{report_name}/{report_format}", name="_report_show", options={"expose"=true})
@@ -38,6 +45,15 @@ class ReporteController extends Controller {
 
         return $response;
     }
+
+    /*
+     * DESCRIPCIÓN: Método que genera la hoja de identificación paciente
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     * PARAMETROS ENTRADA:
+     *          paciente        =>  Id del paciente
+     *          report_name     =>  Nombre del reporte
+     *          report_format   =>  Formato del reporte
+     */
 
     /**
      * @Route("/report/paciente/{report_name}/{report_format}", name="_report_paciente", options={"expose"=true})
@@ -69,13 +85,21 @@ class ReporteController extends Controller {
         return $response;
     }
 
+     /*
+     * DESCRIPCIÓN: Método que genera la hoja de expedientes realizados en una
+     * determinada fecha
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     * PARAMETROS ENTRADA:
+     *          fecha_inicio    =>  Fecha de inicio del reporte
+     *          fecha_fin       =>  Fecha de finalización del reporte
+     *          report_name     =>  Nombre del reporte
+     *          report_format   =>  Formato del reporte
+     */
+    
     /**
      * @Route("/exportar/{report_name}/{report_format}", name="_exportar_reporte", options={"expose"=true})
      */
     public function exportarReporteAction($report_name, $report_format) {
-        //$report_format='pdf';
-        //$usuario = $this->container->get('security.context')->getToken()->getUser();
-        //var_dump($usuario);exit;
         $jasper_url = JASPER_URL;
         $jasper_username = JASPER_USER;
         $jasper_password = JASPER_PASSWORD;
@@ -84,7 +108,7 @@ class ReporteController extends Controller {
         $request = $this->getRequest();
         $fecha_inicio = $request->get('fecha_inicio');
         $fecha_fin = $request->get('fecha_fin');
-        
+
         $report_params = array('fecha_inicio' => $fecha_inicio, 'fecha_fin' => $fecha_fin);
         $client = new JasperClient($jasper_url, $jasper_username, $jasper_password);
 
@@ -95,8 +119,8 @@ class ReporteController extends Controller {
 
         $response = new Response();
         $response->headers->set('Content-Type', $contentType);
-          if (strtoupper($report_format) != 'PDF')//para cuando sea una hoja de calculo, en este informe sólo  están las opciones PDF y hoja de cálculo
-          $response->headers->set('Content-disposition', 'attachment; filename="' . $report_name . '.' . strtolower($report_format) . '"');
+        if (strtoupper($report_format) != 'PDF')//para cuando sea una hoja de calculo, en este informe sólo  están las opciones PDF y hoja de cálculo
+            $response->headers->set('Content-disposition', 'attachment; filename="' . $report_name . '.' . strtolower($report_format) . '"');
         $response->setContent($result);
 
         return $response;

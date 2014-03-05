@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Minsal\Metodos\Funciones;
 
 class SecIngresoController extends Controller {
+    /*
+     * DESCRIPCIÓN: Método que devuelve las especialidades de hospitalización
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
 
     /**
      * @Route("/obtener/especialidades/ingresos", name="get_especialidad_ingresos", options={"expose"=true})
@@ -38,6 +42,12 @@ class SecIngresoController extends Controller {
         return new Response(json_encode($especialidades));
     }
 
+    /*
+     * DESCRIPCIÓN: Método que devuelve los servicios hospitalarios dependiendo
+     * de la especialidad seleccionada
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
     /**
      * @Route("/obtener/servicios/hospitalarios", name="get_servicios_hospitalarios", options={"expose"=true})
      */
@@ -61,6 +71,12 @@ class SecIngresoController extends Controller {
 
         return new Response(json_encode($especialidades));
     }
+
+    /*
+     * DESCRIPCIÓN: Método que devuelve todos los servicios de hospitalización 
+     * restantes.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
 
     /**
      * @Route("/obtener/servicios/hospitalarios/otros", name="get_servicios_hospitalarios_otros", options={"expose"=true})
@@ -89,6 +105,12 @@ class SecIngresoController extends Controller {
         return new Response(json_encode($especialidades));
     }
 
+    /*
+     * DESCRIPCIÓN: Método que devuelve TODOS los servicios de hospitalización
+     * registrados.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
     /**
      * @Route("/obtener/servicios/hospitalarios/todos", name="get_servicios_hospitalarios_todos", options={"expose"=true})
      */
@@ -105,6 +127,12 @@ class SecIngresoController extends Controller {
         return new Response(json_encode($especialidades));
     }
 
+    /*
+     * DESCRIPCIÓN: Método que devuelve la vista para la busqueda de los 
+     * ingresos
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
     /**
      * @Route("/buscar/ingresos", name="buscar_ingresos", options={"expose"=true})
      */
@@ -113,6 +141,12 @@ class SecIngresoController extends Controller {
         return $this->render('MinsalSeguimientoBundle:SecIngreso:resultado_busqueda.html.twig', array());
     }
 
+    /*
+     * DESCRIPCIÓN: Método que devuelve la vista para mostrar el boton de
+     * editar ingreso desde JGRID.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
     /**
      * @Route("/boton/editar/{idRegistro}", name="boton_editar", options={"expose"=true})
      */
@@ -120,6 +154,12 @@ class SecIngresoController extends Controller {
 
         return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_editar.html.twig', array('idRegistro' => $idRegistro));
     }
+
+    /*
+     * DESCRIPCIÓN: Método que devuelve un JSON que contiene los ingresos
+     * de acuerdo a los parámetros enviados.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
 
     /**
      * @Route("/cargar/ingresos", name="cargar_ingresos", options={"expose"=true})
@@ -173,9 +213,9 @@ class SecIngresoController extends Controller {
         if ($primerNombre == '' && $primerApellido == '' && $nec == '' && $fechaNacimiento == '' && $servicio == '')
             $fechas = " AND date(E.fecha) = current_date";
 
-        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec . $servicio . $fechas ;
+        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec . $servicio . $fechas;
         $sql.= " ORDER BY A.primer_Apellido ASC, E.fecha DESC";
-        
+
         $query = $conn->query($sql);
 
         $numfilas = count($query->rowCount());
@@ -211,6 +251,12 @@ class SecIngresoController extends Controller {
         return new Response($jsonresponse);
     }
 
+    /*
+     * DESCRIPCIÓN: Método que devuelve la vista para mostrar el boton de
+     * imprimir hoja de ingreso desde JGRID.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
     /**
      * @Route("/boton/ingreso/egreso/{idIngreso}", name="boton_ingreso_egreso", options={"expose"=true})
      */
@@ -221,9 +267,9 @@ class SecIngresoController extends Controller {
                 JOIN A.idExpediente B
                 JOIN B.idPaciente C
                 WHERE A.id=$idIngreso";
-        $paciente= $em->createQuery($dql)
+        $paciente = $em->createQuery($dql)
                 ->getSingleResult();
-        return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_ingreso_egreso.html.twig', array('idPaciente' => $paciente['id'],'idIngreso'=>$idIngreso));
+        return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_ingreso_egreso.html.twig', array('idPaciente' => $paciente['id'], 'idIngreso' => $idIngreso));
     }
 
 }

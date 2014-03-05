@@ -12,6 +12,16 @@ include_once (__DIR__ . '/../../Util/JasperReport/_jasperserverreports.php');
 
 class ReporteSeguimientoController extends Controller {
 
+    /*
+     * DESCRIPCIÓN: Método que genera la hoja de ingreso y egresos
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     * PARAMETROS ENTRADA:
+     *          paciente        =>  Id del paciente
+     *          ingreso         =>  Id del Ingreso
+     *          report_name     =>  Nombre del reporte
+     *          report_format   =>  Formato del reporte
+     */
+    
     /**
      * @Route("/hoja/ingreso/egreso/{report_name}/{report_format}", name="hoja_ingreso_egreso", options={"expose"=true})
      */

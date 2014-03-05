@@ -187,18 +187,20 @@ class SecIngresoAdminController extends Controller {
                     'embarazo' => $embarazo
         ));
     }
-
+    //AGREGANDO LA RUTA RESUMEN AL CONTROLADOR
+    public function resumenAction() {
+        
+        return $this->render($this->admin->getTemplate('resumen'), array());
+    }
+    
+    //PARA SIEMPRE REDIRECCIONAR A LA RUTA RESUMEN.
     public function redirectTo($object) {
 
         $url = $this->admin->generateUrl('resumen');
 
         return new RedirectResponse($url);
     }
-
-    public function resumenAction() {
-        
-        return $this->render($this->admin->getTemplate('resumen'), array());
-    }
+    
 
 }
 

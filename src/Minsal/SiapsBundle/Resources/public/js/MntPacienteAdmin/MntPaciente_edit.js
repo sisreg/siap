@@ -1,3 +1,6 @@
+/*  src/Minsal/SiapsBundle/Resource/public/js/MntPacienteAdmin/MntPaciente_edit.html.twig
+ *  Se utiliza para la creación y actualización de los pacientes.
+ */
 $(document).ready(function() {
 
     $('#form_paciente').submit(function() {
@@ -374,7 +377,7 @@ $(document).ready(function() {
                 });
         $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
     }
-    ;
+
     if ($('select[id$="_idDepartamentoDomicilio"]').val() != '') {
         valorDoc = $('select[id$="_idMunicipioDomicilio"]').val();
         $('select[id$="_idMunicipioDomicilio"]').children().remove();
@@ -408,12 +411,62 @@ $(document).ready(function() {
 
     });
 
+    //AGREGANDO JSON PARA CARGAR LOS PAISES ALEDAÑOS A EL SALVADOR
+    if ($('select[id$="_idDepartamentoDomicilio"]').val() == '') {
+        $.getJSON(Routing.generate('get_paises'),
+                function(data) {
+                    $.each(data.paises, function(indice, aux) {
+                        if (aux.id == 68)
+                            $('#idPaisDomicilio').append('<option selected="selected" value="' + aux.id + '">' + aux.nombre + '</option>');
+                        else
+                            $('#idPaisDomicilio').append('<option value="' + aux.id + '">' + aux.nombre + '</option>');
+                    });
+                });
+        $('select[id$="_idDepartamentoDomicilio"]').children().remove();
+        $('select[id$="_idDepartamentoDomicilio"]').append('<option value="">Seleccione..</option>');
+        $.getJSON(Routing.generate('get_departamentos') + '?idPais=68',
+                function(data) {
+                    $.each(data.deptos, function(indice, depto) {
+                        $('select[id$="_idDepartamentoDomicilio"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
+                    });
+                });
+        $('select[id$="_idDepartamentoDomicilio"]').removeAttr('disabled');
+        $('input[id$="_primerApellido"]').focus();
+    } else {
+        $.getJSON(Routing.generate('get_pais_depto') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').val(),
+                function(datos) {
+                    $.getJSON(Routing.generate('get_paises'),
+                            function(data) {
+                                $.each(data.paises, function(indice, aux2) {
+                                    if (datos.pais == aux2.id)
+                                        $('#idPaisDomicilio').append('<option selected="selected" value="' + aux2.id + '">' + aux2.nombre + '</option>');
+                                    else
+                                        $('#idPaisDomicilio').append('<option value="' + aux2.id + '">' + aux2.nombre + '</option>');
+                                });
+                            });
+                }
+        );
+    }
+    //AL CAMBIAR EL PAIS DE DOMICILIO QUE CARGUE LOS DEPARTAMENTO DE DOMICILIO.
+    $('#idPaisDomicilio').change(function() {
+        $('select[id$="_idDepartamentoDomicilio"]').children().remove();
+        $('select[id$="_idDepartamentoDomicilio"]').append('<option value="">Seleccione..</option>');
+        $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('#idPaisDomicilio').val(),
+                function(data) {
+                    $.each(data.deptos, function(indice, depto) {
+                        $('select[id$="_idDepartamentoDomicilio"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
+                    });
+                });
+    });
+
+    //PARA CALCULAR LA EDAD DEL PACIENTE
     function calcular_edad() {
         $.getJSON(Routing.generate('edad_paciente') + '?fecha_nacimiento=' + $('input[id$="_fechaNacimiento"]').val(),
                 function(data) {
                     $('input[id="edad"]').val(data.edad);
                 });
     }
+
 
 });
 
