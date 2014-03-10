@@ -15,12 +15,46 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
-//use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
 class UserAdmin extends BaseUserAdmin {
 
     public function configureFormFields(FormMapper $formMapper) {
-        //parent::configureFormFields($formMapper);
+        $usuario = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        if ($usuario->getId() != 1) {
+            $grupos = $usuario->getGroups();
+            if ($grupos[0]->getId() != 1) {
+                list($nombre) = explode('Admin', $grupos[0]->getName());
+                $query = $this
+                        ->modelManager
+                        ->getEntityManager('ApplicationSonataUserBundle:Group')
+                        ->createQuery(" 
+                            SELECT g
+                            FROM ApplicationSonataUserBundle:Group g
+                            WHERE g.name LIKE '$nombre'");
+            } else {
+                $establecimiento = $this->getModelManager()
+                        ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+                if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1)
+                    $nombre = 'Hos';
+                else
+                    $nombre = 'Us';
+                $query = $this
+                        ->modelManager
+                        ->getEntityManager('ApplicationSonataUserBundle:Group')
+                        ->createQuery(" 
+                            SELECT g
+                            FROM ApplicationSonataUserBundle:Group g
+                            WHERE g.name LIKE '%$nombre%'");
+            }
+        }else {
+            $query = $this
+                    ->modelManager
+                    ->getEntityManager('ApplicationSonataUserBundle:Group')
+                    ->createQuery(" 
+                            SELECT g
+                            FROM ApplicationSonataUserBundle:Group g");
+        }
         $formMapper
                 ->with('Datos Usuario')
                 ->add('firstname', null, array('required' => true))
@@ -39,10 +73,13 @@ class UserAdmin extends BaseUserAdmin {
                     'label' => 'Establecimiento',
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function($repositorio) {
-                        return $repositorio->obtenerEstabConfigurado();
-                    }))
+                return $repositorio->obtenerEstabConfigurado();
+            }))
                 ->add('enabled', null, array('required' => true))
-                ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => true, 'multiple' => true, 'by_reference' => true))
+                ->add('groups', 'sonata_type_model', array('required' => true, 'expanded' => true,
+                    'multiple' => true,
+                    'by_reference' => true,
+                    'query' => $query))
                 ->end()
         ;
     }
@@ -66,14 +103,34 @@ class UserAdmin extends BaseUserAdmin {
                 break;
         }
     }
-    
-     /*public function createQuery($context = 'list') {
-        $query = parent::createQuery($context);
 
-        return new ProxyQuery(
-                $query
-                        ->where($query->getRootAlias() . '.idTipoEstablecimiento NOT IN (12,13)')
-        );
-    }*/
-    
+    public function createQuery($context = 'list') {
+        $query = parent::createQuery($context);
+        $usuario = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        if ($usuario->getId() != 1) {
+            $grupos = $usuario->getGroups();
+            if ($grupos[0]->getId() != 1) {
+                list($nombre) = explode('Admin', $grupos[0]->getName());
+                
+                return new ProxyQuery(
+                        $query
+                                ->where("s_groups.name LIKE '$nombre%'")
+                );
+            }else{
+                $establecimiento = $this->getModelManager()
+                        ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+                if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1)
+                    $nombre = 'Hos';
+                else
+                    $nombre = 'Us';
+                return new ProxyQuery(
+                        $query
+                                ->where("s_groups.name LIKE '%$nombre%'")
+                );
+            }
+        } else {
+            return new ProxyQuery($query);
+        }
+    }
+
 }

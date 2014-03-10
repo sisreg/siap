@@ -106,7 +106,7 @@ class User extends BaseUser {
         return $this->firstname . ' ' . $this->lastname ? : '';
     }
 
-    /**
+     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Assert\NotBlank()
      */
@@ -119,7 +119,7 @@ class User extends BaseUser {
         parent::__construct();
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+   
     /**
      * Add groups
      *

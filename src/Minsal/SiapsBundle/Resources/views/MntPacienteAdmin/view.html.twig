@@ -18,7 +18,8 @@
     <a class="btn" href="" id="imprimir_hoja_consulta" ><i class="icon-print"></i>Hoja de Consulta</a>
     <a class="btn" href="{{ admin.generateUrl('list') }}"><i class="icon-search"></i>Buscar otro Paciente</a>
     <a class="btn" href="{{ admin.generateUrl('edit',{'id':datos.getId}) }}" ><i class="icon-edit"></i>Editar Datos</a>
+    {% if is_granted('ROLE_SONATA_ADMIN_SECINGRESO_CREATE') %}
     <a class="btn" href="{{ path('admin_minsal_seguimiento_secingreso_create',{'id_paciente':datos.getId}) }}" ><i class="icon-briefcase"></i>Ingresar Paciente</a>
-    
+    {%endif%}
 </div>
 {%endblock%}

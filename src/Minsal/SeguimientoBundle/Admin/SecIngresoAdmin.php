@@ -63,7 +63,7 @@ class SecIngresoAdmin extends Admin {
                         ->createQueryBuilder('me')
                         ->where('me.idTipoEmpleado = 4');
             }))
-                ->add('idEstablecimientoReferencia', 'entity', array('label' => 'Nombre del Establecimiento', 'required' => false,
+                ->add('idEstablecimientoReferencia', 'entity', array('label' => 'Nombre del Establecimiento (REFERIDO DE:', 'required' => false,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'empty_value' => 'Seleccione..',
                     'query_builder' => function(EntityRepository $repositorio) {
@@ -71,7 +71,7 @@ class SecIngresoAdmin extends Admin {
                         ->createQueryBuilder('e')
                         ->where('e.idTipoEstablecimiento NOT IN (12,13)');
             }))
-                ->add('motivoReferencia', 'textarea', array('required' => false, 'label' => 'Motivo'))
+                ->add('motivoReferencia', 'textarea', array('required' => false, 'label' => 'Motivo de la Referencia'))
         ;
     }
 

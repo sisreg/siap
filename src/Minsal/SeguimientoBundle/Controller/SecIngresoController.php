@@ -186,7 +186,7 @@ class SecIngresoController extends Controller {
                 FROM mnt_paciente A 
                      INNER JOIN mnt_expediente B ON B.id_paciente=A.id
                      LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente                     
-                     LEFT JOIN sec_ingreso E ON E.id_expediente=B.id
+                     INNER JOIN sec_ingreso E ON E.id_expediente=B.id
                      LEFT JOIN mnt_aten_area_mod_estab D ON E.id_ambiente_ingreso=D.id
                 WHERE  B.habilitado= TRUE ";
 

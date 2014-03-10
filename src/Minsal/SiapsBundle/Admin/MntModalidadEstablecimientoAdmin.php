@@ -73,7 +73,7 @@ class MntModalidadEstablecimientoAdmin extends Admin {
                     ->createQuery("
                     SELECT u
                     FROM MinsalSiapsBundle:User u
-                    WHERE u.username LIKE 'farmaadmin'")
+                    WHERE u.username LIKE 'farmadmin'")
                     ->getSingleResult();
             $usuario->setIdModalidadEstab($mntModalidadEstablecimiento);
             $this->getModelManager()->update($usuario);

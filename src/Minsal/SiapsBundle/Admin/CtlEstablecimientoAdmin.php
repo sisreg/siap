@@ -71,7 +71,7 @@ class CtlEstablecimientoAdmin extends Admin {
         $usuariosAdministradores = $this->getModelManager()
                 ->getEntityManager('MinsalSiapsBundle:User')
                 ->createQuery("
-                    SELECT u
+                    SELECT u,G
                     FROM MinsalSiapsBundle:User u
                     LEFT JOIN u.groups G
                     WHERE u.username LIKE '_%admin' 
@@ -84,6 +84,29 @@ class CtlEstablecimientoAdmin extends Admin {
                 $empleado = $usuario->getIdEmpleado();
                 $empleado->setIdEstablecimiento($establecimiento);
                 $this->getModelManager()->update($empleado);
+            }
+            if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1) {
+                $grupo = $this->getModelManager()
+                        ->getEntityManager('ApplicationSonataUserBundle:Group')
+                        ->createQuery("
+                    SELECT g
+                    FROM ApplicationSonataUserBundle:Group g
+                    WHERE g.name = 'Modulo1HosAdmin'")
+                        ->getSingleResult();
+            } else {
+                $grupo = $this->getModelManager()
+                        ->getEntityManager('ApplicationSonataUserBundle:Group')
+                        ->createQuery("
+                    SELECT g
+                    FROM ApplicationSonataUserBundle:Group g
+                    WHERE g.name = 'Modulo1UsAdmin'")
+                        ->getSingleResult();
+            }
+            if ($usuario->getUsername() == 'identificacionadmin') {
+                $grupos = $usuario->getGroups();
+                $usuario->removeGroup($grupos[0]);
+                $usuario->addGroup($grupo);
+                $this->getModelManager()->update($usuario);
             }
         }
     }

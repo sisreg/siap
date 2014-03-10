@@ -36,15 +36,18 @@ $(document).ready(function() {
     $("#buscar").click(function() {
         if ($("#servicio_ingreso").val() != '') {
             $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
+            $('#lresultado').show();
             $('#resultadoBusqueda').show();
         } else {
             if ($("#nec").val() != '') {
 
                 $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
+                $('#lresultado').show();
                 $('#resultadoBusqueda').show();
             } else {
                 if ($("#fecha_nacimiento").val() != '') {
                     $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
+                    $('#lresultado').show();
                     $('#resultadoBusqueda').show();
                 }
                 else {
@@ -66,6 +69,7 @@ $(document).ready(function() {
                         });
                     } else {
                         $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
+                        $('#lresultado').show();
                         $('#resultadoBusqueda').show();
                     }
                 }
@@ -73,5 +77,7 @@ $(document).ready(function() {
         }
         return false;
     });
+    
+    $('#lresultado').hide();
 
 });
