@@ -57,7 +57,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('idCantonDomicilio', null, array('empty_value' => 'Seleccione...',
                     'label' => $this->getTranslator()->trans('idCantonDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('idDepartamentoDomicilio', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idDepartamentoDomicilio')))
+                    'required' => false, 'label' => $this->getTranslator()->trans('idDepartamentoDomicilio')))
                 ->add('idDocPaciente', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idDocPaciente')))
                 ->add('idDocProporcionoDatos', null, array('empty_value' => 'Seleccione...',
@@ -67,7 +67,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('idEstadoCivil', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idEstadoCivil')))
                 ->add('idMunicipioDomicilio', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idMunicipioDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
+                    'required' => false, 'label' => $this->getTranslator()->trans('idMunicipioDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('idDepartamentoNacimiento', null, array('empty_value' => 'Seleccione...',
                     'label' => $this->getTranslator()->trans('idDepartamentoNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('idMunicipioNacimiento', null, array('empty_value' => 'Seleccione...',
@@ -194,13 +194,17 @@ class MntPacienteAdmin extends Admin {
             $auditoria->setDireccion($paciente->getDireccion());
             $cambio = TRUE;
         }
-        if ($paciente->getIdDepartamentoDomicilio()->getId() != $pacienteBase['id_departamento_domicilio']) {
-            $auditoria->setIdDepartamentoDomicilio($paciente->getIdDepartamentoDomicilio());
-            $cambio = TRUE;
+        if (!is_null($paciente->getIdDepartamentoDomicilio())) {
+            if ($paciente->getIdDepartamentoDomicilio()->getId() != $pacienteBase['id_departamento_domicilio']) {
+                $auditoria->setIdDepartamentoDomicilio($paciente->getIdDepartamentoDomicilio());
+                $cambio = TRUE;
+            }
         }
-        if ($paciente->getIdMunicipioDomicilio()->getId() != $pacienteBase['id_municipio_domicilio']) {
-            $auditoria->setIdMunicipioDomicilio($paciente->getIdMunicipioDomicilio());
-            $cambio = TRUE;
+        if (!is_null($paciente->getIdMunicipioDomicilio())) {
+            if ($paciente->getIdMunicipioDomicilio()->getId() != $pacienteBase['id_municipio_domicilio']) {
+                $auditoria->setIdMunicipioDomicilio($paciente->getIdMunicipioDomicilio());
+                $cambio = TRUE;
+            }
         }
         if (($paciente->getIdCantonDomicilio()) != NULL) {
             if ($paciente->getIdCantonDomicilio()->getId() != $pacienteBase['id_canton_domicilio']) {
@@ -279,12 +283,12 @@ class MntPacienteAdmin extends Admin {
                     } else {
                         list($entero, $anio) = explode('-', $expediente->getNumero());
                         $entero = (int) $entero;
-                        if($entero==0)
+                        if ($entero == 0)
                             $errorElement->with('numero')
                                     ->addViolation('El numero de expediente no puede ser 0')
                                     ->end();
                         else
-                            $expediente->setNumero((string)$entero.'-'.$anio);
+                            $expediente->setNumero((string) $entero . '-' . $anio);
                     }
                 }
             } else {
@@ -294,13 +298,13 @@ class MntPacienteAdmin extends Admin {
                                 ->addViolation('El formato del número de expediente es incorrecto o contiene letras')
                                 ->end();
                     } else {
-                        $numero=(int)$expediente->getNumero();
+                        $numero = (int) $expediente->getNumero();
                         if ($numero == 0)
                             $errorElement->with('numero')
                                     ->addViolation('El numero de expediente no puede ser 0')
                                     ->end();
                         else
-                            $expediente->setNumero((string)$numero);
+                            $expediente->setNumero((string) $numero);
                     }
                 }
             }
@@ -334,7 +338,7 @@ class MntPacienteAdmin extends Admin {
                         ->end();
             }
         }
-
+        /* VALIDACIÓN DE QUE EL PACIENTE NO EXISTA */
         if (is_null($object->getId())) {
             $dql = "SELECT count(p) as resul
                   FROM MinsalSiapsBundle:MntPaciente p
@@ -358,7 +362,7 @@ class MntPacienteAdmin extends Admin {
                         ->end();
         }
 
-//Verificando los formatos de acuerdo el documento seleccionado
+        //Verificando los formatos de acuerdo el documento seleccionado
         if ($object->getIdDocPaciente() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdePaciente();
             if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
@@ -383,7 +387,7 @@ class MntPacienteAdmin extends Admin {
                 }
             }
         }
-//Validando número de documento para el responsable  
+        //Validando número de documento para el responsable  
         if ($object->getIdDocResponsable() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdeResponsable();
             if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
@@ -408,7 +412,7 @@ class MntPacienteAdmin extends Admin {
                 }
             }
         }
-//Validando número de documento para la persona que proporcionó datos
+        //Validando número de documento para la persona que proporcionó datos
         if ($object->getIdDocProporcionoDatos() == 'DUI') {
             $numero_doc = $object->getNumeroDocIdeProporDatos();
             if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {

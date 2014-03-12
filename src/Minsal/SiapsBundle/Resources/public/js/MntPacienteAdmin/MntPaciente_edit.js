@@ -4,6 +4,23 @@
 $(document).ready(function() {
 
     $('#form_paciente').submit(function() {
+        
+        if ($('#idPaisDomicilio').val() == '68') {   
+            if ($('select[id$="_idDepartamentoDomicilio"]').val() == '') {
+                ($('#error')) ? $('#error').remove() : '';
+                var elem = $("<div id='error' title='Error de Llenado'><center>" +
+                        "Debe de introducir el Departamento Domicilio"
+                        + "</center></div>");
+                elem.insertAfter($("#form_paciente"));
+                $("#error").dialog({
+                    close: function() {
+                        $('select[id$="_idDepartamentoDomicilio"]').focus();
+                    }
+
+                });
+                return false;
+            }
+        }
         $('.deshabilitados').removeAttr('disabled');
     });
 
@@ -451,6 +468,9 @@ $(document).ready(function() {
     $('#idPaisDomicilio').change(function() {
         $('select[id$="_idDepartamentoDomicilio"]').children().remove();
         $('select[id$="_idDepartamentoDomicilio"]').append('<option value="">Seleccione..</option>');
+         $('select[id$="_idMunicipioDomicilio"]').children().remove();
+        $('select[id$="_idMunicipioDomicilio"]').append('<option value="">Seleccione..</option>');
+        $('select[id$="_idMunicipioDomicilio"]').attr('disabled', 'disabled');
         $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('#idPaisDomicilio').val(),
                 function(data) {
                     $.each(data.deptos, function(indice, depto) {
