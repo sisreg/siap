@@ -37,6 +37,9 @@ class AppKernel extends Kernel {
             //BLOQUE MINSAL BUNDLES
             new Minsal\SiapsBundle\MinsalSiapsBundle(),
             new Minsal\SeguimientoBundle\MinsalSeguimientoBundle(),
+            //BLOQUE ADESIGNSCALENDAR BUNDLE
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            new Minsal\CitasBundle\MinsalCitasBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
