@@ -1,16 +1,16 @@
 <?php
 
-namespace Minsal\CitasBundle\Entity;
+namespace Minsal\SiapsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CitTipocita
+ * MntConsultorio
  *
- * @ORM\Table(name="cit_tipocita", indexes={@ORM\Index(name="fki_fos_user_user_cit_tipocita", columns={"idusuarioreg"})})
+ * @ORM\Table(name="mnt_consultorio")
  * @ORM\Entity
  */
-class CitTipocita
+class MntConsultorio
 {
     /**
      * @var integer
@@ -18,21 +18,28 @@ class CitTipocita
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="cit_tipocita_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="mnt_consultorio_idconsultorio_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tipocita", type="string", length=50, nullable=true)
+     * @ORM\Column(name="descripcion", type="string", length=100, nullable=true)
      */
-    private $tipocita;
+    private $descripcion;
 
     /**
-     * @var \Minsal\SiapsBundle\User
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\Column(name="area", type="integer", nullable=true)
+     */
+    private $area;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -45,6 +52,4 @@ class CitTipocita
      * @ORM\Column(name="fechahorareg", type="datetime", nullable=true)
      */
     private $fechahorareg;
-
-
 }

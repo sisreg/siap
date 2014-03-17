@@ -37,9 +37,12 @@ class CitEstadoCita
     private $descripcion;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\Column(name="idusuarioreg", type="smallint", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
+     * })
      */
     private $idusuarioreg;
 

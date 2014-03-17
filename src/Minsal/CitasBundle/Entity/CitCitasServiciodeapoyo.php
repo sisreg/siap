@@ -15,12 +15,12 @@ class CitCitasServiciodeapoyo
     /**
      * @var integer
      *
-     * @ORM\Column(name="idcitaservapoyo", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="cit_citas_serviciodeapoyo_idcitaservapoyo_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="cit_citas_serviciodeapoyo_id_seq", allocationSize=1, initialValue=1)
      */
-    private $idcitaservapoyo;
+    private $id;
 
     /**
      * @var \DateTime
@@ -30,16 +30,22 @@ class CitCitasServiciodeapoyo
     private $fecha;
 
     /**
-     * @var integer
+     * @var \Minsal\SeguimientoBundle\SecSolicitudestudios
      *
-     * @ORM\Column(name="idsolicitudestudio", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SeguimientoBundle\Entity\SecSolicitudestudios")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_solicitudestudios", referencedColumnName="id")
+     * })
      */
-    private $idsolicitudestudio;
+    private $idSolicitudestudios;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\Column(name="idusuarioreg", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
+     * })
      */
     private $idusuarioreg;
 
@@ -51,11 +57,14 @@ class CitCitasServiciodeapoyo
     private $fechahorareg;
 
     /**
-     * @var integer
+     * @var \Minsal\SeguimientoBundle\SecDetallesolicitudestudios
      *
-     * @ORM\Column(name="iddetallesolicitud", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SeguimientoBundle\Entity\SecDetallesolicitudestudios")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_detallesolicitudestudios", referencedColumnName="id")
+     * })
      */
-    private $iddetallesolicitud;
+    private $idDetallesolicitudestudios;
 
 
 }

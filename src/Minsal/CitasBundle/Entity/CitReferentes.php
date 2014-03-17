@@ -15,17 +15,20 @@ class CitReferentes
     /**
      * @var integer
      *
-     * @ORM\Column(name="idreferente", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="cit_referentes_idreferente_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="cit_referentes_id_seq", allocationSize=1, initialValue=1)
      */
-    private $idreferente;
+    private $id;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\CtlEstablecimiento
      *
-     * @ORM\Column(name="idestablecimiento", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idestablecimiento", referencedColumnName="id")
+     * })
      */
     private $idestablecimiento;
 

@@ -44,30 +44,42 @@ class CitFechas
     private $fechahorareg;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\MntRangohora
      *
-     * @ORM\Column(name="id_rangohora", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntRangohora")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_rangohora", referencedColumnName="id")
+     * })
      */
     private $idRangohora;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\MntAreaModEstab
      *
-     * @ORM\Column(name="id_area_mod_estab", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntAreaModEstab")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_area_mod_estab", referencedColumnName="id")
+     * })
      */
     private $idAreaModEstab;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\MntEmpleado
      *
-     * @ORM\Column(name="id_empleado", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id")
+     * })
      */
     private $idEmpleado;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\Column(name="idusuarioreg", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
+     * })
      */
     private $idusuarioreg;
 

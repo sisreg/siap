@@ -30,23 +30,32 @@ class CitProgramacionExams
     private $rangotiempoprev;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\MntAtenAreaModEstab
      *
-     * @ORM\Column(name="id_aten_area_mod_estab", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntAtenAreaModEstab")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_aten_area_mod_estab", referencedColumnName="id")
+     * })
      */
     private $idAtenAreaModEstab;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\CtlEstablecimiento
      *
-     * @ORM\Column(name="id_establecimiento", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
+     * })
      */
     private $idEstablecimiento;
 
     /**
-     * @var integer
+     * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\Column(name="idusuarioreg", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
+     * })
      */
     private $idusuarioreg;
 
@@ -58,9 +67,12 @@ class CitProgramacionExams
     private $fechahorareg;
 
     /**
-     * @var integer
+     * @var \LabExamenesxestablecimiento
      *
-     * @ORM\Column(name="id_examen_establecimiento", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="LabExamenesxestablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_examen_establecimiento", referencedColumnName="id")
+     * })
      */
     private $idExamenEstablecimiento;
 

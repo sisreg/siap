@@ -8,7 +8,7 @@
       <generator strategy="SEQUENCE"/>
     </id>
     <field name="tipocita" type="string" column="tipocita" length="50" nullable="true"/>
-    <field name="idusuarioreg" type="smallint" column="idusuarioreg" nullable="true"/>
+    <field name="idusuarioreg" type="integer" column="idusuarioreg" nullable="true"/>
     <field name="fechahorareg" type="datetime" column="fechahorareg" nullable="true"/>
   </entity>
 </doctrine-mapping>

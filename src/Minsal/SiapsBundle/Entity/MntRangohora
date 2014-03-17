@@ -1,0 +1,76 @@
+<?php
+
+namespace Minsal\SiapsBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * MntRangoHora
+ *
+ * @ORM\Table(name="mnt_rangohora")
+ * @ORM\Entity
+ */
+class MntRangohora
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="mnt_rangohora_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="hora_ini", type="datetime", nullable=true)
+     */
+    private $horaIni;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="hora_fin", type="datetime", nullable=true)
+     */
+    private $horaFin;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modulo", type="string", length=60, nullable=true)
+     */
+    private $modulo;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
+     * })
+     */
+    private $idusuarioreg;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechahorareg", type="datetime", nullable=true)
+     */
+    private $fechahorareg;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meridianoini", type="string", length=2, nullable=true)
+     */
+    private $meridianoini;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meridianofin", type="string", length=2, nullable=true)
+     */
+    private $meridianofin;
+}
