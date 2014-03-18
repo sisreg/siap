@@ -132,7 +132,7 @@ class UserAdmin extends BaseUserAdmin {
                 );
             }
         } else {
-            return new ProxyQuery($query);
+            return $query;
         }
     }
 
