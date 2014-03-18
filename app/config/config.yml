@@ -83,7 +83,7 @@ fos_user:
 
     group:
         group_class:  Application\Sonata\UserBundle\Entity\Group
-    
+
     profile:  # Authentication Form
         form:
             type:               fos_user_profile
@@ -113,6 +113,7 @@ sonata_block:
         sonata.block.service.rss:
         sonata.user.block.menu:    # used to display the menu in profile pages
         sonata.user.block.account: # used to display menu option (login option)
+
 #SONATAADMINBUNDLE
 sonata_admin:
     security:
@@ -130,26 +131,30 @@ sonata_admin:
         edit:    SonataAdminBundle:CRUD:edit.html.twig 
          # se personalizó la plantilla de dashboard
         dashboard: MinsalSiapsBundle:Core:dashboard.html.twig
-       
+
     dashboard:
         blocks:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
+
 #SONATAUSERBUNDLE
 sonata_user:
     security_acl:     false
     class:
         user:         Minsal\SiapsBundle\Entity\User
         group:        Application\Sonata\UserBundle\Entity\Group
-    
+
     profile:  # Profile Form (firstname, lastname, etc ...)
         form:
             type:               sonata_user_profile
             handler:            sonata.user.profile.form.handler.default
             name:               sonata_user_profile_form
             validation_groups:  [Profile]
-            
-            
+
 sonata_doctrine_orm_admin:
     templates:
-        form: [ MinsalSiapsBundle:Form:form_admin_fields.html.twig ]            
+        form: [ MinsalSiapsBundle:Form:form_admin_fields.html.twig ]
+
+#GENEMU BUNDLE
+genemu_form:
+    select2: ~
