@@ -85,7 +85,7 @@ class SecIngresoAdmin extends Admin {
                         ->addViolation('La hora del ingreso no puede ser mayor que la hoara actual')
                         ->end();
             elseif ($fechaActual->format('H') == $hora) {
-                if ($fechaActual->format('i') < $minutos)
+                if ($fechaActual->format('i') < ($minutos-1))
                     $errorElement->with('hora')
                             ->addViolation('La hora del ingreso no puede ser mayor que la hora actual')
                             ->end();

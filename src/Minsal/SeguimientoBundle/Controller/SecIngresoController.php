@@ -23,7 +23,7 @@ class SecIngresoController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $dql = "SELECT A.id as id,
-                        (CASE WHEN F.nombre IS NOT NULL THEN CONCAT(C.nombre, '-',F.nombre) 
+                        (CASE WHEN F.nombre IS NOT NULL THEN CONCAT('Hospitalización ',F.nombre) 
                                 ELSE C.nombre
                         END)  as nombre  
                 FROM MinsalSiapsBundle:MntAtenAreaModEstab A
