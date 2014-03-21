@@ -72,7 +72,9 @@ class MntEmpleadoAdmin extends Admin {
     }
 
     public function prePersist($empleado) {
-        //ATRIBUTOS DE LA AUDITORIA
+        $empleado->setIdEstablecimiento($establecimiento = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true)));
+//ATRIBUTOS DE LA AUDITORIA
         $empleado->setIdusuarioreg($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser());
         $empleado->setFechahorareg(new \DateTime());
         //CONCATENAR LOS NOMBRES PARA FORMAR EL NOMBRE EL EMPLEADO
