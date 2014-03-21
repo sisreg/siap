@@ -30,4 +30,37 @@ class CitTipoevento
     private $nombretipo;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nombretipo
+     *
+     * @param string $nombretipo
+     * @return CitTipoevento
+     */
+    public function setNombretipo($nombretipo)
+    {
+        $this->nombretipo = $nombretipo;
+
+        return $this;
+    }
+
+    /**
+     * Get nombretipo
+     *
+     * @return string 
+     */
+    public function getNombretipo()
+    {
+        return $this->nombretipo;
+    }
 }

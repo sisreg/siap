@@ -142,4 +142,336 @@ class CitEvento
     private $idTipoevento;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fechaini
+     *
+     * @param \DateTime $fechaini
+     * @return CitEvento
+     */
+    public function setFechaini($fechaini)
+    {
+        $this->fechaini = $fechaini;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaini
+     *
+     * @return \DateTime 
+     */
+    public function getFechaini()
+    {
+        return $this->fechaini;
+    }
+
+    /**
+     * Set horaini
+     *
+     * @param \DateTime $horaini
+     * @return CitEvento
+     */
+    public function setHoraini($horaini)
+    {
+        $this->horaini = $horaini;
+
+        return $this;
+    }
+
+    /**
+     * Get horaini
+     *
+     * @return \DateTime 
+     */
+    public function getHoraini()
+    {
+        return $this->horaini;
+    }
+
+    /**
+     * Set fechafin
+     *
+     * @param \DateTime $fechafin
+     * @return CitEvento
+     */
+    public function setFechafin($fechafin)
+    {
+        $this->fechafin = $fechafin;
+
+        return $this;
+    }
+
+    /**
+     * Get fechafin
+     *
+     * @return \DateTime 
+     */
+    public function getFechafin()
+    {
+        return $this->fechafin;
+    }
+
+    /**
+     * Set horafin
+     *
+     * @param \DateTime $horafin
+     * @return CitEvento
+     */
+    public function setHorafin($horafin)
+    {
+        $this->horafin = $horafin;
+
+        return $this;
+    }
+
+    /**
+     * Get horafin
+     *
+     * @return \DateTime 
+     */
+    public function getHorafin()
+    {
+        return $this->horafin;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return CitEvento
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return CitEvento
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set diaSemana
+     *
+     * @param integer $diaSemana
+     * @return CitEvento
+     */
+    public function setDiaSemana($diaSemana)
+    {
+        $this->diaSemana = $diaSemana;
+
+        return $this;
+    }
+
+    /**
+     * Get diaSemana
+     *
+     * @return integer 
+     */
+    public function getDiaSemana()
+    {
+        return $this->diaSemana;
+    }
+
+    /**
+     * Set idempleado
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idempleado
+     * @return CitEvento
+     */
+    public function setIdempleado(\Minsal\SiapsBundle\Entity\MntEmpleado $idempleado = null)
+    {
+        $this->idempleado = $idempleado;
+
+        return $this;
+    }
+
+    /**
+     * Get idempleado
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     */
+    public function getIdempleado()
+    {
+        return $this->idempleado;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return CitEvento
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idCiqEstablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntProcedimientoEstablecimiento $idCiqEstablecimiento
+     * @return CitEvento
+     */
+    public function setIdCiqEstablecimiento(\Minsal\SiapsBundle\Entity\MntProcedimientoEstablecimiento $idCiqEstablecimiento = null)
+    {
+        $this->idCiqEstablecimiento = $idCiqEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idCiqEstablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntProcedimientoEstablecimiento 
+     */
+    public function getIdCiqEstablecimiento()
+    {
+        return $this->idCiqEstablecimiento;
+    }
+
+    /**
+     * Set idRangohora
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntRangohora $idRangohora
+     * @return CitEvento
+     */
+    public function setIdRangohora(\Minsal\SiapsBundle\Entity\MntRangohora $idRangohora = null)
+    {
+        $this->idRangohora = $idRangohora;
+
+        return $this;
+    }
+
+    /**
+     * Get idRangohora
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     */
+    public function getIdRangohora()
+    {
+        return $this->idRangohora;
+    }
+
+    /**
+     * Set idAreaModEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab
+     * @return CitEvento
+     */
+    public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null)
+    {
+        $this->idAreaModEstab = $idAreaModEstab;
+
+        return $this;
+    }
+
+    /**
+     * Get idAreaModEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     */
+    public function getIdAreaModEstab()
+    {
+        return $this->idAreaModEstab;
+    }
+
+    /**
+     * Set idEstablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @return CitEvento
+     */
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
+    }
+
+    /**
+     * Set idTipoevento
+     *
+     * @param \Minsal\CitasBundle\Entity\CitTipoevento $idTipoevento
+     * @return CitEvento
+     */
+    public function setIdTipoevento(\Minsal\CitasBundle\Entity\CitTipoevento $idTipoevento = null)
+    {
+        $this->idTipoevento = $idTipoevento;
+
+        return $this;
+    }
+
+    /**
+     * Get idTipoevento
+     *
+     * @return \Minsal\CitasBundle\Entity\CitTipoevento 
+     */
+    public function getIdTipoevento()
+    {
+        return $this->idTipoevento;
+    }
 }

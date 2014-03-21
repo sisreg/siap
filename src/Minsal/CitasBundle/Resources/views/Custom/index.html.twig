@@ -1,0 +1,275 @@
+{% extends 'SonataAdminBundle:CRUD:action.html.twig' %}
+
+{% block actions %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		var modal_elements = [];
+
+		function agendaMedicaDisabled() {
+			return 'Agenda Medica Deshabilitada';
+		}
+
+		function agendaMedicaEnabled() {
+			return 'Agenda Medica Habilitada';
+		}
+
+		function pushModalElement(newId,callFunction) {
+			modalElmentFound = 0;
+			if(modal_elements.length != 0) {
+				for (var i in modal_elements) {
+					if (modal_elements[i].id == newId) {
+							modalElmentFound = modalElmentFound + 1;
+						}
+					}
+				}
+				        
+				if(modalElmentFound == 0) {
+				    modal_elements.push({
+					    id: newId,
+					    func: callFunction,
+					    header: 'Agenda M&eacute;dica', 
+					    footer: '',
+					    widthModal: 750
+					});	
+				}
+		}
+
+		jQuery(document).ready(function($) {
+			var date = new Date();
+			var d = date.getDate();
+			var m = date.getMonth();
+			var y = date.getFullYear();
+			
+			$('#calendar-holder').fullCalendar({
+				header: {
+					left: 'prev, next,today',
+					center: 'title',
+					right: 'prevYear, nextYear'
+				},
+				lazyFetching:true,
+	            timeFormat: {
+	                    // for agendaWeek and agendaDay
+	                    agenda: 'h:mmt', // 5:00 - 6:30
+
+	                    // for all other views
+	                    '': 'h:mmt'            // 7p
+	            },
+	            buttonText: {
+			        prev: '&#x25C0; Mes Anterior',
+			        next: 'Mes Siguiente &#x25B6;',
+			        prevYear: '&#x2770; A&ntilde;o Anterior',
+			        nextYear: 'A&ntilde;o Siguiente &#x2771;',
+			        today: 'Hoy'
+			    },
+			    dayRender: function(date, cell) {
+			    	var today = new Date();
+			    	date.setHours(0,0,0,0);
+			    	today.setHours(0,0,0,0);
+			    	var calendarDate = $('#calendar-holder').fullCalendar('getDate');
+			    	var lowerLimit = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1);
+			    	var upperLimit = new Date(calendarDate.getFullYear(), calendarDate.getMonth()+1, 0);
+
+			    	if(date >= lowerLimit && date < today) {
+				        cell.css("background-color", "#E8F2FF");
+				        cell.append('<a href="#myModal" id="citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal" custom-modal="true" role="button" data-toggle="modal">\
+				        				<div class="fc-custom-content-tb">\
+					        				<div class="fc-custom-content">\
+							        			<div class="fc-cuscont-left fc-cuscont-disabled fc-cuscont-border">Citados:</div>\
+							        			<div class="fc-cuscont-right fc-cuscont-disabled fc-cuscont-border">0</div>\
+							        			<div class="fc-cuscont-left fc-cuscont-disabled fc-cuscont-border">Atendidos:</div>\
+							        			<div class="fc-cuscont-right fc-cuscont-disabled fc-cuscont-border">0</div>\
+						        			</div>\
+					        			</div>\
+					        		</a>');
+
+				        pushModalElement('citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal','agendaMedicaDisabled');
+				    }
+
+				    if (date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
+				        cell.css("background-color", "#FEFFDB");
+				        cell.append('<a href="#myModal" id="citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal" custom-modal="true" role="button" data-toggle="modal">\
+					        			<div class="fc-custom-content-tb">\
+						        			<div class="fc-custom-content">\
+						        				<div class="fc-cuscont-left fc-cuscont-enabled">1er vez:</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        				<div class="fc-cuscont-left fc-cuscont-enabled">Subsecuentes:</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        				<div class="fc-cuscont-left fc-cuscont-enabled fc-cuscont-border">Agregados:</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled fc-cuscont-border">0</div>\
+						        				<div class="fc-cuscont-left fc-cuscont-enabled">Total Citados:</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        			</div>\
+						        		</div>\
+						        	</a>');
+						
+						pushModalElement('citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal','agendaMedicaEnabled');
+				    }
+
+				    if(date > today && date >= lowerLimit && date <= upperLimit) {
+				        cell.css("background-color", "#DCFCE9");
+				        cell.append('<a href="#myModal" id="citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal" custom-modal="true" role="button" data-toggle="modal">\
+				        				<div class="fc-custom-content-tb">\
+				        					<div class="fc-custom-content">\
+						        				<div class="fc-cuscont-left fc-cuscont-enabled">1er vez:</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        				<div class="fc-cuscont-left fc-cuscont-enabled">Subsecuentes:</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        				<div class="fc-cuscont-left fc-cuscont-enabled fc-cuscont-border">Agregados:</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled fc-cuscont-border">0</div>\
+						        				<div class="fc-cuscont-left fc-cuscont-enabled">Total Citados:</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+				        					</div>\
+				        				</div>\
+				        			</a>');
+
+						pushModalElement('citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal','agendaMedicaEnabled');
+				    }
+
+				    if(cell.find("div.fc-custom-content-tb").length == 0) {
+				    	cell.append('<div class="fc-custom-content-tb"></div>');
+				    }
+			    },
+			    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+			    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'],
+			    hiddenDays: [ 0, 6 ],
+			    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sab'],
+				eventSources: [
+	                    {
+	                        url: Routing.generate('fullcalendar_loader'), 
+							type: 'POST',
+							// A way to add custom filters to your event listeners
+							data: {
+
+	                        },
+	                        error: function() {
+	                           //alert('There was an error while fetching Google Calendar!');
+	                        }
+	                    }
+				]
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		// On load
+		jQuery(document).ready(function($) {
+			// initialize calendar first
+			updateCalendar();
+
+			//removiendo css
+			$('#calendar-holder .fc-week .fc-day.fc-first div:first-child').css('min-height','');
+
+			// Update the calendar when previous button is pressed
+			$('#calendar-holder .fc-button-prev').on('click', function(){
+				updateCalendar();
+			});
+			
+			// Update the calendar when next button is pressed
+			$('#calendar-holder .fc-button-next').on('click', function(){
+				updateCalendar();
+			});
+
+			// Update the calendar when the today button is pressed
+			$('#calendar-holder .fc-button-today').on('click', function(){
+				updateCalendar();
+			});
+
+			$('#calendar-holder .fc-button-prevYear').on('click', function(){
+				updateCalendar();
+			});
+			
+			// Update the calendar when next button is pressed
+			$('#calendar-holder .fc-button-nextYear').on('click', function(){
+				updateCalendar();
+			});
+
+			
+			function updateCalendar() {
+				renderCalendar();
+				var calendarDate = $('#calendar-holder').fullCalendar('getDate');
+				calendarDate.setHours(0,0,0,0);
+
+				var currentDate = new Date();
+				currentDate.setHours(0,0,0,0);
+
+				// Disable prev button for the past
+				if (currentDate.getFullYear() == calendarDate.getFullYear() && currentDate.getMonth() == calendarDate.getMonth()) {
+					disablePrevMonthButton();
+				} else {
+					enablePrevMonthButton();
+				}			
+				
+				// Disable next button for 2 years from today
+				if (currentDate.getFullYear() + 2 == calendarDate.getFullYear() && currentDate.getMonth() == calendarDate.getMonth()) {
+					disableNextMonthButton();
+				} else {
+					enableNextMonthButton();
+				}
+
+				var limit = new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDate());
+				if (currentDate.getFullYear() == calendarDate.getFullYear() && currentDate.getMonth() == calendarDate.getMonth()) {
+					disablePrevYearButton();
+					enableNextYearButton();
+				} else if (currentDate.getFullYear() +1 == calendarDate.getFullYear() && currentDate.getMonth() == calendarDate.getMonth()) {
+					enablePrevYearButton();
+					enableNextYearButton();
+				} else if(calendarDate < limit) {
+						disablePrevYearButton();
+						enableNextYearButton();
+					} else {
+						disableNextYearButton();
+						enablePrevYearButton();
+					}
+			}
+
+			function enablePrevMonthButton() {
+				$("#calendar-holder .fc-button-prev").removeClass('fc-state-disabled');
+			}
+
+			function disablePrevMonthButton() {
+				$("#calendar-holder .fc-button-prev").addClass('fc-state-disabled');
+			}
+
+			function enableNextMonthButton() {
+				$("#calendar-holder .fc-button-next").removeClass('fc-state-disabled');
+			}
+
+			function disableNextMonthButton() {
+				$("#calendar-holder .fc-button-next").addClass('fc-state-disabled');
+			}
+			
+			function enablePrevYearButton() {
+				$("#calendar-holder .fc-button-prevYear").removeClass('fc-state-disabled');
+			}
+			
+			function disablePrevYearButton() {
+				$("#calendar-holder .fc-button-prevYear").addClass('fc-state-disabled');
+			}
+
+			function enableNextYearButton() {
+				$("#calendar-holder .fc-button-nextYear").removeClass('fc-state-disabled');
+			}
+			
+			function disableNextYearButton() {
+				$("#calendar-holder .fc-button-nextYear").addClass('fc-state-disabled');
+			}
+
+			$(window).on('resize', function() {
+				renderCalendar();
+			});
+
+			function renderCalendar () {
+				$('#calendar-holder').fullCalendar('render');
+			    $('#calendar-holder .fc-week .fc-day.fc-first div:first-child').css('min-height','');
+			    $('#calendar-holder .fc-week .fc-day.fc-first div.fc-custom-content-tb').css('min-height','');
+			}
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+	{% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+{% endblock %}

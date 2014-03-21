@@ -104,4 +104,221 @@ class CitFechas
     private $tipoCita;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return CitFechas
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * Set ag
+     *
+     * @param integer $ag
+     * @return CitFechas
+     */
+    public function setAg($ag)
+    {
+        $this->ag = $ag;
+
+        return $this;
+    }
+
+    /**
+     * Get ag
+     *
+     * @return integer 
+     */
+    public function getAg()
+    {
+        return $this->ag;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return CitFechas
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set idRangohora
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntRangohora $idRangohora
+     * @return CitFechas
+     */
+    public function setIdRangohora(\Minsal\SiapsBundle\Entity\MntRangohora $idRangohora = null)
+    {
+        $this->idRangohora = $idRangohora;
+
+        return $this;
+    }
+
+    /**
+     * Get idRangohora
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     */
+    public function getIdRangohora()
+    {
+        return $this->idRangohora;
+    }
+
+    /**
+     * Set idAreaModEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab
+     * @return CitFechas
+     */
+    public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null)
+    {
+        $this->idAreaModEstab = $idAreaModEstab;
+
+        return $this;
+    }
+
+    /**
+     * Get idAreaModEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     */
+    public function getIdAreaModEstab()
+    {
+        return $this->idAreaModEstab;
+    }
+
+    /**
+     * Set idEmpleado
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado
+     * @return CitFechas
+     */
+    public function setIdEmpleado(\Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado = null)
+    {
+        $this->idEmpleado = $idEmpleado;
+
+        return $this;
+    }
+
+    /**
+     * Get idEmpleado
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     */
+    public function getIdEmpleado()
+    {
+        return $this->idEmpleado;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return CitFechas
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idCita
+     *
+     * @param \Minsal\CitasBundle\Entity\CitCitasDia $idCita
+     * @return CitFechas
+     */
+    public function setIdCita(\Minsal\CitasBundle\Entity\CitCitasDia $idCita = null)
+    {
+        $this->idCita = $idCita;
+
+        return $this;
+    }
+
+    /**
+     * Get idCita
+     *
+     * @return \Minsal\CitasBundle\Entity\CitCitasDia 
+     */
+    public function getIdCita()
+    {
+        return $this->idCita;
+    }
+
+    /**
+     * Set tipoCita
+     *
+     * @param \Minsal\CitasBundle\Entity\CitTipocita $tipoCita
+     * @return CitFechas
+     */
+    public function setTipoCita(\Minsal\CitasBundle\Entity\CitTipocita $tipoCita = null)
+    {
+        $this->tipoCita = $tipoCita;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoCita
+     *
+     * @return \Minsal\CitasBundle\Entity\CitTipocita 
+     */
+    public function getTipoCita()
+    {
+        return $this->tipoCita;
+    }
 }

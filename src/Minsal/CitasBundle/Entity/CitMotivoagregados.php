@@ -40,4 +40,60 @@ class CitMotivoagregados
     private $idestado;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set motivo
+     *
+     * @param string $motivo
+     * @return CitMotivoagregados
+     */
+    public function setMotivo($motivo)
+    {
+        $this->motivo = $motivo;
+
+        return $this;
+    }
+
+    /**
+     * Get motivo
+     *
+     * @return string 
+     */
+    public function getMotivo()
+    {
+        return $this->motivo;
+    }
+
+    /**
+     * Set idestado
+     *
+     * @param \Minsal\CitasBundle\Entity\CitEstadoCita $idestado
+     * @return CitMotivoagregados
+     */
+    public function setIdestado(\Minsal\CitasBundle\Entity\CitEstadoCita $idestado = null)
+    {
+        $this->idestado = $idestado;
+
+        return $this;
+    }
+
+    /**
+     * Get idestado
+     *
+     * @return \Minsal\CitasBundle\Entity\CitEstadoCita 
+     */
+    public function getIdestado()
+    {
+        return $this->idestado;
+    }
 }

@@ -80,4 +80,198 @@ class SecDetallesolicitudestudios {
      * @ORM\Column(name="id_examenxestablecimiento", type="integer", nullable=true)
      */
     private $idExamenxestablecimiento;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idExamenes
+     *
+     * @param string $idExamenes
+     * @return SecDetallesolicitudestudios
+     */
+    public function setIdExamenes($idExamenes)
+    {
+        $this->idExamenes = $idExamenes;
+
+        return $this;
+    }
+
+    /**
+     * Get idExamenes
+     *
+     * @return string 
+     */
+    public function getIdExamenes()
+    {
+        return $this->idExamenes;
+    }
+
+    /**
+     * Set indicacion
+     *
+     * @param string $indicacion
+     * @return SecDetallesolicitudestudios
+     */
+    public function setIndicacion($indicacion)
+    {
+        $this->indicacion = $indicacion;
+
+        return $this;
+    }
+
+    /**
+     * Get indicacion
+     *
+     * @return string 
+     */
+    public function getIndicacion()
+    {
+        return $this->indicacion;
+    }
+
+    /**
+     * Set estadoDetalle
+     *
+     * @param string $estadoDetalle
+     * @return SecDetallesolicitudestudios
+     */
+    public function setEstadoDetalle($estadoDetalle)
+    {
+        $this->estadoDetalle = $estadoDetalle;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoDetalle
+     *
+     * @return string 
+     */
+    public function getEstadoDetalle()
+    {
+        return $this->estadoDetalle;
+    }
+
+    /**
+     * Set idTipomuestra
+     *
+     * @param integer $idTipomuestra
+     * @return SecDetallesolicitudestudios
+     */
+    public function setIdTipomuestra($idTipomuestra)
+    {
+        $this->idTipomuestra = $idTipomuestra;
+
+        return $this;
+    }
+
+    /**
+     * Get idTipomuestra
+     *
+     * @return integer 
+     */
+    public function getIdTipomuestra()
+    {
+        return $this->idTipomuestra;
+    }
+
+    /**
+     * Set idOrigenmuestra
+     *
+     * @param integer $idOrigenmuestra
+     * @return SecDetallesolicitudestudios
+     */
+    public function setIdOrigenmuestra($idOrigenmuestra)
+    {
+        $this->idOrigenmuestra = $idOrigenmuestra;
+
+        return $this;
+    }
+
+    /**
+     * Get idOrigenmuestra
+     *
+     * @return integer 
+     */
+    public function getIdOrigenmuestra()
+    {
+        return $this->idOrigenmuestra;
+    }
+
+    /**
+     * Set observacion
+     *
+     * @param string $observacion
+     * @return SecDetallesolicitudestudios
+     */
+    public function setObservacion($observacion)
+    {
+        $this->observacion = $observacion;
+
+        return $this;
+    }
+
+    /**
+     * Get observacion
+     *
+     * @return string 
+     */
+    public function getObservacion()
+    {
+        return $this->observacion;
+    }
+
+    /**
+     * Set idExamenxestablecimiento
+     *
+     * @param integer $idExamenxestablecimiento
+     * @return SecDetallesolicitudestudios
+     */
+    public function setIdExamenxestablecimiento($idExamenxestablecimiento)
+    {
+        $this->idExamenxestablecimiento = $idExamenxestablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idExamenxestablecimiento
+     *
+     * @return integer 
+     */
+    public function getIdExamenxestablecimiento()
+    {
+        return $this->idExamenxestablecimiento;
+    }
+
+    /**
+     * Set idSolicitudestudios
+     *
+     * @param \Minsal\SeguimientoBundle\Entity\SecSolicitudestudios $idSolicitudestudios
+     * @return SecDetallesolicitudestudios
+     */
+    public function setIdSolicitudestudios(\Minsal\SeguimientoBundle\Entity\SecSolicitudestudios $idSolicitudestudios = null)
+    {
+        $this->idSolicitudestudios = $idSolicitudestudios;
+
+        return $this;
+    }
+
+    /**
+     * Get idSolicitudestudios
+     *
+     * @return \Minsal\SeguimientoBundle\Entity\SecSolicitudestudios 
+     */
+    public function getIdSolicitudestudios()
+    {
+        return $this->idSolicitudestudios;
+    }
 }

@@ -54,4 +54,106 @@ class CitEstadoCita
     private $fechahorareg;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param string $estado
+     * @return CitEstadoCita
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return string 
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return CitEstadoCita
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return CitEstadoCita
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return CitEstadoCita
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
 }

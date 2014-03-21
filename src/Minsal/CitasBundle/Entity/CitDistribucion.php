@@ -156,4 +156,382 @@ class CitDistribucion
     private $distribucionmed;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set primera
+     *
+     * @param integer $primera
+     * @return CitDistribucion
+     */
+    public function setPrimera($primera)
+    {
+        $this->primera = $primera;
+
+        return $this;
+    }
+
+    /**
+     * Get primera
+     *
+     * @return integer 
+     */
+    public function getPrimera()
+    {
+        return $this->primera;
+    }
+
+    /**
+     * Set subsecuente
+     *
+     * @param integer $subsecuente
+     * @return CitDistribucion
+     */
+    public function setSubsecuente($subsecuente)
+    {
+        $this->subsecuente = $subsecuente;
+
+        return $this;
+    }
+
+    /**
+     * Get subsecuente
+     *
+     * @return integer 
+     */
+    public function getSubsecuente()
+    {
+        return $this->subsecuente;
+    }
+
+    /**
+     * Set mes
+     *
+     * @param integer $mes
+     * @return CitDistribucion
+     */
+    public function setMes($mes)
+    {
+        $this->mes = $mes;
+
+        return $this;
+    }
+
+    /**
+     * Get mes
+     *
+     * @return integer 
+     */
+    public function getMes()
+    {
+        return $this->mes;
+    }
+
+    /**
+     * Set yrs
+     *
+     * @param integer $yrs
+     * @return CitDistribucion
+     */
+    public function setYrs($yrs)
+    {
+        $this->yrs = $yrs;
+
+        return $this;
+    }
+
+    /**
+     * Get yrs
+     *
+     * @return integer 
+     */
+    public function getYrs()
+    {
+        return $this->yrs;
+    }
+
+    /**
+     * Set dia
+     *
+     * @param integer $dia
+     * @return CitDistribucion
+     */
+    public function setDia($dia)
+    {
+        $this->dia = $dia;
+
+        return $this;
+    }
+
+    /**
+     * Get dia
+     *
+     * @return integer 
+     */
+    public function getDia()
+    {
+        return $this->dia;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return CitDistribucion
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set fechahoramod
+     *
+     * @param \DateTime $fechahoramod
+     * @return CitDistribucion
+     */
+    public function setFechahoramod($fechahoramod)
+    {
+        $this->fechahoramod = $fechahoramod;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahoramod
+     *
+     * @return \DateTime 
+     */
+    public function getFechahoramod()
+    {
+        return $this->fechahoramod;
+    }
+
+    /**
+     * Set tipocon
+     *
+     * @param string $tipocon
+     * @return CitDistribucion
+     */
+    public function setTipocon($tipocon)
+    {
+        $this->tipocon = $tipocon;
+
+        return $this;
+    }
+
+    /**
+     * Get tipocon
+     *
+     * @return string 
+     */
+    public function getTipocon()
+    {
+        return $this->tipocon;
+    }
+
+    /**
+     * Set distribucionmed
+     *
+     * @param string $distribucionmed
+     * @return CitDistribucion
+     */
+    public function setDistribucionmed($distribucionmed)
+    {
+        $this->distribucionmed = $distribucionmed;
+
+        return $this;
+    }
+
+    /**
+     * Get distribucionmed
+     *
+     * @return string 
+     */
+    public function getDistribucionmed()
+    {
+        return $this->distribucionmed;
+    }
+
+    /**
+     * Set idRangohora
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntRangohora $idRangohora
+     * @return CitDistribucion
+     */
+    public function setIdRangohora(\Minsal\SiapsBundle\Entity\MntRangohora $idRangohora = null)
+    {
+        $this->idRangohora = $idRangohora;
+
+        return $this;
+    }
+
+    /**
+     * Get idRangohora
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     */
+    public function getIdRangohora()
+    {
+        return $this->idRangohora;
+    }
+
+    /**
+     * Set idEmpleado
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado
+     * @return CitDistribucion
+     */
+    public function setIdEmpleado(\Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado = null)
+    {
+        $this->idEmpleado = $idEmpleado;
+
+        return $this;
+    }
+
+    /**
+     * Get idEmpleado
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     */
+    public function getIdEmpleado()
+    {
+        return $this->idEmpleado;
+    }
+
+    /**
+     * Set idConsultorio
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntConsultorio $idConsultorio
+     * @return CitDistribucion
+     */
+    public function setIdConsultorio(\Minsal\SiapsBundle\Entity\MntConsultorio $idConsultorio = null)
+    {
+        $this->idConsultorio = $idConsultorio;
+
+        return $this;
+    }
+
+    /**
+     * Get idConsultorio
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntConsultorio 
+     */
+    public function getIdConsultorio()
+    {
+        return $this->idConsultorio;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return CitDistribucion
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idAtenAreaModEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab
+     * @return CitDistribucion
+     */
+    public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null)
+    {
+        $this->idAtenAreaModEstab = $idAtenAreaModEstab;
+
+        return $this;
+    }
+
+    /**
+     * Get idAtenAreaModEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
+     */
+    public function getIdAtenAreaModEstab()
+    {
+        return $this->idAtenAreaModEstab;
+    }
+
+    /**
+     * Set idusuariomod
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuariomod
+     * @return CitDistribucion
+     */
+    public function setIdusuariomod(\Minsal\SiapsBundle\Entity\User $idusuariomod = null)
+    {
+        $this->idusuariomod = $idusuariomod;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuariomod
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuariomod()
+    {
+        return $this->idusuariomod;
+    }
+
+    /**
+     * Set idAreaModEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab
+     * @return CitDistribucion
+     */
+    public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null)
+    {
+        $this->idAreaModEstab = $idAreaModEstab;
+
+        return $this;
+    }
+
+    /**
+     * Get idAreaModEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     */
+    public function getIdAreaModEstab()
+    {
+        return $this->idAreaModEstab;
+    }
 }

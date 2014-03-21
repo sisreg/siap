@@ -77,4 +77,152 @@ class CitProgramacionExams
     private $idExamenEstablecimiento;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set rangotiempoprev
+     *
+     * @param integer $rangotiempoprev
+     * @return CitProgramacionExams
+     */
+    public function setRangotiempoprev($rangotiempoprev)
+    {
+        $this->rangotiempoprev = $rangotiempoprev;
+
+        return $this;
+    }
+
+    /**
+     * Get rangotiempoprev
+     *
+     * @return integer 
+     */
+    public function getRangotiempoprev()
+    {
+        return $this->rangotiempoprev;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return CitProgramacionExams
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set idAtenAreaModEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab
+     * @return CitProgramacionExams
+     */
+    public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null)
+    {
+        $this->idAtenAreaModEstab = $idAtenAreaModEstab;
+
+        return $this;
+    }
+
+    /**
+     * Get idAtenAreaModEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
+     */
+    public function getIdAtenAreaModEstab()
+    {
+        return $this->idAtenAreaModEstab;
+    }
+
+    /**
+     * Set idEstablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @return CitProgramacionExams
+     */
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return CitProgramacionExams
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idExamenEstablecimiento
+     *
+     * @param \Minsal\CitasBundle\Entity\LabExamenesxestablecimiento $idExamenEstablecimiento
+     * @return CitProgramacionExams
+     */
+    public function setIdExamenEstablecimiento(\Minsal\CitasBundle\Entity\LabExamenesxestablecimiento $idExamenEstablecimiento = null)
+    {
+        $this->idExamenEstablecimiento = $idExamenEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idExamenEstablecimiento
+     *
+     * @return \Minsal\CitasBundle\Entity\LabExamenesxestablecimiento 
+     */
+    public function getIdExamenEstablecimiento()
+    {
+        return $this->idExamenEstablecimiento;
+    }
 }

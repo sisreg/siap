@@ -23,7 +23,7 @@ class CitCitasDiaAdminController extends CRUDController {
 	*/
 	public function listAction() {
 
-	if (false === $this->admin->isGranted('<<ROLE>>')) {
+	if (false === $this->admin->isGranted('LIST')) {
 		throw new AccessDeniedException();
 	}
 
@@ -36,9 +36,9 @@ class CitCitasDiaAdminController extends CRUDController {
 
 	return
 
-	$this->render('MinsalSimBundle:<<directorio_view>>:<<nombre_plantilla>>.html.twig',
+	$this->render('MinsalCitasBundle:Custom:index.html.twig',
 		array(
-			'action' => '<<action_name>>',
+			'action' => 'list',
 			'form' => $formView,
 		));
 	}

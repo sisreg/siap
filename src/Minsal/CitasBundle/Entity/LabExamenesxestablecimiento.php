@@ -142,4 +142,382 @@ class LabExamenesxestablecimiento
      * @ORM\Column(name="id_examen", type="integer", nullable=true)
      */
     private $idExamen;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idexam
+     *
+     * @param string $idexam
+     * @return LabExamenesxestablecimiento
+     */
+    public function setIdexam($idexam)
+    {
+        $this->idexam = $idexam;
+
+        return $this;
+    }
+
+    /**
+     * Get idexam
+     *
+     * @return string 
+     */
+    public function getIdexam()
+    {
+        return $this->idexam;
+    }
+
+    /**
+     * Set condicion
+     *
+     * @param string $condicion
+     * @return LabExamenesxestablecimiento
+     */
+    public function setCondicion($condicion)
+    {
+        $this->condicion = $condicion;
+
+        return $this;
+    }
+
+    /**
+     * Get condicion
+     *
+     * @return string 
+     */
+    public function getCondicion()
+    {
+        return $this->condicion;
+    }
+
+    /**
+     * Set idformulario
+     *
+     * @param integer $idformulario
+     * @return LabExamenesxestablecimiento
+     */
+    public function setIdformulario($idformulario)
+    {
+        $this->idformulario = $idformulario;
+
+        return $this;
+    }
+
+    /**
+     * Get idformulario
+     *
+     * @return integer 
+     */
+    public function getIdformulario()
+    {
+        return $this->idformulario;
+    }
+
+    /**
+     * Set idestandarrep
+     *
+     * @param integer $idestandarrep
+     * @return LabExamenesxestablecimiento
+     */
+    public function setIdestandarrep($idestandarrep)
+    {
+        $this->idestandarrep = $idestandarrep;
+
+        return $this;
+    }
+
+    /**
+     * Get idestandarrep
+     *
+     * @return integer 
+     */
+    public function getIdestandarrep()
+    {
+        return $this->idestandarrep;
+    }
+
+    /**
+     * Set urgente
+     *
+     * @param integer $urgente
+     * @return LabExamenesxestablecimiento
+     */
+    public function setUrgente($urgente)
+    {
+        $this->urgente = $urgente;
+
+        return $this;
+    }
+
+    /**
+     * Get urgente
+     *
+     * @return integer 
+     */
+    public function getUrgente()
+    {
+        return $this->urgente;
+    }
+
+    /**
+     * Set idplanilla
+     *
+     * @param string $idplanilla
+     * @return LabExamenesxestablecimiento
+     */
+    public function setIdplanilla($idplanilla)
+    {
+        $this->idplanilla = $idplanilla;
+
+        return $this;
+    }
+
+    /**
+     * Get idplanilla
+     *
+     * @return string 
+     */
+    public function getIdplanilla()
+    {
+        return $this->idplanilla;
+    }
+
+    /**
+     * Set impresion
+     *
+     * @param string $impresion
+     * @return LabExamenesxestablecimiento
+     */
+    public function setImpresion($impresion)
+    {
+        $this->impresion = $impresion;
+
+        return $this;
+    }
+
+    /**
+     * Get impresion
+     *
+     * @return string 
+     */
+    public function getImpresion()
+    {
+        return $this->impresion;
+    }
+
+    /**
+     * Set ubicacion
+     *
+     * @param integer $ubicacion
+     * @return LabExamenesxestablecimiento
+     */
+    public function setUbicacion($ubicacion)
+    {
+        $this->ubicacion = $ubicacion;
+
+        return $this;
+    }
+
+    /**
+     * Get ubicacion
+     *
+     * @return integer 
+     */
+    public function getUbicacion()
+    {
+        return $this->ubicacion;
+    }
+
+    /**
+     * Set codigosumi
+     *
+     * @param string $codigosumi
+     * @return LabExamenesxestablecimiento
+     */
+    public function setCodigosumi($codigosumi)
+    {
+        $this->codigosumi = $codigosumi;
+
+        return $this;
+    }
+
+    /**
+     * Get codigosumi
+     *
+     * @return string 
+     */
+    public function getCodigosumi()
+    {
+        return $this->codigosumi;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return LabExamenesxestablecimiento
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set fechahoramod
+     *
+     * @param \DateTime $fechahoramod
+     * @return LabExamenesxestablecimiento
+     */
+    public function setFechahoramod($fechahoramod)
+    {
+        $this->fechahoramod = $fechahoramod;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahoramod
+     *
+     * @return \DateTime 
+     */
+    public function getFechahoramod()
+    {
+        return $this->fechahoramod;
+    }
+
+    /**
+     * Set habilitado
+     *
+     * @param boolean $habilitado
+     * @return LabExamenesxestablecimiento
+     */
+    public function setHabilitado($habilitado)
+    {
+        $this->habilitado = $habilitado;
+
+        return $this;
+    }
+
+    /**
+     * Get habilitado
+     *
+     * @return boolean 
+     */
+    public function getHabilitado()
+    {
+        return $this->habilitado;
+    }
+
+    /**
+     * Set idExamen
+     *
+     * @param integer $idExamen
+     * @return LabExamenesxestablecimiento
+     */
+    public function setIdExamen($idExamen)
+    {
+        $this->idExamen = $idExamen;
+
+        return $this;
+    }
+
+    /**
+     * Get idExamen
+     *
+     * @return integer 
+     */
+    public function getIdExamen()
+    {
+        return $this->idExamen;
+    }
+
+    /**
+     * Set idestablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idestablecimiento
+     * @return LabExamenesxestablecimiento
+     */
+    public function setIdestablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idestablecimiento = null)
+    {
+        $this->idestablecimiento = $idestablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idestablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdestablecimiento()
+    {
+        return $this->idestablecimiento;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return LabExamenesxestablecimiento
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idusuariomod
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuariomod
+     * @return LabExamenesxestablecimiento
+     */
+    public function setIdusuariomod(\Minsal\SiapsBundle\Entity\User $idusuariomod = null)
+    {
+        $this->idusuariomod = $idusuariomod;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuariomod
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuariomod()
+    {
+        return $this->idusuariomod;
+    }
 }

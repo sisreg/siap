@@ -67,4 +67,129 @@ class CitCitasServiciodeapoyo
     private $idDetallesolicitudestudios;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return CitCitasServiciodeapoyo
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return CitCitasServiciodeapoyo
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set idSolicitudestudios
+     *
+     * @param \Minsal\SeguimientoBundle\Entity\SecSolicitudestudios $idSolicitudestudios
+     * @return CitCitasServiciodeapoyo
+     */
+    public function setIdSolicitudestudios(\Minsal\SeguimientoBundle\Entity\SecSolicitudestudios $idSolicitudestudios = null)
+    {
+        $this->idSolicitudestudios = $idSolicitudestudios;
+
+        return $this;
+    }
+
+    /**
+     * Get idSolicitudestudios
+     *
+     * @return \Minsal\SeguimientoBundle\Entity\SecSolicitudestudios 
+     */
+    public function getIdSolicitudestudios()
+    {
+        return $this->idSolicitudestudios;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return CitCitasServiciodeapoyo
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idDetallesolicitudestudios
+     *
+     * @param \Minsal\SeguimientoBundle\Entity\SecDetallesolicitudestudios $idDetallesolicitudestudios
+     * @return CitCitasServiciodeapoyo
+     */
+    public function setIdDetallesolicitudestudios(\Minsal\SeguimientoBundle\Entity\SecDetallesolicitudestudios $idDetallesolicitudestudios = null)
+    {
+        $this->idDetallesolicitudestudios = $idDetallesolicitudestudios;
+
+        return $this;
+    }
+
+    /**
+     * Get idDetallesolicitudestudios
+     *
+     * @return \Minsal\SeguimientoBundle\Entity\SecDetallesolicitudestudios 
+     */
+    public function getIdDetallesolicitudestudios()
+    {
+        return $this->idDetallesolicitudestudios;
+    }
 }

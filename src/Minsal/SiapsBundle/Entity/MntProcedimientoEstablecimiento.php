@@ -145,4 +145,359 @@ class MntProcedimientoEstablecimiento
      * @ORM\Column(name="fechahoramod", type="datetime", nullable=true)
      */
     private $fechahoramod;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idCiq
+     *
+     * @param integer $idCiq
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setIdCiq($idCiq)
+    {
+        $this->idCiq = $idCiq;
+
+        return $this;
+    }
+
+    /**
+     * Get idCiq
+     *
+     * @return integer 
+     */
+    public function getIdCiq()
+    {
+        return $this->idCiq;
+    }
+
+    /**
+     * Set techomaximo
+     *
+     * @param integer $techomaximo
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setTechomaximo($techomaximo)
+    {
+        $this->techomaximo = $techomaximo;
+
+        return $this;
+    }
+
+    /**
+     * Get techomaximo
+     *
+     * @return integer 
+     */
+    public function getTechomaximo()
+    {
+        return $this->techomaximo;
+    }
+
+    /**
+     * Set cantidadacupo
+     *
+     * @param integer $cantidadacupo
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setCantidadacupo($cantidadacupo)
+    {
+        $this->cantidadacupo = $cantidadacupo;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadacupo
+     *
+     * @return integer 
+     */
+    public function getCantidadacupo()
+    {
+        return $this->cantidadacupo;
+    }
+
+    /**
+     * Set tiempoprevio
+     *
+     * @param integer $tiempoprevio
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setTiempoprevio($tiempoprevio)
+    {
+        $this->tiempoprevio = $tiempoprevio;
+
+        return $this;
+    }
+
+    /**
+     * Get tiempoprevio
+     *
+     * @return integer 
+     */
+    public function getTiempoprevio()
+    {
+        return $this->tiempoprevio;
+    }
+
+    /**
+     * Set ipconfirmado
+     *
+     * @param string $ipconfirmado
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setIpconfirmado($ipconfirmado)
+    {
+        $this->ipconfirmado = $ipconfirmado;
+
+        return $this;
+    }
+
+    /**
+     * Get ipconfirmado
+     *
+     * @return string 
+     */
+    public function getIpconfirmado()
+    {
+        return $this->ipconfirmado;
+    }
+
+    /**
+     * Set dia
+     *
+     * @param integer $dia
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setDia($dia)
+    {
+        $this->dia = $dia;
+
+        return $this;
+    }
+
+    /**
+     * Get dia
+     *
+     * @return integer 
+     */
+    public function getDia()
+    {
+        return $this->dia;
+    }
+
+    /**
+     * Set yrs
+     *
+     * @param integer $yrs
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setYrs($yrs)
+    {
+        $this->yrs = $yrs;
+
+        return $this;
+    }
+
+    /**
+     * Get yrs
+     *
+     * @return integer 
+     */
+    public function getYrs()
+    {
+        return $this->yrs;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set fechahoramod
+     *
+     * @param \DateTime $fechahoramod
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setFechahoramod($fechahoramod)
+    {
+        $this->fechahoramod = $fechahoramod;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahoramod
+     *
+     * @return \DateTime 
+     */
+    public function getFechahoramod()
+    {
+        return $this->fechahoramod;
+    }
+
+    /**
+     * Set idRangohora
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntRangohora $idRangohora
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setIdRangohora(\Minsal\SiapsBundle\Entity\MntRangohora $idRangohora = null)
+    {
+        $this->idRangohora = $idRangohora;
+
+        return $this;
+    }
+
+    /**
+     * Get idRangohora
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     */
+    public function getIdRangohora()
+    {
+        return $this->idRangohora;
+    }
+
+    /**
+     * Set idEmpleado
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setIdEmpleado(\Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado = null)
+    {
+        $this->idEmpleado = $idEmpleado;
+
+        return $this;
+    }
+
+    /**
+     * Get idEmpleado
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     */
+    public function getIdEmpleado()
+    {
+        return $this->idEmpleado;
+    }
+
+    /**
+     * Set idAreaModEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null)
+    {
+        $this->idAreaModEstab = $idAreaModEstab;
+
+        return $this;
+    }
+
+    /**
+     * Get idAreaModEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     */
+    public function getIdAreaModEstab()
+    {
+        return $this->idAreaModEstab;
+    }
+
+    /**
+     * Set idEstablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idusuariomod
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuariomod
+     * @return MntProcedimientoEstablecimiento
+     */
+    public function setIdusuariomod(\Minsal\SiapsBundle\Entity\User $idusuariomod = null)
+    {
+        $this->idusuariomod = $idusuariomod;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuariomod
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuariomod()
+    {
+        return $this->idusuariomod;
+    }
 }

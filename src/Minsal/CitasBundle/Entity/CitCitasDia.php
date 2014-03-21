@@ -141,4 +141,313 @@ class CitCitasDia
     private $idTipocita;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return CitCitasDia
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return CitCitasDia
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set ipcita
+     *
+     * @param string $ipcita
+     * @return CitCitasDia
+     */
+    public function setIpcita($ipcita)
+    {
+        $this->ipcita = $ipcita;
+
+        return $this;
+    }
+
+    /**
+     * Get ipcita
+     *
+     * @return string 
+     */
+    public function getIpcita()
+    {
+        return $this->ipcita;
+    }
+
+    /**
+     * Set ipconfirmado
+     *
+     * @param string $ipconfirmado
+     * @return CitCitasDia
+     */
+    public function setIpconfirmado($ipconfirmado)
+    {
+        $this->ipconfirmado = $ipconfirmado;
+
+        return $this;
+    }
+
+    /**
+     * Get ipconfirmado
+     *
+     * @return string 
+     */
+    public function getIpconfirmado()
+    {
+        return $this->ipconfirmado;
+    }
+
+    /**
+     * Set idAtenAreaModEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab
+     * @return CitCitasDia
+     */
+    public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null)
+    {
+        $this->idAtenAreaModEstab = $idAtenAreaModEstab;
+
+        return $this;
+    }
+
+    /**
+     * Get idAtenAreaModEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
+     */
+    public function getIdAtenAreaModEstab()
+    {
+        return $this->idAtenAreaModEstab;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return CitCitasDia
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idEmpleado
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado
+     * @return CitCitasDia
+     */
+    public function setIdEmpleado(\Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado = null)
+    {
+        $this->idEmpleado = $idEmpleado;
+
+        return $this;
+    }
+
+    /**
+     * Get idEmpleado
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     */
+    public function getIdEmpleado()
+    {
+        return $this->idEmpleado;
+    }
+
+    /**
+     * Set idExpediente
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntExpediente $idExpediente
+     * @return CitCitasDia
+     */
+    public function setIdExpediente(\Minsal\SiapsBundle\Entity\MntExpediente $idExpediente = null)
+    {
+        $this->idExpediente = $idExpediente;
+
+        return $this;
+    }
+
+    /**
+     * Get idExpediente
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntExpediente 
+     */
+    public function getIdExpediente()
+    {
+        return $this->idExpediente;
+    }
+
+    /**
+     * Set idEstablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @return CitCitasDia
+     */
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
+    }
+
+    /**
+     * Set idEstablecimientoReferencia
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoReferencia
+     * @return CitCitasDia
+     */
+    public function setIdEstablecimientoReferencia(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoReferencia = null)
+    {
+        $this->idEstablecimientoReferencia = $idEstablecimientoReferencia;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimientoReferencia
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimientoReferencia()
+    {
+        return $this->idEstablecimientoReferencia;
+    }
+
+    /**
+     * Set idEstado
+     *
+     * @param \Minsal\CitasBundle\Entity\CitEstadoCita $idEstado
+     * @return CitCitasDia
+     */
+    public function setIdEstado(\Minsal\CitasBundle\Entity\CitEstadoCita $idEstado = null)
+    {
+        $this->idEstado = $idEstado;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstado
+     *
+     * @return \Minsal\CitasBundle\Entity\CitEstadoCita 
+     */
+    public function getIdEstado()
+    {
+        return $this->idEstado;
+    }
+
+    /**
+     * Set idMotivo
+     *
+     * @param \Minsal\CitasBundle\Entity\CitMotivoagregados $idMotivo
+     * @return CitCitasDia
+     */
+    public function setIdMotivo(\Minsal\CitasBundle\Entity\CitMotivoagregados $idMotivo = null)
+    {
+        $this->idMotivo = $idMotivo;
+
+        return $this;
+    }
+
+    /**
+     * Get idMotivo
+     *
+     * @return \Minsal\CitasBundle\Entity\CitMotivoagregados 
+     */
+    public function getIdMotivo()
+    {
+        return $this->idMotivo;
+    }
+
+    /**
+     * Set idTipocita
+     *
+     * @param \Minsal\CitasBundle\Entity\CitTipocita $idTipocita
+     * @return CitCitasDia
+     */
+    public function setIdTipocita(\Minsal\CitasBundle\Entity\CitTipocita $idTipocita = null)
+    {
+        $this->idTipocita = $idTipocita;
+
+        return $this;
+    }
+
+    /**
+     * Get idTipocita
+     *
+     * @return \Minsal\CitasBundle\Entity\CitTipocita 
+     */
+    public function getIdTipocita()
+    {
+        return $this->idTipocita;
+    }
 }

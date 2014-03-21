@@ -130,4 +130,313 @@ class SecSolicitudestudios {
      * })
      */
     private $idExpediente;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idHistorialClinico
+     *
+     * @param integer $idHistorialClinico
+     * @return SecSolicitudestudios
+     */
+    public function setIdHistorialClinico($idHistorialClinico)
+    {
+        $this->idHistorialClinico = $idHistorialClinico;
+
+        return $this;
+    }
+
+    /**
+     * Get idHistorialClinico
+     *
+     * @return integer 
+     */
+    public function getIdHistorialClinico()
+    {
+        return $this->idHistorialClinico;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param string $estado
+     * @return SecSolicitudestudios
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return string 
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set fechaSolicitud
+     *
+     * @param \DateTime $fechaSolicitud
+     * @return SecSolicitudestudios
+     */
+    public function setFechaSolicitud($fechaSolicitud)
+    {
+        $this->fechaSolicitud = $fechaSolicitud;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaSolicitud
+     *
+     * @return \DateTime 
+     */
+    public function getFechaSolicitud()
+    {
+        return $this->fechaSolicitud;
+    }
+
+    /**
+     * Set fechahorareg
+     *
+     * @param \DateTime $fechahorareg
+     * @return SecSolicitudestudios
+     */
+    public function setFechahorareg($fechahorareg)
+    {
+        $this->fechahorareg = $fechahorareg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechahorareg
+     *
+     * @return \DateTime 
+     */
+    public function getFechahorareg()
+    {
+        return $this->fechahorareg;
+    }
+
+    /**
+     * Set impresiones
+     *
+     * @param integer $impresiones
+     * @return SecSolicitudestudios
+     */
+    public function setImpresiones($impresiones)
+    {
+        $this->impresiones = $impresiones;
+
+        return $this;
+    }
+
+    /**
+     * Get impresiones
+     *
+     * @return integer 
+     */
+    public function getImpresiones()
+    {
+        return $this->impresiones;
+    }
+
+    /**
+     * Set cama
+     *
+     * @param integer $cama
+     * @return SecSolicitudestudios
+     */
+    public function setCama($cama)
+    {
+        $this->cama = $cama;
+
+        return $this;
+    }
+
+    /**
+     * Get cama
+     *
+     * @return integer 
+     */
+    public function getCama()
+    {
+        return $this->cama;
+    }
+
+    /**
+     * Set idTipoSolicitud
+     *
+     * @param string $idTipoSolicitud
+     * @return SecSolicitudestudios
+     */
+    public function setIdTipoSolicitud($idTipoSolicitud)
+    {
+        $this->idTipoSolicitud = $idTipoSolicitud;
+
+        return $this;
+    }
+
+    /**
+     * Get idTipoSolicitud
+     *
+     * @return string 
+     */
+    public function getIdTipoSolicitud()
+    {
+        return $this->idTipoSolicitud;
+    }
+
+    /**
+     * Set idusuarioreg
+     *
+     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @return SecSolicitudestudios
+     */
+    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    {
+        $this->idusuarioreg = $idusuarioreg;
+
+        return $this;
+    }
+
+    /**
+     * Get idusuarioreg
+     *
+     * @return \Minsal\SiapsBundle\Entity\User 
+     */
+    public function getIdusuarioreg()
+    {
+        return $this->idusuarioreg;
+    }
+
+    /**
+     * Set idAtencion
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlAtencion $idAtencion
+     * @return SecSolicitudestudios
+     */
+    public function setIdAtencion(\Minsal\SiapsBundle\Entity\CtlAtencion $idAtencion = null)
+    {
+        $this->idAtencion = $idAtencion;
+
+        return $this;
+    }
+
+    /**
+     * Get idAtencion
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlAtencion 
+     */
+    public function getIdAtencion()
+    {
+        return $this->idAtencion;
+    }
+
+    /**
+     * Set idEstablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @return SecSolicitudestudios
+     */
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
+    }
+
+    /**
+     * Set idnumeroexp
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntExpediente $idnumeroexp
+     * @return SecSolicitudestudios
+     */
+    public function setIdnumeroexp(\Minsal\SiapsBundle\Entity\MntExpediente $idnumeroexp = null)
+    {
+        $this->idnumeroexp = $idnumeroexp;
+
+        return $this;
+    }
+
+    /**
+     * Get idnumeroexp
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntExpediente 
+     */
+    public function getIdnumeroexp()
+    {
+        return $this->idnumeroexp;
+    }
+
+    /**
+     * Set idEstablecimientoExterno
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoExterno
+     * @return SecSolicitudestudios
+     */
+    public function setIdEstablecimientoExterno(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoExterno = null)
+    {
+        $this->idEstablecimientoExterno = $idEstablecimientoExterno;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimientoExterno
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimientoExterno()
+    {
+        return $this->idEstablecimientoExterno;
+    }
+
+    /**
+     * Set idExpediente
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntExpediente $idExpediente
+     * @return SecSolicitudestudios
+     */
+    public function setIdExpediente(\Minsal\SiapsBundle\Entity\MntExpediente $idExpediente = null)
+    {
+        $this->idExpediente = $idExpediente;
+
+        return $this;
+    }
+
+    /**
+     * Get idExpediente
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntExpediente 
+     */
+    public function getIdExpediente()
+    {
+        return $this->idExpediente;
+    }
 }

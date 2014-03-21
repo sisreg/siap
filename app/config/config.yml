@@ -158,3 +158,10 @@ sonata_doctrine_orm_admin:
 #GENEMU BUNDLE
 genemu_form:
     select2: ~
+
+services:
+    calendar.load_events:
+        class:        Minsal\SiapsBundle\EventListener\CalendarEventListener
+        arguments:   [@doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: calendar.load_events, method: loadEvents }
