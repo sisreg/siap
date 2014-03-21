@@ -103,6 +103,9 @@ class UserAdmin extends BaseUserAdmin {
         }
     }
 
+    /**
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+     */
     public function createQuery($context = 'list') {
         $query = parent::createQuery($context);
         $usuario = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();

@@ -1,0 +1,14 @@
+.sonata-bc .dropdown-menu li>a {text-align: left;}
+.fc-custom-content-tb {display: table;height: 141px;width: 100%;}
+.fc-custom-content {padding: 0px 15px 0px 15px;display: table-cell;vertical-align: middle;}
+.fc-cuscont-left, .fc-cuscont-right {display: block;margin-bottom: 6px;font-weight: bold;}
+.fc-cuscont-left {text-align: left;width: 80%;float: left;}
+.fc-cuscont-right {text-align: right;width: 20%;float: right;}
+.fc-cuscont-disabled {color:#848484;}
+.fc-cuscont-disabled.fc-cuscont-border {border-bottom: 1px solid #848484;}
+.fc-cuscont-enabled {color:#585858;}
+.fc-custom-content:hover .fc-cuscont-disabled.fc-cuscont-border, .fc-custom-content:hover .fc-cuscont-enabled.fc-cuscont-border {color:#489cdf;border-bottom: 2px solid #489cdf;}
+.fc-custom-content:hover .fc-cuscont-enabled {color:#489cdf;}
+.fc-cuscont-enabled.fc-cuscont-border {border-bottom: 1px solid #585858;}
+.fc-cuscont-left.fc-cuscont-enabled, .fc-cuscont-right.fc-cuscont-enabled {margin-bottom: 3px;}
+@media (max-width:767px){.sonata-bc .modal.fade.in {top:10% !important;} .sonata-bc .modal {width: auto !important; margin: 0 !important;}}

@@ -48,3 +48,6 @@ fos_user.password.mismatch: 'La nueva constraseña no coinciden'
 'Mnt Empleado List' : 'Listado de Médicos'
 #SEGUIMIENTOBUNDLE
 'Sec Ingreso List' : ''
+
+#CITASBUNDLE
+'Cit Citas Dia List': 'Citas'
