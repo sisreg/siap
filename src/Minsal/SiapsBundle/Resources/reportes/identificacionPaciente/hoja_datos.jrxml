@@ -37,8 +37,8 @@ E.nombre as sexo,B1.nombre as departamento_nacimiento,
 N.numero as numero_expediente,
 O.nombre as establecimiento,O.cod_ucsf,to_char(A.fecha_registro,'DD/MM/YYYY HH:MI AM') as fecha_registro,P.firstname||' '||lastname as tomo_datos
 from mnt_paciente A
-inner join ctl_departamento B on (A.id_departamento_domicilio=B.id)
-inner join ctl_municipio C on (A.id_municipio_domicilio=C.id)
+left join ctl_departamento B on (A.id_departamento_domicilio=B.id)
+left join ctl_municipio C on (A.id_municipio_domicilio=C.id)
 left join ctl_departamento B1 on (A.id_departamento_nacimiento=B1.id)
 left join ctl_municipio C1 on (A.id_municipio_nacimiento=C1.id)
 left join ctl_parentesco D on (A.id_parentesco_responsable=D.id)
@@ -62,48 +62,97 @@ where A.id=$P{id_paciente};]]>
 	<field name="apellido_paciente" class="java.lang.String"/>
 	<field name="nombre_paciente" class="java.lang.String"/>
 	<field name="edad" class="java.lang.String"/>
-	<field name="conocido_por" class="java.lang.String"/>
-	<field name="fecha_nacimiento" class="java.lang.String"/>
-	<field name="hora_nacimiento" class="java.sql.Time"/>
+	<field name="conocido_por" class="java.lang.String">
+		<fieldDescription><![CDATA[Campo que representa la forma en que es conocido el paciente]]></fieldDescription>
+	</field>
+	<field name="fecha_nacimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[Fecha de nacimiento del paciente]]></fieldDescription>
+	</field>
+	<field name="hora_nacimiento" class="java.sql.Time">
+		<fieldDescription><![CDATA[Hora de nacimiento en caso se conociera]]></fieldDescription>
+	</field>
 	<field name="pais_nacimiento" class="java.lang.String"/>
 	<field name="municipio_nacimiento" class="java.lang.String"/>
 	<field name="estado_civil" class="java.lang.String"/>
 	<field name="doc_paciente" class="java.lang.String"/>
 	<field name="numero_doc_paciente" class="java.lang.String"/>
-	<field name="ocupacion" class="java.lang.String"/>
+	<field name="ocupacion" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de la ocupacion]]></fieldDescription>
+	</field>
 	<field name="direccion_paciente" class="java.lang.String"/>
-	<field name="telefono_casa" class="java.lang.String"/>
+	<field name="telefono_casa" class="java.lang.String">
+		<fieldDescription><![CDATA[Teléfono de contacto de casa en caso existiera]]></fieldDescription>
+	</field>
 	<field name="departamento_domicilio" class="java.lang.String"/>
 	<field name="municipio_domicilio" class="java.lang.String"/>
 	<field name="canton" class="java.lang.String"/>
 	<field name="area_geografica" class="java.lang.String"/>
-	<field name="lugar_trabajo" class="java.lang.String"/>
-	<field name="telefono_trabajo" class="java.lang.String"/>
+	<field name="lugar_trabajo" class="java.lang.String">
+		<fieldDescription><![CDATA[Lugar donde trabaja el paciente, En caso trabajara]]></fieldDescription>
+	</field>
+	<field name="telefono_trabajo" class="java.lang.String">
+		<fieldDescription><![CDATA[Teléfono del trabajo, en caso existiera]]></fieldDescription>
+	</field>
 	<field name="area_cotizacion" class="java.lang.String"/>
-	<field name="asegurado" class="java.lang.String"/>
-	<field name="numero_afiliacion" class="java.lang.String"/>
-	<field name="cotizante" class="java.lang.String"/>
-	<field name="nombre_padre" class="java.lang.String"/>
-	<field name="nombre_madre" class="java.lang.String"/>
-	<field name="nombre_conyuge" class="java.lang.String"/>
-	<field name="nombre_responsable" class="java.lang.String"/>
-	<field name="direccion_responsable" class="java.lang.String"/>
-	<field name="telefono_responsable" class="java.lang.String"/>
+	<field name="asegurado" class="java.lang.String">
+		<fieldDescription><![CDATA[Para saber si es asegurado o beneficiario. Asegurado=True; Beneficiario=F]]></fieldDescription>
+	</field>
+	<field name="numero_afiliacion" class="java.lang.String">
+		<fieldDescription><![CDATA[Número de afiliación ya sea del asegurado o del beneficiario]]></fieldDescription>
+	</field>
+	<field name="cotizante" class="java.lang.String">
+		<fieldDescription><![CDATA[Para saber si el paciente es cotizante. True=Es cotizante; False=NO es cotizante]]></fieldDescription>
+	</field>
+	<field name="nombre_padre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del padre, en caso lo conozca]]></fieldDescription>
+	</field>
+	<field name="nombre_madre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de la madre, en caso lo conozca]]></fieldDescription>
+	</field>
+	<field name="nombre_conyuge" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de conyuge en caso este acompañado]]></fieldDescription>
+	</field>
+	<field name="nombre_responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del responsable del paciente]]></fieldDescription>
+	</field>
+	<field name="direccion_responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[Direccion del responsable]]></fieldDescription>
+	</field>
+	<field name="telefono_responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[Telefono del responsable del paciente en caso existiera]]></fieldDescription>
+	</field>
 	<field name="parentesco_responsable" class="java.lang.String"/>
 	<field name="documento_responsable" class="java.lang.String"/>
-	<field name="numero_doc_ide_responsable" class="java.lang.String"/>
-	<field name="nombre_proporciono_datos" class="java.lang.String"/>
+	<field name="numero_doc_ide_responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[Número del documento de identidad seleccionado para el responsable]]></fieldDescription>
+	</field>
+	<field name="nombre_proporciono_datos" class="java.lang.String">
+		<fieldDescription><![CDATA[Persona que proporciono los datos del paciente]]></fieldDescription>
+	</field>
 	<field name="documento_propor_datos" class="java.lang.String"/>
-	<field name="numero_doc_ide_propor_datos" class="java.lang.String"/>
+	<field name="numero_doc_ide_propor_datos" class="java.lang.String">
+		<fieldDescription><![CDATA[Número del documento de identidad seleccionado para el proporciono datos]]></fieldDescription>
+	</field>
 	<field name="parentesco_propor_datos" class="java.lang.String"/>
 	<field name="observacion" class="java.lang.String"/>
-	<field name="nacionalidad" class="java.lang.String"/>
-	<field name="sexo" class="java.lang.String"/>
+	<field name="nacionalidad" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de la nacionalidad]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[Sexo al que aplica el valor normal.
+f=femenino
+m=masculino
+a=ambos]]></fieldDescription>
+	</field>
 	<field name="departamento_nacimiento" class="java.lang.String"/>
 	<field name="numero_expediente" class="java.lang.String"/>
 	<field name="establecimiento" class="java.lang.String"/>
-	<field name="cod_ucsf" class="java.lang.Integer"/>
-	<field name="fecha_registro" class="java.lang.String"/>
+	<field name="cod_ucsf" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Código asignados a la Unidad Comunitaria de Salud Familiar.]]></fieldDescription>
+	</field>
+	<field name="fecha_registro" class="java.lang.String">
+		<fieldDescription><![CDATA[Fecha en que fue creado el registro del paciente]]></fieldDescription>
+	</field>
 	<field name="tomo_datos" class="java.lang.String"/>
 	<variable name="establecimiento_1" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{establecimiento}]]></variableExpression>

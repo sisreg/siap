@@ -14,7 +14,6 @@ namespace Application\Sonata\UserBundle\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
 class UserAdmin extends BaseUserAdmin {
@@ -111,22 +110,25 @@ class UserAdmin extends BaseUserAdmin {
             $grupos = $usuario->getGroups();
             if ($grupos[0]->getId() != 1) {
                 list($nombre) = explode('Admin', $grupos[0]->getName());
-                
+
                 return new ProxyQuery(
                         $query
                                 ->where("s_groups.name LIKE '$nombre%'")
                 );
-            }else{
+            } else {
                 $establecimiento = $this->getModelManager()
                         ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
-                if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1)
-                    $nombre = 'Hos';
-                else
-                    $nombre = 'Us';
-                return new ProxyQuery(
-                        $query
-                                ->where("s_groups.name LIKE '%$nombre%'")
-                );
+                if (!is_null($establecimiento)) {
+                    if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1)
+                        $nombre = 'Hos';
+                    else
+                        $nombre = 'Us';
+                    return new ProxyQuery(
+                            $query
+                                    ->where("s_groups.name LIKE '%$nombre%'")
+                    );
+                }else
+                    return $query;
             }
         } else {
             return $query;
