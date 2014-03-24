@@ -11,15 +11,15 @@ class MntCie10Admin extends Admin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('codigo')
-                ->add('diagnostico')
-        ;
+                ->add('codigo',null,array('label'=>'Código CIE10'))
+                ->add('diagnostico',null,array('label'=>'Diágnostico'))
+            ;
     }
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('codigo')
-                ->add('diagnostico')
+                ->add('codigo',null,array('label'=>'Código CIE10'))
+                ->add('diagnostico',null,array('label'=>'Diágnostico'))
         ;
     }
 

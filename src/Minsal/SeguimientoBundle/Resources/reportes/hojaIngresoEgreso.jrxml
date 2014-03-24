@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hojaIngresoEgreso" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="96e2e82d-337e-4b41-a0b8-a100dfe5e290">
 	<property name="ireport.zoom" value="1.3310000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1152"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -1593,7 +1593,7 @@ a=ambos]]></fieldDescription>
 				<textElement>
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[(a) Tipo de Cirugía: 1. Cirugía Mayor de Emergencia para hospitalización 2. Cirugía Mayor d Emergencia Ambulatoria 3. Cirugía Mayor Electiva de Emergencia para hospitalización 4. Cirugía Mayor Electiva de Emergencia Ambulatoria 5. Cirugía Menor]]></text>
+				<text><![CDATA[(a) Tipo de Cirugía: 1. Cirugía Mayor de Emergencia para hospitalización 2. Cirugía Mayor d Emergencia Ambulatoria 3. Cirugía Mayor Electiva para hospitalización 4. Cirugía Mayor Electiva Ambulatoria 5. Cirugía Menor]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="228" width="172" height="12" uuid="af354232-e2a2-4ed1-b930-139e78a098fc"/>

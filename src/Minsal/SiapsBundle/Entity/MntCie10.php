@@ -25,7 +25,7 @@ class MntCie10
     /**
      * @var string
      *
-     * @ORM\Column(name="idcie10", type="string", length=5, nullable=false)
+     * @ORM\Column(name="codigo", type="string", length=5, nullable=false)
      */
     private $codigo;
 

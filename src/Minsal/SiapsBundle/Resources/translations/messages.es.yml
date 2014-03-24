@@ -46,6 +46,8 @@
 change_password.flash.success: 'Cambio Contraseña Con Éxito'
 fos_user.password.mismatch: 'La nueva constraseña no coinciden'
 'Mnt Empleado List' : 'Listado de Médicos'
+'Mnt Cie10 List' : 'Diágnosticos CIE10'
+'Mnt Ciq List' : 'Prócedimiento Médicos CIE9'
 #SEGUIMIENTOBUNDLE
 'Sec Ingreso List' : ''
 
