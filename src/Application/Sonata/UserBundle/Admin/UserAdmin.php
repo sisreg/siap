@@ -30,7 +30,7 @@ class UserAdmin extends BaseUserAdmin {
                         ->createQuery(" 
                             SELECT g
                             FROM ApplicationSonataUserBundle:Group g
-                            WHERE g.name LIKE '$nombre'");
+                            WHERE g.name LIKE '%$nombre%'");
             } else {
                 $establecimiento = $this->getModelManager()
                         ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
