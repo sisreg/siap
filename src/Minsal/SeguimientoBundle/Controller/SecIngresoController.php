@@ -205,8 +205,14 @@ class SecIngresoController extends Controller {
             $apellidoCasada = " AND A.apellido_casada::text ~* '$apellidoCasada'";
         if ($fechaNacimiento != '')
             $fechaNacimiento = " AND A.fecha_nacimiento='$fechaNacimiento'";
-        if ($nec != '')
+       if ($nec != '') {
+            $numero = explode('-', $nec);
+            $entero = (int) $numero[0];
+            $nec = (string) $entero;
+            if (count($numero) == 2)
+                $nec.='-' . $numero[1];
             $nec = " AND B.numero='$nec'";
+        }
         if ($servicio != '')
             $servicio = " AND E.id_ambiente_ingreso=$servicio";
         $fechas = '';
