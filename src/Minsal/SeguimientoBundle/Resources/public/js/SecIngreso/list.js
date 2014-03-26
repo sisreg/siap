@@ -96,14 +96,14 @@ $(document).ready(function() {
                             return false;
                         } else {
                             $("#capturar").show();
-                            $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
+                            $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
                             $('#resultadoBusqueda').show();
                             // $("#buscarGlobal").show();
                             //$("#buscar").show();
                         }
                     } else {
                         $("#capturar").show();
-                        $('#resultadoBusqueda').load(Routing.generate('buscar_paciente'));
+                        $('#resultadoBusqueda').load(Routing.generate('buscar_ingresos'));
                         $('#resultadoBusqueda').show();
                         // $("#buscarGlobal").show();
                         //$("#buscar").show();
