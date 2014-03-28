@@ -445,7 +445,7 @@ class MntPacienteAdmin extends Admin {
                     ->addViolation('El Sexo es obligatorio')
                     ->end();
         } else {
-            $em =  $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+            $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
             $conn = $em->getConnection();
             $calcular = new Funciones();
             $edad = $calcular->calcularEdad($conn, $object->getFechaNacimiento()->format('d-m-Y'));
@@ -458,9 +458,11 @@ class MntPacienteAdmin extends Admin {
                 }
             } elseif (strstr($aux[1], 'meses')) {
                 if ($aux[0] > 6) {
-                    $errorElement->with('idSexo')
-                            ->addViolation('No se puede elegir el sexo indeterminado para alguien mayor de 6 meses')
-                            ->end();
+                    if ($object->getIdSexo()->getId() == 3) {
+                        $errorElement->with('idSexo')
+                                ->addViolation('No se puede elegir el sexo indeterminado para alguien mayor de 6 meses')
+                                ->end();
+                    }
                 }
             }
         }
