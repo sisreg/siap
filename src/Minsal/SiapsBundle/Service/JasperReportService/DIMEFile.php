@@ -1,7 +1,6 @@
 <?php
 
-namespace Minsal\Util\JasperReport;
-
+namespace Minsal\SiapsBundle\Service\JasperReportService;
 class DIMEFile {
 
     public $type_format;

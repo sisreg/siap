@@ -50,6 +50,6 @@ fos_user.password.mismatch: 'La nueva constraseña no coinciden'
 'Mnt Ciq List' : 'Prócedimiento Médicos CIE9'
 #SEGUIMIENTOBUNDLE
 'Sec Ingreso List' : ''
-
+'Sec Procedencia Ingreso List': 'Listado de Pacientes Ingresado'
 #CITASBUNDLE
 'Cit Citas Dia List': 'Citas'

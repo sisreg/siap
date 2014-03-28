@@ -1,5 +1,5 @@
 <?php
-namespace Minsal\Util\JasperReport;
+namespace Minsal\SiapsBundle\Service\JasperReportService;
 
 class DIME {
 

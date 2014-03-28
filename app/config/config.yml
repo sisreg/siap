@@ -165,3 +165,7 @@ services:
         arguments:   [@doctrine.orm.entity_manager]
         tags:
             - { name: kernel.event_listener, event: calendar.load_events, method: loadEvents }
+    jasper.build.reports:
+        class: Minsal\SiapsBundle\Service\JasperReportService\JasperReportService
+        arguments: [%jasper_username%, %jasper_password%, %jasper_url%]
+            

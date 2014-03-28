@@ -4,8 +4,7 @@
 $(document).ready(function() {
 
     $('#form_paciente').submit(function() {
-        
-        if ($('#idPaisDomicilio').val() == '68') {   
+        if ($('#idPaisDomicilio').val() == '68') {
             if ($('select[id$="_idDepartamentoDomicilio"]').val() == '') {
                 ($('#error')) ? $('#error').remove() : '';
                 var elem = $("<div id='error' title='Error de Llenado'><center>" +
@@ -307,11 +306,17 @@ $(document).ready(function() {
                 $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_primerNombre"]').val() + ' ' + $('input[id$="_primerApellido"]').val());
                 $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocPaciente"]').val());
                 $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdePaciente"]').val());
-            }
-            else {
-                $('input[id$="_nombreProporcionoDatos"]').val("");
-                $('select[id$="_idDocProporcionoDatos"]').val("");
-                $('input[id$="_numeroDocIdeProporDatos"]').val("");
+            } else {
+                if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == $('select[id$="_idParentescoResponsable"] option:selected').text()) {
+                    $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreResponsable"]').val());
+                    $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocResponsable"]').val());
+                    $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
+                }
+                else {
+                    $('input[id$="_nombreProporcionoDatos"]').val("");
+                    $('select[id$="_idDocProporcionoDatos"]').val("");
+                    $('input[id$="_numeroDocIdeProporDatos"]').val("");
+                }
             }
 
         }
@@ -468,7 +473,7 @@ $(document).ready(function() {
     $('#idPaisDomicilio').change(function() {
         $('select[id$="_idDepartamentoDomicilio"]').children().remove();
         $('select[id$="_idDepartamentoDomicilio"]').append('<option value="">Seleccione..</option>');
-         $('select[id$="_idMunicipioDomicilio"]').children().remove();
+        $('select[id$="_idMunicipioDomicilio"]').children().remove();
         $('select[id$="_idMunicipioDomicilio"]').append('<option value="">Seleccione..</option>');
         $('select[id$="_idMunicipioDomicilio"]').attr('disabled', 'disabled');
         $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('#idPaisDomicilio').val(),

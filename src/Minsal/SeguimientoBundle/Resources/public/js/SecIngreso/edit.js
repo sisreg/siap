@@ -8,12 +8,13 @@ $(document).ready(function() {
     $('input[id$="_fecha"]').datepicker().mask("99-99-9999");
     $('input[id$="_fechaProbableParto"]').datepicker().mask("99-99-9999");
     /*OCULTAR LO RELACIONADO A LO OBSTETRICO*/
+    $('div[id$="_embarazada"]').hide();
     $('div[id$="_fechaProbableParto"]').hide();
     $('div[id$="_semanasAmenorrea"]').hide();
-
-    if ($("#sexo").val() != 1 || $("#embarazo").val() == '0')
-        $('div[id$="_embarazada"]').hide();
-
+    /*VALIDAR SI ES MUJER Y SI ESTA EMBARAZADA*/
+    if ($("#sexo").val() == 2  && $("#embarazo").val() == '1')
+        $('div[id$="_embarazada"]').show();
+    /*AL DAR CLIC EN EMBARAZADA */
     $('input:checkbox[name*="embarazada"]').click(function() {
         if ($('input:checkbox[name*="embarazada"]').is(':checked')) {
             $('div[id$="_fechaProbableParto"]').show();
@@ -25,7 +26,6 @@ $(document).ready(function() {
     });
 
     /*CARGAR LAS ESPECIALIDADES DE HOSPITALIZACION*/
-    //
     if ($('select[id$="_idAtenAreaModEstab"]').val() == '') {
         $.getJSON(Routing.generate('get_especialidad_ingresos'),
                 function(data) {
@@ -75,11 +75,7 @@ $(document).ready(function() {
     /*COLOCAR HORA ACTUAL DEL SISTEMA*/
     if ($('select[id$="_hora_hour"]').val() == '0' ){
         var dia = new Date();
-        $('select[id$="_hora_hour"]').val(dia.getHours())
-        $('select[id$="_hora_minute"]').val(dia.getMinutes())
+        $('select[id$="_hora_hour"]').val(dia.getHours());
+        $('select[id$="_hora_minute"]').val(dia.getMinutes());
     }
-    
-
-
-
 });

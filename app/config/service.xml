@@ -54,6 +54,12 @@
             <argument>Minsal\SiapsBundle\Entity\MntExpediente</argument>
             <argument>MinsalSiapsBundle:MntExpedienteAdmin</argument>
         </service>
+        <service id="sonata.admin.reporte.ingreso" class="Minsal\SeguimientoBundle\Admin\SecProcedenciaIngresoAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="RP-1-Reportes" label="Pacientes Ingresados por Fecha"/>
+            <argument />
+            <argument>Minsal\SeguimientoBundle\Entity\SecProcedenciaIngreso</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
         <service id="sonata.admin.cie10" class="Minsal\SiapsBundle\Admin\MntCie10Admin">
             <tag name="sonata.admin" manager_type="orm" group="RP-1-Reportes" label="Diágnosticos CIE10"/>
             <argument />

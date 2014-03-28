@@ -45,6 +45,10 @@ class MntPacienteController extends Controller {
      * POSTGRESQL por el tipo de consulta que se realiza
      * ANALISTA PROGRAMADOR: Karen Peñate - Victoria López
      */
+    
+    public function __construct() {
+        ;
+    }
 
     /**
      * @Route("/cargar/paciente", name="cargar_paciente", options={"expose"=true})

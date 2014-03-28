@@ -16,8 +16,8 @@ $(document).ready(function() {
             {name: 'fecha_nacimiento', index: 'fecha_nacimiento', editable: false, width: 175, align: "center"}
         ],
         multiselect: false,
-        rowNum: 10,
-        rowList: [10, 20, 30],
+        rowNum: 20,
+        rowList: [20, 40, 60],
         loadonce: true,
         autowidth:true,
         pager: jQuery('#pagerExpedientesCreados'),

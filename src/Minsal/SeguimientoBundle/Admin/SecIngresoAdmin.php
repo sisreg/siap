@@ -13,7 +13,9 @@ class SecIngresoAdmin extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('idProcedenciaIngreso', 'entity', array('label' => 'Procedencia de ingreso',
+                ->add('idProcedenciaIngreso', 'entity', array(
+                    'required'=>true,
+                    'label' => 'Procedencia de ingreso',
                     'class' => 'MinsalSeguimientoBundle:SecProcedenciaIngreso',
                     'empty_value' => 'Seleccione la procedencia del ingreso',
                     'query_builder' => function(EntityRepository $repositorio) {
@@ -21,7 +23,9 @@ class SecIngresoAdmin extends Admin {
                         ->createQueryBuilder('spi')
                         ->where('spi.habilitado = true');
             }))
-                ->add('idCircunstanciaIngreso', 'entity', array('label' => 'Circunstancia de ingreso',
+                ->add('idCircunstanciaIngreso', 'entity', array(
+                    'required'=>true,
+                    'label' => 'Circunstancia de ingreso',
                     'class' => 'MinsalSeguimientoBundle:SecCircunstanciaIngreso',
                     'empty_value' => 'Seleccione la circunstancia del ingreso',
                     'query_builder' => function(EntityRepository $repositorio) {
@@ -29,7 +33,8 @@ class SecIngresoAdmin extends Admin {
                         ->createQueryBuilder('sci')
                         ->where('sci.habilitado = true');
             }))
-                ->add('fecha', 'date', array('required' => true,
+                ->add('fecha', 'date', array(
+                    'required' => true,
                     'label' => 'Fecha del Ingreso',
                     'widget' => 'single_text', 'format' => 'dd-MM-yyyy',
                     'attr' => (array('value' => date("d-m-Y")))))
@@ -114,6 +119,17 @@ class SecIngresoAdmin extends Admin {
                         ->end();
             }
         }
+        
+        if(is_null($ingreso->getIdProcedenciaIngreso()))
+             $errorElement->with('idProcedenciaIngreso')
+                    ->addViolation('Debe de seleccionar la procedencia del ingreso')
+                    ->end();
+        
+         if(is_null($ingreso->getIdCircunstanciaIngreso()))
+             $errorElement->with('idCircunstanciaIngreso')
+                    ->addViolation('Debe de seleccionar la circunstancia del ingreso')
+                    ->end();
+        
     }
 
     public function getTemplate($name) {

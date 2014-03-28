@@ -9,6 +9,8 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Minsal\SiapsBundle\Entity\MntAuditoriaPaciente;
+use Minsal\Metodos\Funciones;
+use Doctrine\DBAL as DBAL;
 
 class MntPacienteAdmin extends Admin {
 
@@ -40,7 +42,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('idAreaCotizacion', null, array('empty_value' => 'Seleccione...',
                     'label' => $this->getTranslator()->trans('idAreaCotizacion'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('asegurado')
-                ->add('cotizante', null, array('attr' => array('class' => 'span5 deshabilitados')))
+                ->add('cotizante', null, array('attr' => array('class' => 'deshabilitados')))
                 ->add('numeroAfiliacion', null, array('attr' => array('class' => 'span5 deshabilitados')))
                 ->add('nombrePadre', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('nombreMadre', null, array('required' => true, 'attr' => array('class' => 'span5 limpiar')))
@@ -436,6 +438,48 @@ class MntPacienteAdmin extends Admin {
                             ->end();
                 }
             }
+        }
+
+        if (is_null($object->getIdSexo())) {
+            $errorElement->with('idSexo')
+                    ->addViolation('El Sexo es obligatorio')
+                    ->end();
+        } else {
+            $em =  $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+            $conn = $em->getConnection();
+            $calcular = new Funciones();
+            $edad = $calcular->calcularEdad($conn, $object->getFechaNacimiento()->format('d-m-Y'));
+            $aux = explode(' ', $edad);
+            if (strstr($aux[1], 'año')) {
+                if ($object->getIdSexo()->getId() == 3) {
+                    $errorElement->with('idSexo')
+                            ->addViolation('No se puede elegir el sexo indeterminado para alguien mayor de 6 meses')
+                            ->end();
+                }
+            } elseif (strstr($aux[1], 'meses')) {
+                if ($aux[0] > 6) {
+                    $errorElement->with('idSexo')
+                            ->addViolation('No se puede elegir el sexo indeterminado para alguien mayor de 6 meses')
+                            ->end();
+                }
+            }
+        }
+
+        if (is_null($object->getPrimerNombre())) {
+            $errorElement->with('primerNombre')
+                    ->addViolation('El Primer nombre es obligatorio')
+                    ->end();
+        }
+
+        if (is_null($object->getPrimerApellido())) {
+            $errorElement->with('primerApellido')
+                    ->addViolation('El Primer Apellido es Obligatorio')
+                    ->end();
+        }
+        if (is_null($object->getPrimerApellido())) {
+            $errorElement->with('primerApellido')
+                    ->addViolation('El Primer Apellido es Obligatorio')
+                    ->end();
         }
     }
 

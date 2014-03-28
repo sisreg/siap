@@ -1,0 +1,22 @@
+.sonata-bc .table {
+    margin-bottom: 20px;
+    width: 50%;
+}
+.sonata-bc .fecha {width:85px;}
+.sonata-bc .nombresLargos {width:300px;}
+.sonata-bc .nombres {width:135px;}
+.sonata-bc .sonata-ba-list-field-header {
+    font-size: 10pt;
+}
+.sonata-bc .fecha {width:85px;}
+.sonata-bc .nombresLargos {width:300px;}
+/*para que desplegue la imagen del calendario en linea con el input */
+.sonata-bc img {
+    display: inline;
+    
+}
+#resultadoBusqueda{
+    overflow: auto;
+    alignment-adjust: central;
+    width: 100%;
+}
