@@ -73,6 +73,7 @@
 			    	var upperLimit = new Date(calendarDate.getFullYear(), calendarDate.getMonth()+1, 0);
 
 			    	if(date >= lowerLimit && date < today) {
+
 				        cell.css("background-color", "#E8F2FF");
 				        cell.append('<a href="#myModal" id="citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal" custom-modal="true" role="button" data-toggle="modal">\
 				        				<div class="fc-custom-content-tb">\

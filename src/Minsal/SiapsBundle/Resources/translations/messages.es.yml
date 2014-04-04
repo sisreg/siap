@@ -51,3 +51,6 @@ fos_user.password.mismatch: 'La nueva constraseña no coinciden'
 
 #CITASBUNDLE
 'Cit Citas Dia List': 'Citas'
+
+#SonataUserBundle
+'Bad credentials': 'Error en las credenciales'

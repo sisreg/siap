@@ -2,7 +2,7 @@
 _inicio:
     pattern:  /
     defaults: { _controller: SonataAdminBundle:Core:dashboard }
-    
+
 root:
     pattern: /
     defaults:
@@ -20,11 +20,15 @@ minsal_seguimiento:
     type:     annotation
     prefix:   /
 
+minsal_citas:
+    resource: "@MinsalCitasBundle/Controller/"
+    type:     annotation
+    prefix:   /
 
 #FOSUSERBUNDLE   
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-    
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -47,7 +51,7 @@ fos_user_change_password:
 sonata_page_cache:
     resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'
     prefix: /
-    
+
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin

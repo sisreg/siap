@@ -50,7 +50,7 @@ class User extends BaseUser {
      */
     protected $idModalidadEstab;
     
-      /**
+    /**
      * @var \Minsal\SiapsBundle\Entity\MntAreaModEstab
      *
      * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntAreaModEstab")
@@ -59,8 +59,8 @@ class User extends BaseUser {
      * })
      */
     protected $idAreaModEstab;
-    
-      /**
+
+    /**
      * @var \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
      *
      * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntAtenAreaModEstab")
@@ -69,6 +69,7 @@ class User extends BaseUser {
      * })
      */
     protected $idAtenAreaModEstab;
+
 
     /**
      * Get id

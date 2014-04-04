@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\DBAL as DBAL;
+use FOS\UserBundle\Model\User;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class GeneralesController extends Controller {
     /*
@@ -143,4 +146,84 @@ class GeneralesController extends Controller {
         return new Response(json_encode($pais));
     }
 
+    /*
+     * DESCRIPCIÓN:
+     *      Método que verifica si el empleado posee servicios a brindar
+     *      dentro del establecimiento
+     * ANALISTA PROGRAMADOR: Caleb Rodríguez
+     */
+
+    /**
+     * @Route("/siaps/verify/medicservice", name="verify_medic_service", options={"expose"=true})
+     *
+     * @return Response
+     */
+    public function verifyMedicServiceAction() {
+        $user     = $this->container->get('security.context')->getToken()->getUser();
+        $session  = $this->container->get('session');
+        $em       = $this->getDoctrine()->getManager();
+        $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
+
+        if($session->get('_moduleSelection') !== null && ($session->get('_moduleSelection') == '3' || $session->get('_moduleSelection') == '4') ) {
+            if( (null === $session->get('_idEspecialidadEstab')) || (null === $session->get('_idEspecialidadEstab')) ) {
+                $idEmpleado = $user->getIdEmpleado();
+                $dql = "SELECT t01.id as idAtenAreaModEstab, t02.nombre as mombreAtenAreaModEstab
+                        FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab t00
+                        INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab t01 WITH (t01.id = t00.idAtenAreaModEstab)
+                        INNER JOIN MinsalSiapsBundle:CtlAtencion         t02 WITH (t02.id = t01.idAtencion)
+                        INNER JOIN MinsalSiapsBundle:MntAreaModEstab     t03 WITH (t03.id = t01.idAreaModEstab)
+                        INNER JOIN MinsalSiapsBundle:CtlAreaAtencion     t04 WITH (t04.id = t03.idAreaAtencion)
+                        WHERE t03.id = 1 AND t00.idEmpleado = :idEmpleado";
+
+                $query = $em->createQuery($dql);
+                $query->setParameter(':idEmpleado', $idEmpleado);
+                $empEspecialidades = $query->getResult();
+
+                if($empEspecialidades) {
+                    if(count($empEspecialidades) > 1) {
+                        $response =  $this->render(
+                                                    'MinsalSiapsBundle::ServicioMedicoEstablecimiento.html.twig', array(
+                                                        'user'              => $user,
+                                                        'empEspecialidades' => $empEspecialidades
+                                            ));
+                    } else {
+                        $session->set('_idEspecialidadEstab', $empEspecialidades[0]['idAtenAreaModEstab']);
+                        $session->set('_nombreEspecialidadEstab', $empEspecialidades[0]['mombreAtenAreaModEstab']);
+                    }
+                }   
+            }
+        }
+
+        return $response;
+    }
+
+    /*
+     * DESCRIPCIÓN:
+     *      Método que setea la especialidad seleccionada por el empleado
+     *      y redirecciona a la página principal
+     * ANALISTA PROGRAMADOR: Caleb Rodríguez
+     */
+
+    /**
+     * @Route("/siaps/set/empespecialidad/estab", name="set_emp_especialidad_estab", options={"expose"=true})
+     * @Method("POST")
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return Response
+     */
+    public function setEmpEspecialidadEstabAction() {
+        $request = $this->container->get('request');
+        $session = $this->container->get('session');
+        $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
+
+        if($request->isMethod('POST') && $session->get('_moduleSelection') !== null && ($session->get('_moduleSelection') == '3' || $session->get('_moduleSelection') == '4') ) {
+            if( (null === $session->get('_idEspecialidadEstab')) || (null === $session->get('_idEspecialidadEstab')) ) {
+                $session->set('_idEspecialidadEstab', $request->get('_id-especialidad'));
+                $session->set('_nombreEspecialidadEstab', $request->get('_nombre-especialidad'));
+            }
+            return $response;
+        } else {
+            throw new AccessDeniedException();
+        }
+    }
 }

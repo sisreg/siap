@@ -367,7 +367,7 @@ button.red:active .label,
 button span.icon, 
 .button span.icon,
 .button-icon span.icon {
-	background-image: url(../img/google+-ui-sprite-gray.png);
+	background-image: url(../../minsalsiaps/imagenes/google+-ui-sprite-gray.png);
 	
 	display: inline-block;
 	margin: 0 7px;
@@ -397,7 +397,7 @@ button span.icon,
 button:hover span.icon, 
 .button:hover span.icon,
 .button-icon:hover span.icon {
-	background-image: url(../img/google+-ui-sprite-colour.png);
+	background-image: url(../../minsalsiaps/google+-ui-sprite-colour.png);
 }
 
 
@@ -647,7 +647,7 @@ div.dropdown span.toggle {
 	
 	float: right;
 	
-	background: url(../img/toggle.png) top right no-repeat;
+	background: url(../../minsalsiaps/toggle.png) top right no-repeat;
 	border-left: 1px solid #D9D9D9;
 	
 	-webkit-transition: border-color .20s;
@@ -656,7 +656,7 @@ div.dropdown span.toggle {
 	transition: border-color .20s;
 }
 div.dropdown span.toggle.active {
-	background: url(../img/toggle.png) bottom right no-repeat;
+	background: url(../../minsalsiaps/toggle.png) bottom right no-repeat;
 }
 div.dropdown 
 button:hover span.toggle, 
