@@ -163,8 +163,9 @@ class GeneralesController extends Controller {
         $session  = $this->container->get('session');
         $em       = $this->getDoctrine()->getManager();
         $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
+        $codigoEmpleado = $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo();
 
-        if($session->get('_moduleSelection') !== null && ($session->get('_moduleSelection') == '3' || $session->get('_moduleSelection') == '4') ) {
+        if($session->get('_moduleSelection') !== null && $session->get('_moduleSelection') == '3' && $codigoEmpleado == 'MED') {
             if( (null === $session->get('_idEspecialidadEstab')) || (null === $session->get('_idEspecialidadEstab')) ) {
                 $idEmpleado = $user->getIdEmpleado();
                 $dql = "SELECT t01.id as idAtenAreaModEstab, t02.nombre as mombreAtenAreaModEstab
@@ -173,10 +174,12 @@ class GeneralesController extends Controller {
                         INNER JOIN MinsalSiapsBundle:CtlAtencion         t02 WITH (t02.id = t01.idAtencion)
                         INNER JOIN MinsalSiapsBundle:MntAreaModEstab     t03 WITH (t03.id = t01.idAreaModEstab)
                         INNER JOIN MinsalSiapsBundle:CtlAreaAtencion     t04 WITH (t04.id = t03.idAreaAtencion)
-                        WHERE t03.id = 1 AND t00.idEmpleado = :idEmpleado";
+                        INNER JOIN MinsalSiapsBundle:MntEmpleado         t05 WITH (t05.id = t00.idEmpleado)
+                        INNER JOIN MinsalSiapsBundle:MntTipoEmpleado     t06 WITH (t06.id = t05.idTipoEmpleado)
+                        WHERE t03.id = 1 AND t00.idEmpleado = :idEmpleado AND t06.codigo = :codigoEmpleado";
 
                 $query = $em->createQuery($dql);
-                $query->setParameter(':idEmpleado', $idEmpleado);
+                $query->setParameters(array(':idEmpleado' => $idEmpleado, ':codigoEmpleado' => 'MED'));
                 $empEspecialidades = $query->getResult();
 
                 if($empEspecialidades) {
@@ -212,11 +215,13 @@ class GeneralesController extends Controller {
      * @return Response
      */
     public function setEmpEspecialidadEstabAction() {
-        $request = $this->container->get('request');
-        $session = $this->container->get('session');
+        $user     = $this->container->get('security.context')->getToken()->getUser();
+        $request  = $this->container->get('request');
+        $session  = $this->container->get('session');
         $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
+        $codigoEmpleado = $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo();
 
-        if($request->isMethod('POST') && $session->get('_moduleSelection') !== null && ($session->get('_moduleSelection') == '3' || $session->get('_moduleSelection') == '4') ) {
+        if($request->isMethod('POST') && $session->get('_moduleSelection') !== null && $session->get('_moduleSelection') == '3' && $codigoEmpleado == 'MED') {
             if( (null === $session->get('_idEspecialidadEstab')) || (null === $session->get('_idEspecialidadEstab')) ) {
                 $session->set('_idEspecialidadEstab', $request->get('_id-especialidad'));
                 $session->set('_nombreEspecialidadEstab', $request->get('_nombre-especialidad'));

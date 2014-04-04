@@ -47,6 +47,7 @@ security:
             switch_user:        true
             context:            user
             pattern:            .*
+            rsa:                true
             form_login:
                 provider:       fos_userbundle
                 login_path:     /admin/login

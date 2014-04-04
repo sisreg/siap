@@ -74,7 +74,7 @@ class ListenerInterface implements SymfonyListenerInterface {
 							        	'default_target_path' => '/admin/dashboard',
 							        	'_moduleSelection' => $this->container->get('request')->get('_moduleSelection') ? $this->container->get('request')->get('_moduleSelection') : null
 							        	);
-		if($this->container->get('request')->get('_moduleSelection') == '3' || $this->container->get('request')->get('_moduleSelection') == '4') {
+		if($this->container->get('request')->get('_moduleSelection') == '3') {
 			$autheHandlerOptions = array_merge(array('after_login_path' => '/siaps/verify/medicservice'), $autheHandlerOptions);
 		}
 
