@@ -41,7 +41,8 @@ file that was distributed with this source code.
 
             <!-- AGREGADAS POR EQUIPO SIAPS-->
             <link href="{{ asset('bundles/minsalsiaps/imagenes/escudo.png') }}" type="image/png" rel="Shortcut Icon" />
-            <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/custom_layout.css') }}" type="text/css" media="all" />     
+            <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/custom_layout.css') }}" type="text/css" media="all" />
+            <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/siaps.css') }}" type="text/css" media="all" />
             <link rel="stylesheet" href="{{ asset('bundles/minsalcitas/css/CitasBundle.css') }}" type="text/css" media="all" />
             <link rel="stylesheet" href="{{ asset('bundles/minsalcitas/css/css3-buttons.css') }}" type="text/css" media="all" />
 
@@ -79,7 +80,7 @@ file that was distributed with this source code.
             {% endif %}
             <script src="{{ asset('bundles/sonataadmin/base.js') }}" type="text/javascript"></script>
             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+            <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}" type="text/javascript"></script>
 
             <!--Agregados por equipo siaps-->
             <script src="{{ asset('bundles/minsalsiaps/js/funciones_generales.js') }}" type="text/javascript"></script>
