@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Http\Firewall\ExceptionListener;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 
 class UserProvider extends FOSProvider {
     private $entityManager;
@@ -80,8 +81,8 @@ class UserProvider extends FOSProvider {
                     $fileDSBuffer = fread($fileDSO, filesize($filePath));
                     fclose($fileDSO);
                     unlink($filePath);
-
-                    if(openssl_pkcs12_read($fileDSBuffer,$p12cert, $request->get('_password'))) {
+                    
+                    if(openssl_pkcs12_read($fileDSBuffer, $p12cert, $request->get('_password'))) {
                         $pkey_data = print_r($p12cert['pkey'],true);
                         $cert_data = print_r($p12cert['cert'],true);
                     } else {
@@ -115,9 +116,10 @@ class UserProvider extends FOSProvider {
                             }
                         }
                     }
-
-                } catch(ExceptionListener $e) {
-                    throw new BadCredentialsException('Error al procesar la firma digital<br />Error:<br />'.$e);
+                } catch (\Exception $repositoryProblem) {
+                    /*$ex = new AuthenticationServiceException('Error al procesar la firma digital<br /><br />Error:<br />'.$repositoryProblem->getMessage(), 0, $repositoryProblem);
+                    throw $ex;*/
+                    throw new BadCredentialsException('La contraseña es incorrecta');
                 }
             }
         }

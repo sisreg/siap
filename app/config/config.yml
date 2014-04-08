@@ -169,7 +169,6 @@ services:
     jasper.build.reports:
         class: Minsal\SiapsBundle\Service\JasperReportService\JasperReportService
         arguments: [%jasper_username%, %jasper_password%, %jasper_url%]
-            
 
     custom_user_manager:
         class:  Minsal\SiapsBundle\Security\User\UserProvider

@@ -166,7 +166,7 @@ class GeneralesController extends Controller {
         $codigoEmpleado = $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo();
 
         if($session->get('_moduleSelection') !== null && $session->get('_moduleSelection') == '3' && $codigoEmpleado == 'MED') {
-            if( (null === $session->get('_idEspecialidadEstab')) || (null === $session->get('_idEspecialidadEstab')) ) {
+            if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
                 $idEmpleado = $user->getIdEmpleado();
                 $dql = "SELECT t01.id as idAtenAreaModEstab, t02.nombre as mombreAtenAreaModEstab
                         FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab t00
@@ -190,8 +190,8 @@ class GeneralesController extends Controller {
                                                         'empEspecialidades' => $empEspecialidades
                                             ));
                     } else {
-                        $session->set('_idEspecialidadEstab', $empEspecialidades[0]['idAtenAreaModEstab']);
-                        $session->set('_nombreEspecialidadEstab', $empEspecialidades[0]['mombreAtenAreaModEstab']);
+                        $session->set('_idEmpEspecialidadEstab', $empEspecialidades[0]['idAtenAreaModEstab']);
+                        $session->set('_nombreEmpEspecialidadEstab', $empEspecialidades[0]['mombreAtenAreaModEstab']);
                     }
                 }   
             }
@@ -222,9 +222,9 @@ class GeneralesController extends Controller {
         $codigoEmpleado = $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo();
 
         if($request->isMethod('POST') && $session->get('_moduleSelection') !== null && $session->get('_moduleSelection') == '3' && $codigoEmpleado == 'MED') {
-            if( (null === $session->get('_idEspecialidadEstab')) || (null === $session->get('_idEspecialidadEstab')) ) {
-                $session->set('_idEspecialidadEstab', $request->get('_id-especialidad'));
-                $session->set('_nombreEspecialidadEstab', $request->get('_nombre-especialidad'));
+            if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
+                $session->set('_idEmpEspecialidadEstab', $request->get('_id-especialidad'));
+                $session->set('_nombreEmpEspecialidadEstab', $request->get('_nombre-especialidad'));
             }
             return $response;
         } else {

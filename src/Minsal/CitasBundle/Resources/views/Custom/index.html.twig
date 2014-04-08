@@ -7,6 +7,7 @@
 	{{ parent() }}
 	<script type="text/javascript">
 		var modal_elements = [];
+		var cit_info = false;
 
 		function agendaMedicaDisabled() {
 			return 'Agenda Medica Deshabilitada';
@@ -35,6 +36,20 @@
 					    widthModal: 750
 					});	
 				}
+		}
+
+		function updateMonthIformationCit() {
+			var calendarDate = $('#calendar-holder').fullCalendar('getDate');
+				calendarDate.setHours(0,0,0,0);
+
+			jQuery.ajax({
+			    url: Routing.generate('citasdiaxmedico') + '?idEmpleado={{ app.user.getIdEmpleado().getId() }}&calendarDate='+calendarDate,
+			    async: false,
+			    dataType: 'json',
+			    success: function(data) {
+			    	cit_info = data.data1;
+			    }
+            });
 		}
 
 		jQuery(document).ready(function($) {
@@ -71,62 +86,77 @@
 			    	var calendarDate = $('#calendar-holder').fullCalendar('getDate');
 			    	var lowerLimit = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1);
 			    	var upperLimit = new Date(calendarDate.getFullYear(), calendarDate.getMonth()+1, 0);
+			    	var cell_date  = date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate();
+			    	var primera_vez;
+			    	var subsecuentes;
+			    	var agregados;
+			    	var total_citas;
+			    	var atendidos;
 
 			    	if(date >= lowerLimit && date < today) {
-
+			    		total_citas = cit_info == false ? 'null' : cit_info[date.getDate()-1].total_citas;
+			    		atendidos   = cit_info == false ? 'null' : cit_info[date.getDate()-1].atendidos;
 				        cell.css("background-color", "#E8F2FF");
-				        cell.append('<a href="#myModal" id="citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal" custom-modal="true" role="button" data-toggle="modal">\
+				        cell.append('<a href="#myModal" id="citDay-'+cell_date+'_modal" custom-modal="true" role="button" data-toggle="modal">\
 				        				<div class="fc-custom-content-tb">\
 					        				<div class="fc-custom-content">\
 							        			<div class="fc-cuscont-left fc-cuscont-disabled fc-cuscont-border">Citados:</div>\
-							        			<div class="fc-cuscont-right fc-cuscont-disabled fc-cuscont-border">0</div>\
+							        			<div class="fc-cuscont-right fc-cuscont-disabled fc-cuscont-border">'+ total_citas+'</div>\
 							        			<div class="fc-cuscont-left fc-cuscont-disabled fc-cuscont-border">Atendidos:</div>\
-							        			<div class="fc-cuscont-right fc-cuscont-disabled fc-cuscont-border">0</div>\
+							        			<div class="fc-cuscont-right fc-cuscont-disabled fc-cuscont-border">'+ atendidos +'</div>\
 						        			</div>\
 					        			</div>\
 					        		</a>');
 
-				        pushModalElement('citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal','agendaMedicaDisabled');
+				        pushModalElement('citDay-'+cell_date+'_modal','agendaMedicaDisabled');
 				    }
 
 				    if (date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
+				    	primera_vez  = cit_info == false ? 'null' : cit_info[date.getDate()-1].primera_vez;
+				    	subsecuentes = cit_info == false ? 'null' : cit_info[date.getDate()-1].subsecuentes;
+				    	total_citas  = cit_info == false ? 'null' : cit_info[date.getDate()-1].total_citas;
+			    		agregados    = cit_info == false ? 'null' : cit_info[date.getDate()-1].agregados;
 				        cell.css("background-color", "#FEFFDB");
-				        cell.append('<a href="#myModal" id="citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal" custom-modal="true" role="button" data-toggle="modal">\
+				        cell.append('<a href="#myModal" id="citDay-'+cell_date+'_modal" custom-modal="true" role="button" data-toggle="modal">\
 					        			<div class="fc-custom-content-tb">\
 						        			<div class="fc-custom-content">\
 						        				<div class="fc-cuscont-left fc-cuscont-enabled">1er vez:</div>\
-						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">'+ primera_vez +'</div>\
 						        				<div class="fc-cuscont-left fc-cuscont-enabled">Subsecuentes:</div>\
-						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">'+ subsecuentes +'</div>\
 						        				<div class="fc-cuscont-left fc-cuscont-enabled fc-cuscont-border">Agregados:</div>\
-						        				<div class="fc-cuscont-right fc-cuscont-enabled fc-cuscont-border">0</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled fc-cuscont-border">'+ agregados +'</div>\
 						        				<div class="fc-cuscont-left fc-cuscont-enabled">Total Citados:</div>\
-						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
-						        			</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">'+ total_citas +'</div>\
+				        					</div>\
 						        		</div>\
 						        	</a>');
 						
-						pushModalElement('citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal','agendaMedicaEnabled');
+						pushModalElement('citDay-'+cell_date+'_modal','agendaMedicaEnabled');
 				    }
 
 				    if(date > today && date >= lowerLimit && date <= upperLimit) {
+				    	primera_vez  = cit_info == false ? 'null' : cit_info[date.getDate()-1].primera_vez;
+				    	subsecuentes = cit_info == false ? 'null' : cit_info[date.getDate()-1].subsecuentes;
+				    	total_citas  = cit_info == false ? 'null' : cit_info[date.getDate()-1].total_citas;
+			    		agregados    = cit_info == false ? 'null' : cit_info[date.getDate()-1].agregados;
 				        cell.css("background-color", "#DCFCE9");
-				        cell.append('<a href="#myModal" id="citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal" custom-modal="true" role="button" data-toggle="modal">\
+				        cell.append('<a href="#myModal" id="citDay-'+cell_date+'_modal" custom-modal="true" role="button" data-toggle="modal">\
 				        				<div class="fc-custom-content-tb">\
-				        					<div class="fc-custom-content">\
+						        			<div class="fc-custom-content">\
 						        				<div class="fc-cuscont-left fc-cuscont-enabled">1er vez:</div>\
-						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">'+ primera_vez +'</div>\
 						        				<div class="fc-cuscont-left fc-cuscont-enabled">Subsecuentes:</div>\
-						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">'+ subsecuentes +'</div>\
 						        				<div class="fc-cuscont-left fc-cuscont-enabled fc-cuscont-border">Agregados:</div>\
-						        				<div class="fc-cuscont-right fc-cuscont-enabled fc-cuscont-border">0</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled fc-cuscont-border">'+ agregados +'</div>\
 						        				<div class="fc-cuscont-left fc-cuscont-enabled">Total Citados:</div>\
-						        				<div class="fc-cuscont-right fc-cuscont-enabled">0</div>\
+						        				<div class="fc-cuscont-right fc-cuscont-enabled">'+ total_citas +'</div>\
 				        					</div>\
-				        				</div>\
+						        		</div>\
 				        			</a>');
 
-						pushModalElement('citDay-'+date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+'_modal','agendaMedicaEnabled');
+						pushModalElement('citDay-'+cell_date+'_modal','agendaMedicaEnabled');
 				    }
 
 				    if(cell.find("div.fc-custom-content-tb").length == 0) {
@@ -158,6 +188,7 @@
 		// On load
 		jQuery(document).ready(function($) {
 			// initialize calendar first
+			updateMonthIformationCit();
 			updateCalendar();
 
 			//removiendo css
@@ -165,25 +196,30 @@
 
 			// Update the calendar when previous button is pressed
 			$('#calendar-holder .fc-button-prev').on('click', function(){
+				updateMonthIformationCit();
 				updateCalendar();
 			});
 			
 			// Update the calendar when next button is pressed
 			$('#calendar-holder .fc-button-next').on('click', function(){
+				updateMonthIformationCit();
 				updateCalendar();
 			});
 
 			// Update the calendar when the today button is pressed
 			$('#calendar-holder .fc-button-today').on('click', function(){
+				updateMonthIformationCit();
 				updateCalendar();
 			});
 
 			$('#calendar-holder .fc-button-prevYear').on('click', function(){
+				updateMonthIformationCit();
 				updateCalendar();
 			});
 			
 			// Update the calendar when next button is pressed
 			$('#calendar-holder .fc-button-nextYear').on('click', function(){
+				updateMonthIformationCit();
 				updateCalendar();
 			});
 

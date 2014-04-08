@@ -5,7 +5,7 @@
 .fc-cuscont-left {text-align: left;width: 80%;float: left;}
 .fc-cuscont-right {text-align: right;width: 20%;float: right;}
 .fc-cuscont-disabled {color:#848484;}
-.fc-cuscont-disabled.fc-cuscont-border {border-bottom: 1px solid #848484;}
+.fc-cuscont-disabled.fc-cuscont-border {-webkit-transition: border 0.2s ease-in; -moz-transition: border 0.2s ease-in; -o-transition: border 0.2s ease-in; transition: border 0.2s ease-in; border-bottom: 1px solid #848484;}
 .fc-cuscont-enabled {color:#585858;}
 .fc-custom-content:hover .fc-cuscont-disabled.fc-cuscont-border, .fc-custom-content:hover .fc-cuscont-enabled.fc-cuscont-border {color:#489cdf;border-bottom: 2px solid #489cdf;}
 .fc-custom-content:hover .fc-cuscont-enabled {color:#489cdf;}
