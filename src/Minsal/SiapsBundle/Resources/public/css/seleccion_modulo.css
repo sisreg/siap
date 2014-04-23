@@ -18,25 +18,28 @@ td#cont-body{width: 720px; height: 400px;margin: 30px 0;}
 
 .box-shadow {position:relative;width:720px; height:400px; -moz-box-shadow: inset 0 0 10px 5px #FFFFFF;-webkit-box-shadow: inset 0 0 10px 5px #FFFFFF;box-shadow: inset 0 0 10px 5px #FFFFFF;z-index:8;}
 .module {position: absolute;right: 15px;width: 150px;height: 50px;border-radius: 3px;z-index: 10;}
-.module1, .module2, .module3, .module4, .module5 {font-family: Helvetica, Arial, sans-serif; font-weight: bold;font-size: 12px; text-shadow:1px 0px 1px #AEC6CF;}
-.module1:before, .module2:before, .module3:before, .module4:before, .module5:before {text-align: left;line-height: 4em;}
+.module1, .module2, .module3, .module4, .module5, .moduleN {font-family: Helvetica, Arial, sans-serif; font-weight: bold;font-size: 12px; text-shadow:1px 0px 1px #AEC6CF;}
+.module1:before, .module2:before, .module3:before, .module4:before, .module5:before, .moduleN {text-align: left;line-height: 4em;}
 
 .module1:before {content: 'Identificación Paciente';}
 .module2:before {content: 'Citas Médicas';}
 .module3:before {content: 'Seguimiento Clínico';}
 .module4:before {content: 'Laboratorio Clínico';}
 .module5:before {content: 'Farmacia';}
+.module5:before {content: 'Formularios Dinamicos';}
 
 .module1 {background: #779ECB; background: rgba(119,158,203,0.85); color:white;border:1px solid #779ECB;top:5%;}
 .module2 {background: #2B694E; background: rgba(43,105,78,0.85);   color:white;border:1px solid #2B694E;top:20%;}
 .module3 {background: #ED872D; background: rgba(237,135,45,0.85);  color:white;border:1px solid #ED872D;top:35%;}
 .module4 {background: #99363F; background: rgba(153,54,63,0.85);   color:white;border:1px solid #99363F;top:50%;}
 .module5 {background: #36454F; background: rgba(54,69,79,0.85);    color:white;border:1px solid #36454F;top:65%;}
+.moduleN {background: #779ECB; background: rgba(119,158,203,0.85); color:white;border:1px solid #779ECB;top:5%;}
 
 .module1:hover {background: #779ECB; border:1px solid #88B7ED; cursor: pointer;}
 .module2:hover {background: #2B694E; border:1px solid #388966; cursor: pointer;}
 .module3:hover {background: #ED872D; border:1px solid #FF9130; cursor: pointer;}
 .module4:hover {background: #99363F; border:1px solid #D24955; cursor: pointer;}
 .module5:hover {background: #36454F; border:1px solid #556F81; cursor: pointer;}
+.moduleN:hover {background: #779ECB; border:1px solid #88B7ED; cursor: pointer;}
 
 #footer {height: 65px; width: 720px;}
