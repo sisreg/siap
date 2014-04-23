@@ -63,7 +63,11 @@ jQuery(document).ready(function($){
                             modal_elements[i].func = 'defalutlModalBodyMessage';
                         }
 
-                        var modalBody = window[modal_elements[i].func]();
+                        if (typeof modal_elements[i].parameters === 'undefined' || modal_elements[i].func == '') {
+                            var modalBody = window[modal_elements[i].func]();
+                        } else {
+                            var modalBody = window[modal_elements[i].func](modal_elements[i].parameters);
+                        }
 
                         /*Estableciendo los nuevos valores del modal*/
                         $('#myModal div.modal-header h4#myModalLabel').append(modal_elements[i].header);

@@ -5,10 +5,14 @@
 .fc-cuscont-left {text-align: left;width: 80%;float: left;}
 .fc-cuscont-right {text-align: right;width: 20%;float: right;}
 .fc-cuscont-disabled {color:#848484;}
-.fc-cuscont-disabled.fc-cuscont-border {-webkit-transition: border 0.2s ease-in; -moz-transition: border 0.2s ease-in; -o-transition: border 0.2s ease-in; transition: border 0.2s ease-in; border-bottom: 1px solid #848484;}
+.fc-cuscont-disabled.fc-cuscont-border {-webkit-transition: border 0.2s ease-in; -moz-transition: border 0.2s ease-in; -o-transition: border 0.2s ease-in; transition: border 0.2s ease-in; border-bottom: 1px dotted #848484;}
 .fc-cuscont-enabled {color:#585858;}
-.fc-custom-content:hover .fc-cuscont-disabled.fc-cuscont-border, .fc-custom-content:hover .fc-cuscont-enabled.fc-cuscont-border {color:#489cdf;border-bottom: 2px solid #489cdf;}
+.fc-custom-content:hover .fc-cuscont-disabled.fc-cuscont-border, .fc-custom-content:hover .fc-cuscont-enabled.fc-cuscont-border {color:#489cdf;border-bottom: 1px solid #489cdf;}
 .fc-custom-content:hover .fc-cuscont-enabled {color:#489cdf;}
-.fc-cuscont-enabled.fc-cuscont-border {border-bottom: 1px solid #585858;}
+.fc-cuscont-enabled.fc-cuscont-border {border-bottom: 1px dotted #585858;}
 .fc-cuscont-left.fc-cuscont-enabled, .fc-cuscont-right.fc-cuscont-enabled {margin-bottom: 3px;}
 @media (max-width:767px){.sonata-bc .modal.fade.in {top:10% !important;} .sonata-bc .modal {width: auto !important; margin: 0 !important;}}
+.fc-custom-content .festive-day, .personal-day {color: #848484; font-weight: bold;font-size: 18px;text-align: center;}
+.fc-custom-content:hover .festive-day {color: #ED872D; text-decoration: none;}
+.fc-custom-content:hover .personal-day {color: #CE2029; text-decoration: none;}
+.fc-day-header {background-color: #006DB0;color: whiteSmoke;}

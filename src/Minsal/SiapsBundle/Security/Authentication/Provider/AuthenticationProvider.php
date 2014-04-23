@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Minsal\SiapsBundle\Security\ModuleProvider;
 
 class AuthenticationProvider implements AuthenticationProviderInterface {
     private $userProvider;
@@ -90,6 +91,12 @@ class AuthenticationProvider implements AuthenticationProviderInterface {
             throw $e;
         }
 
+        $moduleProvider = new ModuleProvider($user, $request->get('_moduleSelection'), $this->container->get('database_connection'));
+        if(!$moduleProvider->validateModule()) {
+            throw new BadCredentialsException("No se poseen los privilegios necesarios para acceder a este m&oacute;dulo");
+            
+        }
+        
         $authenticatedToken = new UsernamePasswordToken($user, $token->getCredentials(), $this->providerKey, $user->getRoles());
         $authenticatedToken->setAttributes($token->getAttributes());
 
