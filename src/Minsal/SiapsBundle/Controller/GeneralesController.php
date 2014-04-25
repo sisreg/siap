@@ -143,4 +143,32 @@ class GeneralesController extends Controller {
         return new Response(json_encode($pais));
     }
 
+    /*
+     * DESCRIPCIÓN: Método que devuelve un JSON con los usuarios de archivo.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
+    /**
+     * @Route("/usuarios/archivos/get", name="obtener_usuarios_archivo", options={"expose"=true})
+     */
+    public function getUsuariosArchivosAction() {
+        
+        $em = $this->getDoctrine()->getManager();
+        $establecimiento = $em->getRepository("MinsalSiapsBundle:CtlEstablecimiento")->obtenerEstablecimientoConfigurado();
+        if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1)
+            $restriccion = 'Hos';
+        else
+            $restriccion = 'Us';
+        
+        $dql = "SELECT u 
+                FROM MinsalSiapsBundle:User u
+                JOIN u.groups g
+                WHERE g.name LIKE '%$restriccion%' AND u.id !=3";
+
+        $usuarios['usuarios'] = $em->createQuery($dql)
+                ->getArrayResult();
+
+        return new Response(json_encode($usuarios));
+    }
+
 }

@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use Doctrine\ORM\EntityRepository;
+use Minsal\SiapsBundle\Entity\User;
 
 class MntEmpleadoAdmin extends Admin {
 
@@ -18,6 +20,18 @@ class MntEmpleadoAdmin extends Admin {
     );
 
     protected function configureFormFields(FormMapper $formMapper) {
+        $dql = 'SELECT a.id, b.nombre AS nombre2
+                                              FROM MinsalSiapsBundle:MntAtenAreaModEstab a
+                                              JOIN a.idEstablecimiento b
+                                              ORDER BY a.id ASC';
+        $especialidades = $this->getModelManager()
+                ->getEntityManager('MinsalSiapsBundle:MntAtenAreaModEstab')
+                ->createQuery($dql)
+                ->getResult();
+        $opciones = array();
+        foreach ($especialidades as $aux) {
+            $opciones[$aux['id']] = $aux['nombre2'];
+        }
         $formMapper
                 ->add('nombre', null, array('label' => 'Nombre', 'required' => true))
                 ->add('apellido', null, array('label' => 'Apellido', 'required' => true))
@@ -25,6 +39,28 @@ class MntEmpleadoAdmin extends Admin {
                 ->add('dui', null, array('label' => 'DUI', 'required' => false))
                 ->add('correoElectronico', 'email', array('label' => 'Correo Electrónico', 'required' => false))
                 ->add('numeroCelular', null, array('label' => 'Teléfono Contacto', 'required' => false))
+                ->add('especialidadesEstab', 'entity', array(
+                    'label' => 'Especialidades con las que trabaja el médico',
+                    'required' => true,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab',
+                    'property' => 'nombreConsulta',
+                    'query_builder' => function(EntityRepository $repositorio) {
+                        return $repositorio
+                                ->createQueryBuilder('f')
+                                ->join('f.idAtencion', 'a')
+                                ->join('f.idAreaModEstab', 'ame')
+                                ->where('ame.idAreaAtencion=1')
+                                ->andWhere('f.nombreAmbiente IS NULL')
+                        ;
+                    }
+                ))
+                ->add('especialidadesMedico', null, array(
+                    'label' => 'Estudios con los que cuenta en médico',
+                    'required' => false,
+                    'multiple' => true,
+                    'expanded' => true))
         ;
     }
 
@@ -92,6 +128,71 @@ class MntEmpleadoAdmin extends Admin {
                     WHERE te.id=4")
                 ->getSingleResult();
         $empleado->setIdTipoEmpleado($tipoEmpleado);
+    }
+    
+    public function postPersist($empleado) {
+        //agregando usuario al fos_user_user
+        $contrasenia = "muCGPpnP9MmHGDpkelFOVnQpkIK5nz0C+q1JATNFX2sgLG9g5M2s81462/JoerfyygLWrewLmSv4E0x/psSDHg==";
+        $firstname = $empleado->getNombre();
+        $lastname = $empleado->getApellido();
+        if(strpos($lastname, " "))
+            list($primerA, $segundoApellido) = explode(" ", $lastname);
+        else
+            $primerA=$lastname;
+        $bandera = false;
+        $i = 0;
+        $primero = '';
+        $username = '';
+        while (!$bandera) {
+            $primero.=$firstname[$i];
+            $username = strtolower($primero . $primerA);
+            $valor = $this->getModelManager()
+                    ->findOneBy('MinsalSiapsBundle:User', array('username' => $username));
+            if (count($valor) == 0)
+                $bandera = true;
+            else
+                $i++;
+        }
+        $usuario = new User();
+        $usuario->setFirstName($firstname);
+        $usuario->setLastname($lastname);
+        $usuario->setPassword($contrasenia);
+        $usuario->setIdEmpleado($empleado);
+        $usuario->setUsername($username);
+        $usuario->setUsernameCanonical($username);        
+        $usuario->setEnabled(true);
+        $usuario->setModulo('SEC');
+        $establecimiento = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+        if ($establecimiento->getIdTipoEstablecimiento()->getId() != 1) {
+            $grupo = $this->getModelManager()
+                    ->getEntityManager('ApplicationSonataUserBundle:Group')
+                    ->createQuery("
+                    SELECT g
+                    FROM ApplicationSonataUserBundle:Group g
+                    WHERE g.name = 'Modulo1Hos'")
+                    ->getSingleResult();
+        } else {
+            $grupo = $this->getModelManager()
+                    ->getEntityManager('ApplicationSonataUserBundle:Group')
+                    ->createQuery("
+                    SELECT g
+                    FROM ApplicationSonataUserBundle:Group g
+                    WHERE g.name = 'Modulo1Us'")
+                    ->getSingleResult();
+        }
+        $usuario->addGroup($grupo);
+        $this->getModelManager()->create($usuario);
+    }
+
+    public function validate(ErrorElement $errorElement, $object) {
+
+        if (count($object->getEspecialidadesEstab()) == 0) {
+            $errorElement
+                    ->with('especialidadesEstab')
+                    ->addViolation('Debe seleccionar al menos una especialidad con la que trabaja el médico')
+                    ->end();
+        }
     }
 
 }

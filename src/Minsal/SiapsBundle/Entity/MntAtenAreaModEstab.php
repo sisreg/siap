@@ -155,6 +155,15 @@ class MntAtenAreaModEstab {
         return $this->nombreAmbiente ? : '';
     }
 
+    /* Método __toString */
+
+    public function getNombreConsulta() {
+        if (($this->idAreaModEstab->getIdServicioExternoEstab()))
+            return $this->idAtencion->getNombre() . "-" . $this->idAreaModEstab->getIdServicioExternoEstab()->getIdServicioExterno()->getAbreviatura() ? : '';
+        else
+            return $this->idAtencion->getNombre() ? : '';
+    }
+
     /**
      * Set nombreAmbiente
      *

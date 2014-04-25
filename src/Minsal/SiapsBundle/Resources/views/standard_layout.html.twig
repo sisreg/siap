@@ -155,8 +155,10 @@ file that was distributed with this source code.
                                                         </li>
                                             {% endfor #}
                                             {% block custom_menu %}
-                                                {% set cus_menu = knp_menu_get('MinsalSiapsBundle:MenuBuilder:mainMenu', [], {'admin': admin_pool.dashboardgroups}) %}
+                                                {% if app.user %}
+                                                {% set cus_menu = knp_menu_get('MinsalSiapsBundle:MenuBuilder:mainMenu', [], {'admin': admin_pool.dashboardgroups, 'user':app.user}) %}
                                                 {{ knp_menu_render(cus_menu, {'currentClass': 'active', 'template': 'MinsalSiapsBundle:Menu:knp_menu.html.twig'}) }}
+                                                 {% endif %}
                                             {% endblock %}
                                     {% endblock %}
                                     {% block top_bar_after_nav %} {% endblock %}

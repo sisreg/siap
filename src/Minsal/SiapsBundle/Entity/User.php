@@ -50,7 +50,7 @@ class User extends BaseUser {
      */
     protected $idModalidadEstab;
     
-      /**
+    /**
      * @var \Minsal\SiapsBundle\Entity\MntAreaModEstab
      *
      * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntAreaModEstab")
@@ -59,17 +59,13 @@ class User extends BaseUser {
      * })
      */
     protected $idAreaModEstab;
-    
-      /**
-     * @var \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
-     *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntAtenAreaModEstab")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_aten_area_mod_estab", referencedColumnName="id")
-     * })
-     */
-    protected $idAtenAreaModEstab;
 
+/**
+     * @var string
+     *
+     * @ORM\Column(name="modulo", type="string", length=4)
+     */
+    private $modulo;
     /**
      * Get id
      *
@@ -221,25 +217,25 @@ class User extends BaseUser {
     }
 
     /**
-     * Set idAtenAreaModEstab
+     * Set modulo
      *
-     * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab
+     * @param string $modulo
      * @return User
      */
-    public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null)
+    public function setModulo($modulo)
     {
-        $this->idAtenAreaModEstab = $idAtenAreaModEstab;
+        $this->modulo = $modulo;
 
         return $this;
     }
 
     /**
-     * Get idAtenAreaModEstab
+     * Get modulo
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
+     * @return string 
      */
-    public function getIdAtenAreaModEstab()
+    public function getModulo()
     {
-        return $this->idAtenAreaModEstab;
+        return $this->modulo;
     }
 }
