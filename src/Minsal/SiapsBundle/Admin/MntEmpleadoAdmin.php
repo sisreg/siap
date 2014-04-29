@@ -19,6 +19,13 @@ class MntEmpleadoAdmin extends Admin {
         '_sort_by' => 'configurado' // name of the ordered field (default = the model id field, if any)
     );
 
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+        $datagridMapper
+                ->add('nombre',null,array('label'=>'Nombre del Médico'))
+                ->add('apellido',null,array('label'=>'Apellido'))
+            ;
+    }
+    
     protected function configureFormFields(FormMapper $formMapper) {
         $dql = 'SELECT a.id, b.nombre AS nombre2
                                               FROM MinsalSiapsBundle:MntAtenAreaModEstab a
