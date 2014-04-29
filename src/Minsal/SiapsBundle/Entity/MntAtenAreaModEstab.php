@@ -159,9 +159,10 @@ class MntAtenAreaModEstab {
 
     public function getNombreConsulta() {
         if (($this->idAreaModEstab->getIdServicioExternoEstab()))
-            return $this->idAtencion->getNombre() . "-" . $this->idAreaModEstab->getIdServicioExternoEstab()->getIdServicioExterno()->getAbreviatura() ? : '';
+            return $this->idAtencion->getNombre() . "-" . $this->idAreaModEstab->getIdServicioExternoEstab()->getIdServicioExterno()->getAbreviatura(). "-".$this->idAreaModEstab->getIdAreaAtencion() ? : '';
         else
-            return $this->idAtencion->getNombre() ? : '';
+            return $this->idAtencion->getNombre() . "-".$this->idAreaModEstab->getIdAreaAtencion() ? : '';
+        
     }
 
     /**
