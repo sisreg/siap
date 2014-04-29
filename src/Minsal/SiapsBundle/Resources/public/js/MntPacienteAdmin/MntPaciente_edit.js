@@ -23,6 +23,17 @@ $(document).ready(function() {
         $('.deshabilitados').removeAttr('disabled');
     });
 
+    $('select[id$="_idPaisNacimiento"]').focusout(function() {
+        $('select[id$="_idDepartamentoNacimiento"]').focus();
+    });
+
+    $('select[id$="_idDepartamentoNacimiento"]').focusout(function() {
+        $('select[id$="_idMunicipioNacimiento"]').focus();
+    })
+    $('select[id$="_horaNacimiento_minute"]').focusout(function() {
+        $('select[id$="_idSexo"]').focus();
+    })
+
     $('.deshabilitados').attr('disabled', 'disabled');
 
     $('input[id$="_fechaNacimiento"]').datepicker().mask("99-99-9999").focusout(function() {
@@ -374,6 +385,8 @@ $(document).ready(function() {
             $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
         }
 
+    }).focusout(function() {
+        $('select[id$="_idMunicipioDomicilio"]').focus();
     });
 
     /*LIMPIAR CANTONES DE DOMICILIO AL CAMBIAR MUNICIPIO*/
@@ -381,6 +394,8 @@ $(document).ready(function() {
         $('select[id$="_areaGeograficaDomicilio"]').val('')
         $('select[id$="_idCantonDomicilio"]').children().remove();
         $('select[id$="_idCantonDomicilio"]').append('<option value="">Seleccione...</option>');
+    }).focusout(function() {
+        $('select[id$="_areaGeograficaDomicilio"]').focus();
     });
 
     /*CUANDO CARGA EL MUNICIPIO DE DOMICILIO SI ESTA LLENO*/
@@ -431,6 +446,9 @@ $(document).ready(function() {
             $('select[id$="_idCantonDomicilio"]').removeAttr('disabled');
         }
 
+    }
+    ).focusout(function() {
+        $('select[id$="_idCantonDomicilio"]').focus();
     });
 
     //AGREGANDO JSON PARA CARGAR LOS PAISES ALEDAÑOS A EL SALVADOR

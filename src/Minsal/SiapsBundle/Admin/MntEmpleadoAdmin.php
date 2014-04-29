@@ -47,20 +47,29 @@ class MntEmpleadoAdmin extends Admin {
                     'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab',
                     'property' => 'nombreConsulta',
                     'query_builder' => function(EntityRepository $repositorio) {
-                        return $repositorio
-                                ->createQueryBuilder('f')
-                                ->join('f.idAtencion', 'a')
-                                ->join('f.idAreaModEstab', 'ame')
-                                ->where('ame.idAreaAtencion=1')
-                                ->andWhere('f.nombreAmbiente IS NULL')
-                        ;
-                    }
+                return $repositorio
+                        ->createQueryBuilder('f')
+                        ->join('f.idAtencion', 'a')
+                        ->join('f.idAreaModEstab', 'ame')
+                        ->where('ame.idAreaAtencion=1')
+                        ->andWhere('f.nombreAmbiente IS NULL')
+                ;
+            }
                 ))
-                ->add('especialidadesMedico', null, array(
+                ->add('especialidadesMedico', 'entity', array(
                     'label' => 'Estudios con los que cuenta en médico',
                     'required' => false,
                     'multiple' => true,
-                    'expanded' => true))
+                    'expanded' => true,
+                    'class' => 'MinsalSiapsBundle:CtlAtencion',
+                    'property' => 'nombre',
+                    'query_builder' => function(EntityRepository $repositorio) {
+                return $repositorio
+                        ->createQueryBuilder('a')
+                        ->join('a.idTipoAtencion', 'ta')
+                        ->where('ta.id=1');
+            }
+                ))
         ;
     }
 
@@ -129,16 +138,21 @@ class MntEmpleadoAdmin extends Admin {
                 ->getSingleResult();
         $empleado->setIdTipoEmpleado($tipoEmpleado);
     }
-    
+
+    /*
+     * DESCRIPCIÓN: Función que se realiza despues de insertar el empleado.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
     public function postPersist($empleado) {
-        //agregando usuario al fos_user_user
-        $contrasenia = "muCGPpnP9MmHGDpkelFOVnQpkIK5nz0C+q1JATNFX2sgLG9g5M2s81462/JoerfyygLWrewLmSv4E0x/psSDHg==";
+        /* Setear los valores generales del usuario */
+        $contrasenia = "123";
         $firstname = $empleado->getNombre();
         $lastname = $empleado->getApellido();
-        if(strpos($lastname, " "))
+        if (strpos($lastname, " "))
             list($primerA, $segundoApellido) = explode(" ", $lastname);
         else
-            $primerA=$lastname;
+            $primerA = $lastname;
         $bandera = false;
         $i = 0;
         $primero = '';
@@ -153,17 +167,23 @@ class MntEmpleadoAdmin extends Admin {
             else
                 $i++;
         }
-        $usuario = new User();
+        /* Setear los valores especificos de los usuarios */
+        /*
+         * Se utiliza el User Manager porque el encriptado es especial y con este crearemos
+         * el nuevo usuario
+         * */
+        $userManager = $this->getConfigurationPool()->getContainer()->get('fos_user.user_manager');
+        $usuario = $userManager->createUser();
+        $usuario->setUsername($username);
+        $usuario->setPlainPassword($contrasenia);
         $usuario->setFirstName($firstname);
         $usuario->setLastname($lastname);
-        $usuario->setPassword($contrasenia);
-        $usuario->setIdEmpleado($empleado);
-        $usuario->setUsername($username);
-        $usuario->setUsernameCanonical($username);        
         $usuario->setEnabled(true);
         $usuario->setModulo('SEC');
+        $usuario->setIdEmpleado($empleado);
         $establecimiento = $this->getModelManager()
                 ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+        $usuario->setIdEstablecimiento($establecimiento);
         if ($establecimiento->getIdTipoEstablecimiento()->getId() != 1) {
             $grupo = $this->getModelManager()
                     ->getEntityManager('ApplicationSonataUserBundle:Group')
@@ -182,7 +202,7 @@ class MntEmpleadoAdmin extends Admin {
                     ->getSingleResult();
         }
         $usuario->addGroup($grupo);
-        $this->getModelManager()->create($usuario);
+        $userManager->updateUser($usuario);
     }
 
     public function validate(ErrorElement $errorElement, $object) {

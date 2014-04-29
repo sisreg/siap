@@ -6,7 +6,7 @@ $(document).ready(function() {
         checkbox: true,
         selectMode: 2,
         initAjax: {
-            url: Routing.generate('get_atenciones')
+            url: Routing.generate('get_especialidades')
         },        
         onClick: function(node, event) {
             // We should not toggle, if target was "checkbox", because this

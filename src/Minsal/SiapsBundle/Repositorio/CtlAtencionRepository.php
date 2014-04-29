@@ -19,5 +19,15 @@ class CtlAtencionRepository extends EntityRepository {
                 ->getQuery()
                 ->getResult();
     }
+    
+    public function obtenerEspecialidades() {
+        return $regiones = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('a')
+                ->from('MinsalSiapsBundle:CtlAtencion', 'a')
+                ->where('a.idTipoAtencion = 1')
+                ->getQuery()
+                ->getResult();
+    }
 
 }

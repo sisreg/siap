@@ -24,7 +24,7 @@ class MntExpedienteController extends Controller {
         $datos = array();
         $request = $this->getRequest();
         parse_str($request->get('datos'), $datos);
-        if ($datos['usuario'] == "")
+        if (!array_key_exists('usuario', $datos))
             return $this->render('MinsalSiapsBundle:MntExpedienteAdmin:expedientes_creados.html.twig', array(
                         'fecha_inicio' => $datos['fecha_inicio'], 'fecha_fin' => $datos['fecha_fin']));
         else
