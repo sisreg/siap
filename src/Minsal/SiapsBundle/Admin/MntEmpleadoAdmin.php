@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SiapsBundle\Entity\User;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 class MntEmpleadoAdmin extends Admin {
 
