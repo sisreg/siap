@@ -21,6 +21,10 @@ class MntPacienteAdmin extends Admin {
     );
 
     protected function configureFormFields(FormMapper $formMapper) {
+        $elSalvador = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlPais', array('id' => 68));
+        $nacionalidad = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlNacionalidad', array('id' => 1));
         $formMapper
                 ->add('primerApellido', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('segundoApellido', null, array('attr' => array('class' => 'span5 limpiar')))
@@ -74,13 +78,16 @@ class MntPacienteAdmin extends Admin {
                     'label' => $this->getTranslator()->trans('idDepartamentoNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('idMunicipioNacimiento', null, array('empty_value' => 'Seleccione...',
                     'label' => $this->getTranslator()->trans('idMunicipioNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
-                ->add('idNacionalidad', null, array('empty_value' => 'Seleccione...',
-                    'label' => $this->getTranslator()->trans('idNacionalidad')))
+                ->add('idNacionalidad', null, array(
+                    'label' => $this->getTranslator()->trans('idNacionalidad'),
+                    'required' => true,
+                    'preferred_choices' => array($nacionalidad)
+                ))
                 ->add('idOcupacion', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idOcupacion')))
-                ->add('idPaisNacimiento', 'entity', array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento'),
-                    'class' => 'MinsalSiapsBundle:CtlPais'
+                ->add('idPaisNacimiento', 'entity', array('required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento'),
+                    'class' => 'MinsalSiapsBundle:CtlPais',
+                    'preferred_choices' => array($elSalvador)
                 ))
                 ->add('idParentescoResponsable', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
@@ -466,13 +473,12 @@ class MntPacienteAdmin extends Admin {
                         }
                     }
                 }
-            }else{
-                if (is_null($paciente->getHoraNacimiento())){
+            } else {
+                if (is_null($paciente->getHoraNacimiento())) {
                     $errorElement->with('horaNacimiento')
-                                    ->addViolation('Debe de elegir una hora para la persona si es que ha nacido el día de hoy')
-                                    ->end();
+                            ->addViolation('Debe de elegir una hora para la persona si es que ha nacido el día de hoy')
+                            ->end();
                 }
-                
             }
         }
 
@@ -492,6 +498,11 @@ class MntPacienteAdmin extends Admin {
                     ->addViolation('El Primer Apellido es Obligatorio')
                     ->end();
         }
+
+        if (is_null($paciente->getIdNacionalidad()))
+            $errorElement->with('idNacionalidad')
+                    ->addViolation('Debe de seleccionar la nacionalidad del paciente')
+                    ->end();
     }
 
     protected function configureRoutes(RouteCollection $collection) {

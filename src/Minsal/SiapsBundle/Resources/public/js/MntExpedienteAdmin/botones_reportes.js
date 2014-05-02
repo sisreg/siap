@@ -12,7 +12,6 @@ $(document).ready(function() {
     });
     
     $('#exportar_pdf').click(function() {
-        alert($('select[id$="usuario"] option:selected').val());
         if ($('.ui-paging-info').text() != 'Sin registros que mostrar') {
             url = Routing.generate('_exportar_reporte') + '/expedientes_creados/PDF?fecha_inicio=' + $('#fecha_inicio').val() + '&fecha_fin=' + $('#fecha_fin').val()+ '&usuario=' + $('select[id$="usuario"] option:selected').val();
             window.open(url, '_blank');

@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use Minsal\SiapsBundle\Entity\MntEmpleado;
 
 class UserAdmin extends BaseUserAdmin {
 
@@ -130,12 +131,28 @@ class UserAdmin extends BaseUserAdmin {
                             $query
                                     ->where("s_groups.name LIKE '%$nombre%'")
                     );
-                }else
+                } else
                     return $query;
             }
         } else {
             return $query;
         }
+    }
+
+    /*
+     * DESCRIPCIÓN: Función que se realiza despues de insertar el empleado.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
+    public function postUpdate($usuario) {
+        
+        if($usuario->hasGroup('Modulo1Hos') || $usuario->hasGroup('Modulo1HosAdmin') || $usuario->hasGroup('Modulo1Us') || $usuario->hasGroup('Modulo1UsAdmin')){
+            $empleado=new MntEmpleado();
+            $empleado->setApellido($usuario->getLastName());
+            $empleado->setNombre($usuario->getFirstName());
+            $empleado->setNombreempleado($usuario->getFirstName().' '.$usuario->getLastName());
+        }
+        
     }
 
 }

@@ -22,24 +22,13 @@ class MntEmpleadoAdmin extends Admin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('nombre',null,array('label'=>'Nombre del Médico'))
-                ->add('apellido',null,array('label'=>'Apellido'))
-            ;
+                ->add('nombre', null, array('label' => 'Nombre del Médico'))
+                ->add('apellido', null, array('label' => 'Apellido'))
+                ->add('idTipoEmpleado', null, array('label' => 'Tipo Empleado'))
+        ;
     }
-    
+
     protected function configureFormFields(FormMapper $formMapper) {
-        $dql = 'SELECT a.id, b.nombre AS nombre2
-                                              FROM MinsalSiapsBundle:MntAtenAreaModEstab a
-                                              JOIN a.idEstablecimiento b
-                                              ORDER BY a.id ASC';
-        $especialidades = $this->getModelManager()
-                ->getEntityManager('MinsalSiapsBundle:MntAtenAreaModEstab')
-                ->createQuery($dql)
-                ->getResult();
-        $opciones = array();
-        foreach ($especialidades as $aux) {
-            $opciones[$aux['id']] = $aux['nombre2'];
-        }
         $formMapper
                 ->add('nombre', null, array('label' => 'Nombre', 'required' => true))
                 ->add('apellido', null, array('label' => 'Apellido', 'required' => true))
@@ -47,9 +36,22 @@ class MntEmpleadoAdmin extends Admin {
                 ->add('dui', null, array('label' => 'DUI', 'required' => false))
                 ->add('correoElectronico', 'email', array('label' => 'Correo Electrónico', 'required' => false))
                 ->add('numeroCelular', null, array('label' => 'Teléfono Contacto', 'required' => false))
+                ->add('idTipoEmpleado', 'entity', array(
+                    'label' => 'Tipo de Empleado',
+                    'required' => true,
+                    'empty_value' => 'Seleccione..',
+                    'class' => 'MinsalSiapsBundle:MntTipoEmpleado',
+                    'property' => 'tipo',
+                    'query_builder' => function(EntityRepository $repositorio) {
+                return $repositorio
+                        ->createQueryBuilder('mte')
+                        ->where('mte.id IN (2,4)')
+                ;
+            }
+                ))
                 ->add('especialidadesEstab', 'entity', array(
                     'label' => 'Especialidades con las que trabaja el médico',
-                    'required' => true,
+                    'required' => false,
                     'multiple' => true,
                     'expanded' => true,
                     'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab',
@@ -102,6 +104,10 @@ class MntEmpleadoAdmin extends Admin {
         );
     }
 
+    /*
+     * DESCRIPCIÓN: Función que se realiza para.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
     public function getTemplate($name) {
         switch ($name) {
             case 'edit':
@@ -112,6 +118,11 @@ class MntEmpleadoAdmin extends Admin {
                 break;
         }
     }
+
+    /*
+     * DESCRIPCIÓN: Función que se realiza antes de insertar el empleado.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
 
     public function preUpdate($empleado) {
         //ATRIBUTOS DE LA AUDITORIA
@@ -136,15 +147,6 @@ class MntEmpleadoAdmin extends Admin {
         if ($empleado->getNumeroJuntaVigilancia() != '') {
             $empleado->setCodigoFarmacia($empleado->getNumeroJuntaVigilancia());
         }
-        //LE ASIGNO EL TIPO DE EMPLEADO MÉDICO
-        $tipoEmpleado = $this->getModelManager()
-                ->getEntityManager('MinsalSiapsBundle:MntTipoEmpleado')
-                ->createQuery("
-                    SELECT te
-                    FROM MinsalSiapsBundle:MntTipoEmpleado te
-                    WHERE te.id=4")
-                ->getSingleResult();
-        $empleado->setIdTipoEmpleado($tipoEmpleado);
     }
 
     /*
@@ -153,73 +155,91 @@ class MntEmpleadoAdmin extends Admin {
      */
 
     public function postPersist($empleado) {
-        /* Setear los valores generales del usuario */
-        $contrasenia = "123";
-        $firstname = $empleado->getNombre();
-        $lastname = $empleado->getApellido();
-        if (strpos($lastname, " "))
-            list($primerA, $segundoApellido) = explode(" ", $lastname);
-        else
-            $primerA = $lastname;
-        $bandera = false;
-        $i = 0;
-        $primero = '';
-        $username = '';
-        while (!$bandera) {
-            $primero.=$firstname[$i];
-            $username = strtolower($primero . $primerA);
-            $valor = $this->getModelManager()
-                    ->findOneBy('MinsalSiapsBundle:User', array('username' => $username));
-            if (count($valor) == 0)
-                $bandera = true;
+        if ($empleado->getIdTipoEmpleado()->getId() == 4) {
+            /* Setear los valores generales del usuario */
+            $contrasenia = "123";
+            $firstname = $empleado->getNombre();
+            $lastname = $empleado->getApellido();
+            if (strpos($lastname, " "))
+                list($primerA, $segundoApellido) = explode(" ", $lastname);
             else
-                $i++;
-        }
-        /* Setear los valores especificos de los usuarios */
-        /*
-         * Se utiliza el User Manager porque el encriptado es especial y con este crearemos
-         * el nuevo usuario
-         * */
-        $userManager = $this->getConfigurationPool()->getContainer()->get('fos_user.user_manager');
-        $usuario = $userManager->createUser();
-        $usuario->setUsername($username);
-        $usuario->setPlainPassword($contrasenia);
-        $usuario->setFirstName($firstname);
-        $usuario->setLastname($lastname);
-        $usuario->setEnabled(true);
-        $usuario->setModulo('SEC');
-        $usuario->setIdEmpleado($empleado);
-        $establecimiento = $this->getModelManager()
-                ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
-        $usuario->setIdEstablecimiento($establecimiento);
-        if ($establecimiento->getIdTipoEstablecimiento()->getId() != 1) {
-            $grupo = $this->getModelManager()
-                    ->getEntityManager('ApplicationSonataUserBundle:Group')
-                    ->createQuery("
+                $primerA = $lastname;
+            $bandera = false;
+            $i = 0;
+            $primero = '';
+            $username = '';
+            while (!$bandera) {
+                $primero.=$firstname[$i];
+                $username = strtolower($primero . $primerA);
+                $valor = $this->getModelManager()
+                        ->findOneBy('MinsalSiapsBundle:User', array('username' => $username));
+                if (count($valor) == 0)
+                    $bandera = true;
+                else
+                    $i++;
+            }
+            /* Setear los valores especificos de los usuarios */
+            /*
+             * Se utiliza el User Manager porque el encriptado es especial y con este crearemos
+             * el nuevo usuario
+             * */
+            $userManager = $this->getConfigurationPool()->getContainer()->get('fos_user.user_manager');
+            $usuario = $userManager->createUser();
+            $usuario->setUsername($username);
+            $usuario->setPlainPassword($contrasenia);
+            $usuario->setFirstName($firstname);
+            $usuario->setLastname($lastname);
+            $usuario->setEnabled(true);
+            $usuario->setModulo('SEC');
+            $usuario->setIdEmpleado($empleado);
+            $establecimiento = $this->getModelManager()
+                    ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+            $usuario->setIdEstablecimiento($establecimiento);
+            if ($establecimiento->getIdTipoEstablecimiento()->getId() != 1) {
+                $grupo = $this->getModelManager()
+                        ->getEntityManager('ApplicationSonataUserBundle:Group')
+                        ->createQuery("
                     SELECT g
                     FROM ApplicationSonataUserBundle:Group g
                     WHERE g.name = 'Modulo1Hos'")
-                    ->getSingleResult();
-        } else {
-            $grupo = $this->getModelManager()
-                    ->getEntityManager('ApplicationSonataUserBundle:Group')
-                    ->createQuery("
+                        ->getSingleResult();
+            } else {
+                $grupo = $this->getModelManager()
+                        ->getEntityManager('ApplicationSonataUserBundle:Group')
+                        ->createQuery("
                     SELECT g
                     FROM ApplicationSonataUserBundle:Group g
                     WHERE g.name = 'Modulo1Us'")
-                    ->getSingleResult();
+                        ->getSingleResult();
+            }
+            $usuario->addGroup($grupo);
+            $userManager->updateUser($usuario);
         }
-        $usuario->addGroup($grupo);
-        $userManager->updateUser($usuario);
     }
 
-    public function validate(ErrorElement $errorElement, $object) {
+    /*
+     * DESCRIPCIÓN: Función que se utiliza para la validación del Empleado.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
 
-        if (count($object->getEspecialidadesEstab()) == 0) {
+    public function validate(ErrorElement $errorElement, $object) {
+        /* Validando que exista el tipo de empleado sino existe lanza el error */
+        if (is_null($object->getIdTipoEmpleado())) {
             $errorElement
-                    ->with('especialidadesEstab')
-                    ->addViolation('Debe seleccionar al menos una especialidad con la que trabaja el médico')
+                    ->with('idTipoEstablecimiento')
+                    ->addViolation('Debe seleccionar el tipo de empleado')
                     ->end();
+        } else {
+            /* Si existe el tipo de empleado valida que si es 4(Médico) debe de haber seleccionado
+             * la especialidad o especialidades con las que trabajara dentro del establecimiento */
+            if ($object->getIdTipoEmpleado()->getId() == 4) {
+                if (count($object->getEspecialidadesEstab()) == 0) {
+                    $errorElement
+                            ->with('especialidadesEstab')
+                            ->addViolation('Debe seleccionar al menos una especialidad con la que trabaja el médico')
+                            ->end();
+                }
+            }
         }
     }
 

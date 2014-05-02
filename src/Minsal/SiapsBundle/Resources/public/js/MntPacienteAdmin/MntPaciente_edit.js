@@ -314,7 +314,19 @@ $(document).ready(function() {
                 }
             }
             else if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'El paciente') {
-                $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_primerNombre"]').val() + ' ' + $('input[id$="_primerApellido"]').val());
+                //NOMBRE COMPLETO DEL PACIENTE EN PROPORCIONO DATOS
+                nombre = $('input[id$="_primerNombre"]').val();
+                if ($('input[id$="_segundoNombre"]').val() != "")
+                    nombre += ' ' + $('input[id$="_segundoNombre"]').val();
+                if ($('input[id$="_tercerNombre"]').val() != "")
+                    nombre += ' ' + $('input[id$="_tercerNombre"]').val();
+                nombre += ' ' + $('input[id$="_primerApellido"]').val();
+                if ($('input[id$="_segundoApellido"]').val() != "")
+                    nombre += ' ' + $('input[id$="_segundoApellido"]').val();
+                if ($('input[id$="_apellidoCasada"]').val() != "")
+                    nombre += ' ' + $('input[id$="_apellidoCasada"]').val();
+                $('input[id$="_nombreProporcionoDatos"]').val(nombre);
+
                 $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocPaciente"]').val());
                 $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdePaciente"]').val());
             } else {
@@ -350,7 +362,17 @@ $(document).ready(function() {
         }
 
     });
-
+    if ($('select[id$="_idPaisNacimiento"]').val() == 68 &&  $('select[id$="_idDepartamentoNacimiento"]').val()=="") {
+        $('select[id$="_idDepartamentoNacimiento"]').children().remove();
+        $('select[id$="_idDepartamentoNacimiento"]').append('<option value="">Seleccione...</option>');
+        $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').val(),
+                function(data) {
+                    $.each(data.deptos, function(indice, depto) {
+                        $('select[id$="_idDepartamentoNacimiento"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
+                    });
+                });
+        $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
+    }
     /*CARGAR MUNICIPIOS NACIMIENTO*/
     $('select[id$="_idDepartamentoNacimiento"]').change(function() {
         $('select[id$="_idMunicipioNacimiento"]').children().remove();

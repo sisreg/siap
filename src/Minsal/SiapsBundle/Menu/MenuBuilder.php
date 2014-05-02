@@ -89,7 +89,7 @@ class MenuBuilder extends ContainerAware {
     private function createStaticMenu($user) {
         
         if($user->hasRole('ROLE_USER_LISTAREXPEDIENTES') || $user->hasRole('ROLE_SUPER_ADMIN'))
-            $this->menu['Reporte']->addChild('Expedientes por Usuario', array('route' => 'admin_minsal_siaps_mntexpediente_listarexpedientes'));
+            $this->menu['Reporte']->addChild('Expedientes Creados por Usuario', array('route' => 'admin_minsal_siaps_mntexpediente_listarexpedientes'));
     }
 
 }
