@@ -10,7 +10,6 @@
 .fc-custom-content:hover .fc-cuscont-enabled {color:#489cdf;}
 .fc-cuscont-enabled.fc-cuscont-border {border-bottom: 1px dotted #585858;}
 .fc-cuscont-left.fc-cuscont-enabled, .fc-cuscont-right.fc-cuscont-enabled {margin-bottom: 3px;}
-@media (max-width:767px){.sonata-bc .modal.fade.in {top:10% !important;} .sonata-bc .modal {width: auto !important; margin: 0 !important;}}
 .fc-custom-content .festive-day, .locked-day, .disabled-day {color: #848484; font-weight: bold;font-size: 18px;text-align: center;}
 .fc-custom-content:hover .festive-day  {color: #ED872D; text-decoration: none;}
 .fc-custom-content:hover .locked-day   {color: #CE2029; text-decoration: none;}
@@ -27,3 +26,4 @@
 .custom-modal-header #cita_submit_form {margin-bottom: 0 !important;}
 .modal-body #info-message .sonata-bc ul, .sonata-bc ol {padding-bottom: 0 !important;}
 .label-filters {line-height: 30px !important;text-align: left;color:#0088cc;}
+@media (max-width:767px){.sonata-bc .modal.fade.in {top:10% !important;} .sonata-bc .modal {width: auto !important; margin: 0 !important; height: 80% !important;}}

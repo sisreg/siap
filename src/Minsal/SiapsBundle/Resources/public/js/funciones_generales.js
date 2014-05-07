@@ -90,25 +90,15 @@ jQuery(document).ready(function($){
                         }
 
                         if (typeof modal_elements[i].widthModal !== 'undefined' && modal_elements[i].widthModal != '') {
-                            $('div#myModal').css('width',modal_elements[i].widthModal+'px');
+                            $('div#myModal').css({ 'width': modal_elements[i].widthModal+'px', 'margin-left': '-'+(modal_elements[i].widthModal/2)+'px' });
                             /*$('div#myModal').css('margin-left','-'+(modal_elements[i].widthModal/2)-30+'px');*/
-                            $('div#myModal').css('margin-left','-'+(modal_elements[i].widthModal/2)+'px');
-
                         }
 
                     } else {
-                        e.stopPropagation();
-            
-                        if($('div#dialog-message').length == 0) {
-                            $('body').append('<div id="dialog-message"></div>');
-                        } else {
-                            $('#dialog-message').empty();
-                        }
-
                         if (typeof modal_elements[i].emptyMessage === 'undefined') {
-                            var mBody = '<p><i class="icon-exclamation-sign" style="margin-right:7px;"></i>\
+                            var mBody = '<i class="icon-exclamation-sign" style="margin-right:7px;"></i>\
                                          No se ha seleccionado ningun elemento del cual se puedan mostrar los detalles,\
-                                         por favor seleccione uno e intente nuevamente.</p>';
+                                         por favor seleccione uno e intente nuevamente.';
 
                             modal_elements[i].emptyMessage = [ {emptyMTitle: 'Elemento no seleccionado', emptyMBody: mBody } ];
                         } else  {
@@ -118,30 +108,22 @@ jQuery(document).ready(function($){
                             }
 
                             if (typeof modal_elements[i].emptyMessage[0].emptyMBody === 'undefined' || modal_elements[i].emptyMessage[0].emptyMBody == '') {
-                                modal_elements[i].emptyMessage[0].emptyMBody = '<p><i class="icon-exclamation-sign" style="margin-right:7px;"></i>\
+                                modal_elements[i].emptyMessage[0].emptyMBody = '<i class="icon-exclamation-sign" style="margin-right:7px;"></i>\
                                          No se ha seleccionado ningun elemento del cual se puedan mostrar los detalles,\
-                                         por favor seleccione uno e intente nuevamente.</p>';
+                                         por favor seleccione uno e intente nuevamente.';
                             }
-                        }
+                        
+                        $('#myModal div.modal-header h4#myModalLabel').empty();
+                        $('#myModal div.modal-body').empty();
+                        $('#myModal div.modal-footer').empty();
 
-                        $("#dialog-message").append(modal_elements[i].emptyMessage[0].emptyMBody);
-
-                        $("#dialog-message").dialog({
-                            dialogClass: "dialog-info",
-                            modal: true,
-                            title: modal_elements[i].emptyMessage[0].emptyMTitle,
-                            buttons: {
-                                Ok: function() {
-                                        $( this ).dialog( "close" );
-                                }
-                            }
-                        });
+                        $('#myModal div.modal-header h4#myModalLabel').append(modal_elements[i].emptyMessage[0].emptyMTitle);
+                        $('#myModal div.modal-body').append(modal_elements[i].emptyMessage[0].emptyMBody);
+                        $('#myModal div.modal-footer').append('<button class="action" data-dismiss="modal" aria-hidden="true"><span class="label">Cerrar</span></button>');
                     }
                 };
             }
         } else {
-            //e.stopPropagation();
-
             $('#myModal div.modal-header h4#myModalLabel').empty();
             $('#myModal div.modal-body').empty();
             $('#myModal div.modal-footer').empty();

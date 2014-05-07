@@ -354,4 +354,35 @@ class CitCitasDiaController extends Controller  {
         
         return new Response(json_encode($citcita));
     }
+    
+    /**
+     * @Route("/citas/verificar/citaprevia/get", name="citasverificarcitaprevia", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function verificarCitaPreviaAction() {
+        $em         = $this->getDoctrine()->getManager();
+        $request    = $this->getRequest();
+        $idEmpleado = $request->get('idEmpleado');
+        
+        $dql = "SELECT t01.id,
+                       t02.nombre,
+                       t05.id AS idEstablecimiento
+                FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab t00
+                INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab t01 WITH (t01.id = t00.idAtenAreaModEstab)
+                INNER JOIN MinsalSiapsBundle:CtlAtencion         t02 WITH (t02.id = t01.idAtencion)
+                INNER JOIN MinsalSiapsBundle:MntAreaModEstab     t03 WITH (t03.id = t01.idAreaModEstab)
+                INNER JOIN MinsalSiapsBundle:CtlAreaAtencion     t04 WITH (t04.id = t03.idAreaAtencion)
+                INNER JOIN MinsalSiapsBundle:MntEmpleado         t05 WITH (t05.id = t00.idEmpleado)
+                INNER JOIN MinsalSiapsBundle:MntTipoEmpleado     t06 WITH (t06.id = t05.idTipoEmpleado)
+                WHERE t03.id = 1 AND t00.idEmpleado = :idEmpleado AND t06.codigo = :codigoEmpleado";
+        
+        $result = $em->createQuery($dql)
+                    ->setParameter(':idEmpleado', $idEmpleado)
+                    ->setParameter(':codigoEmpleado', 'MED')
+                    ->getArrayResult();
+        
+        $citcita['data1'] = $result;
+        
+        return new Response(json_encode($citcita));
+    }
 }
