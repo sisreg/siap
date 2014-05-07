@@ -163,9 +163,9 @@ class GeneralesController extends Controller {
         $session  = $this->container->get('session');
         $em       = $this->getDoctrine()->getManager();
         $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
-        $codigoEmpleado = $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo();
+        $codigoEmpleado = $user->getIdEmpleado() ? $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo() : 'N/A';
 
-        if($session->get('_moduleSelection') !== null && $session->get('_moduleSelection') == '3' && $codigoEmpleado == 'MED') {
+        if($session->get('_moduleSelection') !== null && $codigoEmpleado == 'MED') {
             if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
                 $idEmpleado = $user->getIdEmpleado();
                 $dql = "SELECT t01.id as idAtenAreaModEstab, t02.nombre as mombreAtenAreaModEstab
@@ -221,7 +221,7 @@ class GeneralesController extends Controller {
         $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
         $codigoEmpleado = $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo();
 
-        if($request->isMethod('POST') && $session->get('_moduleSelection') !== null && $session->get('_moduleSelection') == '3' && $codigoEmpleado == 'MED') {
+        if($request->isMethod('POST') && $session->get('_moduleSelection') !== null && $codigoEmpleado == 'MED') {
             if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
                 $session->set('_idEmpEspecialidadEstab', $request->get('_id-especialidad'));
                 $session->set('_nombreEmpEspecialidadEstab', $request->get('_nombre-especialidad'));

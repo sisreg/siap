@@ -43,14 +43,13 @@ file that was distributed with this source code.
             <link href="{{ asset('bundles/minsalsiaps/imagenes/escudo.png') }}" type="image/png" rel="Shortcut Icon" />
             <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/custom_layout.css') }}" type="text/css" media="all" />
             <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/siaps.css') }}" type="text/css" media="all" />
-            <link rel="stylesheet" href="{{ asset('bundles/minsalcitas/css/CitasBundle.css') }}" type="text/css" media="all" />
             <link rel="stylesheet" href="{{ asset('bundles/minsalcitas/css/css3-buttons.css') }}" type="text/css" media="all" />
 
             <!--Genemu Bundle-->
             <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/js/select2-3.4.5/select2.css') }}" type="text/css" media="all" />
 
             <!--Adesigns Bungle-->
-            <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
+            <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/fullcalendar/fullcalendar.css') }}" />
 
             {% if form is defined %}
                 {{ form_stylesheet(form) }}
@@ -87,9 +86,10 @@ file that was distributed with this source code.
 
             <!--Genemu Bundle-->
             <script src="{{ asset('bundles/minsalsiaps/js/select2-3.4.5/select2.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('bundles/minsalsiaps/js/select2-3.4.5/select2_locale_es.js') }}" type="text/javascript"></script>
 
             <!--Adesigns Bundle-->
-            <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/minsalsiaps/js/fullcalendar/fullcalendar.min.js') }}"></script>
 
             {% if form is defined %}
                 {{ form_javascript(form) }}
@@ -215,7 +215,7 @@ file that was distributed with this source code.
                                                                                     </div>
                     {% endif %}
 
-                                                                                    <div class="content {{ _side_menu is not empty ? ' span10' : 'span12' }}">
+                                                                                    <div class="content {{ _side_menu is not empty ? ' span10' : 'span12' }}" style="min-height: 525px;">
                         {% block sonata_admin_content %}
  {% for flashMessage in app.session.flashbag.get('notice') %}
                                                                                             <div class="alert alert-success">

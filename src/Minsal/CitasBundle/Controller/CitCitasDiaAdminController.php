@@ -15,12 +15,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class CitCitasDiaAdminController extends CRUDController {
 
-	/**
-	* return the Response object associated to the action
-	*
-	* @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-	* @return Response
-	*/
+    /**
+     * return the Response object associated to the action
+	 *
+	 * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+	 * @return Response
+	 */
 	public function listAction() {
 
 	if (false === $this->admin->isGranted('LIST')) {
@@ -42,4 +42,29 @@ class CitCitasDiaAdminController extends CRUDController {
 			'form' => $formView,
 		));
 	}
+    
+    /**
+     * return the Response object associated to the create action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return Response
+     */
+    public function createAction() {
+        if (false === $this->admin->isGranted('CREATE')) {
+            throw new AccessDeniedException();
+        }
+        
+        if ($this->getRestMethod()== 'POST') {
+            $request = $this->get('request');
+            $object = $this->admin->getNewInstance();
+            
+            var_dump($request);exit();
+            
+            $this->addFlash('sonata_flash_success', 'Cita creada exitosamente');
+            return new RedirectResponse($this->admin->generateUrl('list'));   
+        } else {
+            throw new AccessDeniedException();
+        }
+    }
+
 }

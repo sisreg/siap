@@ -17,9 +17,11 @@ function defalutlModalBodyMessage(e) {
     
     e = typeof e !== 'undefined' ? e : '';
 
-    var html = '<p><b>Error al cargar el elemento</b><br />Lo sentimos, hubo un problema al cargar la vista, \
+    var html = '<div class="alert alert-block alert-error">\
+                <h4>Error al cargar el elemento</h4>\
+                Lo sentimos, hubo un problema al cargar la vista, \
                 por favor intente nuevamente.<br /> \
-                Si el problema persiste por favor contacte al administrador.</p>'
+                Si el problema persiste por favor contacte al administrador...</div>';
 
     if(e != '') {
         html = html + '<p><b>Detalle del Error</b><br />' + e + '</p>';
@@ -89,7 +91,8 @@ jQuery(document).ready(function($){
 
                         if (typeof modal_elements[i].widthModal !== 'undefined' && modal_elements[i].widthModal != '') {
                             $('div#myModal').css('width',modal_elements[i].widthModal+'px');
-                            $('div#myModal').css('margin-left','-'+(modal_elements[i].widthModal/2)-30+'px');
+                            /*$('div#myModal').css('margin-left','-'+(modal_elements[i].widthModal/2)-30+'px');*/
+                            $('div#myModal').css('margin-left','-'+(modal_elements[i].widthModal/2)+'px');
 
                         }
 

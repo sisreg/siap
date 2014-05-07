@@ -1,4 +1,3 @@
-.sonata-bc .dropdown-menu li>a {text-align: left;}
 .fc-custom-content-tb {display: table;height: 141px;width: 100%;}
 .fc-custom-content {padding: 0px 15px 0px 15px;display: table-cell;vertical-align: middle;}
 .fc-cuscont-left, .fc-cuscont-right {display: block;margin-bottom: 6px;font-weight: bold;}
@@ -12,7 +11,19 @@
 .fc-cuscont-enabled.fc-cuscont-border {border-bottom: 1px dotted #585858;}
 .fc-cuscont-left.fc-cuscont-enabled, .fc-cuscont-right.fc-cuscont-enabled {margin-bottom: 3px;}
 @media (max-width:767px){.sonata-bc .modal.fade.in {top:10% !important;} .sonata-bc .modal {width: auto !important; margin: 0 !important;}}
-.fc-custom-content .festive-day, .personal-day {color: #848484; font-weight: bold;font-size: 18px;text-align: center;}
-.fc-custom-content:hover .festive-day {color: #ED872D; text-decoration: none;}
-.fc-custom-content:hover .personal-day {color: #CE2029; text-decoration: none;}
+.fc-custom-content .festive-day, .locked-day, .disabled-day {color: #848484; font-weight: bold;font-size: 18px;text-align: center;}
+.fc-custom-content:hover .festive-day  {color: #ED872D; text-decoration: none;}
+.fc-custom-content:hover .locked-day   {color: #CE2029; text-decoration: none;}
+.fc-custom-content:hover .disabled-day {color: #489cdf; text-decoration: none;}
 .fc-day-header {background-color: #006DB0;color: whiteSmoke;}
+.custom-modal-header {color: #5bc0de;font-size:16px;font-weight:bold;line-height: 20px;}
+.custom-modal-header table tr td:last-child {color: #5bc0de;font-size:13px;font-weight:bold;padding-left: 30px;}
+.custom-modal-header .select2-chosen {font-size: 13px;font-weight: normal;}
+.panel-primary-custom .panel-primary > .panel-heading, .panel-primary-custom .panel-success > .panel-heading, .panel-primary-custom .panel-info > .panel-heading {font-size:15px;font-weight:bold;}
+.agendamd-content {padding: 0 25px 0 25px;}
+.disabled-label { color: #6E6E6E;background-color: #F9F9F9;}
+.sonata-bc .modal-header {padding: 5px 15px;}
+.sonata-bc .modal-body {max-height: 365px;}
+.custom-modal-header #cita_submit_form {margin-bottom: 0 !important;}
+.modal-body #info-message .sonata-bc ul, .sonata-bc ol {padding-bottom: 0 !important;}
+.label-filters {line-height: 30px !important;text-align: left;color:#0088cc;}
