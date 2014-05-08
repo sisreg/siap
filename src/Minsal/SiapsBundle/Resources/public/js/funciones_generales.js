@@ -112,6 +112,8 @@ jQuery(document).ready(function($){
                                          No se ha seleccionado ningun elemento del cual se puedan mostrar los detalles,\
                                          por favor seleccione uno e intente nuevamente.';
                             }
+                            
+                        }
                         
                         $('#myModal div.modal-header h4#myModalLabel').empty();
                         $('#myModal div.modal-body').empty();
@@ -121,7 +123,7 @@ jQuery(document).ready(function($){
                         $('#myModal div.modal-body').append(modal_elements[i].emptyMessage[0].emptyMBody);
                         $('#myModal div.modal-footer').append('<button class="action" data-dismiss="modal" aria-hidden="true"><span class="label">Cerrar</span></button>');
                     }
-                };
+                }
             }
         } else {
             $('#myModal div.modal-header h4#myModalLabel').empty();

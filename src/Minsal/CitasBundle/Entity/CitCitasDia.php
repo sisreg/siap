@@ -139,6 +139,26 @@ class CitCitasDia
      * })
      */
     private $idTipocita;
+    
+    /**
+     * @var \Minsal\SiapsBundle\MntRangohora
+     *
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntRangohora")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_rangohora", referencedColumnName="id")
+     * })
+     */
+    private $idRangohora;
+    
+    /**
+     * @var \Minsal\SiapsBundle\MntAreaModEstab
+     *
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntAreaModEstab")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_area_mod_estab", referencedColumnName="id")
+     * })
+     */
+    private $idAreaModEstab;
 
 
 
@@ -449,5 +469,51 @@ class CitCitasDia
     public function getIdTipocita()
     {
         return $this->idTipocita;
+    }
+    
+    /**
+     * Set idRangohora
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntRangohora $idRangohora
+     * @return CitFechas
+     */
+    public function setIdRangohora(\Minsal\SiapsBundle\Entity\MntRangohora $idRangohora = null)
+    {
+        $this->idRangohora = $idRangohora;
+
+        return $this;
+    }
+
+    /**
+     * Get idRangohora
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     */
+    public function getIdRangohora()
+    {
+        return $this->idRangohora;
+    }
+
+    /**
+     * Set idAreaModEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab
+     * @return CitFechas
+     */
+    public function setIdAreaModEstab(\Minsal\SiapsBundle\Entity\MntAreaModEstab $idAreaModEstab = null)
+    {
+        $this->idAreaModEstab = $idAreaModEstab;
+
+        return $this;
+    }
+
+    /**
+     * Get idAreaModEstab
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     */
+    public function getIdAreaModEstab()
+    {
+        return $this->idAreaModEstab;
     }
 }

@@ -11,6 +11,10 @@
 {% block javascripts %}
 	{{ parent() }}
     <script type="text/javascript">
+        var modal_elements = [];
+		var cit_info = [];
+		var clickDay;
+        
         function getMedicData() {
             var idEmpleado = "";
             var nombreEmpleado = "";
@@ -33,11 +37,6 @@
             
             return {'idEmpleado': idEmpleado, 'nombreEmpleado': nombreEmpleado, 'idEmpleadoEspecialidadEstab': idEmpleadoEspecialidadEstab};
         }
-    </script>
-	<script type="text/javascript">
-		var modal_elements = [];
-		var cit_info = [];
-		var clickDay;
 
 		function pushModalElement(newId, callFunction, parameters_func) {
 			modalElmentFound = 0;
@@ -94,7 +93,8 @@
 		    }
 		    return -1;
 		}
-
+    </script>
+	<script type="text/javascript">
 		function agendaMedica(parameters) {
 			var options = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
             var medicData = getMedicData();
@@ -108,7 +108,8 @@
                                 <tr><td id="num_exp_nom_paciente"></td></tr>\
                             </table>\
                         <input type="hidden" id="idEmpleado" name="idEmpleado" value="'+medicData.idEmpleado+'" />\
-                        <input type="hidden" id="idEspecialidad" name="idEmpleadoEspecialidadEstab" value="'+medicData.idEmpleadoEspecialidadEstab+'" />\
+                        <input type="hidden" id="idEmpleadoEspecialidadEstab" name="idEmpleadoEspecialidadEstab" value="'+medicData.idEmpleadoEspecialidadEstab+'" />\
+                        <input type="hidden" id="date" name="date" value="'+clickDay+'" />\
                         </form>\
 					</div>\
 					</center>\
@@ -185,11 +186,11 @@
                     url: Routing.generate('citasexpedientepaciente'),
                     dataType: 'json',
                     quietMillis: 100,
-                    data: function (term, page) { // page is the one-based page number tracked by Select2
+                    data: function (term, page) {
                         return {
-                            clue: term, //search term
+                            clue: term,     //search term
                             page_limit: 10, // page size
-                            page: page, // page number
+                            page: page,     // page number
                         };
                     },
                     results: function (data, page) {
@@ -334,17 +335,21 @@
             var horario       = jQuery("#horarioMedico");
             var expediente    = jQuery("#numExpNomPac");
             var info_message  = jQuery("#info-message");
-            var date = new Date();
+            var date          = new Date();
+            var fecha         = clickDay.getDate()+'/'+clickDay.getMonth()+'/'+clickDay.getFullYear();
+            var hora          = date.getHours()+':00:00';
+            var medicData     = getMedicData();
             var error_message = [];
             var error_string  = '';
+            var citaExistente = [];
             var ok = false;
             
-            if(horario.select2('data')) {
+            if(!horario.select2('data')) {
                 error_message.push('<li>El horario no ha sido seleccionado.</li>');
             } else {
                 if(clickDay.getFullYear() == date.getFullYear() && clickDay.getMonth() == date.getMonth() && clickDay.getDate() == date.getDate()) {
                     if(parseInt(horario.select2('data').text.substring(0,2)) < date.getHours()) {
-                        error_message.push('<li>El horario no ha sido seleccionado es anterior a la hora actual.</li>');
+                        error_message.push('<li>El horario seleccionado es anterior al rango de hora actual <b>'+hora+'</b>.</li>');
                     }   
                 }
             }
@@ -353,8 +358,19 @@
                 error_message.push('<li>El campo <b>"No. de Expedinte - Nombre del Paciente"</b>, no ha sido seleccionado.</li>');
             }
             
-            if($horario.select2)
-
+            $.ajax({
+                url:  Routing.generate("citaspacienteposeecita")+'?idEmpleado='+medicData.idEmpleado+'&idExpediente='+expediente.val()+'&date='+clickDay,
+                async: false,
+                dataType: 'json',
+                success: function(data) {
+                    citaExistente = data.data1;
+                }
+            });
+            
+            if(citaExistente.length > 0) {
+                error_message.push('<li>El paciente ya posee cita este dia en el horario <b>'+citaExistente[0].hora_ini+'</b> en <b>'+citaExistente[0].nombre_atencion_procedimiento+' por favor seleccione otro dia.</b></li>');
+            }
+            
             if(error_message.length > 0) {
                 info_message.empty();
                 error_string = '<div class="alert alert-block alert-error">\
@@ -396,7 +412,6 @@
                                     </div>';
                     }
                     
-                    console.log(ag_content);
                     $('div.agendamd-content').empty();
                     $('div.agendamd-content').append(ag_content);
                 }, 500);
@@ -676,7 +691,6 @@
 		});
 	</script>
 	<script type="text/javascript">
-		// On load
 		jQuery(document).ready(function($) {
 			// initialize calendar first
             {% if app.user.getIdEmpleado.getIdTipoEmpleado is not defined or app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo is not sameas("MED") %}

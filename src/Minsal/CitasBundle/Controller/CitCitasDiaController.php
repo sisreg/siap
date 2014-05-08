@@ -190,22 +190,21 @@ class CitCitasDiaController extends Controller  {
 
         $dql = "SELECT IDENTITY(t01.idExpediente) AS idExpediente,
                        t02.numero AS codExpediente,
-                       CONCAT(CONCAT(t04.primerApellido, ' '),CONCAT(CONCAT(t04.segundoApellido, ', '),CONCAT(CONCAT(t04.primerNombre,' '),CONCAT(CONCAT(t04.segundoNombre,' '), t04.tercerNombre)))) AS nombrePaciente,
-                       IDENTITY(t01.idEstado) AS idEstado, t06.estado AS nombreEstado
+                       CONCAT(CONCAT(t03.primerApellido, ' '),CONCAT(CONCAT(t03.segundoApellido, ', '),CONCAT(CONCAT(t03.primerNombre,' '),CONCAT(CONCAT(t03.segundoNombre,' '), t03.tercerNombre)))) AS nombrePaciente,
+                       IDENTITY(t01.idEstado) AS idEstado, t05.estado AS nombreEstado
                       FROM MinsalCitasBundle:CitCitasDia t01
                       INNER JOIN MinsalSiapsBundle:MntExpediente t02 WITH (t02.id = t01.idExpediente)
-                      INNER JOIN MinsalCitasBundle:CitFechas     t03 WITH (t01.id = t03.idCita)
-                      INNER JOIN MinsalSiapsBundle:MntPaciente   t04 WITH (t04.id = t02.idPaciente)
-                      INNER JOIN MinsalSiapsBundle:MntEmpleado   t05 WITH (t05.id = t01.idEmpleado)
-                      INNER JOIN MinsalCitasBundle:CitEstadoCita t06 WITH (t06.id = t01.idEstado)";
+                      INNER JOIN MinsalSiapsBundle:MntPaciente   t03 WITH (t03.id = t02.idPaciente)
+                      INNER JOIN MinsalSiapsBundle:MntEmpleado   t04 WITH (t04.id = t01.idEmpleado)
+                      INNER JOIN MinsalCitasBundle:CitEstadoCita t05 WITH (t05.id = t01.idEstado)";
         
         $where = " WHERE t01.fecha = :fecha
                         AND t01.idEmpleado = :idEmpleado
                         AND t01.idTipocita = :idTipocita
                         AND t01.idAtenAreaModEstab = :especialidad
-                        AND t03.idRangohora = :hora
+                        AND t01.idRangohora = :hora
                         AND t01.idMotivo IS NULL
-                   ORDER BY t06.estado DESC";
+                   ORDER BY t05.estado DESC";
         
         $result = $em->createQuery($dql."".$where)
                      ->setParameter(':fecha', date('Y-m-d', $date->getTimestamp()))
@@ -230,9 +229,9 @@ class CitCitasDiaController extends Controller  {
         $where = " WHERE t01.fecha = :fecha
                         AND t01.idEmpleado = :idEmpleado
                         AND t01.idAtenAreaModEstab = :especialidad
-                        AND t03.idRangohora = :hora
+                        AND t01.idRangohora = :hora
                         AND t01.idMotivo >= 1
-                   ORDER BY t06.estado DESC";
+                   ORDER BY t05.estado DESC";
 
         $result = $em->createQuery($dql.$where)
                      ->setParameter(':fecha', date('Y-m-d', $date->getTimestamp()))
@@ -255,7 +254,11 @@ class CitCitasDiaController extends Controller  {
         $request = $this->getRequest();
         $clue    = $request->get('clue');
         $limit   = $request->get('page_limit');
-        $page    = $request->get('page');
+        $page    = $request->get('page') - 1;
+        
+        /*****************************************************************************************
+         * SQL que obtiene el numero de expediente y nombre del paciente para asignar la cita
+         ****************************************************************************************/
         
         $dql = "SELECT t01.id, 
                     CONCAT(COALESCE(CONCAT(t01.numero, ' - '), ''), 
@@ -333,6 +336,10 @@ class CitCitasDiaController extends Controller  {
         $request    = $this->getRequest();
         $idEmpleado = $request->get('idEmpleado');
         
+        /*****************************************************************************************
+         * SQL que obtiene todos los medicos y sus especialidades
+         ****************************************************************************************/
+        
         $dql = "SELECT t01.id,
                        t02.nombre,
                        t05.id AS idEstablecimiento
@@ -356,30 +363,51 @@ class CitCitasDiaController extends Controller  {
     }
     
     /**
-     * @Route("/citas/verificar/citaprevia/get", name="citasverificarcitaprevia", options={"expose"=true})
+     * @Route("/citas/paciente/poseecita/get", name="citaspacienteposeecita", options={"expose"=true})
      * @Method("GET")
      */
-    public function verificarCitaPreviaAction() {
-        $em         = $this->getDoctrine()->getManager();
-        $request    = $this->getRequest();
+    public function pacientePoseeCitaAction() {
+        $em          = $this->getDoctrine()->getManager();
+        $request     = $this->getRequest();
         $idEmpleado = $request->get('idEmpleado');
+        $idExpediente = $request->get('idExpediente');
+        $date        = new \DateTime($request->get('date'));
+        $fecha       = date('Y-m-d', $date->getTimestamp());
         
-        $dql = "SELECT t01.id,
-                       t02.nombre,
-                       t05.id AS idEstablecimiento
-                FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab t00
-                INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab t01 WITH (t01.id = t00.idAtenAreaModEstab)
-                INNER JOIN MinsalSiapsBundle:CtlAtencion         t02 WITH (t02.id = t01.idAtencion)
-                INNER JOIN MinsalSiapsBundle:MntAreaModEstab     t03 WITH (t03.id = t01.idAreaModEstab)
-                INNER JOIN MinsalSiapsBundle:CtlAreaAtencion     t04 WITH (t04.id = t03.idAreaAtencion)
-                INNER JOIN MinsalSiapsBundle:MntEmpleado         t05 WITH (t05.id = t00.idEmpleado)
-                INNER JOIN MinsalSiapsBundle:MntTipoEmpleado     t06 WITH (t06.id = t05.idTipoEmpleado)
-                WHERE t03.id = 1 AND t00.idEmpleado = :idEmpleado AND t06.codigo = :codigoEmpleado";
+        /*****************************************************************************************
+         * SQL que verifica y obtiene si un paciente tiene cita previa con el medico
+         ****************************************************************************************/
+        $sql = "SELECT t01.id AS id_cita,
+                       'citas_dia'::text AS clase_cita,
+                       t01.id_empleado AS id_emp_ciq_estab,
+                       t02.hora_ini,
+                       t04.nombre AS nombre_atencion_procedimiento
+                FROM cit_citas_dia                 t01
+                INNER JOIN mnt_rangohora           t02 ON (t02.id = t01.id_rangohora)
+                INNER JOIN mnt_aten_area_mod_estab t03 ON (t03.id = t01.id_aten_area_mod_estab)
+                INNER JOIN ctl_atencion            t04 ON (t04.id = t03.id_atencion)
+                INNER JOIN mnt_expediente          t05 ON (t05.id = t01.id_expediente)
+                WHERE t01.fecha='$fecha' AND t01.id_empleado = :idEmpleado AND t05.id=:idExpediente
+
+                UNION
+
+                SELECT t07.id AS id_cita,
+                       'citas_procedimiento'::text AS clase_cita,
+                       t07.id_ciq_establecimiento,
+                       t10.hora_ini,
+                       t09.procedimiento
+                FROM cit_citasprocedimientos                 t07
+                INNER JOIN mnt_procedimiento_establecimiento t08 ON (t08.id = t07.id_ciq_establecimiento)
+                INNER JOIN mnt_ciq                           t09 ON (t09.id = t08.id_ciq)
+                INNER JOIN mnt_rangohora                     t10 ON (t10.id = t07.id_rangohora)
+                INNER JOIN mnt_expediente                    t11 ON (t11.id = t07.id_expediente)
+                WHERE t07.fecha='$fecha' AND t01.id_empleado = :idEmpleado AND t11.id=:idExpediente";
         
-        $result = $em->createQuery($dql)
-                    ->setParameter(':idEmpleado', $idEmpleado)
-                    ->setParameter(':codigoEmpleado', 'MED')
-                    ->getArrayResult();
+        $stm = $this->container->get('database_connection')->prepare($sql);
+        $stm->bindValue(':idEmpleado',   $idEmpleado);
+        $stm->bindValue(':idExpediente', $idExpediente);
+        $stm->execute();
+        $result = $stm->fetchAll();
         
         $citcita['data1'] = $result;
         
