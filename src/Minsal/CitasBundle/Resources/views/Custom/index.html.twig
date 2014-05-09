@@ -234,9 +234,10 @@
 			var subsecuentes = "";
 			var agregados 	 = "";
             var medicData    = getMedicData();
+            var count        = 0;
 
 			jQuery.ajax({	
-				url: Routing.generate('citasdetallehora') + '?idEmpleado='+medicData.idEmpleado+'&idEmpleadoEspecialidadEstab='+medicData.idEmpleadoEspecialidadEstab+'&date='+parameters['date']+'&hora='+parameters['field'].select2('data').id,
+				url: Routing.generate('citasdetallehora') + '?idEmpleado='+medicData.idEmpleado+'&idEmpleadoEspecialidadEstab='+medicData.idEmpleadoEspecialidadEstab+'&date='+parameters['date']+'&hora='+parameters['field'].select2('val'),
 				async: false,
 				dataType: 'json',
 				success: function(data) {
@@ -250,9 +251,10 @@
 				primera_vez = '<tr><td colspan="4"><span class="disabled-label">No hay resultados para mostrar...</span></td></tr>';
 			} else {
 				jQuery.each( detalle['primera_vez'], function( key, value ) {
+                    count += 1;
 				  	primera_vez = primera_vez + '\
 				  		<tr>\
-				  			<td>'+ key+1 +'</td>\
+				  			<td>'+ count +'</td>\
 				  			<td>'+ value.codExpediente +'</td>\
 				  			<td>'+ value.nombrePaciente+'</td>\
 				  			<td>'+ value.nombreEstado+'</td>\
@@ -263,10 +265,12 @@
 			if(detalle['subsecuentes'].length == 0) {
 				subsecuentes = '<tr><td colspan="4"><span class="disabled-label">No hay resultados para mostrar...</span></td></tr>';
 			} else {
+                count = 0;
 				jQuery.each( detalle['subsecuentes'], function( key, value ) {
-				  	primera_vez = primera_vez + '\
+                    count += 1;
+				  	subsecuentes = subsecuentes + '\
 				  		<tr>\
-				  			<td>'+ key+1 +'</td>\
+				  			<td>'+ count +'</td>\
 				  			<td>'+ value.codExpediente +'</td>\
 				  			<td>'+ value.nombrePaciente+'</td>\
 				  			<td>'+ value.nombreEstado+'</td>\
@@ -277,10 +281,12 @@
 			if(detalle['agregados'].length == 0) {
 				agregados = '<tr><td colspan="4"><span class="disabled-label">No hay resultados para mostrar...</span></td></tr>';
 			} else {
+                count = 0;
 				jQuery.each( detalle['agregados'], function( key, value ) {
-				  	primera_vez = primera_vez + '\
+                    count += 1;
+				  	agregados = agregados + '\
 				  		<tr>\
-				  			<td>'+ key+1 +'</td>\
+				  			<td>'+ count +'</td>\
 				  			<td>'+ value.codExpediente +'</td>\
 				  			<td>'+ value.nombrePaciente+'</td>\
 				  			<td>'+ value.nombreEstado+'</td>\
@@ -293,7 +299,7 @@
 					<div class="panel-body" id="pb-primervez">\
 						<table class="table table-striped table-hover table-condensed">\
 							<thead>\
-								<tr><th>No.</th><th>Expediente</th><th>Nombre del paciente</th><th>Estado cita</th></tr>\
+								<tr><th>No.</th><th>Expediente</th><th>Nombre del paciente</th><th>Estado de la cita</th></tr>\
 							</thead>\
 							<tbody>\
  	 							'+primera_vez+'\
@@ -306,7 +312,7 @@
 					<div class="panel-body" id="pb-subsecuentes">\
 						<table class="table table-striped table-hover table-condensed">\
 							<thead>\
-								<tr><th>No.</th><th>Expediente</th><th>Nombre del paciente</th><th>Estado cita</th></tr>\
+								<tr><th>No.</th><th>Expediente</th><th>Nombre del paciente</th><th>Estado de la cita</th></tr>\
 							</thead>\
 							<tbody>\
 								'+subsecuentes+'\
@@ -319,7 +325,7 @@
 					<div class="panel-body" id="pb-agregados">\
 						<table class="table table-striped table-hover table-condensed">\
 							<thead>\
-								<tr><th>No.</th><th>Expediente</th><th>Nombre del paciente</th><th>Estado cita</th></tr>\
+								<tr><th>No.</th><th>Expediente</th><th>Nombre del paciente</th><th>Estado de la cita</th></tr>\
 							</thead>\
 							<tbody>\
 								'+agregados+'\
@@ -336,8 +342,7 @@
             var expediente    = jQuery("#numExpNomPac");
             var info_message  = jQuery("#info-message");
             var date          = new Date();
-            var fecha         = clickDay.getDate()+'/'+clickDay.getMonth()+'/'+clickDay.getFullYear();
-            var hora          = date.getHours()+':00:00';
+            var hora          = formatTime_12_24("12", date.getHours()+':00:00');
             var medicData     = getMedicData();
             var error_message = [];
             var error_string  = '';
@@ -348,9 +353,14 @@
                 error_message.push('<li>El horario no ha sido seleccionado.</li>');
             } else {
                 if(clickDay.getFullYear() == date.getFullYear() && clickDay.getMonth() == date.getMonth() && clickDay.getDate() == date.getDate()) {
-                    if(parseInt(horario.select2('data').text.substring(0,2)) < date.getHours()) {
-                        error_message.push('<li>El horario seleccionado es anterior al rango de hora actual <b>'+hora+'</b>.</li>');
-                    }   
+                    var horarioSeleccionado = formatTime_12_24("24", horario.select2('data').text);
+                    if(!horarioSeleccionado) {
+                        error_message.push('<li>Error al convertir la hora, el formato de hora brindado no es el adecuado se requiere el formato (HH:mm:ss AM/PM), por favor contacte con el administrador</li>');
+                    } else {
+                        if(parseInt(horarioSeleccionado.substring(0,2)) < date.getHours()) {
+                            error_message.push('<li>El horario seleccionado es anterior al rango de hora actual <b>'+hora+'</b>.</li>');
+                        }
+                    }
                 }
             }
             
@@ -368,7 +378,7 @@
             });
             
             if(citaExistente.length > 0) {
-                error_message.push('<li>El paciente ya posee cita este dia en el horario <b>'+citaExistente[0].hora_ini+'</b> en <b>'+citaExistente[0].nombre_atencion_procedimiento+' por favor seleccione otro dia.</b></li>');
+                error_message.push('<li>El paciente ya posee cita este dia en el horario <b>'+citaExistente[0].hora_ini+ ' '+citaExistente[0].meridianoini+'</b> en <b>'+citaExistente[0].nombre_atencion_procedimiento+'</b>, por favor seleccione otro dia.</li>');
             }
             
             if(error_message.length > 0) {
@@ -805,6 +815,7 @@
 
 			
 			function updateCalendar() {
+                modal_elements = [];
 				renderCalendar();
 				var calendarDate = $('#calendar-holder').fullCalendar('getDate');
 				calendarDate.setHours(0,0,0,0);

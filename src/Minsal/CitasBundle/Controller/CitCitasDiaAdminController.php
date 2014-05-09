@@ -56,7 +56,6 @@ class CitCitasDiaAdminController extends CRUDController {
         
         if ($this->getRestMethod()== 'POST') {
             $em      = $this->getDoctrine()->getManager();
-            $qb      = $em->createQueryBuilder();
             $request = $this->get('request');
             
             $idEmpleado   = $request->get('idEmpleado');
@@ -66,7 +65,7 @@ class CitCitasDiaAdminController extends CRUDController {
             $idExpediente = $request->get('numExpNomPac');
             $tipoCita     = 2;
             $today        = new \DateTime();
-            $usuario   = $this->getSecurityContext()->getToken()->getUser();
+            $usuario      = $this->getUser();
             $ipcita       = $request->server->get('REMOTE_ADDR');
             
             $citDistribucion = $em->getRepository('MinsalCitasBundle:CitDistribucion')->findOneBy(
@@ -80,25 +79,27 @@ class CitCitasDiaAdminController extends CRUDController {
                     )
                 );
             
-            /*Limite de subsecuetnes que pueden ser asignados en el dia y hora al medico*/
+            /*Limite de subsecuentes que pueden ser asignados en el dia y hora al medico*/
             $subsecuentes = $citDistribucion->getSubsecuente();
             
             /*Obteniendo el total de citas que posee el medico*/
+            $qb = $em->createQueryBuilder();
             $totalCitas = $qb->select($qb->expr()->count('t01.id'))
                     ->from('MinsalCitasBundle:CitCitasDia', 't01')
                     ->where('t01.fecha = :fecha')
-                    ->andWhere('t01.idEmpleado != :idEmpleado')
-                    ->andWhere('t01.idTipoCita = :idTipoCita')
+                    ->andWhere('t01.idEmpleado = :idEmpleado')
+                    ->andWhere('t01.idTipocita = :idTipocita')
                     ->andWhere('t01.idAtenAreaModEstab = :especialidad')
                     ->andWhere('t01.idRangohora = :idRangohora')
                     ->setParameters(array(
                             ':fecha' => date('Y-m-d', $date->getTimestamp()),
                             ':idEmpleado'   => $idEmpleado, 
-                            ':idTipoCita'   => $idTipoCita,
-                            ':especialidad' => $especilaidad,
+                            ':idTipocita'   => $tipoCita,
+                            ':especialidad' => $especialidad,
                             ':idRangohora'  => $idRangohora))
-                    ->$query->getResult();
-                
+                    ->getQuery()
+                    ->getSingleScalarResult();
+            
             if($subsecuentes > $totalCitas) {
                 $idEstado = 1;
                 $idMotivo = NULL;
@@ -110,7 +111,7 @@ class CitCitasDiaAdminController extends CRUDController {
             /*Preparando los campos para insersion o actualizacion*/
             $mntEmpleado = $em->getRepository('MinsalSiapsBundle:MntEmpleado')->findOneById($idEmpleado);
             $mntAtenAreaModEstab = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->findOneById($especialidad);
-                
+            
             $parameters = array(
                     'idTipocita'         => $em->getRepository('MinsalCitasBundle:CitTipocita')->findOneById($tipoCita),
                     'idAtenAreaModEstab' => $mntAtenAreaModEstab,
@@ -120,14 +121,15 @@ class CitCitasDiaAdminController extends CRUDController {
                     'fechahorareg'       => $today,
                     'idMotivo'           => $idMotivo != NULL ? $em->getRepository('MinsalCitasBundle:CitMotivoagregados')->findOneById($idMotivo) : $idMotivo,
                     'ipcita'             => $ipcita,
-                    'idEmpleado'         => $idEmpleado,
+                    'idEmpleado'         => $mntEmpleado,
                     'idExpediente'       => $em->getRepository('MinsalSiapsBundle:MntExpediente')->findOneById($idExpediente),
                     'idEstablecimiento'  => $mntEmpleado->getIdEstablecimiento(),
                     'idRangohora'        => $em->getRepository('MinsalSiapsBundle:MntRangohora')->findOneById($idRangohora),
                     'idAreaModEstab'     => $mntAtenAreaModEstab->getIdAreaModEstab()
                 );
             
-            /*Comprando si el paciente tiene una cita asignada que no pertenece a el*/
+            /*Comprando si el paciente tiene una cita asignada para la fecha seleccionadad*/
+            $qb = $em->createQueryBuilder();
             $poseeCita = $qb->select('t01')
                          ->from('MinsalCitasBundle:CitCitasDia', 't01')
                          ->where('t01.fecha = :fecha')
@@ -135,9 +137,11 @@ class CitCitasDiaAdminController extends CRUDController {
                          ->setParameters(array(
                                 ':fecha' => date('Y-m-d', $date->getTimestamp()),
                                 ':idExpediente' => $idExpediente))
-                         ->$query->getResult();
+                         ->getQuery()
+                         ->getResult();
             
-            /*Comprando si el paciente tiene una cita de procedimiento asignada que no pertenece a el*/
+            /*Comprando si el paciente tiene una cita de procedimiento para la fecha seleccionadad*/
+            $qb = $em->createQueryBuilder();
             $poseeProcedimiento = $qb->select('t01')
                          ->from('MinsalCitasBundle:CitCitasprocedimientos', 't01')
                          ->where('t01.fecha = :fecha')
@@ -145,10 +149,11 @@ class CitCitasDiaAdminController extends CRUDController {
                          ->setParameters(array(
                                 ':fecha' => date('Y-m-d', $date->getTimestamp()),
                                 ':idExpediente' => $idExpediente))
-                         ->$query->getResult();
+                         ->getQuery()
+                         ->getResult();
             
             if($poseeCita || $poseeProcedimiento) {
-                
+                $qb = $em->createQueryBuilder();
                 $citaPrevia = $qb->select('t01')
                          ->from('MinsalCitasBundle:CitCitasDia', 't01')
                          ->where('t01.fecha > :today')
@@ -159,8 +164,9 @@ class CitCitasDiaAdminController extends CRUDController {
                                 ':today' => date('Y-m-d', $today->getTimestamp()),
                                 ':idusuarioreg' => $usuario->getId(),
                                 ':idExpediente' => $idExpediente))
-                         ->$query->getResult();
-                
+                         ->getQuery()
+                         ->getResult();
+                var_dump($citaPrevia);exit();
                 if($citaPrevia) {
                     $this->updateCita($citaPrevia->getId(), $parameters);
                 } else {
@@ -170,9 +176,6 @@ class CitCitasDiaAdminController extends CRUDController {
             } else {
                 $this->insertCita($parameters);
             }
-            
-            
-            
             
             $this->addFlash('sonata_flash_success', 'Cita creada exitosamente');
             return new RedirectResponse($this->admin->generateUrl('list'));   
@@ -207,6 +210,7 @@ class CitCitasDiaAdminController extends CRUDController {
         $citCitasDia->setIdEstado($parameters['idEstado']);
         $citCitasDia->setFecha($parameters['fecha']);
         $citCitasDia->setIdMotivo($parameters['idMotivo']);
+        $citCitasDia->setIdRangohora($parameters['idRangohora']);
         
         $this->admin->update($citCitasDia);
     }

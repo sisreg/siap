@@ -33,25 +33,22 @@ class CitCitasDiaController extends Controller  {
          * SQL que determina la cantidad de citas por primera vez, subsecuentes, agregados, aten-
          * didos y total de citas para cada dia de un mes determinado por usuario y especialidad
          ****************************************************************************************/
-        $sql = "SELECT TO_CHAR(t05.date, 'YYYY/MM/DD') AS date, COALESCE(t06.primeraVez,0) AS primera_vez, 
-                       COALESCE(t06.subsecuentes,0) AS subsecuentes, 
+        $sql = "SELECT TO_CHAR(t05.date, 'YYYY/MM/DD') AS date, COALESCE(t06.primeraVez,0) AS primera_vez, COALESCE(t06.subsecuentes,0) AS subsecuentes, 
                        COALESCE(t06.agregados,0) AS agregados, COALESCE(t06.totalCitas,0) AS total_citas,
                        COALESCE(t06.atendidos,0) AS atendidos
                 FROM (
-                      SELECT to_date('$lowerLimit', 'YYYY-MM-DD') + serie AS date 
-                      FROM generate_series(0, 31, 1) AS serie
-                      WHERE to_date('$lowerLimit', 'YYYY-MM-DD') + serie <= '$upperLimit') t05
+                      SELECT serie::date AS date
+                      FROM generate_series ('$lowerLimit'::timestamp, '$upperLimit'::timestamp, '1 day'::interval) serie) t05
                 LEFT OUTER JOIN (
-                      SELECT t01.fecha as date,
+                      SELECT DISTINCT t01.fecha as date,
                              SUM((CASE WHEN t01.id_tipocita = 1 THEN 1 ELSE 0 END) * (CASE WHEN t01.id_estado <> 6 THEN 1 ELSE 0 END)) as primeraVez,
                              SUM((CASE WHEN t01.id_tipocita = 2 THEN 1 ELSE 0 END) * (CASE WHEN t01.id_estado <> 6 THEN 1 ELSE 0 END)) as subsecuentes,
                              SUM(CASE WHEN t01.id_estado = 6 THEN 1 ELSE 0 END) as agregados,
                              COUNT(t01.id_tipocita) as totalCitas,
                              SUM((CASE WHEN t01.id_estado = 5 THEN 1 ELSE 0 END) + (CASE WHEN t01.id_estado = 7 THEN 1 ELSE 0 END)) atendidos
                       FROM cit_citas_dia t01
-                      INNER JOIN mnt_expediente                  t02 ON (t01.id_expediente = t02.id)
-                      INNER JOIN mnt_empleado                    t03 ON (t01.id_empleado   = t03.id)
-                      INNER JOIN mnt_empleado_especialidad_estab t04 ON (t04.id_empleado   = t03.id)
+                      INNER JOIN mnt_expediente 		       t02 ON (t01.id_expediente = t02.id)
+                      INNER JOIN mnt_empleado 			 t03 ON (t01.id_empleado   = t03.id)
                       WHERE t01.fecha >= '$lowerLimit' AND t01.fecha<= '$upperLimit' 
                             AND t01.id_empleado = :idEmpleado AND t01.id_aten_area_mod_estab = :especialidad
                       GROUP BY t01.fecha) t06 ON (t05.date = t06.date)";
@@ -75,9 +72,8 @@ class CitCitasDiaController extends Controller  {
                        COALESCE(t02.tipo_evento, 'N/A') AS tipo_evento,
                        COALESCE(t03.citas_programadas, 0) AS citas_programadas
                 FROM ( 
-                      SELECT to_date('$lowerLimit', 'YYYY-MM-DD') + serie AS date 
-                      FROM generate_series(0, 31, 1) AS serie
-                      WHERE to_date('$lowerLimit', 'YYYY-MM-DD') + serie <= '$upperLimit') t01
+                      SELECT serie::date AS date
+                      FROM generate_series ('$lowerLimit'::timestamp, '$upperLimit'::timestamp, '1 day'::interval) serie) t01
                 LEFT OUTER JOIN (
                       SELECT fechaini, fechafin,
                              CASE WHEN idempleado = :idEmpleado THEN 'personal'
@@ -144,7 +140,7 @@ class CitCitasDiaController extends Controller  {
          * SQL que determina el horario de atencion de pacientes de un medico para una fecha de-
          * terminada
          ****************************************************************************************/
-        $sql = "SELECT t02.id, t02.hora_ini::text
+        $sql = "SELECT t02.id, t02.hora_ini::text || ' ' || UPPER(t02.meridianoini) AS hora_ini
                 FROM cit_distribucion t01
                 INNER JOIN mnt_rangohora t02 ON (t02.id = t01.id_rangohora)
                 WHERE t01.id_empleado = :idEmpleado
@@ -190,7 +186,11 @@ class CitCitasDiaController extends Controller  {
 
         $dql = "SELECT IDENTITY(t01.idExpediente) AS idExpediente,
                        t02.numero AS codExpediente,
-                       CONCAT(CONCAT(t03.primerApellido, ' '),CONCAT(CONCAT(t03.segundoApellido, ', '),CONCAT(CONCAT(t03.primerNombre,' '),CONCAT(CONCAT(t03.segundoNombre,' '), t03.tercerNombre)))) AS nombrePaciente,
+                       CONCAT(COALESCE(CONCAT(t03.primerApellido, ' '), ''),
+                       CONCAT(COALESCE(CONCAT(t03.segundoApellido, ', '), ''),
+                       CONCAT(COALESCE(CONCAT(t03.primerNombre,' '), ''),
+                       CONCAT(COALESCE(CONCAT(t03.segundoNombre,' '), ''),
+                       COALESCE(t03.tercerNombre, ''))))) AS nombrePaciente,
                        IDENTITY(t01.idEstado) AS idEstado, t05.estado AS nombreEstado
                       FROM MinsalCitasBundle:CitCitasDia t01
                       INNER JOIN MinsalSiapsBundle:MntExpediente t02 WITH (t02.id = t01.idExpediente)
@@ -381,6 +381,7 @@ class CitCitasDiaController extends Controller  {
                        'citas_dia'::text AS clase_cita,
                        t01.id_empleado AS id_emp_ciq_estab,
                        t02.hora_ini,
+                       t02.meridianoini,
                        t04.nombre AS nombre_atencion_procedimiento
                 FROM cit_citas_dia                 t01
                 INNER JOIN mnt_rangohora           t02 ON (t02.id = t01.id_rangohora)
@@ -395,13 +396,14 @@ class CitCitasDiaController extends Controller  {
                        'citas_procedimiento'::text AS clase_cita,
                        t07.id_ciq_establecimiento,
                        t10.hora_ini,
+                       t10.meridianoini,
                        t09.procedimiento
                 FROM cit_citasprocedimientos                 t07
                 INNER JOIN mnt_procedimiento_establecimiento t08 ON (t08.id = t07.id_ciq_establecimiento)
                 INNER JOIN mnt_ciq                           t09 ON (t09.id = t08.id_ciq)
                 INNER JOIN mnt_rangohora                     t10 ON (t10.id = t07.id_rangohora)
                 INNER JOIN mnt_expediente                    t11 ON (t11.id = t07.id_expediente)
-                WHERE t07.fecha='$fecha' AND t01.id_empleado = :idEmpleado AND t11.id=:idExpediente";
+                WHERE t07.fecha='$fecha' AND t07.id_empleado = :idEmpleado AND t11.id=:idExpediente";
         
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idEmpleado',   $idEmpleado);

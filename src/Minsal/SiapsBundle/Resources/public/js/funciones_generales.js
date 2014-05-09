@@ -13,6 +13,78 @@
         text = text.toUpperCase();
         return text;
     }
+
+/* Convertir Hora segun formato de 12 o 24 Horas */
+function formatTime_12_24(convertFormat, strTime) {
+    var time  = false;
+    var regex = null;
+    
+    if(convertFormat == "12") {
+        regex   = /^([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)$/i;
+    } else {
+        if(convertFormat == "24") {
+            regex   = /^([0]\d|[1][0-2]):([0-5]\d):([0-5]\d)\s?(?:AM|PM)$/i;
+        }
+    }
+    
+
+    if (regex != null && regex.test(strTime)) {
+        if(convertFormat == "24") {
+            var arrayTime = strTime.split(":");
+            var restTime  = arrayTime[2].split(" ");
+            var hours     = Number(arrayTime[0]);
+            var minutes   = Number(arrayTime[1]);
+            var seconds   = Number(restTime[0]);
+            var meridian  = restTime[1];
+
+            if (meridian == "PM" && hours < 12) {
+                hours = hours + 12;
+            } else {
+                hours = hours - 12;
+            }
+
+            if (hours < 10)
+                hours = "0" + hours.toString();
+
+            if (minutes < 10)
+                minutes = "0" + minutes.toString();
+
+            if (seconds < 10)
+                seconds = "0" + seconds.toString();
+
+            time = hours + ":" + minutes + ":" + seconds;
+        } else {
+            var arrayTime = strTime.split(":");
+            var hours     = Number(arrayTime[0]);
+            var minutes   = Number(arrayTime[1]);
+            var seconds   = Number(arrayTime[2]);
+            var meridian  = "AM";
+
+            if (hours >= 12) {
+                hours = hours - 12;
+                meridian = "PM";
+            }
+            
+            if (hours == 0) {
+                hours = 12;
+            }
+
+            if (hours < 10)
+                hours = "0" + hours.toString();
+
+            if (minutes < 10)
+                minutes = "0" + minutes.toString();
+
+            if (seconds < 10)
+                seconds = "0" + seconds.toString();
+
+            time = hours + ":" + minutes + ":" + seconds + " " + meridian;
+        }
+    }
+
+    return time;
+}
+
 function defalutlModalBodyMessage(e) {
     
     e = typeof e !== 'undefined' ? e : '';
