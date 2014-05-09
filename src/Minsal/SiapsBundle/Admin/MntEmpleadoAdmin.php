@@ -100,7 +100,7 @@ class MntEmpleadoAdmin extends Admin {
 
         return new ProxyQuery(
                 $query
-                        ->where($query->getRootAlias() . '.idTipoEmpleado = 4')
+                        ->where($query->getRootAlias() . '.idTipoEmpleado IN (2,4)')
         );
     }
 
