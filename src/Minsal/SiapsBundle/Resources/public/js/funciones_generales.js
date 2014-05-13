@@ -20,13 +20,12 @@ function formatTime_12_24(convertFormat, strTime) {
     var regex = null;
     
     if(convertFormat == "12") {
-        regex   = /^([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)$/i;
+        regex   = /^([0-1]?\d|2[0-3]):([0-5]\d):([0-5]\d)$/i;
     } else {
         if(convertFormat == "24") {
             regex   = /^([0]\d|[1][0-2]):([0-5]\d):([0-5]\d)\s?(?:AM|PM)$/i;
         }
     }
-    
 
     if (regex != null && regex.test(strTime)) {
         if(convertFormat == "24") {
@@ -37,11 +36,11 @@ function formatTime_12_24(convertFormat, strTime) {
             var seconds   = Number(restTime[0]);
             var meridian  = restTime[1];
 
-            if (meridian == "PM" && hours < 12) {
+            if (meridian == "PM" && hours < 12)
                 hours = hours + 12;
-            } else {
+            
+            if(meridian == "AM" && hours == 12)
                 hours = hours - 12;
-            }
 
             if (hours < 10)
                 hours = "0" + hours.toString();

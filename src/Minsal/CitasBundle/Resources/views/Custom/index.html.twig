@@ -347,6 +347,7 @@
             var error_message = [];
             var error_string  = '';
             var citaExistente = [];
+            var citaDelMedico = [];
             var ok = false;
             
             if(!horario.select2('data')) {
@@ -369,16 +370,18 @@
             }
             
             $.ajax({
-                url:  Routing.generate("citaspacienteposeecita")+'?idEmpleado='+medicData.idEmpleado+'&idExpediente='+expediente.val()+'&date='+clickDay,
+                url:  Routing.generate("citaspacienteposeecita")+'?idEmpleado='+medicData.idEmpleado+'&especialidad='+medicData.idEmpleadoEspecialidadEstab+'&idExpediente='+expediente.val()+'&date='+clickDay,
                 async: false,
                 dataType: 'json',
                 success: function(data) {
                     citaExistente = data.data1;
+                    citaDelMedico = data.data2;
+                    
                 }
             });
             
-            if(citaExistente.length > 0) {
-                error_message.push('<li>El paciente ya posee cita este dia en el horario <b>'+citaExistente[0].hora_ini+ ' '+citaExistente[0].meridianoini+'</b> en <b>'+citaExistente[0].nombre_atencion_procedimiento+'</b>, por favor seleccione otro dia.</li>');
+            if(citaExistente.length > 0 && citaDelMedico.length > 0) {
+                error_message.push('<li>El paciente ya posee cita este dia en el horario <b>'+citaDelMedico[0].hora_ini+ ' '+citaDelMedico[0].meridianoini+'</b> en <b>'+citaDelMedico[0].nombre_atencion+'</b>, por favor seleccione otro dia.</li>');
             }
             
             if(error_message.length > 0) {
@@ -410,6 +413,7 @@
 				parameters['field'] = $field;
 				parameters['date']	= clickDay;
                 
+                $('div#info-message').empty();
 				$('div.agendamd-content').empty();
 				$('div.agendamd-content').append('<center><img id="wait" src="{{ asset("bundles/minsalsiaps/imagenes/wait_icon1.gif") }}" alt="wait" width="24" height="24"><div id="search-message">Buscando...</div></center>');
 				
@@ -905,7 +909,7 @@
     {% else %}
         {% if form.vars.errors|length > 0 %}
             <div class="sonata-ba-form-error">
-                {{ form_errors(form) }}
+                {{ form_errors(form)|raw }}
             </div>
         {% endif %}
         
