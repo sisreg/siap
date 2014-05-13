@@ -1,18 +1,18 @@
 //FUNCIÓN QUE SE UTILIZA PARA PERMITIR SOLO LETRAS Y UN SOLO ESPACIO.
 //QUITANDO TODA TILDE, DIERESIS,ETC
-        function limpiar_nombres(text) {
-        var text = text.toLowerCase(); // a minusculas
-        text = text.replace(/[áàäâå]/, 'a');
-        text = text.replace(/[éèëê]/, 'e');
-        text = text.replace(/[íìïî]/, 'i');
-        text = text.replace(/[óòöô]/, 'o');
-        text = text.replace(/[úùüû]/, 'u');
-        text = text.replace(/[ýÿ]/, 'y');
-        text = text.replace(/[^a-zA-ZñÑ\s]/g, '');
-        text = text.replace(/\s{2,}/, ' ');
-        text = text.toUpperCase();
-        return text;
-    }
+function limpiar_nombres(text) {
+    var text = text.toLowerCase(); // a minusculas
+    text = text.replace(/[áàäâå]/, 'a');
+    text = text.replace(/[éèëê]/, 'e');
+    text = text.replace(/[íìïî]/, 'i');
+    text = text.replace(/[óòöô]/, 'o');
+    text = text.replace(/[úùüû]/, 'u');
+    text = text.replace(/[ýÿ]/, 'y');
+    text = text.replace(/[^a-zA-ZñÑ\s]/g, '');
+    text = text.replace(/\s{2,}/, ' ');
+    text = text.toUpperCase();
+    return text;
+}
 
 /* Convertir Hora segun formato de 12 o 24 Horas */
 function formatTime_12_24(convertFormat, strTime) {
@@ -100,9 +100,62 @@ function defalutlModalBodyMessage(e) {
     return html;
 }
 
-//Estandarización del uso de modal dentro del proyecto
-jQuery(document).ready(function($){
+jQuery(document).ready(function($) {
+    /***** Mosrtrar Mensajes de Error de Sonata y Esconderlos Automaticamente ******/
 
+    $('i[class="ui-icon ui-icon-alert"]').attr("data-placement", "top");
+    $('i[class="ui-icon ui-icon-alert"][data-title="error"]').attr("data-title", '<spam style="color: #b94a48;">Se ha producido un error:</spam>');
+    $('i[class="ui-icon ui-icon-alert"]').popover('show');
+    var popOverShow = true;
+    var popOverClicked = false;
+    var lastPopOverClicked = null;
+
+    $('body').on('click', function(event) {
+
+
+        if (popOverShow == true && popOverClicked == false) {
+            $('i[class="ui-icon ui-icon-alert"]').popover('hide');
+            popOverShow = false;
+            lastPopOverClicked = null;
+        }
+        else {
+            if (popOverShow == true && popOverClicked == true) {
+                popOverShow = false;
+                popOverClicked = false;
+            }
+            else {
+                if (popOverShow == false && popOverClicked == true) {
+                    popOverShow = true;
+                    popOverClicked = false;
+                }
+                else {
+                    popOverShow = false;
+                    popOverClicked = false;
+                    lastPopOverClicked = null;
+                }
+            }
+        }
+
+        lasElementClicked = event.target;
+
+    });
+
+    $('i[class="ui-icon ui-icon-alert"]').on('click', function(event) {
+
+        if (lastPopOverClicked != null) { //Determina si hay un PopUp abierto y se ha dado click en otro diferente.
+            if ($(this) != lastPopOverClicked && popOverShow == true) {
+                lastPopOverClicked.popover('hide');       //Se cierra el PopUp ya abierto.
+                popOverShow = false;
+            }
+        }
+
+        popOverClicked = true;
+        lastPopOverClicked = $(this);
+
+    });
+    /*********************************************/
+	
+	//Estandarización del uso de modal dentro del proyecto
     $('body').append('\
         <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\
             <div class="modal-header">\
@@ -120,8 +173,8 @@ jQuery(document).ready(function($){
         var currentIDM = $(this).attr("id");
         if (!(typeof modal_elements === 'undefined') && modal_elements.length != 0) {
             for (var i = 0; i < modal_elements.length; i++) {
-                if (currentIDM == modal_elements[i].id){
-                    if(modal_elements[i].empty !=  true) {
+                if (currentIDM == modal_elements[i].id) {
+                    if (modal_elements[i].empty != true) {
                         /*Limpiando los elementos del modal*/
                         $('#myModal div.modal-header h4#myModalLabel').empty();
                         $('#myModal div.modal-body').empty();
@@ -183,7 +236,6 @@ jQuery(document).ready(function($){
                                          No se ha seleccionado ningun elemento del cual se puedan mostrar los detalles,\
                                          por favor seleccione uno e intente nuevamente.';
                             }
-                            
                         }
                         
                         $('#myModal div.modal-header h4#myModalLabel').empty();

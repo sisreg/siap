@@ -46,6 +46,9 @@ class MntExpedienteAdmin extends Admin {
             case 'list':
                 return 'MinsalSiapsBundle:MntExpedienteAdmin:list.html.twig';
                 break;
+             case 'listarexpedientes':
+                return 'MinsalSiapsBundle:MntExpedienteAdmin:listarexpedientes.html.twig';
+                break;
             default:
                 return parent::getTemplate($name);
                 break;
@@ -54,6 +57,7 @@ class MntExpedienteAdmin extends Admin {
 
     protected function configureRoutes(RouteCollection $collection) {
         $collection->remove('delete');
+        $collection->add('listarexpedientes');
     }
 
     public function getBatchActions() {
