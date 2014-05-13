@@ -1,35 +1,87 @@
 //FUNCIÓN QUE SE UTILIZA PARA PERMITIR SOLO LETRAS Y UN SOLO ESPACIO.
 //QUITANDO TODA TILDE, DIERESIS,ETC
-        function limpiar_nombres(text) {
-        var text = text.toLowerCase(); // a minusculas
-        text = text.replace(/[áàäâå]/, 'a');
-        text = text.replace(/[éèëê]/, 'e');
-        text = text.replace(/[íìïî]/, 'i');
-        text = text.replace(/[óòöô]/, 'o');
-        text = text.replace(/[úùüû]/, 'u');
-        text = text.replace(/[ýÿ]/, 'y');
-        text = text.replace(/[^a-zA-ZñÑ\s]/g, '');
-        text = text.replace(/\s{2,}/, ' ');
-        text = text.toUpperCase();
-        return text;
-    }
+function limpiar_nombres(text) {
+    var text = text.toLowerCase(); // a minusculas
+    text = text.replace(/[áàäâå]/, 'a');
+    text = text.replace(/[éèëê]/, 'e');
+    text = text.replace(/[íìïî]/, 'i');
+    text = text.replace(/[óòöô]/, 'o');
+    text = text.replace(/[úùüû]/, 'u');
+    text = text.replace(/[ýÿ]/, 'y');
+    text = text.replace(/[^a-zA-ZñÑ\s]/g, '');
+    text = text.replace(/\s{2,}/, ' ');
+    text = text.toUpperCase();
+    return text;
+}
 function defalutlModalBodyMessage(e) {
-    
+
     e = typeof e !== 'undefined' ? e : '';
 
     var html = '<p><b>Error al cargar el elemento</b><br />Lo sentimos, hubo un problema al cargar la vista, \
                 por favor intente nuevamente.<br /> \
                 Si el problema persiste por favor contacte al administrador.</p>'
 
-    if(e != '') {
+    if (e != '') {
         html = html + '<p><b>Detalle del Error</b><br />' + e + '</p>';
     }
     return html;
 }
 
 //Estandarización del uso de modal dentro del proyecto
-jQuery(document).ready(function($){
+jQuery(document).ready(function($) {
+    /***** Mosrtrar Mensajes de Error de Sonata y Esconderlos Automaticamente ******/
 
+    $('i[class="ui-icon ui-icon-alert"]').attr("data-placement", "top");
+    $('i[class="ui-icon ui-icon-alert"][data-title="error"]').attr("data-title", '<spam style="color: #b94a48;">Se ha producido un error:</spam>');
+    $('i[class="ui-icon ui-icon-alert"]').popover('show');
+    var popOverShow = true;
+    var popOverClicked = false;
+    var lastPopOverClicked = null;
+
+    $('body').on('click', function(event) {
+
+
+        if (popOverShow == true && popOverClicked == false) {
+            $('i[class="ui-icon ui-icon-alert"]').popover('hide');
+            popOverShow = false;
+            lastPopOverClicked = null;
+        }
+        else {
+            if (popOverShow == true && popOverClicked == true) {
+                popOverShow = false;
+                popOverClicked = false;
+            }
+            else {
+                if (popOverShow == false && popOverClicked == true) {
+                    popOverShow = true;
+                    popOverClicked = false;
+                }
+                else {
+                    popOverShow = false;
+                    popOverClicked = false;
+                    lastPopOverClicked = null;
+                }
+            }
+        }
+
+        lasElementClicked = event.target;
+
+    });
+
+    $('i[class="ui-icon ui-icon-alert"]').on('click', function(event) {
+
+        if (lastPopOverClicked != null) { //Determina si hay un PopUp abierto y se ha dado click en otro diferente.
+            if ($(this) != lastPopOverClicked && popOverShow == true) {
+                lastPopOverClicked.popover('hide');       //Se cierra el PopUp ya abierto.
+                popOverShow = false;
+            }
+        }
+
+        popOverClicked = true;
+        lastPopOverClicked = $(this);
+
+    });
+    /*********************************************/
     $('body').append('\
         <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\
             <div class="modal-header">\
@@ -43,12 +95,12 @@ jQuery(document).ready(function($){
             </div>\
         </div>');
 
-    $("body").on('click', 'a[custom-modal="true"]', function(e){
+    $("body").on('click', 'a[custom-modal="true"]', function(e) {
         var currentIDM = $(this).attr("id");
         if (!(typeof modal_elements === 'undefined') && modal_elements.length != 0) {
             for (var i = 0; i < modal_elements.length; i++) {
-                if (currentIDM == modal_elements[i].id){
-                    if(modal_elements[i].empty !=  true) {
+                if (currentIDM == modal_elements[i].id) {
+                    if (modal_elements[i].empty != true) {
                         /*Limpiando los elementos del modal*/
                         $('#myModal div.modal-header h4#myModalLabel').empty();
                         $('#myModal div.modal-body').empty();
@@ -76,7 +128,7 @@ jQuery(document).ready(function($){
                             if (typeof modal_elements[i].closeBtnName === 'undefined' || modal_elements[i].closeBtnName == '') {
                                 $('#myModal div.modal-footer').append(modal_elements[i].footer + '<button id="myModalBtnClose" class="action" data-dismiss="modal" aria-hidden="true"><span class="label">Cerrar</span></button>');
                             } else {
-                                $('#myModal div.modal-footer').append(modal_elements[i].footer + '<button id="myModalBtnClose" class="action" data-dismiss="modal" aria-hidden="true"><span class="label">'+modal_elements[i].closeBtnName+'</span></button>');
+                                $('#myModal div.modal-footer').append(modal_elements[i].footer + '<button id="myModalBtnClose" class="action" data-dismiss="modal" aria-hidden="true"><span class="label">' + modal_elements[i].closeBtnName + '</span></button>');
                             }
                         } else {
                             $('#myModal div.modal-body').append(window['defalutlModalBodyMessage']());
@@ -88,15 +140,15 @@ jQuery(document).ready(function($){
                         }
 
                         if (typeof modal_elements[i].widthModal !== 'undefined' && modal_elements[i].widthModal != '') {
-                            $('div#myModal').css('width',modal_elements[i].widthModal+'px');
-                            $('div#myModal').css('margin-left','-'+(modal_elements[i].widthModal/2)-30+'px');
+                            $('div#myModal').css('width', modal_elements[i].widthModal + 'px');
+                            $('div#myModal').css('margin-left', '-' + (modal_elements[i].widthModal / 2) - 30 + 'px');
 
                         }
 
                     } else {
                         e.stopPropagation();
-            
-                        if($('div#dialog-message').length == 0) {
+
+                        if ($('div#dialog-message').length == 0) {
                             $('body').append('<div id="dialog-message"></div>');
                         } else {
                             $('#dialog-message').empty();
@@ -107,9 +159,9 @@ jQuery(document).ready(function($){
                                          No se ha seleccionado ningun elemento del cual se puedan mostrar los detalles,\
                                          por favor seleccione uno e intente nuevamente.</p>';
 
-                            modal_elements[i].emptyMessage = [ {emptyMTitle: 'Elemento no seleccionado', emptyMBody: mBody } ];
-                        } else  {
-                            
+                            modal_elements[i].emptyMessage = [{emptyMTitle: 'Elemento no seleccionado', emptyMBody: mBody}];
+                        } else {
+
                             if (typeof modal_elements[i].emptyMessage[0].emptyMTitle === 'undefined' || modal_elements[i].emptyMessage[0].emptyMTitle == '') {
                                 modal_elements[i].emptyMessage[0].emptyMTitle = 'Elemento no seleccionado';
                             }
@@ -129,12 +181,13 @@ jQuery(document).ready(function($){
                             title: modal_elements[i].emptyMessage[0].emptyMTitle,
                             buttons: {
                                 Ok: function() {
-                                        $( this ).dialog( "close" );
+                                    $(this).dialog("close");
                                 }
                             }
                         });
                     }
-                };
+                }
+                ;
             }
         } else {
             //e.stopPropagation();

@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\UserBundle\Admin\Model\UserAdmin as BaseUserAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use Minsal\SiapsBundle\Entity\MntEmpleado;
 
 class UserAdmin extends BaseUserAdmin {
 
@@ -130,12 +131,35 @@ class UserAdmin extends BaseUserAdmin {
                             $query
                                     ->where("s_groups.name LIKE '%$nombre%'")
                     );
-                }else
+                } else
                     return $query;
             }
         } else {
             return $query;
         }
+    }
+
+    /*
+     * DESCRIPCIÓN: Función que se realiza despues de ingresar el usuario. Si es 
+     * un usuario del módulo 1 creara un empleado y se lo agregara al usuario.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
+    public function postPersist($usuario) {
+        
+        if($usuario->hasGroup('Modulo1Hos') || $usuario->hasGroup('Modulo1HosAdmin') || $usuario->hasGroup('Modulo1Us') || $usuario->hasGroup('Modulo1UsAdmin')){
+            $empleado=new MntEmpleado();
+            $empleado->setApellido($usuario->getLastName());
+            $empleado->setNombre($usuario->getFirstName());
+            $empleado->setNombreempleado($usuario->getFirstName().' '.$usuario->getLastName());
+            $idTipoEmpleado = $this->getModelManager()
+                        ->findOneBy('MinsalSiapsBundle:MntTipoEmpleado', array('codigo' => 'ARC'));
+            $empleado->setIdTipoEmpleado($idTipoEmpleado);
+            $empleado->setIdEstablecimiento($usuario->getIdEstablecimiento());
+            $this->getModelManager()->create($empleado);
+            $usuario->setIdEmpleado($empleado);
+        }
+        
     }
 
 }

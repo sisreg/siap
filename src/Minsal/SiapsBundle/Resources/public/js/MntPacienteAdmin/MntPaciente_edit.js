@@ -23,6 +23,17 @@ $(document).ready(function() {
         $('.deshabilitados').removeAttr('disabled');
     });
 
+    $('select[id$="_idPaisNacimiento"]').focusout(function() {
+        $('select[id$="_idDepartamentoNacimiento"]').focus();
+    });
+
+    $('select[id$="_idDepartamentoNacimiento"]').focusout(function() {
+        $('select[id$="_idMunicipioNacimiento"]').focus();
+    })
+    $('select[id$="_horaNacimiento_minute"]').focusout(function() {
+        $('select[id$="_idSexo"]').focus();
+    })
+
     $('.deshabilitados').attr('disabled', 'disabled');
 
     $('input[id$="_fechaNacimiento"]').datepicker().mask("99-99-9999").focusout(function() {
@@ -303,7 +314,19 @@ $(document).ready(function() {
                 }
             }
             else if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'El paciente') {
-                $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_primerNombre"]').val() + ' ' + $('input[id$="_primerApellido"]').val());
+                //NOMBRE COMPLETO DEL PACIENTE EN PROPORCIONO DATOS
+                nombre = $('input[id$="_primerNombre"]').val();
+                if ($('input[id$="_segundoNombre"]').val() != "")
+                    nombre += ' ' + $('input[id$="_segundoNombre"]').val();
+                if ($('input[id$="_tercerNombre"]').val() != "")
+                    nombre += ' ' + $('input[id$="_tercerNombre"]').val();
+                nombre += ' ' + $('input[id$="_primerApellido"]').val();
+                if ($('input[id$="_segundoApellido"]').val() != "")
+                    nombre += ' ' + $('input[id$="_segundoApellido"]').val();
+                if ($('input[id$="_apellidoCasada"]').val() != "")
+                    nombre += ' ' + $('input[id$="_apellidoCasada"]').val();
+                $('input[id$="_nombreProporcionoDatos"]').val(nombre);
+
                 $('select[id$="_idDocProporcionoDatos"]').val($('select[id$="_idDocPaciente"]').val());
                 $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdePaciente"]').val());
             } else {
@@ -339,7 +362,17 @@ $(document).ready(function() {
         }
 
     });
-
+    if ($('select[id$="_idPaisNacimiento"]').val() == 68 &&  $('select[id$="_idDepartamentoNacimiento"]').val()=="") {
+        $('select[id$="_idDepartamentoNacimiento"]').children().remove();
+        $('select[id$="_idDepartamentoNacimiento"]').append('<option value="">Seleccione...</option>');
+        $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').val(),
+                function(data) {
+                    $.each(data.deptos, function(indice, depto) {
+                        $('select[id$="_idDepartamentoNacimiento"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
+                    });
+                });
+        $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
+    }
     /*CARGAR MUNICIPIOS NACIMIENTO*/
     $('select[id$="_idDepartamentoNacimiento"]').change(function() {
         $('select[id$="_idMunicipioNacimiento"]').children().remove();
@@ -374,6 +407,8 @@ $(document).ready(function() {
             $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
         }
 
+    }).focusout(function() {
+        $('select[id$="_idMunicipioDomicilio"]').focus();
     });
 
     /*LIMPIAR CANTONES DE DOMICILIO AL CAMBIAR MUNICIPIO*/
@@ -381,6 +416,8 @@ $(document).ready(function() {
         $('select[id$="_areaGeograficaDomicilio"]').val('')
         $('select[id$="_idCantonDomicilio"]').children().remove();
         $('select[id$="_idCantonDomicilio"]').append('<option value="">Seleccione...</option>');
+    }).focusout(function() {
+        $('select[id$="_areaGeograficaDomicilio"]').focus();
     });
 
     /*CUANDO CARGA EL MUNICIPIO DE DOMICILIO SI ESTA LLENO*/
@@ -431,6 +468,9 @@ $(document).ready(function() {
             $('select[id$="_idCantonDomicilio"]').removeAttr('disabled');
         }
 
+    }
+    ).focusout(function() {
+        $('select[id$="_idCantonDomicilio"]').focus();
     });
 
     //AGREGANDO JSON PARA CARGAR LOS PAISES ALEDAÑOS A EL SALVADOR

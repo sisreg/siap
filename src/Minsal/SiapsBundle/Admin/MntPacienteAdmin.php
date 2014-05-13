@@ -21,6 +21,10 @@ class MntPacienteAdmin extends Admin {
     );
 
     protected function configureFormFields(FormMapper $formMapper) {
+        $elSalvador = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlPais', array('id' => 68));
+        $nacionalidad = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlNacionalidad', array('id' => 1));
         $formMapper
                 ->add('primerApellido', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('segundoApellido', null, array('attr' => array('class' => 'span5 limpiar')))
@@ -74,13 +78,16 @@ class MntPacienteAdmin extends Admin {
                     'label' => $this->getTranslator()->trans('idDepartamentoNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('idMunicipioNacimiento', null, array('empty_value' => 'Seleccione...',
                     'label' => $this->getTranslator()->trans('idMunicipioNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
-                ->add('idNacionalidad', null, array('empty_value' => 'Seleccione...',
-                    'label' => $this->getTranslator()->trans('idNacionalidad')))
+                ->add('idNacionalidad', null, array(
+                    'label' => $this->getTranslator()->trans('idNacionalidad'),
+                    'required' => true,
+                    'preferred_choices' => array($nacionalidad)
+                ))
                 ->add('idOcupacion', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idOcupacion')))
-                ->add('idPaisNacimiento', 'entity', array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento'),
-                    'class' => 'MinsalSiapsBundle:CtlPais'
+                ->add('idPaisNacimiento', 'entity', array('required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento'),
+                    'class' => 'MinsalSiapsBundle:CtlPais',
+                    'preferred_choices' => array($elSalvador)
                 ))
                 ->add('idParentescoResponsable', null, array('empty_value' => 'Seleccione...',
                     'required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
@@ -266,9 +273,9 @@ class MntPacienteAdmin extends Admin {
         }
     }
 
-    public function validate(ErrorElement $errorElement, $object) {
+    public function validate(ErrorElement $errorElement, $paciente) {
 //Verificando que haya ingresado número de expediente
-        if (count($object->getExpedientes()) == 0) {
+        if (count($paciente->getExpedientes()) == 0) {
             $errorElement->with('expedientes')
                     ->addViolation('Debe agregar un número de expediente')
                     ->end();
@@ -277,7 +284,7 @@ class MntPacienteAdmin extends Admin {
                     ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
             $formatoExpediente = $establecimiento->getTipoExpediente();
             if ($formatoExpediente == 'G') {
-                foreach ($object->getExpedientes() as $expediente) {
+                foreach ($paciente->getExpedientes() as $expediente) {
                     if (preg_match('/^\d{1,}-\d{2}$/', $expediente->getNumero()) == 0) {
                         $errorElement->with('numero')
                                 ->addViolation('El formato del número de expediente es incorrecto o contiene letras')
@@ -294,7 +301,7 @@ class MntPacienteAdmin extends Admin {
                     }
                 }
             } else {
-                foreach ($object->getExpedientes() as $expediente) {
+                foreach ($paciente->getExpedientes() as $expediente) {
                     if (preg_match('/^\d{1,}$/', $expediente->getNumero()) == 0) {
                         $errorElement->with('numero')
                                 ->addViolation('El formato del número de expediente es incorrecto o contiene letras')
@@ -310,8 +317,8 @@ class MntPacienteAdmin extends Admin {
                     }
                 }
             }
-            foreach ($object->getExpedientes() as $expediente) {
-                if (is_null($object->getId())) {
+            foreach ($paciente->getExpedientes() as $expediente) {
+                if (is_null($paciente->getId())) {
                     $dql = "SELECT count(e) as resul
                   FROM MinsalSiapsBundle:MntExpediente e
                   JOIN e.idPaciente p
@@ -330,7 +337,7 @@ class MntPacienteAdmin extends Admin {
                             ->getEntityManager('MinsalSiapsBundle:MntExpediente')
                             ->createQuery($dql)
                             ->setParameter('variable', $expediente->getNumero())
-                            ->setParameter('paciente', $object->getId())
+                            ->setParameter('paciente', $paciente->getId())
                             ->getArrayResult();
                 }
             }
@@ -341,7 +348,7 @@ class MntPacienteAdmin extends Admin {
             }
         }
         /* VALIDACIÓN DE QUE EL PACIENTE NO EXISTA */
-        if (is_null($object->getId())) {
+        if (is_null($paciente->getId())) {
             $dql = "SELECT count(p) as resul
                   FROM MinsalSiapsBundle:MntPaciente p
                   WHERE p.primerNombre = :primer_nombre AND p.segundoNombre = :segundo_nombre AND
@@ -351,11 +358,11 @@ class MntPacienteAdmin extends Admin {
                     ->getEntityManager('MinsalSiapsBundle:MntExpediente')
                     ->createQuery($dql)
                     ->setParameters(array(
-                        'primer_nombre' => (chop(ltrim($object->getPrimerNombre()))),
-                        'segundo_nombre' => (chop(ltrim($object->getSegundoNombre()))),
-                        'primer_apellido' => (chop(ltrim($object->getPrimerApellido()))),
-                        'segundo_apellido' => (chop(ltrim($object->getSegundoApellido()))),
-                        'fecha_nacimiento' => $object->getFechaNacimiento()
+                        'primer_nombre' => (chop(ltrim($paciente->getPrimerNombre()))),
+                        'segundo_nombre' => (chop(ltrim($paciente->getSegundoNombre()))),
+                        'primer_apellido' => (chop(ltrim($paciente->getPrimerApellido()))),
+                        'segundo_apellido' => (chop(ltrim($paciente->getSegundoApellido()))),
+                        'fecha_nacimiento' => $paciente->getFechaNacimiento()
                     ))
                     ->getArrayResult();
             if ($repuesta[0]['resul'] == 1)
@@ -365,23 +372,23 @@ class MntPacienteAdmin extends Admin {
         }
 
         //Verificando los formatos de acuerdo el documento seleccionado
-        if ($object->getIdDocPaciente() == 'DUI') {
-            $numero_doc = $object->getNumeroDocIdePaciente();
+        if ($paciente->getIdDocPaciente() == 'DUI') {
+            $numero_doc = $paciente->getNumeroDocIdePaciente();
             if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdePaciente')
                         ->addViolation('El formato del número de DUI es incorrecto')
                         ->end();
             }
-        } elseif ($object->getIdDocPaciente() == 'NIT') {
-            $numero_doc = $object->getNumeroDocIdePaciente();
+        } elseif ($paciente->getIdDocPaciente() == 'NIT') {
+            $numero_doc = $paciente->getNumeroDocIdePaciente();
             if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdePaciente')
                         ->addViolation('El formato del número de NIT es incorrecto')
                         ->end();
             }
         } else {
-            if ($object->getIdDocPaciente() == 'Carné ISSS') {
-                $numero_doc = $object->getNumeroDocIdePaciente();
+            if ($paciente->getIdDocPaciente() == 'Carné ISSS') {
+                $numero_doc = $paciente->getNumeroDocIdePaciente();
                 if (preg_match('/[0-9]{9}/', $numero_doc) == 0) {
                     $errorElement->with('numeroDocIdePaciente')
                             ->addViolation('El formato del número de documento es incorrecto')
@@ -390,23 +397,23 @@ class MntPacienteAdmin extends Admin {
             }
         }
         //Validando número de documento para el responsable  
-        if ($object->getIdDocResponsable() == 'DUI') {
-            $numero_doc = $object->getNumeroDocIdeResponsable();
+        if ($paciente->getIdDocResponsable() == 'DUI') {
+            $numero_doc = $paciente->getNumeroDocIdeResponsable();
             if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdeResponsable')
                         ->addViolation('El formato del número de DUI es incorrecto')
                         ->end();
             }
-        } elseif ($object->getIdDocResponsable() == 'NIT') {
-            $numero_doc = $object->getNumeroDocIdeResponsable();
+        } elseif ($paciente->getIdDocResponsable() == 'NIT') {
+            $numero_doc = $paciente->getNumeroDocIdeResponsable();
             if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdeResponsable')
                         ->addViolation('El formato del número de NIT es incorrecto')
                         ->end();
             }
         } else {
-            if ($object->getIdDocResponsable() == 'Carné ISSS') {
-                $numero_doc = $object->getNumeroDocIdeResponsable();
+            if ($paciente->getIdDocResponsable() == 'Carné ISSS') {
+                $numero_doc = $paciente->getNumeroDocIdeResponsable();
                 if (preg_match('/[0-9]{9}/', $numero_doc) == 0) {
                     $errorElement->with('numeroDocIdeResponsable')
                             ->addViolation('El formato del número de documento es incorrecto')
@@ -415,23 +422,23 @@ class MntPacienteAdmin extends Admin {
             }
         }
         //Validando número de documento para la persona que proporcionó datos
-        if ($object->getIdDocProporcionoDatos() == 'DUI') {
-            $numero_doc = $object->getNumeroDocIdeProporDatos();
+        if ($paciente->getIdDocProporcionoDatos() == 'DUI') {
+            $numero_doc = $paciente->getNumeroDocIdeProporDatos();
             if (preg_match('/[0-9]{8}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdeProporDatos')
                         ->addViolation('El formato del número de DUI es incorrecto')
                         ->end();
             }
-        } elseif ($object->getIdDocProporcionoDatos() == 'NIT') {
-            $numero_doc = $object->getNumeroDocIdeProporDatos();
+        } elseif ($paciente->getIdDocProporcionoDatos() == 'NIT') {
+            $numero_doc = $paciente->getNumeroDocIdeProporDatos();
             if (preg_match('/[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}/', $numero_doc) == 0) {
                 $errorElement->with('numeroDocIdeProporDatos')
                         ->addViolation('El formato del número de NIT es incorrecto')
                         ->end();
             }
         } else {
-            if ($object->getIdDocProporcionoDatos() == 'Carné ISSS') {
-                $numero_doc = $object->getNumeroDocIdeProporDatos();
+            if ($paciente->getIdDocProporcionoDatos() == 'Carné ISSS') {
+                $numero_doc = $paciente->getNumeroDocIdeProporDatos();
                 if (preg_match('/[0-9]{9}/', $numero_doc) == 0) {
                     $errorElement->with('numeroDocIdeProporDatos')
                             ->addViolation('El formato del número de documento es incorrecto')
@@ -440,7 +447,7 @@ class MntPacienteAdmin extends Admin {
             }
         }
 
-        if (is_null($object->getIdSexo())) {
+        if (is_null($paciente->getIdSexo())) {
             $errorElement->with('idSexo')
                     ->addViolation('El Sexo es obligatorio')
                     ->end();
@@ -448,41 +455,54 @@ class MntPacienteAdmin extends Admin {
             $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
             $conn = $em->getConnection();
             $calcular = new Funciones();
-            $edad = $calcular->calcularEdad($conn, $object->getFechaNacimiento()->format('d-m-Y'));
+            $edad = $calcular->calcularEdad($conn, $paciente->getFechaNacimiento()->format('d-m-Y'));
             $aux = explode(' ', $edad);
-            if (strstr($aux[1], 'año')) {
-                if ($object->getIdSexo()->getId() == 3) {
-                    $errorElement->with('idSexo')
-                            ->addViolation('No se puede elegir el sexo indeterminado para alguien mayor de 6 meses')
-                            ->end();
-                }
-            } elseif (strstr($aux[1], 'meses')) {
-                if ($aux[0] > 6) {
-                    if ($object->getIdSexo()->getId() == 3) {
+            if (count($aux) > 1) {
+                if (strstr($aux[1], 'año')) {
+                    if ($paciente->getIdSexo()->getId() == 3) {
                         $errorElement->with('idSexo')
                                 ->addViolation('No se puede elegir el sexo indeterminado para alguien mayor de 6 meses')
                                 ->end();
                     }
+                } elseif (strstr($aux[1], 'meses')) {
+                    if ($aux[0] > 6) {
+                        if ($paciente->getIdSexo()->getId() == 3) {
+                            $errorElement->with('idSexo')
+                                    ->addViolation('No se puede elegir el sexo indeterminado para alguien mayor de 6 meses')
+                                    ->end();
+                        }
+                    }
+                }
+            } else {
+                if (is_null($paciente->getHoraNacimiento())) {
+                    $errorElement->with('horaNacimiento')
+                            ->addViolation('Debe de elegir una hora para la persona si es que ha nacido el día de hoy')
+                            ->end();
                 }
             }
         }
 
-        if (is_null($object->getPrimerNombre())) {
+        if (is_null($paciente->getPrimerNombre())) {
             $errorElement->with('primerNombre')
                     ->addViolation('El Primer nombre es obligatorio')
                     ->end();
         }
 
-        if (is_null($object->getPrimerApellido())) {
+        if (is_null($paciente->getPrimerApellido())) {
             $errorElement->with('primerApellido')
                     ->addViolation('El Primer Apellido es Obligatorio')
                     ->end();
         }
-        if (is_null($object->getPrimerApellido())) {
+        if (is_null($paciente->getPrimerApellido())) {
             $errorElement->with('primerApellido')
                     ->addViolation('El Primer Apellido es Obligatorio')
                     ->end();
         }
+
+        if (is_null($paciente->getIdNacionalidad()))
+            $errorElement->with('idNacionalidad')
+                    ->addViolation('Debe de seleccionar la nacionalidad del paciente')
+                    ->end();
     }
 
     protected function configureRoutes(RouteCollection $collection) {

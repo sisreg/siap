@@ -68,7 +68,7 @@ class SecIngresoAdmin extends Admin {
                         ->createQueryBuilder('me')
                         ->where('me.idTipoEmpleado = 4');
             }))
-                ->add('idEstablecimientoReferencia', 'entity', array('label' => 'Nombre del Establecimiento (REFERIDO DE:', 'required' => false,
+                ->add('idEstablecimientoReferencia', 'genemu_jqueryselect2_entity', array('label' => 'Nombre del Establecimiento (REFERIDO DE:', 'required' => false,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'empty_value' => 'Seleccione..',
                     'query_builder' => function(EntityRepository $repositorio) {
@@ -87,7 +87,7 @@ class SecIngresoAdmin extends Admin {
         if ($ingreso->getfecha()->format('d-m-Y') == $fechaActual->format('d-m-Y')) {
             if ($fechaActual->format('H') < $hora)
                 $errorElement->with('hora')
-                        ->addViolation('La hora del ingreso no puede ser mayor que la hoara actual')
+                        ->addViolation('La hora del ingreso no puede ser mayor que la hora actual')
                         ->end();
             elseif ($fechaActual->format('H') == $hora) {
                 if ($fechaActual->format('i') < ($minutos-1))

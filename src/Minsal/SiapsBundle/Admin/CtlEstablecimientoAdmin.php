@@ -24,8 +24,8 @@ class CtlEstablecimientoAdmin extends Admin {
                 ->add('nombre', null, array('read_only' => true))
                 ->add('tipoExpediente', 'choice', array('choices' => array('G' => 'Utiliza guión (xxx-xx)', 'I' => 'Infinito'),
                     'empty_value' => 'Seleccione una opción', 'required' => true))
-                ->add('programas', null, array('label' => 'Programas', 'required' => true,
-                    'multiple' => true, 'expanded' => true))
+               /* ->add('programas', null, array('label' => 'Programas', 'required' => true,
+                    'multiple' => true, 'expanded' => true))*/
                 ->add('serviciosExterno', null, array('label' => 'Servicios Externos', 'required' => true,
                     'multiple' => true, 'expanded' => true))
         ;
@@ -34,7 +34,7 @@ class CtlEstablecimientoAdmin extends Admin {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
                 ->add('nombre')
-                ->add('idMunicipio', null, array())
+                ->add('idMunicipio')
                 ->add('idTipoEstablecimiento')
         ;
     }
@@ -45,7 +45,6 @@ class CtlEstablecimientoAdmin extends Admin {
                 ->add('idMunicipio')
                 ->add('idTipoEstablecimiento')
                 ->add('configurado')
-                ->add('programas')
                 ->add('serviciosExterno')
                 ->add('_action', 'actions', array(
                     'label' => $this->getTranslator()->trans('Action'),

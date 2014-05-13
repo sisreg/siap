@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="562" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="30" uuid="b3dbe2a0-70cd-4578-a4d9-18f1579c84c3">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="598"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
 	<style name="Heading 3" fontSize="14" isBold="true"/>
@@ -530,8 +530,8 @@ a=ambos]]></fieldDescription>
 				</textElement>
 				<text><![CDATA[Nombre del Padre:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="127" y="376" width="158" height="20" uuid="7d45ba80-be1c-4de9-bb1c-7ab6cc3d9974"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="127" y="376" width="158" height="20" isPrintWhenDetailOverflows="true" uuid="7d45ba80-be1c-4de9-bb1c-7ab6cc3d9974"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
@@ -544,8 +544,8 @@ a=ambos]]></fieldDescription>
 				</textElement>
 				<text><![CDATA[Nombre de la Madre:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="398" y="376" width="157" height="20" uuid="35ee65eb-2add-492e-b49b-f4bdaa5d5c0a"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="398" y="376" width="157" height="20" isPrintWhenDetailOverflows="true" uuid="35ee65eb-2add-492e-b49b-f4bdaa5d5c0a"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
@@ -558,8 +558,8 @@ a=ambos]]></fieldDescription>
 				</textElement>
 				<text><![CDATA[Nombre de Cónyuge:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="127" y="398" width="158" height="20" uuid="61ba4651-b8a7-4c20-a3f1-9bd25abd378e"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="127" y="398" width="158" height="20" isPrintWhenDetailOverflows="true" uuid="61ba4651-b8a7-4c20-a3f1-9bd25abd378e"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
@@ -586,8 +586,8 @@ a=ambos]]></fieldDescription>
 				</textElement>
 				<text><![CDATA[Nombre Responsable:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="398" y="418" width="157" height="20" uuid="3cb60e30-4392-44bc-a673-2376272fc863"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="398" y="418" width="157" height="20" isPrintWhenDetailOverflows="true" uuid="3cb60e30-4392-44bc-a673-2376272fc863"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
@@ -642,8 +642,8 @@ a=ambos]]></fieldDescription>
 				</textElement>
 				<text><![CDATA[Dirección Responsable:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="127" y="458" width="158" height="20" uuid="fc1af52a-9edc-42e6-a9eb-ee39275984da"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="127" y="458" width="158" height="20" isPrintWhenDetailOverflows="true" uuid="fc1af52a-9edc-42e6-a9eb-ee39275984da"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
@@ -719,8 +719,8 @@ a=ambos]]></fieldDescription>
 				</textElement>
 				<text><![CDATA[Nombre Proporcionó Datos:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="348" y="502" width="200" height="20" uuid="126f9ccd-3625-4d6c-9b86-447a636fd21c"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="348" y="502" width="200" height="20" isPrintWhenDetailOverflows="true" uuid="126f9ccd-3625-4d6c-9b86-447a636fd21c"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
@@ -775,7 +775,7 @@ a=ambos]]></fieldDescription>
 				</textElement>
 				<text><![CDATA[Observaciones:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="100" y="541" width="450" height="34" uuid="15933fba-ba64-4a75-bb23-378f82624df8"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
