@@ -33,10 +33,10 @@ class JasperReportService extends Controller {
        
 
         $result = $client->requestReport($report_unit, $this->report_format, $this->report_params);
-
+        
         $response = new Response();
         $response->headers->set('Content-Type', $contentType);
-
+        
         //para cuando sea una hoja de calculo, en este informe sÃ³lo  estÃ¡n las opciones PDF y hoja de cÃ¡lculo
         if (strtoupper($this->report_format) != 'PDF' && strtoupper($this->report_format) != 'HTML')
             $response->headers->set('Content-disposition', 'attachment; filename="' . $this->report_name . '.' . strtolower($this->report_format) . '"');

@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>{% if page_title is defined %}{{ page_title }}{% else %}Nueva ventana{% endif %}</title>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $iframe = $('#content-iframe');
+            
+            $iframe.ready(function() {
+                $iframe.contents().find("body").append('{{ report_content }}');
+            });
+        });
+    </script>
+</head>
+<body>
+    <iframe id="contet-iframe" width="500" height="250" ></iframe>
+</body>
+</html>

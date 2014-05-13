@@ -902,17 +902,21 @@
 	</script>
 {% endblock %}
 
-{% block content %}
+{% block notice %}
+    {% for notice_level in ['success','error','info', 'warning'] %}
+    {% set session_var = 'sonata_flash_' ~ notice_level %}
+        {% for flash in app.session.flashbag.get(session_var) %}
+            <div class="alert {{ 'alert-' ~ notice_level }}">
+                {{ flash|trans([], 'SonataAdminBundle')|raw }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
 
+{% block content %}
     {% if not admin.hasRoute(action) %}
         <div>{{ "form_not_available"|trans({}, "SonataAdminBundle") }}</div>
-    {% else %}
-        {% if form.vars.errors|length > 0 %}
-            <div class="sonata-ba-form-error">
-                {{ form_errors(form)|raw }}
-            </div>
-        {% endif %}
-        
+    {% else %}        
         <div class="span2">
             {% if app.user.getIdEmpleado.getIdTipoEmpleado is not defined or app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo is not sameas("MED") %}
                 <div class="span12" style="margin-bottom: 20px;">

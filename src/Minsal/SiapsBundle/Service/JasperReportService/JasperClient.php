@@ -50,7 +50,7 @@ class JasperClient {
             // Parse out the traced response, and get the file from there 
             // Response should be one XML file, and one binary 
             $dp = new DIME($client->__getLastResponse());
-
+            
             $images = array();
             foreach ($dp->files as $f) {
                 $extension = explode('/', $f->type);

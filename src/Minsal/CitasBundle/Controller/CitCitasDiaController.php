@@ -5,6 +5,7 @@ namespace Minsal\CitasBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\DBAL as DBAL;
@@ -443,80 +444,36 @@ class CitCitasDiaController extends Controller  {
         
         return new Response(json_encode($citcita));
     }
-    
+
     /**
-     * @Route("/citas/comprobante/get", name="citasgetcomprobante", options={"expose"=true})
+     * @Route("/citas/comprobante/get/{report_format}", name="citasgetcomprobante", options={"expose"=true})
      * @Method("POST")
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
      */
-    public function getComprobanteCitaAction() {
-        $em      = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();
-        $id      = $request->get('idEmpleado');
+    public function getComprobanteCitaAction($report_format = "HTML") {
+        $request     = $this->getRequest();
         
-        /*****************************************************************************************
-         * SQL que verifica y obtiene si un paciente tiene cita previa con el medico
-         ****************************************************************************************/
-        $sql = "SELECT t01.id AS id_cita,
-                       'citas_dia'::text AS clase_cita,
-                       t01.id_empleado AS id_emp_ciq_estab,
-                       t02.hora_ini,
-                       t02.meridianoini,
-                       t04.nombre AS nombre_atencion_procedimiento
-                FROM cit_citas_dia                 t01
-                INNER JOIN mnt_rangohora           t02 ON (t02.id = t01.id_rangohora)
-                INNER JOIN mnt_aten_area_mod_estab t03 ON (t03.id = t01.id_aten_area_mod_estab)
-                INNER JOIN ctl_atencion            t04 ON (t04.id = t03.id_atencion)
-                INNER JOIN mnt_expediente          t05 ON (t05.id = t01.id_expediente)
-                WHERE t01.fecha='$fecha' AND t05.id=:idExpediente
+        if ($request->getMethod() == 'POST') {
+            $id          = $request->get('id');
+            $report_name = "comprobante_citas";
 
-                UNION
-
-                SELECT t07.id AS id_cita,
-                       'citas_procedimiento'::text AS clase_cita,
-                       t07.id_ciq_establecimiento,
-                       t10.hora_ini,
-                       t10.meridianoini,
-                       t09.procedimiento
-                FROM cit_citasprocedimientos                 t07
-                INNER JOIN mnt_procedimiento_establecimiento t08 ON (t08.id = t07.id_ciq_establecimiento)
-                INNER JOIN mnt_ciq                           t09 ON (t09.id = t08.id_ciq)
-                INNER JOIN mnt_rangohora                     t10 ON (t10.id = t07.id_rangohora)
-                INNER JOIN mnt_expediente                    t11 ON (t11.id = t07.id_expediente)
-                WHERE t07.fecha='$fecha' AND t11.id=:idExpediente";
-        
-        $stm = $this->container->get('database_connection')->prepare($sql);
-        $stm->bindValue(':idExpediente', $idExpediente);
-        $stm->execute();
-        $result = $stm->fetchAll();
-        
-        $citcita['data1'] = $result;
-        
-        /*****************************************************************************************
-         * SQL que verifica y obtiene si un paciente tiene cita previa con el medico
-         ****************************************************************************************/
-        
-        $sql = "SELECT t03.nombre AS nombre_atencion,
-                       t01.id_empleado,
-                       t02.hora_ini,
-                       t02.meridianoini
-                FROM cit_citas_dia t01 
-                INNER JOIN mnt_rangohora t02 ON (t02.id = t01.id_rangohora)
-                INNER JOIN ctl_atencion  t03 ON (t03.id = t01.id_aten_area_mod_estab)
-                WHERE t01.fecha = '$fecha' 
-                    AND t01.id_expediente          = :idExpediente
-                    AND t01.idusuarioreg           = :idEmpleado
-                    AND t01.id_aten_area_mod_estab = :idAtenAreaModEstab
-                    AND DATE(t01.fechahorareg)     = '$hoy'";
-        
-        $stm = $this->container->get('database_connection')->prepare($sql);
-        $stm->bindValue(':idExpediente', $idExpediente);
-        $stm->bindValue(':idEmpleado',   $idEmpleado);
-        $stm->bindValue(':idAtenAreaModEstab', $especialidad);
-        $stm->execute();
-        $result = $stm->fetchAll();
-        
-        $citcita['data2'] = $result;
-        
-        return new Response(json_encode($citcita));
+            $jasperReport = $this->container->get('jasper.build.reports');
+            $jasperReport->setReportName($report_name);
+            $jasperReport->setReportFormat($report_format);
+            $jasperReport->setReportPath("/reports/siaps/citas/");
+            $jasperReport->setReportParams(array('id' => $id));
+            
+            $reportResponse = $jasperReport->buildReport();
+            
+            return $this->render('MinsalSiapsBundle:Reports:standarHtmlReport.html.twig', array(
+                            'page_title'     => 'Comprobante de cita',
+                            'report_content' => $reportResponse
+                        )
+                    );
+        } else {
+            throw new AccessDeniedException();
+        }
     }
 }

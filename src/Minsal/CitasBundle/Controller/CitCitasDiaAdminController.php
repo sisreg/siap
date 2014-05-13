@@ -173,39 +173,18 @@ class CitCitasDiaAdminController extends CRUDController {
 
                 if($citaPrevia) {
                     $this->updateCita($citaPrevia[0]->getId(), $parameters);
-                    $id = citaPrevia[0]->getId();
+                    $id = $citaPrevia[0]->getId();
                 } else {
                     $id = $this->insertCita($parameters);
                 }
-                
+
                 $url = $this->generateUrl('citasgetcomprobante');
-                /*$comprobante = "<from id='_comprobante-form' method='POST' action='$url' target='_blank'>
-                                    <span class='label label-success mouse pointer' onclick='document.getElementById('_comprobante-form').submit();'>
-                                        Ver comprobante
-                                    </span>
-                                </form>"*/;
-                $comprobante = '<script>
-                                    var mapForm = document.createElement("form");
-                                    mapForm.target = "Map";
-                                    mapForm.method = "POST";
-                                    mapForm.action = "'.$url.'";
-
-                                    var mapInput   = document.createElement("input");
-                                    mapInput.type  = "text";
-                                    mapInput.name  = "id";
-                                    mapInput.value = '.$id.';
-                                    mapForm.appendChild(mapInput);
-
-                                    document.body.appendChild(mapForm);
-
-                                    map = window.open("", "Map", "status=0,title=0,height=600,width=800,scrollbars=1");
-
-                                    if (map) {
-                                        mapForm.submit();
-                                    } else {
-                                        alert("You must allow popups for this map to work.");
-                                    }
-                                </script>';
+                $comprobante = '<form id="_comprobante-form" method="POST" action="'.$url.'" target="_blank" style="margin:0;">
+                                    <input type="hidden" name="id" value="'.$id.'" /><br />
+                                    <a href="javascript:void(0);" onclick="document.getElementById(\'_comprobante-form\').submit();">
+                                        <span class="label label-success mouse-pointer" onclick="document.getElementById(\'_comprobante-form\').submit();" style="margin-top:5px;">Ver comprobante</span>
+                                    </a>
+                                </form>';
                 $this->addFlash('sonata_flash_success', 'Cita creada exitosamente '.$comprobante);
                 
             } catch(\Exception $e) {
