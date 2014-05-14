@@ -727,7 +727,7 @@
                             if(superAdmin == 'true') {
                                 $idEmpleado.append($('<option>', {value:val.id, text: val.nombre}));
                             } else {
-                                if(value.idEstablecimiento == '{{ app.user.getIdEmpleado.getIdEstablecimiento.getId }}') {
+                                if(value.idEstablecimiento == '{% if app.user.getIdEmpleado %}{{ app.user.getIdEmpleado.getIdEstablecimiento.getId }}{% endif %}') {
                                     $idEmpleado.append($('<option>', {value:val.id, text: val.nombre}));
                                 }
                             }
@@ -788,7 +788,7 @@
                             if(superAdmin == 'true') {
                                 $idEmpleadoEspecialidadEstab.append($('<option>', {value:val.id, text: val.nombre}));
                             } else {
-                                if(value.idEstablecimiento == '{{ app.user.getIdEmpleado.getIdEstablecimiento.getId }}') {
+                                if(value.idEstablecimiento == '{% if app.user.getIdEmpleado %}{{ app.user.getIdEmpleado.getIdEstablecimiento.getId }}{% endif %}') {
                                     $idEmpleadoEspecialidadEstab.append($('<option>', {value:val.id, text: val.nombre}));
                                 }
                             }
