@@ -26,7 +26,9 @@ class CitCitasDiaAdminController extends CRUDController {
 	if (false === $this->admin->isGranted('LIST')) {
 		throw new AccessDeniedException();
 	}
-
+    
+    $request = $this->get('request');
+        
 	$datagrid = $this->admin->getDatagrid();
 	$formView = $datagrid->getForm()->createView();
 
@@ -39,7 +41,8 @@ class CitCitasDiaAdminController extends CRUDController {
 	$this->render('MinsalCitasBundle:Custom:index.html.twig',
 		array(
 			'action' => 'list',
-			'form' => $formView,
+			'form'   => $formView,
+            'query'  => $request->query,
 		));
 	}
     
@@ -191,7 +194,7 @@ class CitCitasDiaAdminController extends CRUDController {
                 $this->addFlash('sonata_flash_error', 'Eror en la generacion de la cita... Detalle del Erro: '.$e);
             }
             
-            return new RedirectResponse($this->admin->generateUrl('list'));
+            return new RedirectResponse($this->admin->generateUrl('list', array('idEmpleado' => $idEmpleado, 'idEspecialidad' => $especialidad)));
         } else {
             throw new AccessDeniedException();
         }

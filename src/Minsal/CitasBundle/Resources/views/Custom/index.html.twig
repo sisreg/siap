@@ -710,9 +710,8 @@
             {% if app.user.getIdEmpleado.getIdTipoEmpleado is not defined or app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo is not sameas("MED") %}
                 $idEmpleado = $('#idEmpleado');
                 $idEmpleadoEspecialidadEstab = $('#idEmpleadoEspecialidadEstab');
-                
                 var superAdmin = '{% if app.user.hasRole("ROLE_SUPER_ADMIN") %}true{% else %}false{% endif %}';
-                
+
                 $idEmpleado.prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
                 $idEmpleado.select2({
                     placeholder: 'Seleccionar Medico...',
@@ -721,7 +720,7 @@
              
                 $.ajax({
                     url:  Routing.generate("citasgetmedico"),
-                    async: true,
+                    async: false,
                     dataType: 'json',
                     success: function(data) {
                         $.each(data.data1, function(indice, val) {
@@ -735,14 +734,13 @@
                         });
                     }
                 });
-              
+                
                 $idEmpleadoEspecialidadEstab.prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
                 $idEmpleadoEspecialidadEstab.select2({
                     placeholder: 'Seleccionar Especialidad...',
-                    allowClear: true,
-                    minimumInputLength: 1
+                    allowClear: true
                 });
-              
+                
                 $idEmpleado.on('change', function(e) {
                     $idEmpleadoEspecialidadEstab.children().remove();
                     
@@ -753,22 +751,7 @@
                     });
                     
                     if(e.val) {
-                        $.ajax({
-                            url: Routing.generate('citasgetmedicoespecilidadestab') + '?idEmpleado=' + e.val,
-                            async: true,
-                            dataType: 'json',
-                            success: function(data) {
-                                $.each(data.data1, function(indice, val) {
-                                    if(superAdmin == 'true') {
-                                        $idEmpleadoEspecialidadEstab.append($('<option>', {value:val.id, text: val.nombre}));
-                                    } else {
-                                        if(value.idEstablecimiento == '{{ app.user.getIdEmpleado.getIdEstablecimiento.getId }}') {
-                                            $idEmpleadoEspecialidadEstab.append($('<option>', {value:val.id, text: val.nombre}));
-                                        }
-                                    }
-                                });
-                            }
-                        });
+                        empleadoChange(e.val);
                     }
                     updateCalendar();
                 });
@@ -779,10 +762,41 @@
                     }
                     updateCalendar();
                 });
-             {% else %}
+             
+                {% if query|length > 0 %}
+                    {% if query.get("idEmpleado") is defined %}
+                        $idEmpleado.select2('val', '{{ query.get("idEmpleado") }}');
+                        empleadoChange('{{ query.get("idEmpleado") }}');
+                    {% endif %}
+                    {% if query.get("idEspecialidad") is defined %}
+                        $idEmpleadoEspecialidadEstab.select2('val', '{{ query.get("idEspecialidad") }}');
+                        updateMonthIformationCit();
+                    {% endif %}
+                {% endif %}
+            {% else %}
                 updateMonthIformationCit();
-             {% endif %}
+            {% endif %}
             
+            function empleadoChange(id) {
+                
+                $.ajax({
+                    url: Routing.generate('citasgetmedicoespecilidadestab') + '?idEmpleado=' + id,
+                    async: false,
+                    dataType: 'json',
+                    success: function(data) {
+                        $.each(data.data1, function(indice, val) {
+                            if(superAdmin == 'true') {
+                                $idEmpleadoEspecialidadEstab.append($('<option>', {value:val.id, text: val.nombre}));
+                            } else {
+                                if(value.idEstablecimiento == '{{ app.user.getIdEmpleado.getIdEstablecimiento.getId }}') {
+                                    $idEmpleadoEspecialidadEstab.append($('<option>', {value:val.id, text: val.nombre}));
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+             
             updateCalendar();
             
 			//removiendo css
