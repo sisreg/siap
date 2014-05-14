@@ -259,7 +259,7 @@ button.red:active,
 button span.label, 
 .button span.label {
 	display: inline-block;
-	float: left;
+	float: right;
 	line-height: 17px;
 	height: 18px;
 	padding: 0 1px;
@@ -397,7 +397,7 @@ button span.icon,
 button:hover span.icon, 
 .button:hover span.icon,
 .button-icon:hover span.icon {
-	background-image: url(../../minsalsiaps/google+-ui-sprite-colour.png);
+	background-image: url(../../minsalsiaps/imagenes/google+-ui-sprite-colour.png);
 }
 
 

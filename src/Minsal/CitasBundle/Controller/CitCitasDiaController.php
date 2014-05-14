@@ -456,24 +456,27 @@ class CitCitasDiaController extends Controller  {
         $request     = $this->getRequest();
         
         if ($request->getMethod() == 'POST') {
-            $id          = $request->get('id');
-            $report_name = "comprobante_citas";
+            $id = $request->get('id');
 
-            $jasperReport = $this->container->get('jasper.build.reports');
-            $jasperReport->setReportName($report_name);
-            $jasperReport->setReportFormat($report_format);
-            $jasperReport->setReportPath("/reports/siaps/citas/");
-            $jasperReport->setReportParams(array('id' => $id));
-            
-            $reportResponse = $jasperReport->buildReport();
-            
-            return $this->render('MinsalSiapsBundle:Reports:standarHtmlReport.html.twig', array(
-                            'page_title'     => 'Comprobante de cita',
-                            'report_content' => $reportResponse
-                        )
-                    );
+            return $this->render('MinsalCitasBundle:Reports:comprobante_cita.html.twig', array('id'=> $id));
         } else {
             throw new AccessDeniedException();
         }
+    }
+    
+    /**
+     * @Route("/citas/buildcomprobante/get/{id}{report_format}", name="citasbuildcomprobante", options={"expose"=true})
+     * @Method("GET")
+     *
+     */
+    public function buildComprobanteCitaAction($id, $report_format = "HTML") {
+        $report_name = "comprobante_citas";
+        $jasperReport = $this->container->get('jasper.build.reports');
+        $jasperReport->setReportName($report_name);
+        $jasperReport->setReportFormat($report_format);
+        $jasperReport->setReportPath("/reports/siaps/citas/");
+        $jasperReport->setReportParams(array('id' => $id));
+        
+        return $jasperReport->buildReport();
     }
 }

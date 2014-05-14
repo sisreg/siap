@@ -1,0 +1,9 @@
+{% extends "MinsalSiapsBundle:Reports:standardHtmlReports.html.twig" %}
+
+{% block title %}Comprobante de Cita{% endblock %}
+
+{% block iframe %}
+    <center>
+        <iframe id="content-iframe" name="content-iframe" src="{{ url('citasbuildcomprobante', { 'id': id }) }}" scrolling="no"></iframe>
+    </center>
+{% endblock %}
