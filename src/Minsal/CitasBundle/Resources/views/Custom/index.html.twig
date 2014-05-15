@@ -348,6 +348,7 @@
             var error_string  = '';
             var citaExistente = [];
             var citaDelMedico = [];
+            var max_agregados = 0;
             var ok = false;
             
             if(!horario.select2('data')) {
@@ -383,6 +384,19 @@
             if(citaExistente.length > 0 && citaDelMedico.length > 0) {
                 error_message.push('<li>El paciente ya posee cita este dia en el horario <b>'+citaDelMedico[0].hora_ini+ ' '+citaDelMedico[0].meridianoini+'</b> en <b>'+citaDelMedico[0].nombre_atencion+'</b>, por favor seleccione otro dia.</li>');
             }
+            
+            $.ajax({
+                url:  Routing.generate("citascomprobardisponibilidad")+'?idEmpleado='+medicData.idEmpleado+'&especialidad='+medicData.idEmpleadoEspecialidadEstab+'&date='+clickDay,
+                async: false,
+                dataType: 'json',
+                success: function(data) {
+                    max_agregados = data.data1;
+                }
+            });
+            
+            /*if(max_agregados) { ME QUEDE AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+                error_message.push('<li>El paciente ya posee cita este dia en el horario <b>'+citaDelMedico[0].hora_ini+ ' '+citaDelMedico[0].meridianoini+'</b> en <b>'+citaDelMedico[0].nombre_atencion+'</b>, por favor seleccione otro dia.</li>');
+            }*/
             
             if(error_message.length > 0) {
                 info_message.empty();

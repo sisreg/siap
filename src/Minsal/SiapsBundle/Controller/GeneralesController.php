@@ -187,27 +187,41 @@ class GeneralesController extends Controller {
      * @return Response
      */
     public function verifyMedicServiceAction() {
-        $user     = $this->container->get('security.context')->getToken()->getUser();
-        $session  = $this->container->get('session');
-        $em       = $this->getDoctrine()->getManager();
-        $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
+        $user           = $this->container->get('security.context')->getToken()->getUser();
+        $session        = $this->container->get('session');
+        $em             = $this->getDoctrine()->getManager();
+        $response       = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
         $codigoEmpleado = $user->getIdEmpleado() ? $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo() : 'N/A';
 
         if($session->get('_moduleSelection') !== null && $codigoEmpleado == 'MED') {
             if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
-                $idEmpleado = $user->getIdEmpleado();
-                $dql = "SELECT t01.id as idAtenAreaModEstab, t02.nombre as mombreAtenAreaModEstab
-                        FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab t00
-                        INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab t01 WITH (t01.id = t00.idAtenAreaModEstab)
-                        INNER JOIN MinsalSiapsBundle:CtlAtencion         t02 WITH (t02.id = t01.idAtencion)
-                        INNER JOIN MinsalSiapsBundle:MntAreaModEstab     t03 WITH (t03.id = t01.idAreaModEstab)
-                        INNER JOIN MinsalSiapsBundle:CtlAreaAtencion     t04 WITH (t04.id = t03.idAreaAtencion)
-                        INNER JOIN MinsalSiapsBundle:MntEmpleado         t05 WITH (t05.id = t00.idEmpleado)
-                        INNER JOIN MinsalSiapsBundle:MntTipoEmpleado     t06 WITH (t06.id = t05.idTipoEmpleado)
-                        WHERE t03.id = 1 AND t00.idEmpleado = :idEmpleado AND t06.codigo = :codigoEmpleado";
+                
+                $idEmpleado        = $user->getIdEmpleado()->getId();
+                $idEstablecimiento = $user->getIdEmpleado()->getIdEstablecimiento()->getId();
+                
+                $dql = "SELECT t02.id as idAtenAreaModEstab, t03.nombre as mombreAtenAreaModEstab
+                        FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab      t01
+                        INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab         t02 WITH (t02.id = t01.idAtenAreaModEstab)
+                        INNER JOIN MinsalSiapsBundle:CtlAtencion                 t03 WITH (t03.id = t02.idAtencion)
+                        INNER JOIN MinsalSiapsBundle:MntAreaModEstab             t04 WITH (t04.id = t02.idAreaModEstab)
+                        INNER JOIN MinsalSiapsBundle:CtlAreaAtencion             t05 WITH (t05.id = t04.idAreaAtencion)
+                        INNER JOIN MinsalSiapsBundle:MntModalidadEstablecimiento t06 WITH (t06.id = t04.idModalidadEstab)
+                        INNER JOIN MinsalSiapsBundle:CtlModalidad                t07 WITH (t07.id = t06.idModalidad)
+                        INNER JOIN MinsalSiapsBundle:MntEmpleado                 t08 WITH (t08.id = t01.idEmpleado)
+                        INNER JOIN MinsalSiapsBundle:MntTipoEmpleado             t09 WITH (t09.id = t08.idTipoEmpleado)
+                        WHERE t01.idEmpleado = :idEmpleado 
+                            AND t02.idEstablecimiento = :idEstablecimiento
+                            AND LOWER(t05.nombre) = :nomAreaAtencion
+                            AND LOWER(t07.nombre) = :nomModalidad
+                            AND UPPER(t09.codigo) = :codEmpleado";
 
                 $query = $em->createQuery($dql);
-                $query->setParameters(array(':idEmpleado' => $idEmpleado, ':codigoEmpleado' => 'MED'));
+                $query->setParameters(array(
+                    ':idEmpleado'        => $idEmpleado,
+                    ':codEmpleado'       => 'MED',
+                    ':idEstablecimiento' => $idEstablecimiento,
+                    ':nomAreaAtencion'   => 'consulta externa',
+                    ':nomModalidad'      => 'minsal'));
                 $empEspecialidades = $query->getResult();
 
                 if($empEspecialidades) {

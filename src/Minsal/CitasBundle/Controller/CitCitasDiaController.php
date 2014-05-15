@@ -338,24 +338,31 @@ class CitCitasDiaController extends Controller  {
         $idEmpleado = $request->get('idEmpleado');
         
         /*****************************************************************************************
-         * SQL que obtiene todos los medicos y sus especialidades
+         * SQL que obtiene todas las especialidades del medico
          ****************************************************************************************/
-        
-        $dql = "SELECT t01.id,
-                       t02.nombre,
-                       t05.id AS idEstablecimiento
-                FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab t00
-                INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab t01 WITH (t01.id = t00.idAtenAreaModEstab)
-                INNER JOIN MinsalSiapsBundle:CtlAtencion         t02 WITH (t02.id = t01.idAtencion)
-                INNER JOIN MinsalSiapsBundle:MntAreaModEstab     t03 WITH (t03.id = t01.idAreaModEstab)
-                INNER JOIN MinsalSiapsBundle:CtlAreaAtencion     t04 WITH (t04.id = t03.idAreaAtencion)
-                INNER JOIN MinsalSiapsBundle:MntEmpleado         t05 WITH (t05.id = t00.idEmpleado)
-                INNER JOIN MinsalSiapsBundle:MntTipoEmpleado     t06 WITH (t06.id = t05.idTipoEmpleado)
-                WHERE t03.id = 1 AND t00.idEmpleado = :idEmpleado AND t06.codigo = :codigoEmpleado";
-        
+        $dql = "SELECT t02.id,
+                       t03.nombre,
+                       IDENTITY (t02.idEstablecimiento) AS idEstablecimiento
+                FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab      t01
+                INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab         t02 WITH (t02.id = t01.idAtenAreaModEstab)
+                INNER JOIN MinsalSiapsBundle:CtlAtencion                 t03 WITH (t03.id = t02.idAtencion)
+                INNER JOIN MinsalSiapsBundle:MntAreaModEstab             t04 WITH (t04.id = t02.idAreaModEstab)
+                INNER JOIN MinsalSiapsBundle:CtlAreaAtencion             t05 WITH (t05.id = t04.idAreaAtencion)
+                INNER JOIN MinsalSiapsBundle:MntModalidadEstablecimiento t06 WITH (t06.id = t04.idModalidadEstab)
+                INNER JOIN MinsalSiapsBundle:CtlModalidad                t07 WITH (t07.id = t06.idModalidad)
+                INNER JOIN MinsalSiapsBundle:MntEmpleado                 t08 WITH (t08.id = t01.idEmpleado)
+                INNER JOIN MinsalSiapsBundle:MntTipoEmpleado             t09 WITH (t09.id = t08.idTipoEmpleado)
+                WHERE t01.idEmpleado = :idEmpleado
+                    AND LOWER(t05.nombre) = :nomAreaAtencion
+                    AND LOWER(t07.nombre) = :nomModalidad
+                    AND UPPER(t09.codigo) = :codEmpleado";
+
         $result = $em->createQuery($dql)
-                    ->setParameter(':idEmpleado', $idEmpleado)
-                    ->setParameter(':codigoEmpleado', 'MED')
+                     ->setParameters(array(
+                            ':idEmpleado'        => $idEmpleado,
+                            ':codEmpleado'       => 'MED',
+                            ':nomAreaAtencion'   => 'consulta externa',
+                            ':nomModalidad'      => 'minsal'))
                     ->getArrayResult();
         
         $citcita['data1'] = $result;
@@ -444,6 +451,65 @@ class CitCitasDiaController extends Controller  {
         
         return new Response(json_encode($citcita));
     }
+    
+    /**
+     * @Route("/citas/comprobar/disponibilidad/get", name="citascomprobardisponibilidad", options={"expose"=true})
+     * @Method("GET")
+     *
+     */
+    public function comprobarDisponibilidadAction() {
+        $em             = $this->getDoctrine()->getManager();
+        $request        = $this->getRequest();
+        $date           = new \DateTime($request->get('date'));
+        $idEmpleado     = $request->get('idEmpleado');
+        $especialidad   = $request->get('idEmpleadoEspecialidadEstab');
+        $idRangohora    = $request->get('idRangohora');
+        $idAreaModEstab = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->findOneById($especialidad)->getIdAreaModEstab()->getId();
+
+        /*****************************************************************************************
+         * SQL que determina el horario de atencion de pacientes de un medico para una fecha de-
+         * terminada
+         ****************************************************************************************/
+        $sql = "SELECT t01.max_citas_agregadas
+                FROM cit_distribucion t01
+                WHERE t01.id_empleado = :idEmpleado
+                      AND t01.id_aten_area_mod_estab = :idAtenAreaModEstab
+                      AND t01.id_area_mod_estab      = :idAreaModEstab
+                      AND t01.id_rangohora           = :idRangohora
+                      AND t01.dia                    = :dia
+                      AND t01.mes                    = :mes
+                      AND t01.yrs                    = :yrs";
+
+        $stm = $this->container->get('database_connection')->prepare($sql);
+        $stm->bindValue(':idEmpleado', $idEmpleado);
+        $stm->bindValue(':idAtenAreaModEstab', $especialidad);
+        $stm->bindValue(':idAreaModEstab', $idAreaModEstab);
+        $stm->bindValue(':idRangohora', $idRangohora);
+        $stm->bindValue(':dia', date( "w", $date->getTimestamp()));
+        $stm->bindValue(':mes', date( "n", $date->getTimestamp()));
+        $stm->bindValue(':yrs', date( "Y", $date->getTimestamp()));
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        $citcita['data1'] = $result[0];
+        
+        /*****************************************************************************************
+         * SQL que determina el horario de atencion de pacientes de un medico para una fecha de-
+         * terminada
+         ****************************************************************************************/
+        $dql = "SELECT COUNT(t01.id)
+                FROM MinsalSiapsBundle:CitCitasDia t01
+                WHERE t01. = 1 AND t00.idEmpleado = :idEmpleado AND t06.codigo = :codigoEmpleado";
+        
+        $result = $em->createQuery($dql)
+                    ->setParameter(':idEmpleado', $idEmpleado)
+                    ->setParameter(':codigoEmpleado', 'MED')
+                    ->getArrayResult();
+
+        $citcita['data1'] = $result[0];
+
+        return new Response(json_encode($citcita));
+    }
 
     /**
      * @Route("/citas/comprobante/get/{report_format}", name="citasgetcomprobante", options={"expose"=true})
@@ -465,7 +531,7 @@ class CitCitasDiaController extends Controller  {
     }
     
     /**
-     * @Route("/citas/buildcomprobante/get/{id}{report_format}", name="citasbuildcomprobante", options={"expose"=true})
+     * @Route("/citas/buildcomprobante/get/{id}/{report_format}", name="citasbuildcomprobante", options={"expose"=true})
      * @Method("GET")
      *
      */
