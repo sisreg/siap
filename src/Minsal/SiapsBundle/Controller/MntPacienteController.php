@@ -21,8 +21,12 @@ class MntPacienteController extends Controller {
      * @Route("/buscar/paciente", name="buscar_paciente", options={"expose"=true})
      */
     public function buscarPacienteAction() {
-
-        return $this->render('MinsalSiapsBundle:MntPacienteAdmin:resultado_busqueda.html.twig', array('tipo_busqueda' => 'l'));
+        $em = $this->getDoctrine()->getManager();
+        $establecimiento = $em->getRepository("MinsalSiapsBundle:CtlEstablecimiento")->obtenerEstablecimientoConfigurado();
+        if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1)
+            return $this->render('MinsalSiapsBundle:MntPacienteAdmin:resultado_busqueda_hospital.html.twig', array('tipo_busqueda' => 'l'));
+        else
+            return $this->render('MinsalSiapsBundle:MntPacienteAdmin:resultado_busqueda.html.twig', array('tipo_busqueda' => 'l'));
     }
 
     /*
@@ -45,10 +49,6 @@ class MntPacienteController extends Controller {
      * POSTGRESQL por el tipo de consulta que se realiza
      * ANALISTA PROGRAMADOR: Karen Peñate - Victoria López
      */
-    
-    public function __construct() {
-        ;
-    }
 
     /**
      * @Route("/cargar/paciente", name="cargar_paciente", options={"expose"=true})
@@ -73,8 +73,14 @@ class MntPacienteController extends Controller {
         $conn = $em->getConnection();
         //CONSTANTES
         if (strcmp($tipo_busqueda, 'l') == 0)
-            $sql = "SELECT A.*,C.nombre,B.numero 
-                FROM mnt_paciente A LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente, mnt_expediente B
+            $sql = "SELECT A.*,C.nombre,B.numero,
+                E.nombre_ambiente ambiente,
+                D.diagnostico,D.fecha,D.hora
+                FROM mnt_paciente A 
+                      LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente,
+                      mnt_expediente B
+                      LEFT JOIN sec_ingreso D ON D.id_expediente=B.id
+                      LEFT JOIN mnt_aten_area_mod_estab E ON D.id_ambiente_ingreso=E.id
                 WHERE B.id_paciente=A.id AND B.habilitado= TRUE";
         else
             $sql = "SELECT A.*,C.nombre 
@@ -111,8 +117,8 @@ class MntPacienteController extends Controller {
         }
         if ($dui != '')
             $dui = " AND A.numero_doc_ide_paciente::text ~*'$dui'";
-
-        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $nombreMadre . $conocidoPor . $fechaNacimiento . $nec . $dui . " ORDER BY A.primer_Apellido";
+        $order_by=" ORDER BY A.primer_apellido,A.primer_nombre, A.fecha_nacimiento";
+        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $nombreMadre . $conocidoPor . $fechaNacimiento . $nec . $dui . $order_by;
         if (strcmp($tipo_busqueda, 'l') == 0)
             $query = $conn->query($sql);
         else {
@@ -123,30 +129,61 @@ class MntPacienteController extends Controller {
             $query = $conn->query($sql);
         }
 
+        $establecimiento = $em->getRepository("MinsalSiapsBundle:CtlEstablecimiento")->obtenerEstablecimientoConfigurado();
         $numfilas = count($query->rowCount());
         $espacio = "";
         $i = 0;
         $rows = array();
         if ($numfilas > 0) {
-            foreach ($query->fetchAll() as $aux) {
-                if (strcmp($tipo_busqueda, 'l') == 0) {
-                    $numero = $aux['numero'];
-                    $id = $aux['id'];
-                } else {
-                    $numero = '';
-                    $id = $aux['id'];
+            if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1) {
+                foreach ($query->fetchAll() as $aux) {
+                    if (strcmp($tipo_busqueda, 'l') == 0) {
+                        $numero = $aux['numero'];
+                        $id = $aux['id'];
+                    } else {
+                        $numero = '';
+                        $id = $aux['id'];
+                    }
+                    $rows[$i]['id'] = $id;
+                    if (!is_null($aux['fecha']))
+                        $fechaIngreso = date('d-m-Y', strtotime($aux['fecha'])) . " " . date('H:i', strtotime($aux['hora']));
+                    else
+                        $fechaIngreso=null;
+                    $rows[$i]['cell'] = array($id,
+                        $espacio, $numero,
+                        $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
+                        $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
+                        date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
+                        substr($aux['nombre'], 0, 4) . ":" . $aux['numero_doc_ide_paciente'],
+                        $aux['nombre_madre'],
+                        $aux['conocido_por'],
+                        $aux['ambiente'],
+                        $aux['diagnostico'],
+                        $fechaIngreso
+                    );
+                    $i++;
                 }
-                $rows[$i]['id'] = $id;
-                $rows[$i]['cell'] = array($id,
-                    $espacio, $numero,
-                    $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
-                    $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
-                    date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
-                    substr($aux['nombre'], 0, 4) . ":" . $aux['numero_doc_ide_paciente'],
-                    $aux['nombre_madre'],
-                    $aux['conocido_por']
-                );
-                $i++;
+            } else {
+                foreach ($query->fetchAll() as $aux) {
+                    if (strcmp($tipo_busqueda, 'l') == 0) {
+                        $numero = $aux['numero'];
+                        $id = $aux['id'];
+                    } else {
+                        $numero = '';
+                        $id = $aux['id'];
+                    }
+                    $rows[$i]['id'] = $id;
+                    $rows[$i]['cell'] = array($id,
+                        $espacio, $numero,
+                        $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
+                        $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
+                        date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
+                        substr($aux['nombre'], 0, 4) . ":" . $aux['numero_doc_ide_paciente'],
+                        $aux['nombre_madre'],
+                        $aux['conocido_por']
+                    );
+                    $i++;
+                }
             }
         }
 

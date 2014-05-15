@@ -86,16 +86,21 @@ class ReporteController extends Controller {
         $request = $this->getRequest();
         $fecha_inicio = $request->get('fecha_inicio');
         $fecha_fin = $request->get('fecha_fin');
+        $usuario = $request->get('usuario');
+        if($usuario == "")
+            $usuario = 0;
         
         $jasperReport = $this->container->get('jasper.build.reports');
         $jasperReport->setReportName($report_name);
         $jasperReport->setReportFormat($report_format);
         $jasperReport->setReportPath("/reports/siaps/identificacion/");
-        $jasperReport->setReportParams(array('fecha_inicio' => $fecha_inicio, 'fecha_fin' => $fecha_fin));
+        $jasperReport->setReportParams(array('fecha_inicio' => $fecha_inicio, 
+            'fecha_fin' => $fecha_fin,
+            'id_user'=> $usuario));
         
         return $jasperReport->buildReport();  
     }
-
+    
 }
 
 ?>

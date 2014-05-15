@@ -170,6 +170,24 @@ class MntEmpleado {
      */
     private $nombreempleado;
 
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="MntAtenAreaModEstab")
+     * @ORM\JoinTable(name="mnt_empleado_especialidad_estab",
+     *      joinColumns={@ORM\JoinColumn(name="id_empleado", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_aten_area_mod_estab", referencedColumnName="id")}
+     *      )
+     */
+    private $especialidadesEstab;
+    
+     /**
+     * @ORM\ManyToMany(targetEntity="CtlAtencion")
+     * @ORM\JoinTable(name="mnt_empleado_especialidad",
+     *      joinColumns={@ORM\JoinColumn(name="id_empleado", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_atencion", referencedColumnName="id")}
+     *      )
+     */
+    private $especialidadesMedico;
 
     /**
      * Get id
@@ -620,5 +638,80 @@ class MntEmpleado {
     
     public function __toString() {
         return $this->nombreempleado?:'';
+    }
+  
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->especialidadesEstab = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->especialidadesMedico = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add especialidadesEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $especialidadesEstab
+     * @return MntEmpleado
+     */
+    public function addEspecialidadesEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $especialidadesEstab)
+    {
+        $this->especialidadesEstab[] = $especialidadesEstab;
+
+        return $this;
+    }
+
+    /**
+     * Remove especialidadesEstab
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $especialidadesEstab
+     */
+    public function removeEspecialidadesEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $especialidadesEstab)
+    {
+        $this->especialidadesEstab->removeElement($especialidadesEstab);
+    }
+
+    /**
+     * Get especialidadesEstab
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEspecialidadesEstab()
+    {
+        return $this->especialidadesEstab;
+    }
+
+    /**
+     * Add especialidadesMedico
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlAtencion $especialidadesMedico
+     * @return MntEmpleado
+     */
+    public function addEspecialidadesMedico(\Minsal\SiapsBundle\Entity\CtlAtencion $especialidadesMedico)
+    {
+        $this->especialidadesMedico[] = $especialidadesMedico;
+
+        return $this;
+    }
+
+    /**
+     * Remove especialidadesMedico
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlAtencion $especialidadesMedico
+     */
+    public function removeEspecialidadesMedico(\Minsal\SiapsBundle\Entity\CtlAtencion $especialidadesMedico)
+    {
+        $this->especialidadesMedico->removeElement($especialidadesMedico);
+    }
+
+    /**
+     * Get especialidadesMedico
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEspecialidadesMedico()
+    {
+        return $this->especialidadesMedico;
     }
 }

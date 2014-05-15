@@ -86,7 +86,7 @@
             </call>
         </service>
         <service id="sonata.admin.empleado" class="Minsal\SiapsBundle\Admin\MntEmpleadoAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="US-1-Usuario" label="Médicos"/>
+            <tag name="sonata.admin" manager_type="orm" group="US-1-Usuario" label="Empleados"/>
             <argument />
             <argument>Minsal\SiapsBundle\Entity\MntEmpleado</argument>
             <argument>SonataAdminBundle:CRUD</argument>

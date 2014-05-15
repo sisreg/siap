@@ -25,7 +25,7 @@ div#fondo_siaps{
 
 div#divpie{
     position: fixed;
-    top: 96%;
+    bottom: 0;
     height: 30px;
     width: 90%;
     text-align: center;
@@ -48,8 +48,9 @@ div#pagina{
     margin-left: auto ;
     margin-right: auto ;
     background-color:whitesmoke;
-    min-height: 825px;
-
+    min-height: 100%;
+    position: relative;
+    
     border-top: 3px solid #bebebe;
     border-left: 2px solid #535353;
     border-right: 2px solid #535353;

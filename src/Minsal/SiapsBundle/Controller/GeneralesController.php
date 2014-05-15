@@ -147,6 +147,34 @@ class GeneralesController extends Controller {
     }
 
     /*
+     * DESCRIPCIÓN: Método que devuelve un JSON con los usuarios de archivo.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
+    /**
+     * @Route("/usuarios/archivos/get", name="obtener_usuarios_archivo", options={"expose"=true})
+     */
+    public function getUsuariosArchivosAction() {
+        
+        $em = $this->getDoctrine()->getManager();
+        $establecimiento = $em->getRepository("MinsalSiapsBundle:CtlEstablecimiento")->obtenerEstablecimientoConfigurado();
+        if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1)
+            $restriccion = 'Hos';
+        else
+            $restriccion = 'Us';
+        
+        $dql = "SELECT u 
+                FROM MinsalSiapsBundle:User u
+                JOIN u.groups g
+                WHERE g.name LIKE '%$restriccion%' AND u.id !=3";
+
+        $usuarios['usuarios'] = $em->createQuery($dql)
+                ->getArrayResult();
+
+        return new Response(json_encode($usuarios));
+    }
+
+    /*
      * DESCRIPCIÓN:
      *      Método que verifica si el empleado posee servicios a brindar
      *      dentro del establecimiento
@@ -163,9 +191,9 @@ class GeneralesController extends Controller {
         $session  = $this->container->get('session');
         $em       = $this->getDoctrine()->getManager();
         $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
-        $codigoEmpleado = $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo();
+        $codigoEmpleado = $user->getIdEmpleado() ? $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo() : 'N/A';
 
-        if($session->get('_moduleSelection') !== null && $session->get('_moduleSelection') == '3' && $codigoEmpleado == 'MED') {
+        if($session->get('_moduleSelection') !== null && $codigoEmpleado == 'MED') {
             if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
                 $idEmpleado = $user->getIdEmpleado();
                 $dql = "SELECT t01.id as idAtenAreaModEstab, t02.nombre as mombreAtenAreaModEstab
@@ -221,7 +249,7 @@ class GeneralesController extends Controller {
         $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
         $codigoEmpleado = $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo();
 
-        if($request->isMethod('POST') && $session->get('_moduleSelection') !== null && $session->get('_moduleSelection') == '3' && $codigoEmpleado == 'MED') {
+        if($request->isMethod('POST') && $session->get('_moduleSelection') !== null && $codigoEmpleado == 'MED') {
             if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
                 $session->set('_idEmpEspecialidadEstab', $request->get('_id-especialidad'));
                 $session->set('_nombreEmpEspecialidadEstab', $request->get('_nombre-especialidad'));

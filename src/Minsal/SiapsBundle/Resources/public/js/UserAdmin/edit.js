@@ -12,7 +12,6 @@ $(document).ready(function() {
 
     });
     $(":submit").click(function() {
-       
         if (!$('input:checkbox[name*="groups"]').is(':checked')) {
             ($('#error')) ? $('#error').remove() : '';
             var elem = $("<div id='error' title='Seleccionar un rol'>" +
@@ -21,17 +20,15 @@ $(document).ready(function() {
             elem.insertBefore($("#divpie"));
             $("#error").dialog();
             return false;
-        } /*else
-        if ($('input:checkbox[name*="groups"]:checked').length > 1) {
-            ($('#error')) ? $('#error').remove() : '';
-            var elem = $("<div id='error' title='Seleccionar un rol'>" +
-                    "Solo puede seleccionar un rol por usuario</div>");
-
-            elem.insertBefore($("#divpie"));
-            $("#error").dialog();
-            return false;
-        }*/
+        }
     });
+    
+    $('input[id$="_username"]').focusout(function(){
+        $('input[id$="_email"]').val($('input[id$="_username"]').val()+'@salud.gob.sv')
+    }); 
+    
+    
+    $('input[id$="_enabled"]').attr("checked","checked");
 
 
 });

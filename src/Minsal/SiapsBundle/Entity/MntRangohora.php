@@ -25,14 +25,14 @@ class MntRangohora
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="hora_ini", type="datetime", nullable=true)
+     * @ORM\Column(name="hora_ini", type="time", nullable=true)
      */
     private $horaIni;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="hora_fin", type="datetime", nullable=true)
+     * @ORM\Column(name="hora_fin", type="time", nullable=true)
      */
     private $horaFin;
 

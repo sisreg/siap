@@ -33,6 +33,32 @@ class MntAreaModEstabController extends Controller {
         $resp = trim($resp, ',');
         return new Response('[' . $resp . ']');
     }
+    
+    /**
+     * @Route("/especialidades/get", name="get_especialidades", options={"expose"=true})
+     */
+    public function getEspecialidadesAction() {
+
+        $em = $this->getDoctrine()->getManager();
+        $resp = '';
+
+        $atenciones = $em->getRepository('MinsalSiapsBundle:CtlAtencion')
+                ->obtenerEspecialidades();
+
+        foreach ($atenciones as $k => $atencion) {
+            if ($atencion->getIdAtencionPadre() === null) {
+                $resp .= '{"title" : "' . $atencion->getNombre() . '", ' .
+                        '"key" : "' . $atencion->getId() . '"';
+                $hijos = '';
+                $hijos = $this->getHijos($atencion->getId(), $atenciones);
+                if ($hijos != '')
+                    $resp .= ', "children" : [' . $hijos . ']';
+                $resp .='},';
+            }
+        }
+        $resp = trim($resp, ',');
+        return new Response('[' . $resp . ']');
+    }
 
     public function getHijos($padre, $arreglo) {
         $hijos = '';

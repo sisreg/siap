@@ -220,7 +220,7 @@ class SecIngresoController extends Controller {
             $fechas = " AND date(E.fecha) = current_date";
 
         $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec . $servicio . $fechas;
-        $sql.= " ORDER BY A.primer_Apellido ASC, E.fecha DESC";
+        $sql.= " ORDER BY E.fecha DESC, E.hora DESC,A.primer_Apellido ASC";
 
         $query = $conn->query($sql);
 
@@ -321,7 +321,7 @@ class SecIngresoController extends Controller {
                        AND E.fecha>=to_date('$fecha_inicio','DD-MM-YYYY') and E.fecha<=to_date('$fecha_fin','DD-MM-YYYY')";
         if ($servicio != '')
             $sql .= " AND E.id_ambiente_ingreso=$servicio";
-        $sql.= " ORDER BY A.primer_Apellido ASC, E.fecha DESC";
+        $sql.= " ORDER BY E.fecha DESC, E.hora DESC,A.primer_Apellido ASC";
 
         $query = $conn->query($sql);
 
