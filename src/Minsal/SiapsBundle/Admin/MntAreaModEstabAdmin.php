@@ -105,6 +105,22 @@ class MntAreaModEstabAdmin extends Admin {
             }
         }
     }
+    
+     public function postUpdate($mntAreaModEstab) {
+        if ($mntAreaModEstab->getIdModalidadEstab()->getIdModalidad()->getId() == 1) {
+            if ($mntAreaModEstab->getIdAreaAtencion()->getId() == 1) {
+                $usuario = $this->getModelManager()
+                        ->getEntityManager('MinsalSiapsBundle:User')
+                        ->createQuery("
+                    SELECT u
+                    FROM MinsalSiapsBundle:User u
+                    WHERE u.username LIKE 'citasadmin'")
+                        ->getSingleResult();
+                $usuario->setIdAreaModEstab($mntAreaModEstab);
+                $this->getModelManager()->update($usuario);
+            }
+        }
+    }
 
 }
 

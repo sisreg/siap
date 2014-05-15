@@ -90,6 +90,31 @@ class MntModalidadEstablecimientoAdmin extends Admin {
             $this->getModelManager()->update($usuario);
         }
     }
+    
+    public function postUpdate($mntModalidadEstablecimiento) {
+        if ($mntModalidadEstablecimiento->getIdModalidad()->getId() == 1) {
+            $usuario = $this->getModelManager()
+                    ->getEntityManager('MinsalSiapsBundle:User')
+                    ->createQuery("
+                    SELECT u
+                    FROM MinsalSiapsBundle:User u
+                    WHERE u.username LIKE 'farmadmin'")
+                    ->getSingleResult();
+            $usuario->setIdModalidadEstab($mntModalidadEstablecimiento);
+            $this->getModelManager()->update($usuario);
+        } elseif($mntModalidadEstablecimiento->getIdModalidad()->getId() == 2) {
+            $usuario = $this->getModelManager()
+                    ->getEntityManager('MinsalSiapsBundle:User')
+                    ->createQuery("
+                    SELECT u
+                    FROM MinsalSiapsBundle:User u
+                    WHERE u.username LIKE 'fosaludadmin'")
+                    ->getSingleResult();
+            $usuario->setEnabled(true);
+            $usuario->setIdModalidadEstab($mntModalidadEstablecimiento);
+            $this->getModelManager()->update($usuario);
+        }
+    }
 
 }
 
