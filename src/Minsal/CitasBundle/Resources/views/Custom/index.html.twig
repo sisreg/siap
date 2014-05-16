@@ -349,6 +349,7 @@
             var citaExistente = [];
             var citaDelMedico = [];
             var max_agregados = 0;
+            var act_agregados = 0;
             var ok = false;
             
             if(!horario.select2('data')) {
@@ -371,9 +372,15 @@
             }
             
             $.ajax({
-                url:  Routing.generate("citaspacienteposeecita")+'?idEmpleado='+medicData.idEmpleado+'&especialidad='+medicData.idEmpleadoEspecialidadEstab+'&idExpediente='+expediente.val()+'&date='+clickDay,
+                url:  Routing.generate("citaspacienteposeecita"),
                 async: false,
                 dataType: 'json',
+                data: {
+                    idEmpleado:   medicData.idEmpleado,
+                    especialidad: medicData.idEmpleadoEspecialidadEstab,
+                    idExpediente: expediente.val(),
+                    date:         clickDay
+                },
                 success: function(data) {
                     citaExistente = data.data1;
                     citaDelMedico = data.data2;
@@ -386,17 +393,24 @@
             }
             
             $.ajax({
-                url:  Routing.generate("citascomprobardisponibilidad")+'?idEmpleado='+medicData.idEmpleado+'&especialidad='+medicData.idEmpleadoEspecialidadEstab+'&date='+clickDay,
+                url:  Routing.generate("citascomprobardisponibilidad"),
                 async: false,
-                dataType: 'json',
+                dataType: 'JSON',
+                data: { 
+                    idEmpleado:   medicData.idEmpleado,
+                    especialidad: medicData.idEmpleadoEspecialidadEstab,
+                    date:         clickDay,
+                    idRangohora:  horario.select2('val')
+                },
                 success: function(data) {
-                    max_agregados = data.data1;
+                    max_agregados = data.data1.max_citas_agregadas;
+                    act_agregados = data.data2;
                 }
             });
-            
-            /*if(max_agregados) { ME QUEDE AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-                error_message.push('<li>El paciente ya posee cita este dia en el horario <b>'+citaDelMedico[0].hora_ini+ ' '+citaDelMedico[0].meridianoini+'</b> en <b>'+citaDelMedico[0].nombre_atencion+'</b>, por favor seleccione otro dia.</li>');
-            }*/
+        
+            if(act_agregados >= max_agregados) {
+                error_message.push('<li>Ya no hay cupos de citas disponible para el dia y horario seleccionado, por favor intente en <b>otro horario o en otro dia</b></li>');
+            }
             
             if(error_message.length > 0) {
                 info_message.empty();

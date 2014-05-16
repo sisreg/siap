@@ -253,7 +253,7 @@ class CitCitasDiaController extends Controller  {
     public function getExpedientePacienteAction() {
         $em      = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
-        $clue    = $request->get('clue');
+        $clue    = strtolower($request->get('clue'));
         $limit   = $request->get('page_limit');
         $page    = $request->get('page') - 1;
         
@@ -384,6 +384,7 @@ class CitCitasDiaController extends Controller  {
         $fecha        = date('Y-m-d', $date->getTimestamp());
         $today        = new \DateTime();
         $hoy          = date('Y-m-d', $today->getTimestamp());
+        $user         = $this->container->get('security.context')->getToken()->getUser();
         
         /*****************************************************************************************
          * SQL que verifica y obtiene si un paciente tiene cita previa con el medico
@@ -427,22 +428,23 @@ class CitCitasDiaController extends Controller  {
          * SQL que verifica y obtiene si un paciente tiene cita previa con el medico
          ****************************************************************************************/
         
-        $sql = "SELECT t03.nombre AS nombre_atencion,
+        $sql = "SELECT t04.nombre AS nombre_atencion,
                        t01.id_empleado,
                        t02.hora_ini,
                        t02.meridianoini
                 FROM cit_citas_dia t01 
-                INNER JOIN mnt_rangohora t02 ON (t02.id = t01.id_rangohora)
-                INNER JOIN ctl_atencion  t03 ON (t03.id = t01.id_aten_area_mod_estab)
+                INNER JOIN mnt_rangohora           t02 ON (t02.id = t01.id_rangohora)
+                INNER JOIN mnt_aten_area_mod_estab t03 ON (t03.id = t01.id_aten_area_mod_estab)
+                INNER JOIN ctl_atencion            t04 ON (t04.id = t03.id_atencion)
                 WHERE t01.fecha = '$fecha' 
                     AND t01.id_expediente          = :idExpediente
-                    AND t01.idusuarioreg           = :idEmpleado
+                    AND t01.idusuarioreg           = :idUsuarioReg
                     AND t01.id_aten_area_mod_estab = :idAtenAreaModEstab
                     AND DATE(t01.fechahorareg)     = '$hoy'";
         
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idExpediente', $idExpediente);
-        $stm->bindValue(':idEmpleado',   $idEmpleado);
+        $stm->bindValue(':idUsuarioReg',   $user->getId());
         $stm->bindValue(':idAtenAreaModEstab', $especialidad);
         $stm->execute();
         $result = $stm->fetchAll();
@@ -453,22 +455,24 @@ class CitCitasDiaController extends Controller  {
     }
     
     /**
-     * @Route("/citas/comprobar/disponibilidad/get", name="citascomprobardisponibilidad", options={"expose"=true})
+     * @Route("/citas/comprobar/disponibilidad", name="citascomprobardisponibilidad", options={"expose"=true})
      * @Method("GET")
      *
      */
     public function comprobarDisponibilidadAction() {
-        $em             = $this->getDoctrine()->getManager();
-        $request        = $this->getRequest();
-        $date           = new \DateTime($request->get('date'));
-        $idEmpleado     = $request->get('idEmpleado');
-        $especialidad   = $request->get('idEmpleadoEspecialidadEstab');
-        $idRangohora    = $request->get('idRangohora');
-        $idAreaModEstab = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->findOneById($especialidad)->getIdAreaModEstab()->getId();
+        $em                  = $this->getDoctrine()->getManager();
+        $request             = $this->getRequest();
+        $date                = new \DateTime($request->get('date'));
+        $idEmpleado          = $request->get('idEmpleado');
+        $especialidad        = $request->get('especialidad');
+        $idRangohora         = $request->get('idRangohora');
+        $mntAtenAreaModEstab = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->findOneById($especialidad);
+        $idAreaModEstab      = $mntAtenAreaModEstab->getIdAreaModEstab()->getId();
+        $idEstablecimiento   = $mntAtenAreaModEstab->getIdEstablecimiento()->getId();
 
         /*****************************************************************************************
-         * SQL que determina el horario de atencion de pacientes de un medico para una fecha de-
-         * terminada
+         * SQL que determina el numero maximo de citas agregadas que puede brindar un medico en un
+         * horario determinado
          ****************************************************************************************/
         $sql = "SELECT t01.max_citas_agregadas
                 FROM cit_distribucion t01
@@ -494,19 +498,30 @@ class CitCitasDiaController extends Controller  {
         $citcita['data1'] = $result[0];
         
         /*****************************************************************************************
-         * SQL que determina el horario de atencion de pacientes de un medico para una fecha de-
-         * terminada
+         * SQL que determina el numero de pacientes agregados que tiene un medico en para una
+         * especialidad y horario determinado
          ****************************************************************************************/
         $dql = "SELECT COUNT(t01.id)
-                FROM MinsalSiapsBundle:CitCitasDia t01
-                WHERE t01. = 1 AND t00.idEmpleado = :idEmpleado AND t06.codigo = :codigoEmpleado";
+                FROM MinsalCitasBundle:CitCitasDia t01
+                WHERE t01.idAtenAreaModEstab  = :idAtenAreaModEstab
+                    AND t01.idEstado          = :idEstado
+                    AND t01.fecha             = :fecha
+                    AND t01.idEmpleado        = :idEmpleado
+                    AND t01.idEstablecimiento = :idEstablecimiento
+                    AND t01.idRangohora       = :idRangohora
+                    AND t01.idAreaModEstab    = :idAreaModEstab";
         
         $result = $em->createQuery($dql)
+                    ->setParameter(':idAtenAreaModEstab', $especialidad)
+                    ->setParameter(':idEstado', '6')
+                    ->setParameter(':fecha', date( "Y-m-d", $date->getTimestamp()))
                     ->setParameter(':idEmpleado', $idEmpleado)
-                    ->setParameter(':codigoEmpleado', 'MED')
-                    ->getArrayResult();
+                    ->setParameter(':idEstablecimiento', $idEstablecimiento)
+                    ->setParameter(':idRangohora', $idRangohora)
+                    ->setParameter(':idAreaModEstab', $idAreaModEstab)
+                    ->getSingleScalarResult();
 
-        $citcita['data1'] = $result[0];
+        $citcita['data2'] = $result;
 
         return new Response(json_encode($citcita));
     }
