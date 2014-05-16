@@ -555,7 +555,7 @@ class CitCitasDiaController extends Controller  {
         $jasperReport = $this->container->get('jasper.build.reports');
         $jasperReport->setReportName($report_name);
         $jasperReport->setReportFormat($report_format);
-        $jasperReport->setReportPath("/reports/siaps/citas/");
+        $jasperReport->setReportPath("/reports/siaps/seguimiento/");
         $jasperReport->setReportParams(array('id' => $id));
         
         return $jasperReport->buildReport();

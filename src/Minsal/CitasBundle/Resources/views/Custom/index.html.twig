@@ -350,6 +350,7 @@
             var citaDelMedico = [];
             var max_agregados = 0;
             var act_agregados = 0;
+            var diasEntreCita = false;
             var ok = false;
             
             if(!horario.select2('data')) {
@@ -400,17 +401,24 @@
                     idEmpleado:   medicData.idEmpleado,
                     especialidad: medicData.idEmpleadoEspecialidadEstab,
                     date:         clickDay,
-                    idRangohora:  horario.select2('val')
+                    idRangohora:  horario.select2('val'),
+                    idExpediente: expediente.val()
                 },
                 success: function(data) {
                     max_agregados = data.data1.max_citas_agregadas;
                     act_agregados = data.data2;
+                    /*diasEntreCita = data.data3;*/
+                    
                 }
             });
         
             if(act_agregados >= max_agregados) {
                 error_message.push('<li>Ya no hay cupos de citas disponible para el dia y horario seleccionado, por favor intente en <b>otro horario o en otro dia</b></li>');
             }
+        
+            /*if(!diasEntreCita) {
+                error_message.push('<li>Ya no hay cupos de citas disponible para el dia y horario seleccionado, por favor intente en <b>otro horario o en otro dia</b></li>');
+            }*/
             
             if(error_message.length > 0) {
                 info_message.empty();
