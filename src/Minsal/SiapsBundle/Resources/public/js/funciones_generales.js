@@ -100,6 +100,88 @@ function defalutlModalBodyMessage(e) {
     return html;
 }
 
+/*
+ * Funcion que facilita mostrar los Message Dialog
+ * Parametros:
+ *      title: titulo de dialog
+ *      msg: mensaje dentro del dialog
+ *      dialogClass: [dialog-warning | dialog-error | dialog-info | dialog-success] 
+ */
+
+function showDialogMsg(title, msg, dialogClass){
+    if(jQuery('body #dialog-message').length > 0)
+        jQuery('body #dialog-message').remove();
+
+    jQuery("body").append('<div id="dialog-message"></div>');
+    var element = jQuery('body #dialog-message');
+
+    if (typeof dialogClass === "undefined" || dialogClass === null || dialogClass === '') {
+        dialogClass = 'dialog-info'
+    }
+
+    if (typeof title === "undefined" || title === null || title === '') {
+        switch(dialogClass.replace('dialog-','')) {
+            case 'error':
+                title = 'Ha ocurrido un Error!';
+                break;
+            case 'warning':
+                title = 'Advertencia!';
+                break;
+            case 'success':
+                title = 'Realizado correctamente!';
+                break;
+            default:
+                title = 'Informaci&oacute;n';
+                break;
+        }
+    }
+
+    if (typeof msg === "undefined" || msg === null || msg === '') {
+        switch(dialogClass.replace('dialog-','')) {
+            case 'error':
+                msg = 'Se ha producido un error inesperado! Por favor, verifique los datos ingresados e intente nuevamente.';
+                break;
+            case 'warning':
+                msg = 'Atenci&oacute;n, verifique la información proporcionada y que los datos esten completos. Estos podría generar un error.';
+                break;
+            case 'success':
+                msg = 'La acci&oacute;n se ha realizado correctamente.';
+                break;
+            default:
+                msg = 'No se ha definido información a mostrar al usuario.';
+        }
+    }
+
+    var msgWi = '';
+
+    switch(dialogClass.replace('dialog-','')) {
+        case 'error':
+            msgWi = '<i class="icon-remove-sign"></i>&nbsp;&nbsp;'+msg;
+            break;
+        case 'warning':
+            msgWi = '<i class="icon-warning-sign"></i>&nbsp;&nbsp;'+msg;
+            break;
+        case 'success':
+            msgWi = '<i class="icon-ok-sign"></i>&nbsp;&nbsp;'+msg;
+            break;
+        default:
+            msgWi = '<i class="icon-info-sign"></i>&nbsp;&nbsp;'+msg;
+    }
+
+    element.append(msgWi);
+
+    element.dialog({
+        dialogClass: dialogClass,
+        modal: true,
+        title: title,
+        buttons: {
+            Ok: function() {
+                jQuery( this ).dialog( "close" );
+            }
+        }
+    });
+}
+
 jQuery(document).ready(function($) {
     /***** Mosrtrar Mensajes de Error de Sonata y Esconderlos Automaticamente ******/
 

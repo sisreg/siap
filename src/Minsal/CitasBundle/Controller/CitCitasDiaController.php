@@ -136,7 +136,13 @@ class CitCitasDiaController extends Controller  {
         $idEmpleado     = $request->get('idEmpleado');
         $especialidad   = $request->get('idEmpleadoEspecialidadEstab');
         $idAreaModEstab = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->findOneById($especialidad)->getIdAreaModEstab()->getId();
-
+        
+        /*****************************************************************************************
+         * SQL las horas en que un medico tiene evento para no ser mostradas en los horarios
+         * al asignar cita
+         ****************************************************************************************/
+        
+        
         /*****************************************************************************************
          * SQL que determina el horario de atencion de pacientes de un medico para una fecha de-
          * terminada
