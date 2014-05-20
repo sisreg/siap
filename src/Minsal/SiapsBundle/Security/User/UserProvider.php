@@ -28,7 +28,7 @@ class UserProvider extends FOSProvider {
 
         $request = $this->container->get('request');
 
-        if($request->get('_moduleSelection') != '3' && $request->get('_moduleSelection') != '4') {
+        if($request->get('_moduleSelection') != '3' && $request->get('_moduleSelection') != '4' && $request->get('_moduleSelection') != '6') {
             //Inicio de sesion por usuario y contraseña
             $user = $this->findUser($name);
 
@@ -60,13 +60,13 @@ class UserProvider extends FOSProvider {
             if($digitalSignature->getClientMimeType() !== 'application/x-pkcs12') {
                 $error[] = "El archivo seleccionado no es una llave de firma digital válida";
             }
-
+            
             if(count($error) > 0) {
                 $erroMessage = rimplode('<br />', $error);
                 throw new BadCredentialsException($erroMessage);
             } else {
                 try {
-
+                    
                     $extension = $digitalSignature->guessExtension();
                     if (!$extension) {
                         $extension = 'bin';
@@ -88,7 +88,7 @@ class UserProvider extends FOSProvider {
                     } else {
                         $passError = true;
                     }
-
+                    
                     if($passError) {
                         throw new BadCredentialsException('La contraseña es incorrecta');
                     } else {
@@ -103,10 +103,11 @@ class UserProvider extends FOSProvider {
                         $query = $this->entityManager->createQuery($dql);
                         $query->setParameter(':firmaDigital', $hash);
                         $idEmpleado = $query->getResult()[0]['id'];
-
+                        
                         if($idEmpleado == null) {
                             throw new BadCredentialsException("No se ha encontrado ningun empleado con la firma digital proporcionada");
                         } else {
+                            
                             $user = $this->entityManager->getRepository('MinsalSiapsBundle:User')->findOneBy(array('idEmpleado' => $idEmpleado, 'enabled' => true));
                             
                             if(!$user) {

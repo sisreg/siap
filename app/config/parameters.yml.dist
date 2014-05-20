@@ -12,8 +12,8 @@ parameters:
     mailer_user: null
     mailer_password: null
 
-    jasper_username: jasperadmin
-    jasper_password: jasperadmin
+    jasper_username: jasperuser
+    jasper_password: jasperpassword
     jasper_url: http://localhost:8080/jasperserver/services/repository?wsdl
     
     module1_url: http://web.siaps.localhost/app_dev.php/admin/login?_moduleSelection=1

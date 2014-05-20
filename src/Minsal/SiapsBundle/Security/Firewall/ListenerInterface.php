@@ -109,7 +109,7 @@ class ListenerInterface implements SymfonyListenerInterface {
             if (null === $returnValue = $this->attemptAuthentication($request)) {
                 return;
             }
-
+            
             if ($returnValue instanceof TokenInterface) {
                 $this->sessionStrategy->onAuthentication($request, $returnValue);
 

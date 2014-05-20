@@ -79,7 +79,7 @@ class AuthenticationProvider implements AuthenticationProviderInterface {
         try {
             $this->userChecker->checkPreAuth($user);
             
-            if($request->get('_moduleSelection') != '3' && $request->get('_moduleSelection') != '4') {
+            if($request->get('_moduleSelection') != '3' && $request->get('_moduleSelection') != '4' && $request->get('_moduleSelection') != '6') {
                 $this->checkAuthentication($user, $token);
             }
             $this->userChecker->checkPostAuth($user);
@@ -136,11 +136,11 @@ class AuthenticationProvider implements AuthenticationProviderInterface {
 
         try {
             $user = $this->userProvider->loadUserByUsername($username);
-
+            
             if (!$user instanceof UserInterface) {
                 throw new AuthenticationServiceException('The user provider must return a UserInterface object.');
             }
-
+            
             return $user;
         } catch (UsernameNotFoundException $notFound) {
             $notFound->setUsername($username);
