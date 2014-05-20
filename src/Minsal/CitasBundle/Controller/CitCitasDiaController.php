@@ -138,12 +138,6 @@ class CitCitasDiaController extends Controller  {
         $idAreaModEstab = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->findOneById($especialidad)->getIdAreaModEstab()->getId();
         
         /*****************************************************************************************
-         * SQL las horas en que un medico tiene evento para no ser mostradas en los horarios
-         * al asignar cita
-         ****************************************************************************************/
-        
-        
-        /*****************************************************************************************
          * SQL que determina el horario de atencion de pacientes de un medico para una fecha de-
          * terminada
          ****************************************************************************************/
@@ -166,6 +160,37 @@ class CitCitasDiaController extends Controller  {
         $stm->bindValue(':dia', date( "w", $date->getTimestamp()));
         $stm->bindValue(':mes', date( "n", $date->getTimestamp()));
         $stm->bindValue(':yrs', date( "Y", $date->getTimestamp()));
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        $citcita['data1'] = $result;
+
+        return new Response(json_encode($citcita));
+    }
+    
+    /**
+     * @Route("/citas/verificar/evento/get", name="citasverificarevento", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function verifyMedicEventAction() {
+        $em         = $this->getDoctrine()->getManager();
+        $request    = $this->getRequest();
+        $date       = new \DateTime($request->get('date'));
+        $idEmpleado = $request->get('idEmpleado');
+        $hora       = date("H:i:s", strtotime($request->get('hora')));
+        $fecha      = date('Y-m-d', $date->getTimestamp());
+        
+        /*****************************************************************************************
+         * SQL que verifica que el medico no tenga evento en la hora seleccionada
+         ****************************************************************************************/
+        $sql = "SELECT t01.id
+                FROM cit_evento t01
+                WHERE t01.idempleado = :idEmpleado
+                    AND '$fecha' BETWEEN t01.fechaini AND t01.fechafin
+                    AND '$hora'  BETWEEN t01.horaini AND t01.horafin";
+
+        $stm = $this->container->get('database_connection')->prepare($sql);
+        $stm->bindValue(':idEmpleado', $idEmpleado);
         $stm->execute();
         $result = $stm->fetchAll();
 
@@ -475,6 +500,7 @@ class CitCitasDiaController extends Controller  {
         $mntAtenAreaModEstab = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->findOneById($especialidad);
         $idAreaModEstab      = $mntAtenAreaModEstab->getIdAreaModEstab()->getId();
         $idEstablecimiento   = $mntAtenAreaModEstab->getIdEstablecimiento()->getId();
+        $tipoCita            = 2;
 
         /*****************************************************************************************
          * SQL que determina el numero maximo de citas agregadas que puede brindar un medico en un
@@ -528,6 +554,51 @@ class CitCitasDiaController extends Controller  {
                     ->getSingleScalarResult();
 
         $citcita['data2'] = $result;
+        
+        /*****************************************************************************************
+         * SQL que determina el numero de pacientes agregados que tiene un medico en para una
+         * especialidad y horario determinado
+         ****************************************************************************************/
+        $citDistribucion = $em->getRepository('MinsalCitasBundle:CitDistribucion')->findOneBy(
+            array(
+                'idEmpleado'         => $idEmpleado,
+                'dia'                => date( "w", $date->getTimestamp()),
+                'mes'                => date( "n", $date->getTimestamp()),
+                'yrs'                => date( "Y", $date->getTimestamp()),
+                'idAtenAreaModEstab' => $especialidad,
+                'idRangohora'        => $idRangohora
+            )
+        );
+
+        /*Limite de subsecuentes que pueden ser asignados en el dia y hora al medico*/
+        $subsecuentes = $citDistribucion->getSubsecuente();
+        
+        /*Obteniendo el total de citas que posee el medico*/
+        $qb = $em->createQueryBuilder();
+        
+        $totalCitas = $qb->select($qb->expr()->count('t01.id'))
+                         ->from('MinsalCitasBundle:CitCitasDia', 't01')
+                         ->where('t01.fecha = :fecha')
+                         ->andWhere('t01.idEmpleado = :idEmpleado')
+                         ->andWhere('t01.idTipocita = :idTipocita')
+                         ->andWhere('t01.idAtenAreaModEstab = :especialidad')
+                         ->andWhere('t01.idRangohora = :idRangohora')
+                         ->setParameters(array(
+                                ':fecha' => date('Y-m-d', $date->getTimestamp()),
+                                ':idEmpleado'   => $idEmpleado, 
+                                ':idTipocita'   => $tipoCita,
+                                ':especialidad' => $especialidad,
+                                ':idRangohora'  => $idRangohora))
+                        ->getQuery()
+                        ->getSingleScalarResult();
+        
+        if($totalCitas >= $subsecuentes ) {
+            $result = 'true';
+        } else {
+            $result = 'false';
+        }
+
+        $citcita['data3'] = $result;
 
         return new Response(json_encode($citcita));
     }

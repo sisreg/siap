@@ -28,8 +28,17 @@ class AdminSecurityController extends BaseController {
 	    /* @var $session \Symfony\Component\HttpFoundation\Session */
 
         if( ($request->query->get('_moduleSelection') === null) && $session->has(SecurityContext::AUTHENTICATION_ERROR) == false ) {	//verificacion de seleccion de modulo
+            
+            //Definiendo los parametros de la url de cada modulo a cargar
+            $urlModule['module1'] = $this->container->getParameter('module1_url');
+            $urlModule['module2'] = $this->container->getParameter('module2_url');
+            $urlModule['module3'] = $this->container->getParameter('module3_url');
+            $urlModule['module4'] = $this->container->getParameter('module4_url');
+            $urlModule['module5'] = $this->container->getParameter('module5_url');
+            $urlModule['module6'] = $this->container->getParameter('module6_url');
+            
         	// redireccionar a la pagina de seleccion de modulo
-        	return $this->container->get('templating')->renderResponse('MinsalSiapsBundle::index.html.twig');
+        	return $this->container->get('templating')->renderResponse('MinsalSiapsBundle::index.html.twig', array('urlModule' => $urlModule));
         } else {
 
 	        // get the error if any (works with forward and redirect -- see below)
@@ -58,7 +67,7 @@ class AdminSecurityController extends BaseController {
 
 	            return new RedirectResponse($refererUri && $refererUri != $request->getUri() ? $refererUri : $this->container->get('router')->generate('sonata_admin_dashboard'));
 	        }
-
+            
 	        return $this->container->get('templating')->renderResponse('SonataUserBundle:Admin:Security/login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
 	                'last_username' => $lastUsername,
 	                'error'         => $error,

@@ -33,19 +33,22 @@
 		    				<tr><td id="cont-title"><b>El Salvador<br />Ministerio de Salud<br />Sistema Integral de Atenci&oacute;n al Paciente</b></td></tr>
 		    				<tr><td id="cont-body">
 			    					<div class="box-shadow">
-			    						<a href="{{ url('sonata_user_admin_security_login', { _moduleSelection: '1' }) }}">
+			    						<a href="{{ urlModule ? urlModule.module1 : '#' }}">
 			    							<div class="module module1"></div>
 			    						</a>
-			    						<a href="{{ url('sonata_user_admin_security_login', { _moduleSelection: '2' }) }}">
+			    						<a href="{{ urlModule ? urlModule.module2 : '#' }}">
 			    							<div class="module module2"></div>
 			    						</a>
-			    						<a href="{{ url('sonata_user_admin_security_login', { _moduleSelection: '3' }) }}">
+                                        <a href="{{ urlModule ? urlModule.module6 : '#' }}">
+			    							<div class="module module6"></div>
+			    						</a>
+			    						<a href="{{ urlModule ? urlModule.module3 : '#' }}">
 			    							<div class="module module3"></div>
 			    						</a>
-			    						<a href="{{ url('sonata_user_admin_security_login', { _moduleSelection: '4' }) }}">
+			    						<a href="{{ urlModule ? urlModule.module4 : '#' }}">
 			    							<div class="module module4"></div>
 			    						</a>
-			    						<a href="{{ url('sonata_user_admin_security_login', { _moduleSelection: '5' }) }}">
+			    						<a href="{{ urlModule ? urlModule.module5 : '#' }}">
 			    							<div class="module module5"></div>
 			    						</a>
 				    					<div id="cover-carousel" class="carousel slide" data-ride="carousel">

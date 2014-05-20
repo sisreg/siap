@@ -350,7 +350,8 @@
             var citaDelMedico = [];
             var max_agregados = 0;
             var act_agregados = 0;
-            var diasEntreCita = false;
+            var horarioEvento = [];
+            var subsecuentes  = '';
             var ok = false;
             
             if(!horario.select2('data')) {
@@ -366,6 +367,24 @@
                         }
                     }
                 }
+            }
+            
+            $.ajax({
+                url:  Routing.generate("citasverificarevento"),
+                async: false,
+                dataType: 'json',
+                data: {
+                    idEmpleado: medicData.idEmpleado,
+                    hora:       horario.select2('data').text,
+                    date:       clickDay
+                },
+                success: function(data) {
+                    horarioEvento = data.data1;
+                }
+            });
+                
+            if(horarioEvento.length > 0 ) {
+                error_message.push('<li>El medico tiene un evento en el horario seleccionado, motivo por el cual <b>no es posible crear la cita</b></li>');
             }
             
             if($('#numExpNomPac').val() === "") {
@@ -407,18 +426,16 @@
                 success: function(data) {
                     max_agregados = data.data1.max_citas_agregadas;
                     act_agregados = data.data2;
-                    /*diasEntreCita = data.data3;*/
+                    subsecuentes  = data.data3;
                     
                 }
             });
-        
-            if(act_agregados >= max_agregados) {
-                error_message.push('<li>Ya no hay cupos de citas disponible para el dia y horario seleccionado, por favor intente en <b>otro horario o en otro dia</b></li>');
+            
+            if(subsecuentes == 'true') {
+                if(act_agregados >= max_agregados) {
+                    error_message.push('<li>Ya no hay cupos de citas disponible para el dia y horario seleccionado, por favor intente en <b>otro horario o en otro dia</b></li>');
+                }
             }
-        
-            /*if(!diasEntreCita) {
-                error_message.push('<li>Ya no hay cupos de citas disponible para el dia y horario seleccionado, por favor intente en <b>otro horario o en otro dia</b></li>');
-            }*/
             
             if(error_message.length > 0) {
                 info_message.empty();
