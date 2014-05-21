@@ -65,7 +65,7 @@ class UserProvider extends FOSProvider {
                 $erroMessage = rimplode('<br />', $error);
                 throw new BadCredentialsException($erroMessage);
             } else {
-                try {
+                //try {
                     
                     $extension = $digitalSignature->guessExtension();
                     if (!$extension) {
@@ -117,11 +117,11 @@ class UserProvider extends FOSProvider {
                             }
                         }
                     }
-                } catch (\Exception $repositoryProblem) {
+                /*} catch (\Exception $repositoryProblem) {
                     /*$ex = new AuthenticationServiceException('Error al procesar la firma digital<br /><br />Error:<br />'.$repositoryProblem->getMessage(), 0, $repositoryProblem);
-                    throw $ex*/;
+                    throw $ex;
                     throw new BadCredentialsException('Error al procesar la firma digital');
-                }
+                }*/
             }
         }
     }
