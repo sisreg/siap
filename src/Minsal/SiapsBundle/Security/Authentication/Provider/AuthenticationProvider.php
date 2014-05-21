@@ -90,7 +90,7 @@ class AuthenticationProvider implements AuthenticationProviderInterface {
 
             throw $e;
         }
-
+        
         $moduleProvider = new ModuleProvider($user, $request->get('_moduleSelection'), $this->container->get('database_connection'));
         if(!$moduleProvider->validateModule()) {
             throw new BadCredentialsException("No se poseen los privilegios necesarios para acceder a este m&oacute;dulo");

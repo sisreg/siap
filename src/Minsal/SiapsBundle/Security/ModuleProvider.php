@@ -11,7 +11,7 @@ class ModuleProvider {
 	private $dbal;
 
 	public function __construct(UserInterface $user, $module, $dbal) {
-		$this->user   =	$user;
+		$this->user   =	$user; 
 		$this->module = $module;
 		$this->dbal = $dbal;
 	}
@@ -20,7 +20,7 @@ class ModuleProvider {
 		if($this->user->hasRole('ROLE_SUPER_ADMIN') || $this->user->hasGroup('Administracion') || $this->user->hasGroup('AdminFormDinamicos')) {
 			return true;
 		}
-
+                
 		$mod = 'Modulo'.$this->module;
 		$userId = $this->user->getId();
 		$sql = "SELECT t01.id, t01.username, t03.name as Grupo 

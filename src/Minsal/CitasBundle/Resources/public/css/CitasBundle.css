@@ -26,4 +26,5 @@
 .custom-modal-header #cita_submit_form {margin-bottom: 0 !important;}
 .modal-body #info-message .sonata-bc ul, .sonata-bc ol {padding-bottom: 0 !important;}
 .label-filters {line-height: 30px !important;text-align: left;color:#0088cc;}
+.modal { top: 45% !important; }
 @media (max-width:767px){.sonata-bc .modal.fade.in {top:10% !important;} .sonata-bc .modal {width: auto !important; margin: 0 !important; height: 80% !important;}}
