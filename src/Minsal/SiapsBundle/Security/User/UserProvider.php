@@ -67,10 +67,10 @@ class UserProvider extends FOSProvider {
             } else {
                 //try {
                     
-                    $extension = $digitalSignature->guessExtension();
-                    if (!$extension) {
+                    /*$extension = $digitalSignature->guessExtension();
+                    if (!$extension) {*/
                         $extension = 'bin';
-                    }
+                    //}
                     
                     $passError = false;
                     $p12cert = array();
