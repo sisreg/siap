@@ -80,8 +80,8 @@ class UserProvider extends FOSProvider {
                     $fileDSO = fopen($filePath, "r");
                     $fileDSBuffer = fread($fileDSO, filesize($filePath));
                     fclose($fileDSO);
-                    unlink($filePath);
-                    
+                    //unlink($filePath);
+                    var_dump('entro');exit();
                     if(openssl_pkcs12_read($fileDSBuffer, $p12cert, $request->get('_password'))) {
                         $pkey_data = print_r($p12cert['pkey'],true);
                         $cert_data = print_r($p12cert['cert'],true);
