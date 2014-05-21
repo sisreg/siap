@@ -52,7 +52,7 @@ class CitCitasDiaController extends Controller  {
                       INNER JOIN mnt_empleado 			 t03 ON (t01.id_empleado   = t03.id)
                       WHERE t01.fecha >= '$lowerLimit' AND t01.fecha<= '$upperLimit' 
                             AND t01.id_empleado = :idEmpleado AND t01.id_aten_area_mod_estab = :especialidad
-                      GROUP BY t01.fecha) t06 ON (t05.date = t06.date)";
+                      GROUP BY t01.fecha) t06 ON (t05.date = t06.date) ORDER BY date";
         
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idEmpleado',   $idEmpleado);
@@ -86,7 +86,7 @@ class CitCitasDiaController extends Controller  {
                       SELECT fecha, COUNT(*) AS citas_programadas
                       FROM cit_citas_dia
                       WHERE id_empleado = :idEmpleado AND (id_estado = 1 OR id_estado = 6)
-                      GROUP BY fecha) t03 ON (t01.date = t03.fecha)";
+                      GROUP BY fecha) t03 ON (t01.date = t03.fecha) ORDER BY date";
         
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idEmpleado',   $idEmpleado);
@@ -110,7 +110,7 @@ class CitCitasDiaController extends Controller  {
                             AND id_area_mod_estab = :idAreaModEstab
                       GROUP BY yrs, mes, dia) t02 ON (t02.yrs = EXTRACT(YEAR FROM t01.date::timestamp)
                                   AND t02.mes = EXTRACT(MONTH FROM t01.date::timestamp)
-                                  AND t02.dia = EXTRACT(DOW FROM t01.date::timestamp))";
+                                  AND t02.dia = EXTRACT(DOW FROM t01.date::timestamp)) ORDER BY date";
         
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idEmpleado',   $idEmpleado);

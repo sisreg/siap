@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobante_citas" language="groovy" printOrder="Horizontal" pageWidth="612" pageHeight="792" columnWidth="584" leftMargin="14" rightMargin="14" topMargin="14" bottomMargin="14" uuid="1b9cb22e-6b50-49ab-ba37-6f84fc4fddf4">
 	<property name="ireport.zoom" value="1.210000000000005"/>
-	<property name="ireport.x" value="57"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="7bf88c8f-664d-409b-a37d-46c6dd28d813"/>
 	<parameter name="id" class="java.lang.Integer">
@@ -16,7 +16,7 @@
        COALESCE(t07.primer_nombre, '') || ' ' || COALESCE(t07.segundo_nombre, '') || ' ' ||
        COALESCE(t07.tercer_nombre, '') || ' ' || COALESCE(t07.primer_apellido, '') || ' ' ||
        COALESCE(t07.segundo_nombre, '') AS nom_paciente,
-       COALESCE(t08.nombre, '') || ' ' || COALESCE(t08.apellido) AS nom_medico,
+       COALESCE(t08.nombreempleado) AS nom_medico,
        COALESCE(t13.descripcion, 'N/A') AS num_consultorio,
        t10.nombre AS nom_especialidad,
        t14.nom_usuarioreg
@@ -37,7 +37,7 @@ INNER JOIN cit_distribucion         t12 ON (t12.id_rangohora       = t01.id_rang
 LEFT OUTER JOIN mnt_consultorio          t13 ON (t13.id = t12.id_consultorio)
 INNER JOIN (
         SELECT ti01.id,
-              ti02.nombre || ' ' || ti02.apellido AS nom_usuarioreg
+              ti01.username AS nom_usuarioreg
         FROM fos_user_user ti01
         INNER JOIN mnt_empleado ti02 ON (ti02.id = ti01.id_empleado)
            ) t14 ON (t14.id = t01.idusuarioreg)

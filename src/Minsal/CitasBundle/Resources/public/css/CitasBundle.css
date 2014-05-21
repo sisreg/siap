@@ -22,7 +22,7 @@
 .agendamd-content {padding: 0 25px 0 25px;}
 .disabled-label { color: #6E6E6E;background-color: #F9F9F9;}
 .sonata-bc .modal-header {padding: 5px 15px;}
-.sonata-bc .modal-body {max-height: 365px;}
+.sonata-bc .modal-body {max-height: 310px;}
 .custom-modal-header #cita_submit_form {margin-bottom: 0 !important;}
 .modal-body #info-message .sonata-bc ul, .sonata-bc ol {padding-bottom: 0 !important;}
 .label-filters {line-height: 30px !important;text-align: left;color:#0088cc;}
