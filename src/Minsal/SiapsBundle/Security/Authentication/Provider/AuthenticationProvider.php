@@ -145,11 +145,11 @@ class AuthenticationProvider implements AuthenticationProviderInterface {
         } catch (UsernameNotFoundException $notFound) {
             $notFound->setUsername($username);
             throw $notFound;
-        } /*catch (\Exception $repositoryProblem) {
+        } catch (\Exception $repositoryProblem) {
             $ex = new AuthenticationServiceException($repositoryProblem->getMessage(), 0, $repositoryProblem);
             $ex->setToken($token);
             throw $ex;
-        }*/
+        }
     }
 
     /**
