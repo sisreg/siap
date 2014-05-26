@@ -118,9 +118,9 @@ class UserProvider extends FOSProvider {
                         }
                     }
                 } catch (\Exception $repositoryProblem) {
-                    /*$ex = new AuthenticationServiceException('Error al procesar la firma digital<br /><br />Error:<br />'.$repositoryProblem->getMessage(), 0, $repositoryProblem);
-                    throw $ex;*/
-                    throw new BadCredentialsException('Error en las credenciales');
+                    $ex = new AuthenticationServiceException('Error al procesar la firma digital<br /><br />Error:<br />'.$repositoryProblem->getMessage(), 0, $repositoryProblem);
+                    throw $ex;
+                    /*throw new BadCredentialsException('Error en las credenciales');*/
                 }
             }
         }
