@@ -28,5 +28,8 @@ src/Minsal/Util/JasperReport/_jasperserverreports.php
 #Directorio que utiliza el JasperServerReport para abrir las imagenes
 web/imagenes/*
 
+#upload files
+upload/*
+
 #Vendors compresos
 *.tar.gz

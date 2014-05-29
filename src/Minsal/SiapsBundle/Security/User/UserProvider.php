@@ -32,10 +32,10 @@ class UserProvider extends FOSProvider {
             //Inicio de sesion por usuario y contraseña
             $user = $this->findUser($name);
 
-            if (!$user) { 
+            if (!$user) {
                 throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $name));
             }
-            
+
             return $user;
         } else {
             //inicio de sesion por firma digital
@@ -60,18 +60,18 @@ class UserProvider extends FOSProvider {
             if($digitalSignature->getClientMimeType() !== 'application/x-pkcs12') {
                 $error[] = "El archivo seleccionado no es una llave de firma digital válida";
             }
-            
+
             if(count($error) > 0) {
                 $erroMessage = rimplode('<br />', $error);
                 throw new BadCredentialsException($erroMessage);
             } else {
                 try {
-                    
+
                     $extension = $digitalSignature->guessExtension();
                     if (!$extension) {
                         $extension = 'bin';
                     }
-                    
+
                     $passError = false;
                     $p12cert = array();
                     $fileName = rand(1, 99999);
@@ -81,7 +81,7 @@ class UserProvider extends FOSProvider {
                     $fileDSBuffer = fread($fileDSO, filesize($filePath));
                     fclose($fileDSO);
                     unlink($filePath);
-                    
+
                     if(openssl_pkcs12_read($fileDSBuffer, $p12cert, $request->get('_password'))) {
                         $pkey_data = print_r($p12cert['pkey'],true);
                         $cert_data = print_r($p12cert['cert'],true);
@@ -103,16 +103,17 @@ class UserProvider extends FOSProvider {
                         $query = $this->entityManager->createQuery($dql);
                         $query->setParameter(':firmaDigital', $hash);
                         $idEmpleado = $query->getResult()[0]['id'];
-                        
+
                         if($idEmpleado == null) {
                             throw new BadCredentialsException("No se ha encontrado ningun empleado con la firma digital proporcionada");
                         } else {
-                            
+
                             $user = $this->entityManager->getRepository('MinsalSiapsBundle:User')->findOneBy(array('idEmpleado' => $idEmpleado, 'enabled' => true));
-                            
+
                             if(!$user) {
                                 throw new UsernameNotFoundException(sprintf('El empleado no posee usuario o no se encuentra activo.', $name));
                             } else {
+
                                 return $user;
                             }
                         }
