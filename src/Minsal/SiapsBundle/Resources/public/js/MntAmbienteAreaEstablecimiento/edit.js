@@ -28,7 +28,7 @@ $(document).ready(function() {
             $('input[name="btn_guardar"]').hide();
             $('input[name="btn_guardar_otro"]').hide();
             $('#resultados').hide();
-            $.getJSON(Routing.generate('get_especialidades') + '?idAreaModEstab=' + $('#areas-modalidad').val(),
+            $.getJSON(Routing.generate('get_especialidades_hospitalizacion') + '?idAreaModEstab=' + $('#areas-modalidad').val(),
                     function(data) {
                         $.each(data.especialidades, function(indice, especialidad) {
                             $('select[id$="_idAtencion"]').append('<option value="' + especialidad.id + '">' + especialidad.nombre + '</option>');

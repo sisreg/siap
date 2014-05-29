@@ -9,7 +9,7 @@
                 var name = file.name;
                 var size = file.size;
                 var type = file.type;
-
+/*
                 if(type !== 'application/x-pkcs12') {
                     $(this).val('');
                     $('#fileInfo').val('');
@@ -33,9 +33,9 @@
                             }
                         }
                     });
-                } else {
+                } else {*/
                     $('#fileInfo').val($(this).val().replace("C:\\fakepath\\", ""));
-                }
+              //  }
             });
 
             {% if module is defined %}
