@@ -37,8 +37,8 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
         return new Response(json_encode($areas));
     }
 
-    /**
-     * @Route("/especialidades/get", name="get_especialidades", options={"expose"=true})
+     /**
+     * @Route("/especialidades/hospitalizacion/get", name="get_especialidades_hospitalizacion", options={"expose"=true})
      * @Method("GET")
      */
     public function getEspecialidadesHospitalizacionAction() {
@@ -49,13 +49,12 @@ class MntAmbienteAreaEstablecimientoController extends Controller {
                 FROM MinsalSiapsBundle:MntAtenAreaModEstab A
                 JOIN A.idAreaModEstab B
                 JOIN A.idAtencion C
-                WHERE A.idAreaModEstab = :idAreaModEstab 
+                WHERE B.id = $idAreaModEstab 
                         AND C.idTipoAtencion = 1
                         AND A.nombreAmbiente IS NULL";
-        $especialidades['especialidades'] = $em->createQuery($dql)
-                ->setParameter('idAreaModEstab', $idAreaModEstab)
+        $especialidades['especialidades']  = $em->createQuery($dql)
                 ->getArrayResult();
-
+ 
         return new Response(json_encode($especialidades));
     }
 
