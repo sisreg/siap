@@ -32,7 +32,7 @@ class CitTipocita
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -51,7 +51,7 @@ class CitTipocita
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -74,7 +74,7 @@ class CitTipocita
     /**
      * Get tipocita
      *
-     * @return string 
+     * @return string
      */
     public function getTipocita()
     {
@@ -97,7 +97,7 @@ class CitTipocita
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -107,10 +107,10 @@ class CitTipocita
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return CitTipocita
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -120,7 +120,7 @@ class CitTipocita
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {

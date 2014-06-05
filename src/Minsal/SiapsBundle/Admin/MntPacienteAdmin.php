@@ -35,16 +35,14 @@ class MntPacienteAdmin extends Admin {
                 ->add('fechaNacimiento', 'birthday', array(
                     'widget' => 'single_text', 'format' => 'dd-MM-yyyy'
                 /* 'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día') */                ))
-                ->add('horaNacimiento', null, array('empty_value' => array('hour' => 'Hora', 'minute' => 'Minutos'), 'required' => false))
-                ->add('idSexo', null, array('empty_value' => 'Seleccione...',
-                    'label' => 'Sexo'))
+                ->add('horaNacimiento', null, array('required' => false))
+                ->add('idSexo', null, array('label' => 'Sexo'))
                 ->add('numeroDocIdePaciente', null, array('label' => $this->getTranslator()->trans('numeroDocIdePaciente')))
                 ->add('direccion', null, array('required' => true, 'attr' => array('class' => 'span5 mayuscula')))
                 ->add('telefonoCasa', null, array('label' => $this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
                 ->add('lugarTrabajo', null, array('attr' => array('class' => 'span5 mayuscula')))
                 ->add('telefonoTrabajo', null, array('label' => 'Telefono Trabajo', 'attr' => array('class' => 'span5 telefono')))
-                ->add('idAreaCotizacion', null, array('empty_value' => 'Seleccione...',
-                    'label' => $this->getTranslator()->trans('idAreaCotizacion'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idAreaCotizacion', null, array('label' => $this->getTranslator()->trans('idAreaCotizacion'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('asegurado')
                 ->add('cotizante', null, array('attr' => array('class' => 'deshabilitados')))
                 ->add('numeroAfiliacion', null, array('attr' => array('class' => 'span5 deshabilitados')))
@@ -60,39 +58,28 @@ class MntPacienteAdmin extends Admin {
                 ->add('observacion', null, array('attr' => array('class' => 'span5 mayuscula')))
                 ->add('conocidoPor', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('areaGeograficaDomicilio', null, array('empty_value' => 'Seleccione...'))
-                ->add('idCantonDomicilio', null, array('empty_value' => 'Seleccione...',
-                    'label' => $this->getTranslator()->trans('idCantonDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
-                ->add('idDepartamentoDomicilio', null, array('empty_value' => 'Seleccione...',
+                ->add('idCantonDomicilio', null, array('label' => $this->getTranslator()->trans('idCantonDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idDepartamentoDomicilio', null, array(
                     'required' => false, 'label' => $this->getTranslator()->trans('idDepartamentoDomicilio')))
-                ->add('idDocPaciente', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idDocPaciente')))
-                ->add('idDocProporcionoDatos', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idDocProporcionoDatos')))
-                ->add('idDocResponsable', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idDocResponsable')))
-                ->add('idEstadoCivil', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idEstadoCivil')))
-                ->add('idMunicipioDomicilio', null, array('empty_value' => 'Seleccione...',
-                    'required' => false, 'label' => $this->getTranslator()->trans('idMunicipioDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
-                ->add('idDepartamentoNacimiento', null, array('empty_value' => 'Seleccione...',
-                    'label' => $this->getTranslator()->trans('idDepartamentoNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
-                ->add('idMunicipioNacimiento', null, array('empty_value' => 'Seleccione...',
-                    'label' => $this->getTranslator()->trans('idMunicipioNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idDocPaciente', null, array('required' => true, 'label' => $this->getTranslator()->trans('idDocPaciente')))
+                ->add('idDocProporcionoDatos', null, array('required' => true, 'label' => $this->getTranslator()->trans('idDocProporcionoDatos')))
+                ->add('idDocResponsable', null, array('required' => true, 'label' => $this->getTranslator()->trans('idDocResponsable')))
+                ->add('idEstadoCivil', null, array('required' => true, 'label' => $this->getTranslator()->trans('idEstadoCivil')))
+                ->add('idMunicipioDomicilio', null, array('required' => false, 'label' => $this->getTranslator()->trans('idMunicipioDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idDepartamentoNacimiento', null, array('label' => $this->getTranslator()->trans('idDepartamentoNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idMunicipioNacimiento', null, array('label' => $this->getTranslator()->trans('idMunicipioNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('idNacionalidad', null, array(
                     'label' => $this->getTranslator()->trans('idNacionalidad'),
                     'required' => true,
                     'preferred_choices' => array($nacionalidad)
                 ))
-                ->add('idOcupacion', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idOcupacion')))
+                ->add('idOcupacion', null, array('required' => true, 'label' => $this->getTranslator()->trans('idOcupacion')))
                 ->add('idPaisNacimiento', 'entity', array('required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento'),
                     'class' => 'MinsalSiapsBundle:CtlPais',
                     'preferred_choices' => array($elSalvador)
                 ))
-                ->add('idParentescoResponsable', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
-                ->add('idParentescoProporDatos', null, array('empty_value' => 'Seleccione...',
-                    'required' => true, 'label' => $this->getTranslator()->trans('idParentescoProporDatos')))
+                ->add('idParentescoResponsable', null, array('required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
+                ->add('idParentescoProporDatos', null, array('required' => true, 'label' => $this->getTranslator()->trans('idParentescoProporDatos')))
                 ->add('expedientes', 'sonata_type_collection', array(
                     'label' => 'Expedientes Clínicos',
                     'required' => true), array(

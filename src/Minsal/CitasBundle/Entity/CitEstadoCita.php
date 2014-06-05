@@ -39,7 +39,7 @@ class CitEstadoCita
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -58,7 +58,7 @@ class CitEstadoCita
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -81,7 +81,7 @@ class CitEstadoCita
     /**
      * Get estado
      *
-     * @return string 
+     * @return string
      */
     public function getEstado()
     {
@@ -104,7 +104,7 @@ class CitEstadoCita
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -127,7 +127,7 @@ class CitEstadoCita
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -137,10 +137,10 @@ class CitEstadoCita
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return CitEstadoCita
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -150,7 +150,7 @@ class CitEstadoCita
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {

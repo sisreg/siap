@@ -130,9 +130,9 @@ class MntEmpleado {
     private $idTipoEmpleado;
 
     /**
-     * @var \User
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -140,9 +140,9 @@ class MntEmpleado {
     private $idusuarioreg;
 
     /**
-     * @var \User
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuariomod", referencedColumnName="id")
      * })
@@ -155,14 +155,14 @@ class MntEmpleado {
      * @ORM\Column(name="fechahorareg", type="datetime")
      */
     private $fechahorareg;
-    
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechahoramod", type="datetime")
      */
     private $fechahoramod;
-    
+
      /**
      * @var string
      *
@@ -170,7 +170,7 @@ class MntEmpleado {
      */
     private $nombreempleado;
 
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="MntAtenAreaModEstab")
      * @ORM\JoinTable(name="mnt_empleado_especialidad_estab",
@@ -179,7 +179,7 @@ class MntEmpleado {
      *      )
      */
     private $especialidadesEstab;
-    
+
      /**
      * @ORM\ManyToMany(targetEntity="CtlAtencion")
      * @ORM\JoinTable(name="mnt_empleado_especialidad",
@@ -192,7 +192,7 @@ class MntEmpleado {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -215,7 +215,7 @@ class MntEmpleado {
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -238,7 +238,7 @@ class MntEmpleado {
     /**
      * Get apellido
      *
-     * @return string 
+     * @return string
      */
     public function getApellido()
     {
@@ -261,7 +261,7 @@ class MntEmpleado {
     /**
      * Get fechaNacimiento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaNacimiento()
     {
@@ -284,7 +284,7 @@ class MntEmpleado {
     /**
      * Get dui
      *
-     * @return string 
+     * @return string
      */
     public function getDui()
     {
@@ -307,7 +307,7 @@ class MntEmpleado {
     /**
      * Get numeroJuntaVigilancia
      *
-     * @return string 
+     * @return string
      */
     public function getNumeroJuntaVigilancia()
     {
@@ -330,7 +330,7 @@ class MntEmpleado {
     /**
      * Get numeroCelular
      *
-     * @return string 
+     * @return string
      */
     public function getNumeroCelular()
     {
@@ -353,7 +353,7 @@ class MntEmpleado {
     /**
      * Get correoElectronico
      *
-     * @return string 
+     * @return string
      */
     public function getCorreoElectronico()
     {
@@ -376,7 +376,7 @@ class MntEmpleado {
     /**
      * Get correlativo
      *
-     * @return integer 
+     * @return integer
      */
     public function getCorrelativo()
     {
@@ -399,7 +399,7 @@ class MntEmpleado {
     /**
      * Get codigoFarmacia
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoFarmacia()
     {
@@ -422,7 +422,7 @@ class MntEmpleado {
     /**
      * Get habilitadoFarmacia
      *
-     * @return string 
+     * @return string
      */
     public function getHabilitadoFarmacia()
     {
@@ -445,7 +445,7 @@ class MntEmpleado {
     /**
      * Get firmaDigital
      *
-     * @return string 
+     * @return string
      */
     public function getFirmaDigital()
     {
@@ -468,7 +468,7 @@ class MntEmpleado {
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -491,7 +491,7 @@ class MntEmpleado {
     /**
      * Get fechahoramod
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahoramod()
     {
@@ -514,7 +514,7 @@ class MntEmpleado {
     /**
      * Get nombreempleado
      *
-     * @return string 
+     * @return string
      */
     public function getNombreempleado()
     {
@@ -537,7 +537,7 @@ class MntEmpleado {
     /**
      * Get idCargoEmpleado
      *
-     * @return \Minsal\SiapsBundle\Entity\MntCargoEmpleado 
+     * @return \Minsal\SiapsBundle\Entity\MntCargoEmpleado
      */
     public function getIdCargoEmpleado()
     {
@@ -560,7 +560,7 @@ class MntEmpleado {
     /**
      * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimiento()
     {
@@ -583,7 +583,7 @@ class MntEmpleado {
     /**
      * Get idTipoEmpleado
      *
-     * @return \Minsal\SiapsBundle\Entity\MntTipoEmpleado 
+     * @return \Minsal\SiapsBundle\Entity\MntTipoEmpleado
      */
     public function getIdTipoEmpleado()
     {
@@ -593,10 +593,10 @@ class MntEmpleado {
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return MntEmpleado
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -606,7 +606,7 @@ class MntEmpleado {
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -616,10 +616,10 @@ class MntEmpleado {
     /**
      * Set idusuariomod
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuariomod
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuariomod
      * @return MntEmpleado
      */
-    public function setIdusuariomod(\Minsal\SiapsBundle\Entity\User $idusuariomod = null)
+    public function setIdusuariomod(\Application\Sonata\UserBundle\Entity\User $idusuariomod = null)
     {
         $this->idusuariomod = $idusuariomod;
 
@@ -629,17 +629,17 @@ class MntEmpleado {
     /**
      * Get idusuariomod
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuariomod()
     {
         return $this->idusuariomod;
     }
-    
+
     public function __toString() {
         return $this->nombreempleado?:'';
     }
-  
+
     /**
      * Constructor
      */
@@ -675,7 +675,7 @@ class MntEmpleado {
     /**
      * Get especialidadesEstab
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEspecialidadesEstab()
     {
@@ -708,7 +708,7 @@ class MntEmpleado {
     /**
      * Get especialidadesMedico
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEspecialidadesMedico()
     {

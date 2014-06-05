@@ -28,7 +28,7 @@ class UserAdmin extends BaseUserAdmin {
                 $query = $this
                         ->modelManager
                         ->getEntityManager('ApplicationSonataUserBundle:Group')
-                        ->createQuery(" 
+                        ->createQuery("
                             SELECT g
                             FROM ApplicationSonataUserBundle:Group g
                             WHERE g.name LIKE '%$nombre%'");
@@ -42,7 +42,7 @@ class UserAdmin extends BaseUserAdmin {
                 $query = $this
                         ->modelManager
                         ->getEntityManager('ApplicationSonataUserBundle:Group')
-                        ->createQuery(" 
+                        ->createQuery("
                             SELECT g
                             FROM ApplicationSonataUserBundle:Group g
                             WHERE g.name LIKE '%$nombre%'");
@@ -51,7 +51,7 @@ class UserAdmin extends BaseUserAdmin {
             $query = $this
                     ->modelManager
                     ->getEntityManager('ApplicationSonataUserBundle:Group')
-                    ->createQuery(" 
+                    ->createQuery("
                             SELECT g
                             FROM ApplicationSonataUserBundle:Group g");
         }
@@ -140,13 +140,13 @@ class UserAdmin extends BaseUserAdmin {
     }
 
     /*
-     * DESCRIPCIÓN: Función que se realiza despues de ingresar el usuario. Si es 
+     * DESCRIPCIÓN: Función que se realiza despues de ingresar el usuario. Si es
      * un usuario del módulo 1 creara un empleado y se lo agregara al usuario.
      * ANALISTA PROGRAMADOR: Karen Peñate
      */
 
     public function postPersist($usuario) {
-        
+
         if($usuario->hasGroup('Modulo1Hos') || $usuario->hasGroup('Modulo1HosAdmin') || $usuario->hasGroup('Modulo1Us') || $usuario->hasGroup('Modulo1UsAdmin')){
             $empleado=new MntEmpleado();
             $empleado->setApellido($usuario->getLastName());
@@ -159,7 +159,7 @@ class UserAdmin extends BaseUserAdmin {
             $this->getModelManager()->create($empleado);
             $usuario->setIdEmpleado($empleado);
         }
-        
+
     }
 
 }

@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Doctrine\ORM\EntityRepository;
-use Minsal\SiapsBundle\Entity\User;
+use Application\Sonata\UserBundle\Entity\User;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 class MntEmpleadoAdmin extends Admin {
@@ -172,7 +172,7 @@ class MntEmpleadoAdmin extends Admin {
                 $primero.=$firstname[$i];
                 $username = strtolower($primero . $primerA);
                 $valor = $this->getModelManager()
-                        ->findOneBy('MinsalSiapsBundle:User', array('username' => $username));
+                        ->findOneBy('ApplicationSonataUserBundle:User', array('username' => $username));
                 if (count($valor) == 0)
                     $bandera = true;
                 else

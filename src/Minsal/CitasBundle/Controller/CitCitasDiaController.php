@@ -101,7 +101,7 @@ class CitCitasDiaController extends Controller  {
         $sql = "SELECT TO_CHAR(t01.date, 'YYYY/MM/DD') AS date,
                        COALESCE(t02.distribucion, 0) AS distribucion
                 FROM (
-                      SELECT serie::date AS date, EXTRACT(DOW FROM serie)+1 AS DOW
+                      SELECT serie::date AS date, EXTRACT(DOW FROM serie) AS DOW
                       FROM generate_series ('$lowerLimit'::timestamp, '$upperLimit'::timestamp, '1 day'::interval) serie) t01
                 LEFT OUTER JOIN (
                       SELECT yrs, mes, dia, COUNT(*) AS distribucion FROM  cit_distribucion
@@ -110,7 +110,7 @@ class CitCitasDiaController extends Controller  {
                             AND id_area_mod_estab = :idAreaModEstab
                       GROUP BY yrs, mes, dia) t02 ON (t02.yrs = EXTRACT(YEAR FROM t01.date::timestamp)
                                   AND t02.mes = EXTRACT(MONTH FROM t01.date::timestamp)
-                                  AND t02.dia = EXTRACT(DOW FROM t01.date::timestamp)+1) ORDER BY date";
+                                  AND t02.dia = EXTRACT(DOW FROM t01.date::timestamp)) ORDER BY date";
         
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idEmpleado',   $idEmpleado);

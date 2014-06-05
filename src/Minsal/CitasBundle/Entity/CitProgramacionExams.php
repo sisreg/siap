@@ -52,7 +52,7 @@ class CitProgramacionExams
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -81,7 +81,7 @@ class CitProgramacionExams
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -104,7 +104,7 @@ class CitProgramacionExams
     /**
      * Get rangotiempoprev
      *
-     * @return integer 
+     * @return integer
      */
     public function getRangotiempoprev()
     {
@@ -127,7 +127,7 @@ class CitProgramacionExams
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -150,7 +150,7 @@ class CitProgramacionExams
     /**
      * Get idAtenAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
      */
     public function getIdAtenAreaModEstab()
     {
@@ -173,7 +173,7 @@ class CitProgramacionExams
     /**
      * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimiento()
     {
@@ -183,10 +183,10 @@ class CitProgramacionExams
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return CitProgramacionExams
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -196,7 +196,7 @@ class CitProgramacionExams
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -219,7 +219,7 @@ class CitProgramacionExams
     /**
      * Get idExamenEstablecimiento
      *
-     * @return \Minsal\CitasBundle\Entity\LabExamenesxestablecimiento 
+     * @return \Minsal\CitasBundle\Entity\LabExamenesxestablecimiento
      */
     public function getIdExamenEstablecimiento()
     {

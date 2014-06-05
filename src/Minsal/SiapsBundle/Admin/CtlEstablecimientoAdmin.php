@@ -68,12 +68,12 @@ class CtlEstablecimientoAdmin extends Admin {
     public function preUpdate($establecimiento) {
         $establecimiento->setConfigurado(true);
         $usuariosAdministradores = $this->getModelManager()
-                ->getEntityManager('MinsalSiapsBundle:User')
+                    ->getEntityManager('ApplicationSonataUserBundle:User')
                 ->createQuery("
                     SELECT u,G
-                    FROM MinsalSiapsBundle:User u
+                    FROM ApplicationSonataUserBundle:User u
                     LEFT JOIN u.groups G
-                    WHERE u.username LIKE '_%admin' 
+                    WHERE u.username LIKE '_%admin'
                             OR G.name LIKE '%Admin'")
                 ->getResult();
         foreach ($usuariosAdministradores as $usuario) {

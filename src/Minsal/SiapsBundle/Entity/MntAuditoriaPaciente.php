@@ -22,7 +22,7 @@ class MntAuditoriaPaciente
      * @ORM\SequenceGenerator(sequenceName="mnt_paciente_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
-    
+
      /**
      * @var \mntPaciente
      *
@@ -94,7 +94,7 @@ class MntAuditoriaPaciente
      * @ORM\Column(name="hora_nacimiento", type="time", nullable=true)
      */
     private $horaNacimiento;
- 
+
     /**
      * @var \CtlDepartamento
      *
@@ -104,7 +104,7 @@ class MntAuditoriaPaciente
      * })
      */
     private $idDepartamentoDomicilio;
-    
+
     /**
      * @var \CtlMunicipio
      *
@@ -114,7 +114,7 @@ class MntAuditoriaPaciente
      * })
      */
     private $idMunicipioDomicilio;
-    
+
     /**
      * @var \CtlCanton
      *
@@ -124,7 +124,7 @@ class MntAuditoriaPaciente
      * })
      */
     private $idCantonDomicilio;
-      
+
     /**
      * @var \CtlAreaGeografica
      *
@@ -200,7 +200,7 @@ class MntAuditoriaPaciente
      * })
      */
     private $idUser;
-    
+
         /**
      * @var \ctlEstablecimiento
      *
@@ -210,12 +210,12 @@ class MntAuditoriaPaciente
      * })
      */
     private $idEstablecimiento;
-    
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -231,14 +231,14 @@ class MntAuditoriaPaciente
     public function setPrimerNombre($primerNombre)
     {
         $this->primerNombre = $primerNombre;
-    
+
         return $this;
     }
 
     /**
      * Get primerNombre
      *
-     * @return string 
+     * @return string
      */
     public function getPrimerNombre()
     {
@@ -254,14 +254,14 @@ class MntAuditoriaPaciente
     public function setSegundoNombre($segundoNombre)
     {
         $this->segundoNombre = $segundoNombre;
-    
+
         return $this;
     }
 
     /**
      * Get segundoNombre
      *
-     * @return string 
+     * @return string
      */
     public function getSegundoNombre()
     {
@@ -277,14 +277,14 @@ class MntAuditoriaPaciente
     public function setTercerNombre($tercerNombre)
     {
         $this->tercerNombre = $tercerNombre;
-    
+
         return $this;
     }
 
     /**
      * Get tercerNombre
      *
-     * @return string 
+     * @return string
      */
     public function getTercerNombre()
     {
@@ -300,14 +300,14 @@ class MntAuditoriaPaciente
     public function setPrimerApellido($primerApellido)
     {
         $this->primerApellido = $primerApellido;
-    
+
         return $this;
     }
 
     /**
      * Get primerApellido
      *
-     * @return string 
+     * @return string
      */
     public function getPrimerApellido()
     {
@@ -323,14 +323,14 @@ class MntAuditoriaPaciente
     public function setSegundoApellido($segundoApellido)
     {
         $this->segundoApellido = $segundoApellido;
-    
+
         return $this;
     }
 
     /**
      * Get segundoApellido
      *
-     * @return string 
+     * @return string
      */
     public function getSegundoApellido()
     {
@@ -346,14 +346,14 @@ class MntAuditoriaPaciente
     public function setApellidoCasada($apellidoCasada)
     {
         $this->apellidoCasada = $apellidoCasada;
-    
+
         return $this;
     }
 
     /**
      * Get apellidoCasada
      *
-     * @return string 
+     * @return string
      */
     public function getApellidoCasada()
     {
@@ -369,14 +369,14 @@ class MntAuditoriaPaciente
     public function setFechaNacimiento($fechaNacimiento)
     {
         $this->fechaNacimiento = $fechaNacimiento;
-    
+
         return $this;
     }
 
     /**
      * Get fechaNacimiento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaNacimiento()
     {
@@ -392,14 +392,14 @@ class MntAuditoriaPaciente
     public function setHoraNacimiento($horaNacimiento)
     {
         $this->horaNacimiento = $horaNacimiento;
-    
+
         return $this;
     }
 
     /**
      * Get horaNacimiento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHoraNacimiento()
     {
@@ -415,14 +415,14 @@ class MntAuditoriaPaciente
     public function setDireccion($direccion)
     {
         $this->direccion = $direccion;
-    
+
         return $this;
     }
 
     /**
      * Get direccion
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -438,14 +438,14 @@ class MntAuditoriaPaciente
     public function setNombrePadre($nombrePadre)
     {
         $this->nombrePadre = $nombrePadre;
-    
+
         return $this;
     }
 
     /**
      * Get nombrePadre
      *
-     * @return string 
+     * @return string
      */
     public function getNombrePadre()
     {
@@ -461,14 +461,14 @@ class MntAuditoriaPaciente
     public function setNombreMadre($nombreMadre)
     {
         $this->nombreMadre = $nombreMadre;
-    
+
         return $this;
     }
 
     /**
      * Get nombreMadre
      *
-     * @return string 
+     * @return string
      */
     public function getNombreMadre()
     {
@@ -484,14 +484,14 @@ class MntAuditoriaPaciente
     public function setNombreResponsable($nombreResponsable)
     {
         $this->nombreResponsable = $nombreResponsable;
-    
+
         return $this;
     }
 
     /**
      * Get nombreResponsable
      *
-     * @return string 
+     * @return string
      */
     public function getNombreResponsable()
     {
@@ -507,14 +507,14 @@ class MntAuditoriaPaciente
     public function setObservacion($observacion)
     {
         $this->observacion = $observacion;
-    
+
         return $this;
     }
 
     /**
      * Get observacion
      *
-     * @return string 
+     * @return string
      */
     public function getObservacion()
     {
@@ -530,14 +530,14 @@ class MntAuditoriaPaciente
     public function setFechaModificacion($fechaModificacion)
     {
         $this->fechaModificacion = $fechaModificacion;
-    
+
         return $this;
     }
 
     /**
      * Get fechaModificacion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaModificacion()
     {
@@ -553,14 +553,14 @@ class MntAuditoriaPaciente
     public function setIdPaciente(\Minsal\SiapsBundle\Entity\MntPaciente $idPaciente = null)
     {
         $this->idPaciente = $idPaciente;
-    
+
         return $this;
     }
 
     /**
      * Get idPaciente
      *
-     * @return \Minsal\SiapsBundle\Entity\MntPaciente 
+     * @return \Minsal\SiapsBundle\Entity\MntPaciente
      */
     public function getIdPaciente()
     {
@@ -576,14 +576,14 @@ class MntAuditoriaPaciente
     public function setIdDepartamentoDomicilio(\Minsal\SiapsBundle\Entity\CtlDepartamento $idDepartamentoDomicilio = null)
     {
         $this->idDepartamentoDomicilio = $idDepartamentoDomicilio;
-    
+
         return $this;
     }
 
     /**
      * Get idDepartamentoDomicilio
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlDepartamento 
+     * @return \Minsal\SiapsBundle\Entity\CtlDepartamento
      */
     public function getIdDepartamentoDomicilio()
     {
@@ -599,14 +599,14 @@ class MntAuditoriaPaciente
     public function setIdMunicipioDomicilio(\Minsal\SiapsBundle\Entity\CtlMunicipio $idMunicipioDomicilio)
     {
         $this->idMunicipioDomicilio = $idMunicipioDomicilio;
-    
+
         return $this;
     }
 
     /**
      * Get idMunicipioDomicilio
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlMunicipio 
+     * @return \Minsal\SiapsBundle\Entity\CtlMunicipio
      */
     public function getIdMunicipioDomicilio()
     {
@@ -622,14 +622,14 @@ class MntAuditoriaPaciente
     public function setIdCantonDomicilio(\Minsal\SiapsBundle\Entity\CtlCanton $idCantonDomicilio = null)
     {
         $this->idCantonDomicilio = $idCantonDomicilio;
-    
+
         return $this;
     }
 
     /**
      * Get idCantonDomicilio
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlCanton 
+     * @return \Minsal\SiapsBundle\Entity\CtlCanton
      */
     public function getIdCantonDomicilio()
     {
@@ -645,14 +645,14 @@ class MntAuditoriaPaciente
     public function setAreaGeograficaDomicilio(\Minsal\SiapsBundle\Entity\CtlAreaGeografica $areaGeograficaDomicilio)
     {
         $this->areaGeograficaDomicilio = $areaGeograficaDomicilio;
-    
+
         return $this;
     }
 
     /**
      * Get areaGeograficaDomicilio
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlAreaGeografica 
+     * @return \Minsal\SiapsBundle\Entity\CtlAreaGeografica
      */
     public function getAreaGeograficaDomicilio()
     {
@@ -668,14 +668,14 @@ class MntAuditoriaPaciente
     public function setIdSexo(\Minsal\SiapsBundle\Entity\CtlSexo $idSexo)
     {
         $this->idSexo = $idSexo;
-    
+
         return $this;
     }
 
     /**
      * Get idSexo
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlSexo 
+     * @return \Minsal\SiapsBundle\Entity\CtlSexo
      */
     public function getIdSexo()
     {
@@ -685,20 +685,20 @@ class MntAuditoriaPaciente
     /**
      * Set idUser
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idUser
+     * @param \Application\Sonata\UserBundle\Entity\User $idUser
      * @return MntAuditoriaPaciente
      */
-    public function setIdUser(\Minsal\SiapsBundle\Entity\User $idUser)
+    public function setIdUser(\Application\Sonata\UserBundle\Entity\User $idUser)
     {
         $this->idUser = $idUser;
-    
+
         return $this;
     }
 
     /**
      * Get idUser
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdUser()
     {
@@ -714,14 +714,14 @@ class MntAuditoriaPaciente
     public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\ctlEstablecimiento $idEstablecimiento)
     {
         $this->idEstablecimiento = $idEstablecimiento;
-    
+
         return $this;
     }
 
     /**
      * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\ctlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\ctlEstablecimiento
      */
     public function getIdEstablecimiento()
     {

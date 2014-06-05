@@ -46,7 +46,7 @@ class SecSolicitudestudios {
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -134,7 +134,7 @@ class SecSolicitudestudios {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -157,7 +157,7 @@ class SecSolicitudestudios {
     /**
      * Get idHistorialClinico
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdHistorialClinico()
     {
@@ -180,7 +180,7 @@ class SecSolicitudestudios {
     /**
      * Get estado
      *
-     * @return string 
+     * @return string
      */
     public function getEstado()
     {
@@ -203,7 +203,7 @@ class SecSolicitudestudios {
     /**
      * Get fechaSolicitud
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaSolicitud()
     {
@@ -226,7 +226,7 @@ class SecSolicitudestudios {
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -249,7 +249,7 @@ class SecSolicitudestudios {
     /**
      * Get impresiones
      *
-     * @return integer 
+     * @return integer
      */
     public function getImpresiones()
     {
@@ -272,7 +272,7 @@ class SecSolicitudestudios {
     /**
      * Get cama
      *
-     * @return integer 
+     * @return integer
      */
     public function getCama()
     {
@@ -295,7 +295,7 @@ class SecSolicitudestudios {
     /**
      * Get idTipoSolicitud
      *
-     * @return string 
+     * @return string
      */
     public function getIdTipoSolicitud()
     {
@@ -305,10 +305,10 @@ class SecSolicitudestudios {
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return SecSolicitudestudios
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -318,7 +318,7 @@ class SecSolicitudestudios {
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -341,7 +341,7 @@ class SecSolicitudestudios {
     /**
      * Get idAtencion
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlAtencion 
+     * @return \Minsal\SiapsBundle\Entity\CtlAtencion
      */
     public function getIdAtencion()
     {
@@ -364,7 +364,7 @@ class SecSolicitudestudios {
     /**
      * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimiento()
     {
@@ -387,7 +387,7 @@ class SecSolicitudestudios {
     /**
      * Get idnumeroexp
      *
-     * @return \Minsal\SiapsBundle\Entity\MntExpediente 
+     * @return \Minsal\SiapsBundle\Entity\MntExpediente
      */
     public function getIdnumeroexp()
     {
@@ -410,7 +410,7 @@ class SecSolicitudestudios {
     /**
      * Get idEstablecimientoExterno
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimientoExterno()
     {
@@ -433,7 +433,7 @@ class SecSolicitudestudios {
     /**
      * Get idExpediente
      *
-     * @return \Minsal\SiapsBundle\Entity\MntExpediente 
+     * @return \Minsal\SiapsBundle\Entity\MntExpediente
      */
     public function getIdExpediente()
     {

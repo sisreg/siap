@@ -42,7 +42,7 @@ class CitCitasDia
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -139,7 +139,7 @@ class CitCitasDia
      * })
      */
     private $idTipocita;
-    
+
     /**
      * @var \Minsal\SiapsBundle\MntRangohora
      *
@@ -149,7 +149,7 @@ class CitCitasDia
      * })
      */
     private $idRangohora;
-    
+
     /**
      * @var \Minsal\SiapsBundle\MntAreaModEstab
      *
@@ -165,7 +165,7 @@ class CitCitasDia
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -188,7 +188,7 @@ class CitCitasDia
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -211,7 +211,7 @@ class CitCitasDia
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -234,7 +234,7 @@ class CitCitasDia
     /**
      * Get ipcita
      *
-     * @return string 
+     * @return string
      */
     public function getIpcita()
     {
@@ -257,7 +257,7 @@ class CitCitasDia
     /**
      * Get ipconfirmado
      *
-     * @return string 
+     * @return string
      */
     public function getIpconfirmado()
     {
@@ -280,7 +280,7 @@ class CitCitasDia
     /**
      * Get idAtenAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
      */
     public function getIdAtenAreaModEstab()
     {
@@ -290,10 +290,10 @@ class CitCitasDia
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return CitCitasDia
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -303,7 +303,7 @@ class CitCitasDia
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -326,7 +326,7 @@ class CitCitasDia
     /**
      * Get idEmpleado
      *
-     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado
      */
     public function getIdEmpleado()
     {
@@ -349,7 +349,7 @@ class CitCitasDia
     /**
      * Get idExpediente
      *
-     * @return \Minsal\SiapsBundle\Entity\MntExpediente 
+     * @return \Minsal\SiapsBundle\Entity\MntExpediente
      */
     public function getIdExpediente()
     {
@@ -372,7 +372,7 @@ class CitCitasDia
     /**
      * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimiento()
     {
@@ -395,7 +395,7 @@ class CitCitasDia
     /**
      * Get idEstablecimientoReferencia
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimientoReferencia()
     {
@@ -418,7 +418,7 @@ class CitCitasDia
     /**
      * Get idEstado
      *
-     * @return \Minsal\CitasBundle\Entity\CitEstadoCita 
+     * @return \Minsal\CitasBundle\Entity\CitEstadoCita
      */
     public function getIdEstado()
     {
@@ -441,7 +441,7 @@ class CitCitasDia
     /**
      * Get idMotivo
      *
-     * @return \Minsal\CitasBundle\Entity\CitMotivoagregados 
+     * @return \Minsal\CitasBundle\Entity\CitMotivoagregados
      */
     public function getIdMotivo()
     {
@@ -464,13 +464,13 @@ class CitCitasDia
     /**
      * Get idTipocita
      *
-     * @return \Minsal\CitasBundle\Entity\CitTipocita 
+     * @return \Minsal\CitasBundle\Entity\CitTipocita
      */
     public function getIdTipocita()
     {
         return $this->idTipocita;
     }
-    
+
     /**
      * Set idRangohora
      *
@@ -487,7 +487,7 @@ class CitCitasDia
     /**
      * Get idRangohora
      *
-     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora
      */
     public function getIdRangohora()
     {
@@ -510,7 +510,7 @@ class CitCitasDia
     /**
      * Get idAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab
      */
     public function getIdAreaModEstab()
     {

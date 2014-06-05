@@ -1,7 +1,6 @@
-#REDIRIGIR AUTOMATICAMENTE AL LOGIN AL ESCRIBIR EL NOMBRE DE DOMINIO
-_inicio:
-    pattern:  /
-    defaults: { _controller: SonataAdminBundle:Core:dashboard }
+#_inicio:
+    #pattern:  /
+    #defaults: { _controller: SonataAdminBundle:Core:dashboard }
 
 root:
     pattern: /
@@ -9,6 +8,7 @@ root:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path:  /admin/login
         permanent: true
+
 #BLOQUE MINSAL BUNDLES
 minsal_siaps:
     resource: "@MinsalSiapsBundle/Controller/"
@@ -25,33 +25,7 @@ minsal_citas:
     type:     annotation
     prefix:   /
 
-#FOSUSERBUNDLE   
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
-sonata_user_profile:
-    resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
-    prefix: /profile
-
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
-
-fos_user_resetting:
-    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
-
-fos_user_change_password:
-    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
-#PARA SONATAADMINBUNDLE
-sonata_page_cache:
-    resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'
-    prefix: /
-
+# Sonata AdminBundle
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin
@@ -61,9 +35,37 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
+# Sonata CacheBundle
+sonata_cache_cache:
+    resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'
+    prefix: /
+
+# Sonata UserBundle
+sonata_user_security:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
+
+sonata_user_resetting:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
+    prefix: /resetting
+
+sonata_user_profile:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
+    prefix: /profile
+
+sonata_user_register:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
+    prefix: /register
+
+sonata_user_change_password:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
+    prefix: /profile
+
 sonata_user:
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
     prefix: /admin
 
 adesigns_calendar:
-  resource: "@ADesignsCalendarBundle/Resources/config/routing.xml" 
+    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

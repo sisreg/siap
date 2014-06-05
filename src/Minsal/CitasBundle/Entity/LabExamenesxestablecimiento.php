@@ -98,7 +98,7 @@ class LabExamenesxestablecimiento
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -115,7 +115,7 @@ class LabExamenesxestablecimiento
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuariomod", referencedColumnName="id")
      * })
@@ -146,7 +146,7 @@ class LabExamenesxestablecimiento
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -169,7 +169,7 @@ class LabExamenesxestablecimiento
     /**
      * Get idexam
      *
-     * @return string 
+     * @return string
      */
     public function getIdexam()
     {
@@ -192,7 +192,7 @@ class LabExamenesxestablecimiento
     /**
      * Get condicion
      *
-     * @return string 
+     * @return string
      */
     public function getCondicion()
     {
@@ -215,7 +215,7 @@ class LabExamenesxestablecimiento
     /**
      * Get idformulario
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdformulario()
     {
@@ -238,7 +238,7 @@ class LabExamenesxestablecimiento
     /**
      * Get idestandarrep
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdestandarrep()
     {
@@ -261,7 +261,7 @@ class LabExamenesxestablecimiento
     /**
      * Get urgente
      *
-     * @return integer 
+     * @return integer
      */
     public function getUrgente()
     {
@@ -284,7 +284,7 @@ class LabExamenesxestablecimiento
     /**
      * Get idplanilla
      *
-     * @return string 
+     * @return string
      */
     public function getIdplanilla()
     {
@@ -307,7 +307,7 @@ class LabExamenesxestablecimiento
     /**
      * Get impresion
      *
-     * @return string 
+     * @return string
      */
     public function getImpresion()
     {
@@ -330,7 +330,7 @@ class LabExamenesxestablecimiento
     /**
      * Get ubicacion
      *
-     * @return integer 
+     * @return integer
      */
     public function getUbicacion()
     {
@@ -353,7 +353,7 @@ class LabExamenesxestablecimiento
     /**
      * Get codigosumi
      *
-     * @return string 
+     * @return string
      */
     public function getCodigosumi()
     {
@@ -376,7 +376,7 @@ class LabExamenesxestablecimiento
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -399,7 +399,7 @@ class LabExamenesxestablecimiento
     /**
      * Get fechahoramod
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahoramod()
     {
@@ -422,7 +422,7 @@ class LabExamenesxestablecimiento
     /**
      * Get habilitado
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getHabilitado()
     {
@@ -445,7 +445,7 @@ class LabExamenesxestablecimiento
     /**
      * Get idExamen
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdExamen()
     {
@@ -468,7 +468,7 @@ class LabExamenesxestablecimiento
     /**
      * Get idestablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdestablecimiento()
     {
@@ -478,10 +478,10 @@ class LabExamenesxestablecimiento
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return LabExamenesxestablecimiento
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -491,7 +491,7 @@ class LabExamenesxestablecimiento
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -501,10 +501,10 @@ class LabExamenesxestablecimiento
     /**
      * Set idusuariomod
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuariomod
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuariomod
      * @return LabExamenesxestablecimiento
      */
-    public function setIdusuariomod(\Minsal\SiapsBundle\Entity\User $idusuariomod = null)
+    public function setIdusuariomod(\Application\Sonata\UserBundle\Entity\User $idusuariomod = null)
     {
         $this->idusuariomod = $idusuariomod;
 
@@ -514,7 +514,7 @@ class LabExamenesxestablecimiento
     /**
      * Get idusuariomod
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuariomod()
     {

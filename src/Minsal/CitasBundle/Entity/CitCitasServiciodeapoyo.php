@@ -42,7 +42,7 @@ class CitCitasServiciodeapoyo
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -71,7 +71,7 @@ class CitCitasServiciodeapoyo
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -94,7 +94,7 @@ class CitCitasServiciodeapoyo
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -117,7 +117,7 @@ class CitCitasServiciodeapoyo
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -140,7 +140,7 @@ class CitCitasServiciodeapoyo
     /**
      * Get idSolicitudestudios
      *
-     * @return \Minsal\SeguimientoBundle\Entity\SecSolicitudestudios 
+     * @return \Minsal\SeguimientoBundle\Entity\SecSolicitudestudios
      */
     public function getIdSolicitudestudios()
     {
@@ -150,10 +150,10 @@ class CitCitasServiciodeapoyo
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return CitCitasServiciodeapoyo
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -163,7 +163,7 @@ class CitCitasServiciodeapoyo
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -186,7 +186,7 @@ class CitCitasServiciodeapoyo
     /**
      * Get idDetallesolicitudestudios
      *
-     * @return \Minsal\SeguimientoBundle\Entity\SecDetallesolicitudestudios 
+     * @return \Minsal\SeguimientoBundle\Entity\SecDetallesolicitudestudios
      */
     public function getIdDetallesolicitudestudios()
     {

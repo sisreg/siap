@@ -113,7 +113,7 @@ class GeneralesController extends Controller {
      */
     public function getPaisesHabilitadosAction() {
         $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT p 
+        $dql = "SELECT p
                 FROM MinsalSiapsBundle:CtlPais p
                 WHERE p.activo = TRUE
                 ORDER BY p.nombre";
@@ -155,16 +155,16 @@ class GeneralesController extends Controller {
      * @Route("/usuarios/archivos/get", name="obtener_usuarios_archivo", options={"expose"=true})
      */
     public function getUsuariosArchivosAction() {
-        
+
         $em = $this->getDoctrine()->getManager();
         $establecimiento = $em->getRepository("MinsalSiapsBundle:CtlEstablecimiento")->obtenerEstablecimientoConfigurado();
         if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1)
             $restriccion = 'Hos';
         else
             $restriccion = 'Us';
-        
-        $dql = "SELECT u 
-                FROM MinsalSiapsBundle:User u
+
+        $dql = "SELECT u
+                FROM ApplicationSonataUserBundle:User u
                 JOIN u.groups g
                 WHERE g.name LIKE '%$restriccion%' AND u.id !=3";
 
@@ -195,10 +195,10 @@ class GeneralesController extends Controller {
 
         if($session->get('_moduleSelection') !== null && $codigoEmpleado == 'MED') {
             if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
-                
+
                 $idEmpleado        = $user->getIdEmpleado()->getId();
                 $idEstablecimiento = $user->getIdEmpleado()->getIdEstablecimiento()->getId();
-                
+
                 $dql = "SELECT t02.id as idAtenAreaModEstab, t03.nombre as mombreAtenAreaModEstab
                         FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab      t01
                         INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab         t02 WITH (t02.id = t01.idAtenAreaModEstab)
@@ -209,7 +209,7 @@ class GeneralesController extends Controller {
                         INNER JOIN MinsalSiapsBundle:CtlModalidad                t07 WITH (t07.id = t06.idModalidad)
                         INNER JOIN MinsalSiapsBundle:MntEmpleado                 t08 WITH (t08.id = t01.idEmpleado)
                         INNER JOIN MinsalSiapsBundle:MntTipoEmpleado             t09 WITH (t09.id = t08.idTipoEmpleado)
-                        WHERE t01.idEmpleado = :idEmpleado 
+                        WHERE t01.idEmpleado = :idEmpleado
                             AND t02.idEstablecimiento = :idEstablecimiento
                             AND LOWER(t05.nombre) = :nomAreaAtencion
                             AND LOWER(t07.nombre) = :nomModalidad
@@ -229,13 +229,14 @@ class GeneralesController extends Controller {
                         $response =  $this->render(
                                                     'MinsalSiapsBundle::ServicioMedicoEstablecimiento.html.twig', array(
                                                         'user'              => $user,
-                                                        'empEspecialidades' => $empEspecialidades
+                                                        'empEspecialidades' => $empEspecialidades,
+                                                        'admin_pool'        => $this->container->get('sonata.admin.pool')
                                             ));
                     } else {
                         $session->set('_idEmpEspecialidadEstab', $empEspecialidades[0]['idAtenAreaModEstab']);
                         $session->set('_nombreEmpEspecialidadEstab', $empEspecialidades[0]['mombreAtenAreaModEstab']);
                     }
-                }   
+                }
             }
         }
 

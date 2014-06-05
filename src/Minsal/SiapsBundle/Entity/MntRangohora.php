@@ -77,7 +77,7 @@ class MntRangohora
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -100,7 +100,7 @@ class MntRangohora
     /**
      * Get horaIni
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHoraIni()
     {
@@ -123,7 +123,7 @@ class MntRangohora
     /**
      * Get horaFin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHoraFin()
     {
@@ -146,7 +146,7 @@ class MntRangohora
     /**
      * Get modulo
      *
-     * @return string 
+     * @return string
      */
     public function getModulo()
     {
@@ -169,7 +169,7 @@ class MntRangohora
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -192,7 +192,7 @@ class MntRangohora
     /**
      * Get meridianoini
      *
-     * @return string 
+     * @return string
      */
     public function getMeridianoini()
     {
@@ -215,7 +215,7 @@ class MntRangohora
     /**
      * Get meridianofin
      *
-     * @return string 
+     * @return string
      */
     public function getMeridianofin()
     {
@@ -225,10 +225,10 @@ class MntRangohora
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return MntRangohora
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -238,7 +238,7 @@ class MntRangohora
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {

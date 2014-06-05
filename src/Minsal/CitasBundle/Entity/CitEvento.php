@@ -70,7 +70,7 @@ class CitEvento
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -146,7 +146,7 @@ class CitEvento
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -169,7 +169,7 @@ class CitEvento
     /**
      * Get fechaini
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaini()
     {
@@ -192,7 +192,7 @@ class CitEvento
     /**
      * Get horaini
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHoraini()
     {
@@ -215,7 +215,7 @@ class CitEvento
     /**
      * Get fechafin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechafin()
     {
@@ -238,7 +238,7 @@ class CitEvento
     /**
      * Get horafin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHorafin()
     {
@@ -261,7 +261,7 @@ class CitEvento
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -284,7 +284,7 @@ class CitEvento
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -307,7 +307,7 @@ class CitEvento
     /**
      * Get diaSemana
      *
-     * @return integer 
+     * @return integer
      */
     public function getDiaSemana()
     {
@@ -330,7 +330,7 @@ class CitEvento
     /**
      * Get idempleado
      *
-     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado
      */
     public function getIdempleado()
     {
@@ -340,10 +340,10 @@ class CitEvento
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return CitEvento
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -353,7 +353,7 @@ class CitEvento
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -376,7 +376,7 @@ class CitEvento
     /**
      * Get idCiqEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\MntProcedimientoEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\MntProcedimientoEstablecimiento
      */
     public function getIdCiqEstablecimiento()
     {
@@ -399,7 +399,7 @@ class CitEvento
     /**
      * Get idRangohora
      *
-     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora
      */
     public function getIdRangohora()
     {
@@ -422,7 +422,7 @@ class CitEvento
     /**
      * Get idAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab
      */
     public function getIdAreaModEstab()
     {
@@ -445,7 +445,7 @@ class CitEvento
     /**
      * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimiento()
     {
@@ -468,7 +468,7 @@ class CitEvento
     /**
      * Get idTipoevento
      *
-     * @return \Minsal\CitasBundle\Entity\CitTipoevento 
+     * @return \Minsal\CitasBundle\Entity\CitTipoevento
      */
     public function getIdTipoevento()
     {

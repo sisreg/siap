@@ -1,5 +1,17 @@
 $(document).ready(function() {
 
+    $('#areas-modalidad').select2({
+        placeholder: 'Seleccionar...',
+        width:       '41.66666667%',
+        allowClear:  true
+    });
+
+    $('select[id$="_idAtencion"]').select2({
+        placeholder: 'Seleccionar...',
+        width:       '41.66666667%',
+        allowClear:  true
+    });
+
     $('i').popover('show');
     //DESHABILITAR LAS ATENCIONES 
     $('select[id$="_idAtencion"]').attr('disabled', 'disabled');
@@ -18,7 +30,7 @@ $(document).ready(function() {
     //CARGAS LAS ESPECIALIDADES Y SUBESPECIALIDADES DEL ÁREA DE HOSPITALIZACIÓN
     $('#areas-modalidad').change(function() {
         $('select[id$="_idAtencion"]').children().remove();
-        $('select[id$="_idAtencion"]').append('<option value="">Seleccione...</option>');
+        $('select[id$="_idAtencion"]').append('<option></option>');
         if ($('#areas-modalidad').val() == 0)
             $('select[id$="_idAtencion"]').attr('disabled', 'disabled');
         else {

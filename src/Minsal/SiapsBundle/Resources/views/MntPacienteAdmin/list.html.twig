@@ -1,4 +1,4 @@
-{% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
+{% extends 'SonataAdminBundle::layout.html.twig' %}
 {%block stylesheets %}
     {{parent()}}
 <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntPacienteAdmin/list.css') }}" type="text/css" media="all" />  
@@ -19,49 +19,49 @@
         <tbody>
             <tr>
                 <td class="sonata-ba-list-field-header "><strong>NEC</strong></td>
-                <td><input id="nec" name="nec" type="text" class="nombres"  maxlength="10" /></td>
+                <td><input id="nec" name="nec" type="text" class="nombres form-control"  maxlength="10" /></td>
                 <td class="sonata-ba-list-field-header "><strong>Primer Apellido:*</strong></td>
-                <td><input id="primer_apellido" name="primer_apellido" class="nombres" type="text"  maxlength="25"/></td>
+                <td><input id="primer_apellido" name="primer_apellido" class="nombres form-control" type="text"  maxlength="25"/></td>
                 <td class="sonata-ba-list-field-header "><strong>Segundo Apellido:</td>
-                <td><input id="segundo_apellido" name="segundo_apellido" class="nombres" type="text"  maxlength="25"/></td>
+                <td><input id="segundo_apellido" name="segundo_apellido" class="nombres form-control" type="text"  maxlength="25"/></td>
             </tr>
             <tr>
                 <td class="sonata-ba-list-field-header "><strong>Primer Nombre: *</strong></td>
-                <td><input id="primer_nombre" name="primer_nombre" type="text" class="nombres"  maxlength="25"/></td>
+                <td><input id="primer_nombre" name="primer_nombre" type="text" class="nombres form-control"  maxlength="25"/></td>
                 <td class="sonata-ba-list-field-header "><strong>Segundo Nombre:</strong></td>
-                <td><input id="segundo_nombre" name="segundo_nombre" type="text" class="nombres"  maxlength="25"/></td>
+                <td><input id="segundo_nombre" name="segundo_nombre" type="text" class="nombres form-control"  maxlength="25"/></td>
                 <td class="sonata-ba-list-field-header "><strong>Tercer Nombre:</strong></td>
-                <td><input id="tercer_nombre" name="tercer_nombre" type="text" class="nombres"  maxlength="25"/></td>
+                <td><input id="tercer_nombre" name="tercer_nombre" type="text" class="nombres form-control"  maxlength="25"/></td>
             </tr>
             <tr>
                 <td class="sonata-ba-list-field-header "><strong>Fecha Nacimiento:</strong></td>
-                <td><input id="fecha_nacimiento" name="fecha_nacimiento" type="text" class="fecha" /></td>
+                <td><input id="fecha_nacimiento" name="fecha_nacimiento" type="text" class="fecha form-control" /></td>
                 <td class="sonata-ba-list-field-header"><strong>Nombre de la Madre:</strong></td>
-                <td colspan="3"><input id="nombre_madre" name="nombre_madre" class="nombresLargos" type="text" maxlength="80" /></td>
+                <td colspan="3"><input id="nombre_madre" name="nombre_madre" class="nombresLargos form-control" type="text" maxlength="80" /></td>
             </tr>
             <tr>
                 <td class="sonata-ba-list-field-header "><strong>DUI: </strong></td>
-                <td><input id="dui" name="dui" type="text" class="nombres" /></td>
+                <td><input id="dui" name="dui" type="text" class="nombres form-control" /></td>
                 <td class="sonata-ba-list-field-header "><strong>Conocido por:</strong></td>
-                <td colspan="3"><input id="conocido_por" name="conocido_por" type="text"  class="nombresLargos"  maxlength="20" /></td>
+                <td colspan="3"><input id="conocido_por" name="conocido_por" type="text"  class="nombresLargos form-control"  maxlength="20" /></td>
             </tr>
             <tr>
-                <td colspan="6">
+                <td colspan="6" class="no-bottom-border">
                     <div class="pull-right">
-                        <a id="capturar" class="btn sonata-action-element" href="{{ admin.generateUrl('create') }}">
-                            <i class="icon-plus"></i>
+                        <a id="capturar" class="btn btn-info" href="{{ admin.generateUrl('create') }}">
+                            <span class="glyphicon glyphicon-plus"></span>
                             Capturar Datos
                         </a>
-                        <a id="buscar" class="btn" href="">
-                            <i class="icon-search"></i>
+                        <a id="buscar" class="btn btn-primary" href="">
+                            <span class="glyphicon glyphicon-search"></span>
                             Buscar
                         </a>
-                        <a id="buscarGlobal" class="btn" href="">
-                            <i class="icon-search"></i>
+                        <a id="buscarGlobal" class="btn btn-primary" href="">
+                            <span class="glyphicon glyphicon-search"></span>
                             Buscar Global
                         </a>
-                        <a id="limpiar" class="btn" href="">
-                            <i class="icon-trash"></i>
+                        <a id="limpiar" class="btn btn-primary" href="">
+                            <span class="glyphicon glyphicon-trash"></span>
                             Limpiar
                         </a>
                     </div>

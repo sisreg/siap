@@ -3,8 +3,17 @@
     text-align: left;
     border: 2px solid #E3E3E3;
     position: relative;
-    left: 100px;
+    width: 90%;
 }
+
+table.dat_paciente td + td {
+    border-right: 2px solid #E3E3E3
+}
+
+.dat_paciente_sec td {
+    padding-left: 15px;
+}
+
 .sonata-bc .form-horizontal .control-group:before span[id$="_expedientes"] table.table-bordered {
     text-align: center;
     border: 2px solid #E3E3E3;
@@ -13,18 +22,19 @@
 }
 span[id$="_expedientes"] table.table-bordered{
     width: 80%;
-    border: 2px solid #E3E3E3;
 }
 .dat_paciente label{
     padding-left: 1em;
     text-align: left;  
     display: inline;
     margin-bottom: 0;
+    width: 190px;
+    float: left;
+    padding-top:7px;
 }
 
 .dat_paciente input{
-    margin-left: 160px;
-    width: 46%;
+    width: 100%;
 }
 
 .dat_paciente #persona_dio_datos,.dat_paciente #persona_responsable{
@@ -85,6 +95,8 @@ span[id$="_expedientes"] table.table-bordered{
 input[id$="_fechaNacimiento"]{
     width : 90px;
     margin-left:0;
+    margin-right: 10px;
+    display: inline-block;
 }
 
 #form_paciente .ui-datepicker-trigger{ 
@@ -97,7 +109,7 @@ select[id$="_minute"] {
     width : 90px;
 }
 
-td[class$="_delete control-group widthChange"]{
+td[class$="_delete control-group"]{
     display: none;
 }
 
@@ -111,4 +123,18 @@ div.field-container thead th:nth-child(1){
 
 div.field-container thead th:nth-child(3){
     width: 60%;
+}
+
+.sonata-ba-field.sonata-ba-field-standard-natural {
+    margin-left: 210px;
+    width: 50%;
+}
+
+.form-group {
+    margin-bottom: 5px;
+    padding-top:   10px;
+}
+
+.full-width {
+    width: 90% !important;
 }

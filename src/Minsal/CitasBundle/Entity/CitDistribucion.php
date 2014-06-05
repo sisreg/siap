@@ -90,7 +90,7 @@ class CitDistribucion
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -117,7 +117,7 @@ class CitDistribucion
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuariomod", referencedColumnName="id")
      * })
@@ -160,7 +160,7 @@ class CitDistribucion
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -183,7 +183,7 @@ class CitDistribucion
     /**
      * Get primera
      *
-     * @return integer 
+     * @return integer
      */
     public function getPrimera()
     {
@@ -206,7 +206,7 @@ class CitDistribucion
     /**
      * Get subsecuente
      *
-     * @return integer 
+     * @return integer
      */
     public function getSubsecuente()
     {
@@ -229,7 +229,7 @@ class CitDistribucion
     /**
      * Get mes
      *
-     * @return integer 
+     * @return integer
      */
     public function getMes()
     {
@@ -252,7 +252,7 @@ class CitDistribucion
     /**
      * Get yrs
      *
-     * @return integer 
+     * @return integer
      */
     public function getYrs()
     {
@@ -275,7 +275,7 @@ class CitDistribucion
     /**
      * Get dia
      *
-     * @return integer 
+     * @return integer
      */
     public function getDia()
     {
@@ -298,7 +298,7 @@ class CitDistribucion
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -321,7 +321,7 @@ class CitDistribucion
     /**
      * Get fechahoramod
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahoramod()
     {
@@ -344,7 +344,7 @@ class CitDistribucion
     /**
      * Get tipocon
      *
-     * @return string 
+     * @return string
      */
     public function getTipocon()
     {
@@ -367,7 +367,7 @@ class CitDistribucion
     /**
      * Get distribucionmed
      *
-     * @return string 
+     * @return string
      */
     public function getDistribucionmed()
     {
@@ -390,7 +390,7 @@ class CitDistribucion
     /**
      * Get idRangohora
      *
-     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora
      */
     public function getIdRangohora()
     {
@@ -413,7 +413,7 @@ class CitDistribucion
     /**
      * Get idEmpleado
      *
-     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado
      */
     public function getIdEmpleado()
     {
@@ -436,7 +436,7 @@ class CitDistribucion
     /**
      * Get idConsultorio
      *
-     * @return \Minsal\SiapsBundle\Entity\MntConsultorio 
+     * @return \Minsal\SiapsBundle\Entity\MntConsultorio
      */
     public function getIdConsultorio()
     {
@@ -446,10 +446,10 @@ class CitDistribucion
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return CitDistribucion
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -459,7 +459,7 @@ class CitDistribucion
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -482,7 +482,7 @@ class CitDistribucion
     /**
      * Get idAtenAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
      */
     public function getIdAtenAreaModEstab()
     {
@@ -492,10 +492,10 @@ class CitDistribucion
     /**
      * Set idusuariomod
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuariomod
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuariomod
      * @return CitDistribucion
      */
-    public function setIdusuariomod(\Minsal\SiapsBundle\Entity\User $idusuariomod = null)
+    public function setIdusuariomod(\Application\Sonata\UserBundle\Entity\User $idusuariomod = null)
     {
         $this->idusuariomod = $idusuariomod;
 
@@ -505,7 +505,7 @@ class CitDistribucion
     /**
      * Get idusuariomod
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuariomod()
     {
@@ -528,7 +528,7 @@ class CitDistribucion
     /**
      * Get idAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab
      */
     public function getIdAreaModEstab()
     {

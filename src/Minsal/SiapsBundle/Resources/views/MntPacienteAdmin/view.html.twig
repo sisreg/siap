@@ -1,4 +1,4 @@
-{% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
+{% extends 'SonataAdminBundle::layout.html.twig' %}
 
 {%block stylesheets %}
     {{parent()}}
@@ -14,12 +14,14 @@
     <input type="hidden" id="paciente" name="paciente" value="{{datos.id}}">
 </form>
 <div class="well form-actions" width="80%">
-    <a class="btn btn-primary" href="" id="imprimir_hoja" ><i class="icon-print"></i>Identificación Paciente</a>
-    <a class="btn" href="" id="imprimir_hoja_consulta" ><i class="icon-print"></i>Hoja de Consulta</a>
-    <a class="btn" href="{{ admin.generateUrl('list') }}"><i class="icon-search"></i>Buscar otro Paciente</a>
-    <a class="btn" href="{{ admin.generateUrl('edit',{'id':datos.getId}) }}" ><i class="icon-edit"></i>Editar Datos</a>
-    {% if is_granted('ROLE_SONATA_ADMIN_SECINGRESO_CREATE') %}
-    <a class="btn" href="{{ path('admin_minsal_seguimiento_secingreso_create',{'id_paciente':datos.getId}) }}" ><i class="icon-briefcase"></i>Ingresar Paciente</a>
+    <center>
+        <a class="btn btn-primary" href="" id="imprimir_hoja" ><span class="glyphicon glyphicon-print"></span> Identificación Paciente</a>
+        <a class="btn btn-info" href="" id="imprimir_hoja_consulta" ><span class="glyphicon glyphicon-print"></span> Hoja de Consulta</a>
+        <a class="btn btn-info" href="{{ admin.generateUrl('list') }}"><span class="glyphicon glyphicon-search"></span> Buscar otro Paciente</a>
+        <a class="btn btn-info" href="{{ admin.generateUrl('edit',{'id':datos.getId}) }}" ><span class="glyphicon glyphicon-edit"></span> Editar Datos</a>
+        {% if is_granted('ROLE_SONATA_ADMIN_SECINGRESO_CREATE') %}
+        <a class="btn" href="{{ path('admin_minsal_seguimiento_secingreso_create',{'id_paciente':datos.getId}) }}" ><i class="icon-briefcase"></i>Ingresar Paciente</a>
+    </center>
     {%endif%}
 </div>
 {%endblock%}

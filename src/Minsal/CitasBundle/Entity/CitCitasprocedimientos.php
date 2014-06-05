@@ -72,7 +72,7 @@ class CitCitasprocedimientos
     /**
      * @var \Minsal\SiapsBundle\User
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -162,7 +162,7 @@ class CitCitasprocedimientos
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -185,7 +185,7 @@ class CitCitasprocedimientos
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -208,7 +208,7 @@ class CitCitasprocedimientos
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -231,7 +231,7 @@ class CitCitasprocedimientos
     /**
      * Get ipcita
      *
-     * @return string 
+     * @return string
      */
     public function getIpcita()
     {
@@ -254,7 +254,7 @@ class CitCitasprocedimientos
     /**
      * Get ipconfirmada
      *
-     * @return string 
+     * @return string
      */
     public function getIpconfirmada()
     {
@@ -277,7 +277,7 @@ class CitCitasprocedimientos
     /**
      * Get numeroExpedienteReferencia
      *
-     * @return string 
+     * @return string
      */
     public function getNumeroExpedienteReferencia()
     {
@@ -300,7 +300,7 @@ class CitCitasprocedimientos
     /**
      * Get idAtenAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
      */
     public function getIdAtenAreaModEstab()
     {
@@ -323,7 +323,7 @@ class CitCitasprocedimientos
     /**
      * Get idExpediente
      *
-     * @return \Minsal\SiapsBundle\Entity\MntExpediente 
+     * @return \Minsal\SiapsBundle\Entity\MntExpediente
      */
     public function getIdExpediente()
     {
@@ -346,7 +346,7 @@ class CitCitasprocedimientos
     /**
      * Get idEmpleado
      *
-     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado
      */
     public function getIdEmpleado()
     {
@@ -369,7 +369,7 @@ class CitCitasprocedimientos
     /**
      * Get idRangohora
      *
-     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora
      */
     public function getIdRangohora()
     {
@@ -379,10 +379,10 @@ class CitCitasprocedimientos
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return CitCitasprocedimientos
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -392,7 +392,7 @@ class CitCitasprocedimientos
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -415,7 +415,7 @@ class CitCitasprocedimientos
     /**
      * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimiento()
     {
@@ -438,7 +438,7 @@ class CitCitasprocedimientos
     /**
      * Get idCiqEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\MntProcedimientoEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\MntProcedimientoEstablecimiento
      */
     public function getIdCiqEstablecimiento()
     {
@@ -461,7 +461,7 @@ class CitCitasprocedimientos
     /**
      * Get idEstablecimientoReferencia
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimientoReferencia()
     {
@@ -484,7 +484,7 @@ class CitCitasprocedimientos
     /**
      * Get idAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab
      */
     public function getIdAreaModEstab()
     {
@@ -507,7 +507,7 @@ class CitCitasprocedimientos
     /**
      * Get idEstado
      *
-     * @return \Minsal\CitasBundle\Entity\CitEstadoCita 
+     * @return \Minsal\CitasBundle\Entity\CitEstadoCita
      */
     public function getIdEstado()
     {

@@ -1,4 +1,8 @@
-{% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
+{% extends 'SonataAdminBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
@@ -57,12 +61,16 @@
 	</script>
 {% endblock %}
 
+{% block sonata_side_nav %}
+{% endblock %}
 {% block content %}
 	<form action="{{ url('set_emp_especialidad_estab') }}" method="POST">
-		<label>Seleccion una especialidad: *</label>
-		<select id="_id-especialidad" name="_id-especialidad" style="width:300px;"></select>
-		<input type="hidden" id="_nombre-especialidad" name="_nombre-especialidad" value="" />
-		<br />
-		<button type="submit" id="_enviar-especialida" name="_enviar-especialida" class="button action blue" formaction="{{ url('set_emp_especialidad_estab') }}"><span class="label">Ingresar</span></button>
+		<center>
+			<label>Seleccion una especialidad: *</label><br />
+			<select id="_id-especialidad" name="_id-especialidad" style="width:300px;"></select>
+			<input type="hidden" id="_nombre-especialidad" name="_nombre-especialidad" value="" />
+			<br /><br />
+			<button type="submit" id="_enviar-especialida" name="_enviar-especialida" class="btn btn-primary" formaction="{{ url('set_emp_especialidad_estab') }}"><span class="label">Ingresar</span></button>
+		</center>
 	</form>
 {% endblock %}

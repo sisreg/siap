@@ -21,21 +21,21 @@ class MntCiq
      * @ORM\SequenceGenerator(sequenceName="ctl_ciq_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
-    
+
       /**
      * @var string
      *
      * @ORM\Column(name="codigo", type="string", length=6, nullable=false)
      */
     private $codigo;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="procedimiento", type="string", length=250, nullable=false)
      */
     private $procedimiento;
-    
+
    /**
      * @var \User
      *
@@ -45,7 +45,7 @@ class MntCiq
      * })
      */
     private $idTipoProcedimiento;
-    
+
     /**
      * @var \User
      *
@@ -55,20 +55,20 @@ class MntCiq
      * })
      */
     private $idusuariomod;
-    
+
      /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechahorareg", type="date")
      */
     private $fechahorareg;
-   
-  
+
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -91,7 +91,7 @@ class MntCiq
     /**
      * Get codigo
      *
-     * @return string 
+     * @return string
      */
     public function getCodigo()
     {
@@ -114,7 +114,7 @@ class MntCiq
     /**
      * Get procedimiento
      *
-     * @return string 
+     * @return string
      */
     public function getProcedimiento()
     {
@@ -137,7 +137,7 @@ class MntCiq
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -160,7 +160,7 @@ class MntCiq
     /**
      * Get idTipoProcedimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\MntTipoProcedimiento 
+     * @return \Minsal\SiapsBundle\Entity\MntTipoProcedimiento
      */
     public function getIdTipoProcedimiento()
     {
@@ -170,10 +170,10 @@ class MntCiq
     /**
      * Set idusuariomod
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuariomod
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuariomod
      * @return MntCiq
      */
-    public function setIdusuariomod(\Minsal\SiapsBundle\Entity\User $idusuariomod)
+    public function setIdusuariomod(\Application\Sonata\UserBundle\Entity\User $idusuariomod)
     {
         $this->idusuariomod = $idusuariomod;
 
@@ -183,7 +183,7 @@ class MntCiq
     /**
      * Get idusuariomod
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuariomod()
     {

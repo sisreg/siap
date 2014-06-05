@@ -149,7 +149,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -172,7 +172,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get idCiq
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdCiq()
     {
@@ -195,7 +195,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get techomaximo
      *
-     * @return integer 
+     * @return integer
      */
     public function getTechomaximo()
     {
@@ -218,7 +218,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get cantidadacupo
      *
-     * @return integer 
+     * @return integer
      */
     public function getCantidadacupo()
     {
@@ -241,7 +241,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get tiempoprevio
      *
-     * @return integer 
+     * @return integer
      */
     public function getTiempoprevio()
     {
@@ -264,7 +264,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get ipconfirmado
      *
-     * @return string 
+     * @return string
      */
     public function getIpconfirmado()
     {
@@ -287,7 +287,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get dia
      *
-     * @return integer 
+     * @return integer
      */
     public function getDia()
     {
@@ -310,7 +310,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get yrs
      *
-     * @return integer 
+     * @return integer
      */
     public function getYrs()
     {
@@ -333,7 +333,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get fechahorareg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahorareg()
     {
@@ -356,7 +356,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get fechahoramod
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechahoramod()
     {
@@ -379,7 +379,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get idRangohora
      *
-     * @return \Minsal\SiapsBundle\Entity\MntRangohora 
+     * @return \Minsal\SiapsBundle\Entity\MntRangohora
      */
     public function getIdRangohora()
     {
@@ -402,7 +402,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get idEmpleado
      *
-     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado
      */
     public function getIdEmpleado()
     {
@@ -425,7 +425,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get idAreaModEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab 
+     * @return \Minsal\SiapsBundle\Entity\MntAreaModEstab
      */
     public function getIdAreaModEstab()
     {
@@ -448,7 +448,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get idEstablecimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
     public function getIdEstablecimiento()
     {
@@ -458,10 +458,10 @@ class MntProcedimientoEstablecimiento
     /**
      * Set idusuarioreg
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuarioreg
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuarioreg
      * @return MntProcedimientoEstablecimiento
      */
-    public function setIdusuarioreg(\Minsal\SiapsBundle\Entity\User $idusuarioreg = null)
+    public function setIdusuarioreg(\Application\Sonata\UserBundle\Entity\User $idusuarioreg = null)
     {
         $this->idusuarioreg = $idusuarioreg;
 
@@ -471,7 +471,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get idusuarioreg
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuarioreg()
     {
@@ -481,10 +481,10 @@ class MntProcedimientoEstablecimiento
     /**
      * Set idusuariomod
      *
-     * @param \Minsal\SiapsBundle\Entity\User $idusuariomod
+     * @param \Application\Sonata\UserBundle\Entity\User $idusuariomod
      * @return MntProcedimientoEstablecimiento
      */
-    public function setIdusuariomod(\Minsal\SiapsBundle\Entity\User $idusuariomod = null)
+    public function setIdusuariomod(\Application\Sonata\UserBundle\Entity\User $idusuariomod = null)
     {
         $this->idusuariomod = $idusuariomod;
 
@@ -494,7 +494,7 @@ class MntProcedimientoEstablecimiento
     /**
      * Get idusuariomod
      *
-     * @return \Minsal\SiapsBundle\Entity\User 
+     * @return \Application\Sonata\UserBundle\Entity\User
      */
     public function getIdusuariomod()
     {
