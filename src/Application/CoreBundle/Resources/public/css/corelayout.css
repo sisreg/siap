@@ -5,6 +5,10 @@ body, html {
     margin: 0;
 }
 
+body.sonata-bc {
+    padding-top: 0;
+}
+
 html {
     height: 100% !important;
 }
