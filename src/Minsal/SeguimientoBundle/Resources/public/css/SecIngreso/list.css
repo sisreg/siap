@@ -3,8 +3,18 @@
 .sonata-bc .nombres {width:135px;}
 .sonata-bc .sonata-ba-list-field-header {
     font-size: 10pt;
+    background-color: #F0F8FF;
 }
-.sonata-bc .fecha {width:85px;}
+
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 2px solid #E5EDF5;
+}
+
+.sonata-bc .table th, .sonata-bc .table td {
+    border-top: 2px solid #E5EDF5 !important;
+}
+
+.sonata-bc .fecha {width:95px;}
 .sonata-bc .nombresLargos {width:300px;}
 /*div #resultadoBusqueda{padding-bottom: 25px;}*/
 .sonata-bc .table th, .sonata-bc .table td{
@@ -15,9 +25,10 @@
     vertical-align: middle;
     border-top:1px solid #dddddd;
     height: 1.3em;}
-.table-bordered input:hover {background-color: #E4F3C0;}
+
+.table-bordered input:hover {background-color: #F0F8FF;}
+
 .sonata-bc input[type="text"]{
-    height: 20px;
     margin: 4px;
    vertical-align: middle;
 }
@@ -31,3 +42,24 @@
     alignment-adjust: central;
     width: 100%;
 }
+
+.fecha.form-control {
+    display: inherit;
+}
+
+.no-bottom-border {
+    border: 1px solid #FFFFFF !important;
+}
+
+.icono {
+    height: 64px;
+}
+
+.btn {
+    color: #FFFFFF !important;
+}
+
+.ui-jqgrid .ui-pg-input {
+    height: 20px !important;
+}
+

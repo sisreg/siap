@@ -19,8 +19,8 @@
         <a class="btn btn-info" href="" id="imprimir_hoja_consulta" ><span class="glyphicon glyphicon-print"></span> Hoja de Consulta</a>
         <a class="btn btn-info" href="{{ admin.generateUrl('list') }}"><span class="glyphicon glyphicon-search"></span> Buscar otro Paciente</a>
         <a class="btn btn-info" href="{{ admin.generateUrl('edit',{'id':datos.getId}) }}" ><span class="glyphicon glyphicon-edit"></span> Editar Datos</a>
-        {% if is_granted('ROLE_SONATA_ADMIN_SECINGRESO_CREATE') %}
-        <a class="btn" href="{{ path('admin_minsal_seguimiento_secingreso_create',{'id_paciente':datos.getId}) }}" ><i class="icon-briefcase"></i>Ingresar Paciente</a>
+        {% if is_granted('ROLE_SONATA_ADMIN_SECINGRESO_CREATE') or is_granted('ROLE_SUPER_ADMIN') %}
+        <a class="btn btn-info" href="{{ path('admin_minsal_seguimiento_secingreso_create',{'id_paciente':datos.getId}) }}" ><span class="glyphicon glyphicon-briefcase"></span> Ingresar Paciente</a>
     </center>
     {%endif%}
 </div>

@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    $('select[id$="servicio_ingreso"]').prepend('<option/>').val(function(){ return $('[selected]',this).val(); });
+    $('select[id$="servicio_ingreso"]').select2({
+        placeholder: 'Seleccionar...',
+        allowClear:  true,
+        width:       '50%'
+    });
+
     $("#fecha_nacimiento").datepicker().mask("99-99-9999");
     $("#nec").focus();
 

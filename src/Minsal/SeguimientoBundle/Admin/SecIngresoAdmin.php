@@ -17,7 +17,6 @@ class SecIngresoAdmin extends Admin {
                     'required'=>true,
                     'label' => 'Procedencia de ingreso',
                     'class' => 'MinsalSeguimientoBundle:SecProcedenciaIngreso',
-                    'empty_value' => 'Seleccione la procedencia del ingreso',
                     'query_builder' => function(EntityRepository $repositorio) {
                 return $repositorio
                         ->createQueryBuilder('spi')
@@ -27,7 +26,6 @@ class SecIngresoAdmin extends Admin {
                     'required'=>true,
                     'label' => 'Circunstancia de ingreso',
                     'class' => 'MinsalSeguimientoBundle:SecCircunstanciaIngreso',
-                    'empty_value' => 'Seleccione la circunstancia del ingreso',
                     'query_builder' => function(EntityRepository $repositorio) {
                 return $repositorio
                         ->createQueryBuilder('sci')
@@ -36,15 +34,13 @@ class SecIngresoAdmin extends Admin {
                 ->add('fecha', 'date', array(
                     'required' => true,
                     'label' => 'Fecha del Ingreso',
-                    'widget' => 'single_text', 'format' => 'dd-MM-yyyy',
-                    'attr' => (array('value' => date("d-m-Y")))))
+                    'widget' => 'single_text', 'format' => 'dd-MM-yyyy'
+                    ))
                 ->add('hora', 'time', array('required' => true, 'label' => 'Hora del Ingreso'))
                 ->add('idAtenAreaModEstab', 'entity', array('label' => 'Especialidad',
-                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab', 'read_only' => 'true',
-                    'empty_value' => 'Seleccione ...'))
+                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab', 'read_only' => 'true'))
                 ->add('idAmbienteIngreso', 'entity', array('label' => 'Servicio de Ingreso',
-                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab', 'read_only' => 'true',
-                    'empty_value' => 'Seleccione ...'))
+                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab', 'read_only' => 'true'))
                 ->add('embarazada', null, array('label' => 'Embarazada', 'required' => false,))
                 ->add('semanasAmenorrea', 'number', array('required' => false, 'label' => 'Semanas de amenorrea'))
                 ->add('fechaProbableParto', 'date', array('required' => false,
@@ -54,7 +50,6 @@ class SecIngresoAdmin extends Admin {
                 //->add('idCie10', null, array('label' => 'Código CIE-10'))
                 ->add('idTipoAccidente', 'entity', array('label' => 'Tipo de Accidente',
                     'class' => 'MinsalSeguimientoBundle:SecTipoAccidente', 'required' => false,
-                    'empty_value' => 'Seleccione si existierá',
                     'query_builder' => function(EntityRepository $repositorio) {
                 return $repositorio
                         ->createQueryBuilder('spi')
@@ -62,15 +57,13 @@ class SecIngresoAdmin extends Admin {
             }))
                 ->add('idEmpleado', 'entity', array('required' => false, 'label' => 'Nombre del médico que indico el ingreso',
                     'class' => 'MinsalSiapsBundle:MntEmpleado',
-                    'empty_value' => 'Seleccione',
                     'query_builder' => function(EntityRepository $repositorio) {
                 return $repositorio
                         ->createQueryBuilder('me')
                         ->where('me.idTipoEmpleado = 4');
             }))
-                ->add('idEstablecimientoReferencia', 'genemu_jqueryselect2_entity', array('label' => 'Nombre del Establecimiento (REFERIDO DE:', 'required' => false,
+                ->add('idEstablecimientoReferencia', null, array('label' => 'Nombre del Establecimiento (REFERIDO DE:', 'required' => false,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
-                    'empty_value' => 'Seleccione..',
                     'query_builder' => function(EntityRepository $repositorio) {
                 return $repositorio
                         ->createQueryBuilder('e')
@@ -84,18 +77,18 @@ class SecIngresoAdmin extends Admin {
         //     var_dump($ingreso->getHora()->format('H'));
         $fechaActual = new \DateTime();
         list($hora, $minutos) = explode(":", $ingreso->getHora()->format('H:i'));
-        if ($ingreso->getfecha()->format('d-m-Y') == $fechaActual->format('d-m-Y')) {
+        if ($ingreso->getFecha()->diff($fechaActual)->d == 0 && $ingreso->getFecha()->diff($fechaActual)->m == 0 && $ingreso->getFecha()->diff($fechaActual)->y == 0) {
             if ($fechaActual->format('H') < $hora)
-                $errorElement->with('hora')
+                $errorElement->with('hora1')
                         ->addViolation('La hora del ingreso no puede ser mayor que la hora actual')
                         ->end();
             elseif ($fechaActual->format('H') == $hora) {
                 if ($fechaActual->format('i') < ($minutos-1))
-                    $errorElement->with('hora')
+                    $errorElement->with('hora2')
                             ->addViolation('La hora del ingreso no puede ser mayor que la hora actual')
                             ->end();
             }
-        }elseif ($ingreso->getfecha()->format('d-m-Y') > $fechaActual->format('d-m-Y')) {
+        } elseif ($ingreso->getFecha()->diff($fechaActual)->invert == 1) {           
             $errorElement->with('fecha')
                     ->addViolation('La fecha del ingreso no puede ser mayor que la fecha actual')
                     ->end();

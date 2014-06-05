@@ -43,6 +43,7 @@
 .no-bottom-border {
     border: 1px solid #FFFFFF !important;
 }
+
 .fecha.form-control {
     display: inherit;
 }
