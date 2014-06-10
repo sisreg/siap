@@ -192,9 +192,9 @@ class MntAuditoriaPaciente
     private $fechaModificacion;
 
     /**
-     * @var \User
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id",nullable=false)
      * })

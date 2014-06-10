@@ -113,9 +113,9 @@ class MntProcedimientoEstablecimiento
     private $yrs;
 
     /**
-     * @var User
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
@@ -130,9 +130,9 @@ class MntProcedimientoEstablecimiento
     private $fechahorareg;
 
     /**
-     * @var User
+     * @var Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuariomod", referencedColumnName="id")
      * })

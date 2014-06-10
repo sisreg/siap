@@ -26,7 +26,7 @@ $(document).ready(function() {
         width:      '100%'
     });
 
-    $('select[id$="_idDepartamentoNacimiento"]').prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
+    //$('select[id$="_idDepartamentoNacimiento"]').prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
     $('select[id$="_idDepartamentoNacimiento"]').select2({
         placeholder: 'Departamento de Nacimiento...',
         allowClear:  true,
@@ -75,7 +75,7 @@ $(document).ready(function() {
         width:      '100%'
     });
 
-    $('select[id$="_idDepartamentoDomicilio"]').prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
+    //$('select[id$="_idDepartamentoDomicilio"]').prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
     $('select[id$="_idDepartamentoDomicilio"]').select2({
         placeholder: 'Departamento de Domicilio...',
         allowClear:  true,
@@ -147,9 +147,9 @@ $(document).ready(function() {
 
 
     $('#form_paciente').submit(function() {
-        if ($('#idPaisDomicilio').val() == '68') {
-            if ($('select[id$="_idDepartamentoDomicilio"]').val() == '') {
-                ($('#error')) ? $('#error').remove() : '';
+        if ($('#idPaisDomicilio').select2('val') == '68') {
+            if ($('select[id$="_idDepartamentoDomicilio"]').select2('val') == '') {
+                ($('#error')) ? $('#error').empty() : '';
                 var elem = $("<div id='error' title='Error de Llenado'><center>" +
                         "Debe de introducir el Departamento Domicilio"
                         + "</center></div>");
@@ -619,39 +619,33 @@ $(document).ready(function() {
 
     //AGREGANDO JSON PARA CARGAR LOS PAISES ALEDAÑOS A EL SALVADOR
     if ($('select[id$="_idDepartamentoDomicilio"]').val() == '') {
-        $.getJSON(Routing.generate('get_paises'),
-                function(data) {
-                    $.each(data.paises, function(indice, aux) {
-                        if (aux.id == 68)
-                            $('#idPaisDomicilio').append('<option selected="selected" value="' + aux.id + '">' + aux.nombre + '</option>');
-                        else
-                            $('#idPaisDomicilio').append('<option value="' + aux.id + '">' + aux.nombre + '</option>');
-                    });
-                });
+        $.getJSON(Routing.generate('get_paises'), function(data) {
+            $.each(data.paises, function(indice, aux) {
+                $('#idPaisDomicilio').append('<option value="' + aux.id + '">' + aux.nombre + '</option>');
+            });
+            $('#idPaisDomicilio').select2('val', '68');
+        });
+        
         $('select[id$="_idDepartamentoDomicilio"]').children().remove();
         $('select[id$="_idDepartamentoDomicilio"]').append('<option></option>');
-        $.getJSON(Routing.generate('get_departamentos') + '?idPais=68',
-                function(data) {
-                    $.each(data.deptos, function(indice, depto) {
-                        $('select[id$="_idDepartamentoDomicilio"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
-                    });
-                });
+        
+        $.getJSON(Routing.generate('get_departamentos') + '?idPais=68', function(data) {
+            $.each(data.deptos, function(indice, depto) {
+                $('select[id$="_idDepartamentoDomicilio"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
+            });
+        });
+        
         $('select[id$="_idDepartamentoDomicilio"]').removeAttr('disabled');
         $('input[id$="_primerApellido"]').focus();
     } else {
-        $.getJSON(Routing.generate('get_pais_depto') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').val(),
-                function(datos) {
-                    $.getJSON(Routing.generate('get_paises'),
-                            function(data) {
-                                $.each(data.paises, function(indice, aux2) {
-                                    if (datos.pais == aux2.id)
-                                        $('#idPaisDomicilio').append('<option selected="selected" value="' + aux2.id + '">' + aux2.nombre + '</option>');
-                                    else
-                                        $('#idPaisDomicilio').append('<option value="' + aux2.id + '">' + aux2.nombre + '</option>');
-                                });
-                            });
-                }
-        );
+        $.getJSON(Routing.generate('get_pais_depto') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').val(), function(datos) {
+            $.getJSON(Routing.generate('get_paises'), function(data) {
+                $.each(data.paises, function(indice, aux2) {
+                    $('#idPaisDomicilio').append('<option value="' + aux2.id + '">' + aux2.nombre + '</option>');
+                });
+                $('#idPaisDomicilio').select2('val', datos.pais);
+            });
+        });
     }
     //AL CAMBIAR EL PAIS DE DOMICILIO QUE CARGUE LOS DEPARTAMENTO DE DOMICILIO.
     $('#idPaisDomicilio').change(function() {

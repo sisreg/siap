@@ -69,7 +69,8 @@
 		}
 
 		function updateMonthIformationCit() {
-			var calendarDate = $('#calendar-holder').fullCalendar('getDate');
+			var moment = $('#calendar-holder').fullCalendar('getDate');
+			var calendarDate = new Date(moment);
 				calendarDate.setHours(0,0,0,0);
             var medicData = getMedicData();
 			jQuery.ajax({
@@ -118,7 +119,7 @@
 				$('#cm-modal').remove();
 			}
 			$('#myModalLabel').after(header);
-			$('#myModal').css('top','40%');
+			//$('#myModal').css('top','40%');
 			$('#myModalLabel').css('color','#5bc0de');
 			$('#myModalLabel').css('text-align','center');
 			$('div.modal-body').css('background-color','#f7f7f9');
@@ -167,7 +168,7 @@
             var medicData = getMedicData();
 
 			$("#horario-atencion").empty();
-			$("#horario-atencion").append('Horario de Atencion de Pacientes<br /><select id="horarioMedico" name="horarioMedico" class="span3"></select>');
+			$("#horario-atencion").append('Horario de Atencion de Pacientes<br /><select id="horarioMedico" name="horarioMedico" class="col-md-3"></select>');
             $("#num_exp_nom_paciente").empty();
 			$("#num_exp_nom_paciente").append('No. Expedinte - Nombre Paciente<br /><input type="hidden" id="numExpNomPac" name="numExpNomPac" style="width:203px !important;"></input>');
 
@@ -519,9 +520,11 @@
                     
                     if(renderCalendar) {
                         var today = new Date();
+                        date = new Date(date);
                         date.setHours(0,0,0,0);
                         today.setHours(0,0,0,0);
-                        var calendarDate = $('#calendar-holder').fullCalendar('getDate');
+                        var moment = $('#calendar-holder').fullCalendar('getDate');
+                        var calendarDate = new Date(moment);
                         var lowerLimit = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1);
                         var upperLimit = new Date(calendarDate.getFullYear(), calendarDate.getMonth()+1, 0);
                         var cell_date  = date.getFullYear()+ '-' + (date.getMonth() < 10 ? '0' + date.getMonth()+1 : '' + date.getMonth()+1) + '-' + (date.getDate()  < 10 ? '0' + date.getDate()  : '' + date.getDate());
@@ -888,7 +891,8 @@
 			function updateCalendar() {
                 modal_elements = [];
 				renderCalendar();
-				var calendarDate = $('#calendar-holder').fullCalendar('getDate');
+				var moment = $('#calendar-holder').fullCalendar('getDate');
+				var calendarDate = new Date(moment);
 				calendarDate.setHours(0,0,0,0);
 
 				var currentDate = new Date();
@@ -983,17 +987,19 @@
 {% block content %}
     {% if not admin.hasRoute(action) %}
         <div>{{ "form_not_available"|trans({}, "SonataAdminBundle") }}</div>
-    {% else %}        
-        <div class="span2">
+    {% else %}
+    	{% block sonata_page_content_nav %}
+		{% endblock %}        
+        <div class="col-md-2">
             {% if app.user.getIdEmpleado.getIdTipoEmpleado is not defined or app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo is not sameas("MED") %}
-                <div class="span12" style="margin-bottom: 20px;">
-                    <label class="span12 label-filters">Medico:</label>
-                    <select id="idEmpleado" class="span12"></select>
-                    <label class="span12 label-filters">Sub-especialidad:</label>
-                    <select id="idEmpleadoEspecialidadEstab" class="span12"></select>
+                <div class="col-md-12" style="margin-bottom: 20px;">
+                    <label class="col-md-12 label-filters">Medico:</label>
+                    <select id="idEmpleado" class="col-md-12"></select>
+                    <label class="col-md-12 label-filters">Sub-especialidad:</label>
+                    <select id="idEmpleadoEspecialidadEstab" class="col-md-12"></select>
                 </div>
             {% endif %}
-            <div class="span12">
+            <div class="col-md-12">
                 <div class="accordion" id="accordion2" style="background-color:white;">
                     <div class="accordion-group">
                         <div class="accordion-heading">
@@ -1018,7 +1024,7 @@
                 </div>
             </div>
         </div>
-        <div class="span10">{% include 'ADesignsCalendarBundle::calendar.html.twig' %}</div>
+        <div class="col-md-10">{% include 'ADesignsCalendarBundle::calendar.html.twig' %}</div>
     {% endif %}
 {% endblock %}
     

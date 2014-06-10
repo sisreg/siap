@@ -63,6 +63,7 @@ class MntEmpleadoAdmin extends Admin {
                         ->join('f.idAreaModEstab', 'ame')
                         ->where('ame.idAreaAtencion=1')
                         ->andWhere('f.nombreAmbiente IS NULL')
+                        ->orderBy('ame.idServicioExternoEstab','DESC')
                 ;
             }
                 ))
@@ -147,7 +148,8 @@ class MntEmpleadoAdmin extends Admin {
         if ($empleado->getNumeroJuntaVigilancia() != '') {
             $empleado->setCodigoFarmacia($empleado->getNumeroJuntaVigilancia());
         }
-    }
+        var_dump(count($empleado->getEspecialidadesEstab()));exit();
+    }     
 
     /*
      * DESCRIPCIÓN: Función que se realiza despues de insertar el empleado.
@@ -156,54 +158,66 @@ class MntEmpleadoAdmin extends Admin {
 
     public function postPersist($empleado) {
         if ($empleado->getIdTipoEmpleado()->getId() == 4) {
-            /* Setear los valores generales del usuario */
-            $contrasenia = "123";
-            $firstname = $empleado->getNombre();
-            $lastname = $empleado->getApellido();
-            if (strpos($lastname, " "))
-                list($primerA, $segundoApellido) = explode(" ", $lastname);
-            else
-                $primerA = $lastname;
-            $bandera = false;
-            $i = 0;
-            $primero = '';
-            $username = '';
-            while (!$bandera) {
-                $primero.=$firstname[$i];
-                $username = strtolower($primero . $primerA);
-                $valor = $this->getModelManager()
-                        ->findOneBy('ApplicationSonataUserBundle:User', array('username' => $username));
-                if (count($valor) == 0)
-                    $bandera = true;
-                else
-                    $i++;
-            }
+            
             /* Setear los valores especificos de los usuarios */
             /*
              * Se utiliza el User Manager porque el encriptado es especial y con este crearemos
              * el nuevo usuario
              * */
-            $userManager = $this->getConfigurationPool()->getContainer()->get('fos_user.user_manager');
-            $usuario = $userManager->createUser();
-            $usuario->setUsername($username);
-            $usuario->setPlainPassword($contrasenia);
-            $usuario->setFirstName($firstname);
-            $usuario->setLastname($lastname);
-            $usuario->setEnabled(true);
-            $usuario->setModulo('SEC');
-            $usuario->setIdEmpleado($empleado);
-            $establecimiento = $this->getModelManager()
-                    ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
-            $usuario->setIdEstablecimiento($establecimiento);
-            $grupo = $this->getModelManager()
-                        ->getEntityManager('ApplicationSonataUserBundle:Group')
-                        ->createQuery("
-                    SELECT g
-                    FROM ApplicationSonataUserBundle:Group g
-                    WHERE g.name = 'Modulo6AgendaMedica'")
-                        ->getSingleResult();
-            $usuario->addGroup($grupo);
-            $userManager->updateUser($usuario);
+            $bandera=false;
+            $idAreaModEstab='';            
+            foreach($empleado->getEspecialidadesEstab() as $especialidadesEstab){
+	      if(!$bandera){
+		    if($especialidadesEstab->getIdAreaModEstab()!=$idAreaModEstab){
+		      /* Setear los valores generales del usuario */
+			$contrasenia = "123";
+			$firstname = $empleado->getNombre();
+			$lastname = $empleado->getApellido();
+			if (strpos($lastname, " "))
+			    list($primerA, $segundoApellido) = explode(" ", $lastname);
+			else
+			    $primerA = $lastname;
+			$bandera = false;
+			$i = 0;
+			$primero = '';
+			$username = '';
+			while (!$bandera) {
+			    $primero.=$firstname[$i];
+			    $username = strtolower($primero . $primerA);
+			    $valor = $this->getModelManager()
+				    ->findOneBy('ApplicationSonataUserBundle:User', array('username' => $username));
+			    if (count($valor) == 0)
+				$bandera = true;
+			    else
+				$i++;
+			}
+			$idAreaModEstab=$especialidadesEstab->getIdAreaModEstab();
+			$userManager = $this->getConfigurationPool()->getContainer()->get('fos_user.user_manager');
+			$usuario = $userManager->createUser();
+			$usuario->setUsername($username);
+			$usuario->setPlainPassword($contrasenia);
+			$usuario->setFirstName($firstname);
+			$usuario->setLastname($lastname);
+			$usuario->setEnabled(true);
+			$usuario->setModulo('SEC');
+			$usuario->setIdEmpleado($empleado);
+			$establecimiento = $this->getModelManager()
+				->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+			$usuario->setIdEstablecimiento($establecimiento);
+			$grupo = $this->getModelManager()
+				    ->getEntityManager('ApplicationSonataUserBundle:Group')
+				    ->createQuery("
+				SELECT g
+				FROM ApplicationSonataUserBundle:Group g
+				WHERE g.name = 'Modulo6AgendaMedica'")
+				    ->getSingleResult();
+		      
+			$usuario->addGroup($grupo);
+			$usuario->setIdAreaModEstab($idAreaModEstab);
+			$userManager->updateUser($usuario);
+		    }
+		}
+            }
         }
     }
 
@@ -226,7 +240,10 @@ class MntEmpleadoAdmin extends Admin {
                 if (count($object->getEspecialidadesEstab()) == 0) {
                     $errorElement
                             ->with('especialidadesEstab')
-                            ->addViolation('Debe seleccionar al menos una especialidad con la que trabaja el médico')
+                                ->addViolation('')
+                            ->end()
+                            ->with('error')
+                                ->addViolation('Debe seleccionar al menos una especialidad con la que trabaja el médico')
                             ->end();
                 }
             }

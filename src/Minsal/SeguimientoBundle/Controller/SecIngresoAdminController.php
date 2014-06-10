@@ -104,6 +104,8 @@ class SecIngresoAdminController extends Controller {
      */
     public function editAction($id = null) {
         // the key used to lookup the template
+        //var_dump($this->get('session')->getFlashBag()->keys());exit();
+
         $templateKey = 'edit';
 
         $id = $this->get('request')->get($this->admin->getIdParameter());

@@ -40,7 +40,7 @@ class SecIngresoAdmin extends Admin {
                 ->add('idAtenAreaModEstab', 'entity', array('label' => 'Especialidad',
                     'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab', 'read_only' => 'true'))
                 ->add('idAmbienteIngreso', 'entity', array('label' => 'Servicio de Ingreso',
-                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab', 'read_only' => 'true'))
+                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab'))
                 ->add('embarazada', null, array('label' => 'Embarazada', 'required' => false,))
                 ->add('semanasAmenorrea', 'number', array('required' => false, 'label' => 'Semanas de amenorrea'))
                 ->add('fechaProbableParto', 'date', array('required' => false,

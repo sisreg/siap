@@ -1,24 +1,20 @@
 $(document).ready(function() {
-    $('i').popover('show');
-    $('.mensaje').dialog({
-        autoOpen: false,
-        width: 300,
-        buttons: {
-            "Ok": function() {
-                $(this).dialog("close");
-            }
-
-        }
-
-    });
     $(":submit").click(function() {
         if (!$('input:checkbox[name*="groups"]').is(':checked')) {
-            ($('#error')) ? $('#error').remove() : '';
-            var elem = $("<div id='error' title='Seleccionar un rol'>" +
-                    "Debe Seleccionar un rol para el usuario</div>");
-
-            elem.insertBefore($("#divpie"));
-            $("#error").dialog();
+            $("body").append('<div id="dialog-message"></div>');
+            $("#dialog-message").empty();
+            $("#dialog-message").append('<p><span class="glyphicon glyphicon-exclamation-sign"></span> Debe de seleccinoar un rol para el usuario</p>');
+            $("#dialog-message").dialog({
+                dialogClass: "dialog-error",
+                modal: true,
+                title: 'Grupo no seleccionado',
+                width: 500,
+                buttons: {
+                    Aceptar: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
             return false;
         }
     });
@@ -27,9 +23,6 @@ $(document).ready(function() {
         $('input[id$="_email"]').val($('input[id$="_username"]').val()+'@salud.gob.sv')
     }); 
     
-    
     $('input[id$="_enabled"]').attr("checked","checked");
-
-
 });
 

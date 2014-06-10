@@ -19,7 +19,7 @@
 
 			{% if empEspecialidades %}
 				{% for especialidad in empEspecialidades%}
-					$field.append($('<option>', {value: {{ especialidad.idAtenAreaModEstab }}, text: '{{ especialidad.mombreAtenAreaModEstab }}' }));
+					$field.append($('<option>', {value: {{ especialidad.getId() }}, text: '{{ especialidad.getNombreConsulta() }}' }));
 				{% endfor %}
 			{% endif %}
 

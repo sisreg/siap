@@ -37,7 +37,7 @@ class MntCiq
     private $procedimiento;
 
    /**
-     * @var \User
+     * @var \MntTipoProcedimiento
      *
      * @ORM\ManyToOne(targetEntity="MntTipoProcedimiento")
      * @ORM\JoinColumns({
@@ -45,8 +45,6 @@ class MntCiq
      * })
      */
     private $idTipoProcedimiento;
-
-  
 
     /**
      * Get id

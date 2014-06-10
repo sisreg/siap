@@ -92,7 +92,7 @@ class MntAreaModEstabAdmin extends Admin {
 
     public function postPersist($mntAreaModEstab) {
         if ($mntAreaModEstab->getIdModalidadEstab()->getIdModalidad()->getId() == 1) {
-            if ($mntAreaModEstab->getIdAreaAtencion()->getId() == 1) {
+            if ($mntAreaModEstab->getIdAreaAtencion()->getId() == 1 && is_null($mntAreaModEstab->getIdServicioExternoEstab())) {
                 $usuario = $this->getModelManager()
                         ->getEntityManager('ApplicationSonataUserBundle:User')
                         ->createQuery("
@@ -108,7 +108,7 @@ class MntAreaModEstabAdmin extends Admin {
 
      public function postUpdate($mntAreaModEstab) {
         if ($mntAreaModEstab->getIdModalidadEstab()->getIdModalidad()->getId() == 1) {
-            if ($mntAreaModEstab->getIdAreaAtencion()->getId() == 1) {
+            if ($mntAreaModEstab->getIdAreaAtencion()->getId() == 1 && is_null($mntAreaModEstab->getIdServicioExternoEstab())) {
                 $usuario = $this->getModelManager()
                         ->getEntityManager('ApplicationSonataUserBundle:User')
                         ->createQuery("
