@@ -239,15 +239,19 @@ jQuery(document).ready(function($) {
 	
 	//Estandarización del uso de modal dentro del proyecto
     $('body').append('\
-        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\
-            <div class="modal-header">\
-                <button id="myModalBtnCloseX" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\
-                <h4 id="myModalLabel"></h4>\
-            </div>\
-            <div class="modal-body">\
-            </div>\
-            <div class="modal-footer">\
-                <button class="action" data-dismiss="modal" aria-hidden="true"><span class="label">Cerrar</span></button>\
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\
+            <div class="modal-dialog">\
+                <div class="modal-content">\
+                    <div class="modal-header">\
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>\
+                    </div>\
+                    <div class="modal-body">\
+                    </div>\
+                    <div class="modal-footer">\
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="color: #636363;font-weight: bold;">Cerrar</button>\
+                    </div>\
+                </div>\
             </div>\
         </div>');
 
@@ -282,13 +286,13 @@ jQuery(document).ready(function($) {
                         if (modalBody != '') {
                             $('#myModal div.modal-body').append(modalBody);
                             if (typeof modal_elements[i].closeBtnName === 'undefined' || modal_elements[i].closeBtnName == '') {
-                                $('#myModal div.modal-footer').append(modal_elements[i].footer + '<button id="myModalBtnClose" class="action" data-dismiss="modal" aria-hidden="true"><span class="label">Cerrar</span></button>');
+                                $('#myModal div.modal-footer').append(modal_elements[i].footer + '<button type="button" class="btn btn-default" data-dismiss="modal" style="color: #636363;font-weight: bold;">Cerrar</button>');
                             } else {
-                                $('#myModal div.modal-footer').append(modal_elements[i].footer + '<button id="myModalBtnClose" class="action" data-dismiss="modal" aria-hidden="true"><span class="label">'+modal_elements[i].closeBtnName+'</span></button>');
+                                $('#myModal div.modal-footer').append(modal_elements[i].footer + '<button type="button" class="btn btn-default" data-dismiss="modal" style="color: #636363;font-weight: bold;">'+modal_elements[i].closeBtnName+'</button>');
                             }
                         } else {
                             $('#myModal div.modal-body').append(window['defalutlModalBodyMessage']());
-                            $('#myModal div.modal-footer').append('<button id="myModalBtnClose" class="action" data-dismiss="modal" aria-hidden="true"><span class="label">Cerrar</span></button>');
+                            $('#myModal div.modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal" style="color: #636363;font-weight: bold;">Cerrar</button>');
                         }
 
                         if (typeof modal_elements[i].afterLoadCallFunction !== 'undefined' && modal_elements[i].afterLoadCallFunction != '') {
@@ -296,8 +300,8 @@ jQuery(document).ready(function($) {
                         }
 
                         if (typeof modal_elements[i].widthModal !== 'undefined' && modal_elements[i].widthModal != '') {
-                            $('div#myModal').css({ 'width': modal_elements[i].widthModal+'px', 'margin-left': '-'+(modal_elements[i].widthModal/2)+'px' });
-                            /*$('div#myModal').css('margin-left','-'+(modal_elements[i].widthModal/2)-30+'px');*/
+                            /*$('div#myModal').css({ 'width': modal_elements[i].widthModal+'px', 'margin-left': '-'+(modal_elements[i].widthModal/2)+'px' });*/
+                            $('div#myModal div.modal-dialog').css({ 'width': modal_elements[i].widthModal+'px' });
                         }
 
                     } else {

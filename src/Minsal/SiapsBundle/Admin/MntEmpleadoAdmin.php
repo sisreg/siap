@@ -236,7 +236,10 @@ class MntEmpleadoAdmin extends Admin {
                 if (count($object->getEspecialidadesEstab()) == 0) {
                     $errorElement
                             ->with('especialidadesEstab')
-                            ->addViolation('Debe seleccionar al menos una especialidad con la que trabaja el médico')
+                                ->addViolation('')
+                            ->end()
+                            ->with('error')
+                                ->addViolation('Debe seleccionar al menos una especialidad con la que trabaja el médico')
                             ->end();
                 }
             }

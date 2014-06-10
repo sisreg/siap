@@ -37,7 +37,7 @@ class MntCiq
     private $procedimiento;
 
    /**
-     * @var \User
+     * @var \MntTipoProcedimiento
      *
      * @ORM\ManyToOne(targetEntity="MntTipoProcedimiento")
      * @ORM\JoinColumns({
@@ -47,9 +47,9 @@ class MntCiq
     private $idTipoProcedimiento;
 
     /**
-     * @var \User
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuariomod", referencedColumnName="id",nullable=false)
      * })
