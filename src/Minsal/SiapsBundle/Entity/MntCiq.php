@@ -46,29 +46,12 @@ class MntCiq
      */
     private $idTipoProcedimiento;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idusuariomod", referencedColumnName="id",nullable=false)
-     * })
-     */
-    private $idusuariomod;
-
-     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fechahorareg", type="date")
-     */
-    private $fechahorareg;
-
-
+  
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -91,7 +74,7 @@ class MntCiq
     /**
      * Get codigo
      *
-     * @return string
+     * @return string 
      */
     public function getCodigo()
     {
@@ -114,34 +97,11 @@ class MntCiq
     /**
      * Get procedimiento
      *
-     * @return string
+     * @return string 
      */
     public function getProcedimiento()
     {
         return $this->procedimiento;
-    }
-
-    /**
-     * Set fechahorareg
-     *
-     * @param \DateTime $fechahorareg
-     * @return MntCiq
-     */
-    public function setFechahorareg($fechahorareg)
-    {
-        $this->fechahorareg = $fechahorareg;
-
-        return $this;
-    }
-
-    /**
-     * Get fechahorareg
-     *
-     * @return \DateTime
-     */
-    public function getFechahorareg()
-    {
-        return $this->fechahorareg;
     }
 
     /**
@@ -160,33 +120,10 @@ class MntCiq
     /**
      * Get idTipoProcedimiento
      *
-     * @return \Minsal\SiapsBundle\Entity\MntTipoProcedimiento
+     * @return \Minsal\SiapsBundle\Entity\MntTipoProcedimiento 
      */
     public function getIdTipoProcedimiento()
     {
         return $this->idTipoProcedimiento;
-    }
-
-    /**
-     * Set idusuariomod
-     *
-     * @param \Application\Sonata\UserBundle\Entity\User $idusuariomod
-     * @return MntCiq
-     */
-    public function setIdusuariomod(\Application\Sonata\UserBundle\Entity\User $idusuariomod)
-    {
-        $this->idusuariomod = $idusuariomod;
-
-        return $this;
-    }
-
-    /**
-     * Get idusuariomod
-     *
-     * @return \Application\Sonata\UserBundle\Entity\User
-     */
-    public function getIdusuariomod()
-    {
-        return $this->idusuariomod;
     }
 }

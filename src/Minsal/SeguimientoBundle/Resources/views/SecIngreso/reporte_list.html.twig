@@ -1,4 +1,5 @@
-{% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
+{# src/Minsal/SeguimientoBundle/Resources/views/SecIngreso/reporte_list.html.twig #}
+{% extends 'SonataAdminBundle::layout.html.twig' %}
 {%block stylesheets %}
     {{parent()}}
     <link rel="stylesheet" href="{{ asset('bundles/minsalseguimiento/css/SecIngreso/reporte_list.css') }}" type="text/css" media="all" />  
@@ -17,7 +18,7 @@
         <table class="table table-bordered ">
             <tbody>
                 <tr>
-                    <td colspan="4" id="titulo_parametro" class="sonata-ba-list-field-header"><strong>Parámetros de Busqueda</strong></td>
+                    <td colspan="4" id="titulo_parametro" class="sonata-ba-list-field-header"><strong>Opciones de Contenido</strong></td>
                 </tr>
                 <tr>
                     <td class=""><strong>Fecha Inicial</strong></td>
@@ -28,7 +29,7 @@
                 <tr>
                     <td class="" ><strong>Servicio</strong></td>
                     <td colspan="3" ><select id="servicio_ingreso" name="servicio_ingreso">
-                        <option value="">Seleccione..</option>
+                        <option></option>
                     </select></td>                   
                 </tr>
             </tbody>

@@ -521,3 +521,8 @@ div#dialog-message p {
 .mouse-sw-resize       { cursor: sw-resize; }
 .mouse-nesw-resize     { cursor: nesw-resize; }
 .mouse-nwse-resize     { cursor: nwse-resize; }
+
+.icono{
+    height:50px;
+    width: 50px;
+}

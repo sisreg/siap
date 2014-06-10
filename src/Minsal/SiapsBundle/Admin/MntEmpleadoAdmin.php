@@ -195,23 +195,13 @@ class MntEmpleadoAdmin extends Admin {
             $establecimiento = $this->getModelManager()
                     ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
             $usuario->setIdEstablecimiento($establecimiento);
-            if ($establecimiento->getIdTipoEstablecimiento()->getId() != 1) {
-                $grupo = $this->getModelManager()
+            $grupo = $this->getModelManager()
                         ->getEntityManager('ApplicationSonataUserBundle:Group')
                         ->createQuery("
                     SELECT g
                     FROM ApplicationSonataUserBundle:Group g
-                    WHERE g.name = 'Modulo1Hos'")
+                    WHERE g.name = 'Modulo6AgendaMedica'")
                         ->getSingleResult();
-            } else {
-                $grupo = $this->getModelManager()
-                        ->getEntityManager('ApplicationSonataUserBundle:Group')
-                        ->createQuery("
-                    SELECT g
-                    FROM ApplicationSonataUserBundle:Group g
-                    WHERE g.name = 'Modulo1Us'")
-                        ->getSingleResult();
-            }
             $usuario->addGroup($grupo);
             $userManager->updateUser($usuario);
         }

@@ -1,7 +1,7 @@
 {# src/Minsal/SiapsBudle/Resource/view/MntExpedienteAdmin/listarexpedientes.html.twig 
    Vista para el reporte de los expedientes creados por un determinido recurso del 
    establecimiento #}
-{% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
+{% extends 'SonataAdminBundle::layout.html.twig' %}
 {%block stylesheets %}
     {{parent()}}
 <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntExpediente/list.css') }}" type="text/css" media="all" />  
@@ -35,8 +35,8 @@
             </tbody>
         </table>
         <div class="well form-actions">
-            <input type="submit" class="btn" id="emitir_informe" name="btn_generate" value="Emitir Informe"/>
-            <input type="submit" class="btn" name="btn_cancel" value="Cancelar"/>
+            <input type="submit" class="btn btn-primary" id="emitir_informe" name="btn_generate" value="Emitir Informe"/>
+            <input type="submit" class="btn btn-info" name="btn_cancel" value="Cancelar"/>
         </div>
     </form>
     <div id="resultado" ></div>
