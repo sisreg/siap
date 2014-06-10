@@ -500,11 +500,17 @@
 	                    '': 'h:mmt'            // 7p
 	            },
 	            buttonText: {
-			        prev: '&#x25C0; Mes Anterior',
-			        next: 'Mes Siguiente &#x25B6;',
-			        prevYear: '&#x2770; A&ntilde;o Anterior',
-			        nextYear: 'A&ntilde;o Siguiente &#x2771;',
-			        today: 'Hoy'
+			        prev: 	  'Mes Anterior',
+			        next: 	  'Mes Siguiente',
+			        prevYear: 'Año Anterior',
+			        nextYear: 'Año Siguiente',
+			        today: 	  'Hoy'
+			    },
+			    buttonIcons: {
+			    	prev: 	  'left-single-arrow',
+				    next: 	  'right-single-arrow',
+				    prevYear: 'left-double-arrow',
+				    nextYear: 'right-double-arrow'
 			    },
 			    dayRender: function(date, cell) {
                     var medicUser = '{% if app.user.getIdEmpleado.getIdTipoEmpleado is not defined or app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo is not sameas("MED") %}false{% else %}true{% endif %}';
@@ -771,7 +777,8 @@
                 $idEmpleado.prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
                 $idEmpleado.select2({
                     placeholder: 'Seleccionar Medico...',
-                    allowClear: true
+                    allowClear:  true,
+                    width: 		 '100%'
                 });
              
                 $.ajax({
@@ -794,7 +801,8 @@
                 $idEmpleadoEspecialidadEstab.prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
                 $idEmpleadoEspecialidadEstab.select2({
                     placeholder: 'Seleccionar Especialidad...',
-                    allowClear: true
+                    allowClear:  true,
+                    width: 		 '100%'
                 });
                 
                 $idEmpleado.on('change', function(e) {
@@ -803,7 +811,8 @@
                     $idEmpleadoEspecialidadEstab.prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
                     $idEmpleadoEspecialidadEstab.select2({
                         placeholder: 'Seleccionar Especialidad...',
-                        allowClear: true
+                        allowClear:  true,
+                        width: 		 '100%'
                     });
                     
                     if(e.val) {
@@ -971,6 +980,15 @@
 			}
 		});
 	</script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$('span.fc-button-prev').prepend('<span class="glyphicon glyphicon-chevron-left"></span> ')
+			$('span.fc-button-next').append(' <span class="glyphicon glyphicon-chevron-right"></span>')
+			
+			$('span.fc-button-prevYear').prepend('<span class="glyphicon glyphicon-backward"></span> ')
+			$('span.fc-button-nextYear').append(' <span class="glyphicon glyphicon-forward"></span>')
+		});
+	</script>
 {% endblock %}
 
 {% block notice %}
@@ -990,13 +1008,13 @@
     {% else %}
     	{% block sonata_page_content_nav %}
 		{% endblock %}        
-        <div class="col-md-2">
+        <div class="col-md-3">
             {% if app.user.getIdEmpleado.getIdTipoEmpleado is not defined or app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo is not sameas("MED") %}
                 <div class="col-md-12" style="margin-bottom: 20px;">
                     <label class="col-md-12 label-filters">Medico:</label>
-                    <select id="idEmpleado" class="col-md-12"></select>
+                    <select id="idEmpleado"></select>
                     <label class="col-md-12 label-filters">Sub-especialidad:</label>
-                    <select id="idEmpleadoEspecialidadEstab" class="col-md-12"></select>
+                    <select id="idEmpleadoEspecialidadEstab"></select>
                 </div>
             {% endif %}
             <div class="col-md-12">
@@ -1024,7 +1042,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-10">{% include 'ADesignsCalendarBundle::calendar.html.twig' %}</div>
+        <div class="col-md-9">{% include 'ADesignsCalendarBundle::calendar.html.twig' %}</div>
     {% endif %}
 {% endblock %}
     
