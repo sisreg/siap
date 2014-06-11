@@ -192,14 +192,15 @@ class GeneralesController extends Controller {
         $em             = $this->getDoctrine()->getManager();
         $response       = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
         $codigoEmpleado = $user->getIdEmpleado() ? $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo() : 'N/A';
-
+	  
         if($session->get('_moduleSelection') !== null && $codigoEmpleado == 'MED') {
+        
             if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
 
                 $idEmpleado        = $user->getIdEmpleado()->getId();
                 $idEstablecimiento = $user->getIdEmpleado()->getIdEstablecimiento()->getId();
 
-                $dql = "SELECT t02.id as idAtenAreaModEstab, t03.nombre as mombreAtenAreaModEstab
+                $dql = "SELECT t02
                         FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab      t01
                         INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab         t02 WITH (t02.id = t01.idAtenAreaModEstab)
                         INNER JOIN MinsalSiapsBundle:CtlAtencion                 t03 WITH (t03.id = t02.idAtencion)
@@ -223,7 +224,7 @@ class GeneralesController extends Controller {
                     ':nomAreaAtencion'   => 'consulta externa',
                     ':nomModalidad'      => 'minsal'));
                 $empEspecialidades = $query->getResult();
-
+                
                 if($empEspecialidades) {
                     if(count($empEspecialidades) > 1) {
                         $response =  $this->render(

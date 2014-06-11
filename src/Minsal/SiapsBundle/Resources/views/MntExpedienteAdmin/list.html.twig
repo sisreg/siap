@@ -1,4 +1,5 @@
-{% extends 'MinsalSiapsBundle::standard_layout.html.twig' %}
+{# src/Minsal/SiapsBundle/Resources/views/MntExpedienteAdmin/list.html.twig #}
+{% extends 'SonataAdminBundle::layout.html.twig' %}
 {%block stylesheets %}
     {{parent()}}
     <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntExpediente/list.css') }}" type="text/css" media="all" />  
@@ -12,6 +13,7 @@
 {%endblock%}
 {% block content -%}
 <div style="text-align: center;">
+
     <form  id="expedientes_creados" method="post" >
         <table class="table table-bordered ">
             <tbody>
@@ -20,15 +22,15 @@
                 </tr>
                 <tr>
                     <td class=""><strong>Fecha Inicial</strong></td>
-                    <td><input id="fecha_inicio" name="fecha_inicio" type="text" class="fecha" /></td>
+                    <td><input id="fecha_inicio" name="fecha_inicio" type="text" class="fecha form-control" /></td>
                     <td class=" "><strong>Fecha Final</strong></td>
-                    <td><input id="fecha_fin" name="fecha_fin" type="text" class="fecha" /></td>
+                    <td><input id="fecha_fin" name="fecha_fin" type="text" class="fecha form-control" /></td>
                 </tr>
             </tbody>
         </table>
         <div class="well form-actions">
-            <input type="submit" class="btn" id="emitir_informe" name="btn_generate" value="Emitir Informe"/>
-            <input type="submit" class="btn" name="btn_cancel" value="Cancelar"/>
+            <input type="submit" class="btn btn-primary" id="emitir_informe" name="btn_generate" value="Emitir Informe"/>
+            <input type="submit" class="btn btn-info" name="btn_cancel" value="Cancelar"/>
         </div>
     </form>
     <div id="resultado" ></div>

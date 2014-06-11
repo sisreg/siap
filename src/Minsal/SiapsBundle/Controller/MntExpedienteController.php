@@ -48,6 +48,7 @@ class MntExpedienteController extends Controller {
         $conn = $em->getConnection();
         $fechaInicio = $request->get('fecha_inicio');
         $fechaFin = $request->get('fecha_fin');
+        $establecimiento=$em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')->findOneBy(array('configurado' => true));
         $restriccion = "";
         if ($request->get('usuario') != '')
             $restriccion = " AND B.id_user=" . $request->get('usuario') . " ";
@@ -69,9 +70,14 @@ INNER JOIN ctl_sexo C on (B.id_sexo=C.id)
 LEFT JOIN fos_user_user E on (B.id_user=E.id)
 WHERE A.fecha_creacion>=to_date('$fechaInicio','DD-MM-YYYY') 
       AND A.fecha_creacion<=to_date('$fechaFin','DD-MM-YYYY')
-      $restriccion
-ORDER BY A.numero";
-        $expedientes = $conn->query($sql);
+	$restriccion";
+	
+	$ordenamiento="";
+        if($establecimiento->getTipoExpediente() == 'G')
+	    $ordenamiento =" ORDER BY fecha_creacion ASC,cast (split_part(numero,'-',2) as integer) DESC,cast (split_part(numero,'-',1) as integer) ASC";
+	else
+	    $ordenamiento =" ORDER BY cast (numero as integer) ASC";
+        $expedientes = $conn->query($sql.$ordenamiento);
         $numfilas = count($expedientes);
 
         $i = 0;

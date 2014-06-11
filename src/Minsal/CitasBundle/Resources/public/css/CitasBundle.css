@@ -21,11 +21,11 @@
 .panel-primary-custom .panel-primary > .panel-heading, .panel-primary-custom .panel-success > .panel-heading, .panel-primary-custom .panel-info > .panel-heading {font-size:15px;font-weight:bold;}
 .agendamd-content {padding: 0 25px 0 25px;}
 .disabled-label { color: #6E6E6E;background-color: #F9F9F9;}
-./*sonata-bc .modal-header {padding: 5px 15px;}*/
+.label-filters {line-height: 30px !important;text-align: left;color:#0088cc !important;}
+.right-side { margin-left: 0%; margin-right: 0%;}
+@media (max-width:767px){.sonata-bc .modal.fade.in {top:10% !important;} .sonata-bc .modal {width: auto !important; margin: 0 !important; height: 80% !important;}}
+/*.sonata-bc .modal-header {padding: 5px 15px;}*/
 /*.sonata-bc .modal-body {max-height: 310px;}*/
 /*.custom-modal-header #cita_submit_form {margin-bottom: 0 !important;}*/
 /*.modal-body #info-message .sonata-bc ul, .sonata-bc ol {padding-bottom: 0 !important;}*/
-.label-filters {line-height: 30px !important;text-align: left;color:#0088cc !important;}
 /*.modal { top: 45% !important; }*/
-.right-side { margin-left: 0%; margin-right: 0%;}
-@media (max-width:767px){.sonata-bc .modal.fade.in {top:10% !important;} .sonata-bc .modal {width: auto !important; margin: 0 !important; height: 80% !important;}}

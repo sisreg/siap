@@ -70,7 +70,8 @@
 
 		function updateMonthIformationCit() {
 			var moment = $('#calendar-holder').fullCalendar('getDate');
-			var calendarDate = new Date(moment);
+			var calendarDate = new Date(moment.year(),moment.month(),moment.day());
+				console.log(calendarDate);
 				calendarDate.setHours(0,0,0,0);
             var medicData = getMedicData();
 			jQuery.ajax({
@@ -985,8 +986,8 @@
 			$('span.fc-button-prev').prepend('<span class="glyphicon glyphicon-chevron-left"></span> ')
 			$('span.fc-button-next').append(' <span class="glyphicon glyphicon-chevron-right"></span>')
 			
-			$('span.fc-button-prevYear').prepend('<span class="glyphicon glyphicon-backward"></span> ')
-			$('span.fc-button-nextYear').append(' <span class="glyphicon glyphicon-forward"></span>')
+			$('span.fc-button-prevYear').prepend('<span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-left"></span> ')
+			$('span.fc-button-nextYear').append(' <span class="glyphicon glyphicon-chevron-right"></span><span class="glyphicon glyphicon-chevron-right"></span>')
 		});
 	</script>
 {% endblock %}

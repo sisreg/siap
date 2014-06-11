@@ -1,12 +1,10 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
 {% block javascripts %}
     {{ parent() }}
-<script src="{{ asset('bundles/minsalsiaps/js/UserAdmin/edit.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/minsalsiaps/js/UserAdmin/edit.js') }}" type="text/javascript"></script>
 {% endblock %}
-{% block form %}
-{{ parent() }}
-<div id="error" class="mensaje" title="Seleccione un rol">
-    Debe seleccionar al menos un grupo
-</div>
 
-{% endblock%}
+{% block form %}
+	{{ parent() }}
+{% endblock %}

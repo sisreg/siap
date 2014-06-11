@@ -10,7 +10,8 @@ $(document).ready(function() {
     })
     $field.select2({
         placeholder: 'Seleccione...',
-        allowClear: true
+        allowClear: true,
+	width: '90%'
     });
     $.getJSON(Routing.generate('obtener_usuarios_archivo'),
             function(data) {

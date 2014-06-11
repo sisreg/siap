@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    $('#servicio_ingreso').select2({
+      width: '60%',
+      placeholder:'Seleccione...',
+      allowClear:true
+    });
+  
     $("#fecha_inicio").datepicker().mask("99-99-9999");
     $("#fecha_fin").datepicker().mask("99-99-9999");
 

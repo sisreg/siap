@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('bundles/sonatamarkitup/markitup/markitup/sets/markdown/style.css') }}" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ asset('bundles/sonatamarkitup/markitup/markitup/sets/html/style.css') }}" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ asset('bundles/sonatamarkitup/markitup/markitup/sets/textile/style.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/siaps.css') }}" type="text/css" media="all" />
     {% if app.user.getId() is defined %}<link rel="stylesheet" href="{{ asset('bundles/applicationcore/css/corelayout.css') }}" type="text/css" media="all" />{% endif %}
     <link rel="stylesheet" href="{{ asset('bundles/applicationcore/css/fullcalendar/fullcalendar.css') }}" />
 {% endblock %}
@@ -45,7 +46,7 @@
             $('body').removeClass('skin-black');
             $('aside.left-side').removeClass('left-side');
             {% if app.user.getId() is defined %}
-                $('body').append('<div class="page-footer"><img class="dtic-footer" src="{{ asset("bundles/applicationcore/images/dtic.png") }}" alt="dtic"/>Direcci&oacute;n de Tecnolog&iacute;as de Informaci&oacute;n y Comuncaciones - Ministerio de Salud</div>');
+                $('body').append('<div class="page-footer"><img class="dtic-footer" src="{{ asset("bundles/applicationcore/images/dtic.png") }}" alt="dtic"/>Dirección de Tecnologías de Información y Comunicaciones - Ministerio de Salud</div>');
             {% endif %}
         });
     </script>
