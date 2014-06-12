@@ -147,7 +147,7 @@ WHERE t01.id = $P{id}]]>
 					<text><![CDATA[Hora de la Consulta]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="411" y="34" width="173" height="17" uuid="377c37fa-feab-4496-b096-2210286577c1"/>
+					<reportElement x="119" y="34" width="173" height="17" uuid="377c37fa-feab-4496-b096-2210286577c1"/>
 					<box leftPadding="7" rightPadding="5"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
@@ -155,7 +155,7 @@ WHERE t01.id = $P{id}]]>
 					<textFieldExpression><![CDATA[$F{fecha_cita}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="119" y="34" width="173" height="17" uuid="a5cea69c-fca6-40cd-8b7b-79d1abcfa73a"/>
+					<reportElement x="411" y="34" width="173" height="17" uuid="a5cea69c-fca6-40cd-8b7b-79d1abcfa73a"/>
 					<box leftPadding="7" rightPadding="5"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>

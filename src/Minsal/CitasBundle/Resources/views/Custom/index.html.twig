@@ -53,7 +53,7 @@
                 
                 {% if admin.isGranted('CREATE') or app.user.hasRole('ROLE_SONATA_ADMIN_CITCITASDIA_CREATE') %}
                     if(parameters_func.type == 4 || parameters_func.type == 5) {
-                        foot = '<button id="cita_submit" name="cita_submit" value="cita_submit" class="action blue" form="cita_submit_form"><span class="label"><i class="icon-plus-sign icon-white"></i> Crear Cita</span></button>';
+                        foot = '<button id="cita_submit" name="cita_submit" value="cita_submit" class="btn btn-primary" form="cita_submit_form"><span class="label"><span class="glyphicon glyphicon-plus-sign"></span> Crear Cita</span></button>';
                     }
                 {% endif %}
                 
@@ -69,10 +69,8 @@
 		}
 
 		function updateMonthIformationCit() {
-			var moment = $('#calendar-holder').fullCalendar('getDate');
-			var calendarDate = new Date(moment.year(),moment.month(),moment.day());
-				console.log(calendarDate);
-				calendarDate.setHours(0,0,0,0);
+			var calendarDate = $('#calendar-holder').fullCalendar('getDate');
+			    calendarDate.setHours(0,0,0,0);
             var medicData = getMedicData();
 			jQuery.ajax({
 			    url: Routing.generate('citasdiaxmedico') + '?idEmpleado='+medicData.idEmpleado+'&idEmpleadoEspecialidadEstab='+medicData.idEmpleadoEspecialidadEstab+'&calendarDate='+calendarDate,
@@ -169,13 +167,14 @@
             var medicData = getMedicData();
 
 			$("#horario-atencion").empty();
-			$("#horario-atencion").append('Horario de Atencion de Pacientes<br /><select id="horarioMedico" name="horarioMedico" class="col-md-3"></select>');
+			$("#horario-atencion").append('Horario de Atencion de Pacientes<br /><select id="horarioMedico" name="horarioMedico"></select>');
             $("#num_exp_nom_paciente").empty();
 			$("#num_exp_nom_paciente").append('No. Expedinte - Nombre Paciente<br /><input type="hidden" id="numExpNomPac" name="numExpNomPac" style="width:203px !important;"></input>');
 
 			$field = $('#horarioMedico');
             $field.select2({
-                allowClear: false
+                allowClear: false,
+                width: 	 	'100%'
             });
             
             $field2 = $('#numExpNomPac');
@@ -527,7 +526,6 @@
                     
                     if(renderCalendar) {
                         var today = new Date();
-                        date = new Date(date);
                         date.setHours(0,0,0,0);
                         today.setHours(0,0,0,0);
                         var moment = $('#calendar-holder').fullCalendar('getDate');
@@ -901,8 +899,7 @@
 			function updateCalendar() {
                 modal_elements = [];
 				renderCalendar();
-				var moment = $('#calendar-holder').fullCalendar('getDate');
-				var calendarDate = new Date(moment);
+				var calendarDate = $('#calendar-holder').fullCalendar('getDate');
 				calendarDate.setHours(0,0,0,0);
 
 				var currentDate = new Date();
@@ -997,7 +994,7 @@
     {% set session_var = 'sonata_flash_' ~ notice_level %}
         {% for flash in app.session.flashbag.get(session_var) %}
             <div class="alert {{ 'alert-' ~ notice_level }}">
-                {{ flash|trans([], 'SonataAdminBundle')|raw }}
+               <center>{{ flash|trans([], 'SonataAdminBundle')|raw }}</center>
             </div>
         {% endfor %}
     {% endfor %}
