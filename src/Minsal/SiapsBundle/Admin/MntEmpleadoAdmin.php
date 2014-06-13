@@ -134,9 +134,6 @@ class MntEmpleadoAdmin extends Admin {
         //PARA VERIFICAR SI TIENE NUMERO DE VIGILANCIA
         if ($empleado->getNumeroJuntaVigilancia() != '')
             $empleado->setCodigoFarmacia($empleado->getNumeroJuntaVigilancia());
-          foreach($empleado->getEspecialidadesEstab() as $especialidadesEstab)
-         echo( $especialidadesEstab->getIdAreaModEstab().'<br/>');
-         exit();
     }
 
     public function prePersist($empleado) {

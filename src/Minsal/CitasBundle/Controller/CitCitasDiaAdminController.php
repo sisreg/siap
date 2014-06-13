@@ -185,7 +185,7 @@ class CitCitasDiaAdminController extends CRUDController {
                 $comprobante = '<form id="_comprobante-form" method="POST" action="'.$url.'" target="_blank" style="margin:0;">
                                     <input type="hidden" name="id" value="'.$id.'" /><br />
                                     <a href="javascript:void(0);" onclick="document.getElementById(\'_comprobante-form\').submit();">
-                                        <span class="label label-success mouse-pointer" onclick="document.getElementById(\'_comprobante-form\').submit();" style="margin-top:5px;">Ver comprobante</span>
+                                        <span class="label label-success mouse-pointer" style="margin-top:5px;">Ver comprobante</span>
                                     </a>
                                 </form>';
                 $this->addFlash('sonata_flash_success', 'Cita creada exitosamente '.$comprobante);

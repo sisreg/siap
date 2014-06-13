@@ -14,16 +14,12 @@
             {% set _logout_text = '(exit)' %}
         {% endif %}
 
-
-        <li class="user-body">
-	    
-                    
-                <li><a href="{{url('fos_user_change_password')}}" ><span class="glyphicon glyphicon-pencil"></span> Cambiar Contraseña</a><li>
-                <li><a href="{{ _logout_uri }}"><i class="fa fa-sign-out fa-fw"></i> {{ _logout_text }}</a></li>
-               
-            
-        </li>
-
+            <li>
+                <a href="{{ _logout_uri }}"><i class="fa fa-sign-out fa-fw"></i> {{ _logout_text }}</a>
+            </li>
+            <li>
+                <a href="{{url('fos_user_change_password')}}" ><span class="glyphicon glyphicon-pencil"></span> Cambiar Contraseña</a>
+            <li>
     {% endif %}
 {% endblock %}
 
