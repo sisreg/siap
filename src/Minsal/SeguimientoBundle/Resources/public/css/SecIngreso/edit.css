@@ -24,7 +24,7 @@ table.dat_ingreso td + td {
     padding-top:7px;
 }
 
-input[id$="_fecha"]{
+input[id$="_fecha"],input[id$="_fechaProbableParto"] {
     width : 90px;
     margin-left:0;
     margin-right: 10px;

@@ -24,14 +24,24 @@ class UserAdmin extends BaseUserAdmin {
         if ($usuario->getId() != 1) {
             $grupos = $usuario->getGroups();
             if ($grupos[0]->getId() != 1) {
-                list($nombre) = explode('Admin', $grupos[0]->getName());
-                $query = $this
-                        ->modelManager
-                        ->getEntityManager('ApplicationSonataUserBundle:Group')
-                        ->createQuery("
+                if ($grupos[0]->getName() != 'Modulo1regempleado') {
+                    list($nombre) = explode('Admin', $grupos[0]->getName());
+                    $query = $this
+                            ->modelManager
+                            ->getEntityManager('ApplicationSonataUserBundle:Group')
+                            ->createQuery("
                             SELECT g
                             FROM ApplicationSonataUserBundle:Group g
                             WHERE g.name LIKE '%$nombre%'");
+                } else {
+                    $query = $this
+                            ->modelManager
+                            ->getEntityManager('ApplicationSonataUserBundle:Group')
+                            ->createQuery("
+                            SELECT g
+                            FROM ApplicationSonataUserBundle:Group g
+                            WHERE g.name LIKE 'Modulo6%'");
+                }
             } else {
                 $establecimiento = $this->getModelManager()
                         ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
@@ -45,7 +55,7 @@ class UserAdmin extends BaseUserAdmin {
                         ->createQuery("
                             SELECT g
                             FROM ApplicationSonataUserBundle:Group g
-                            WHERE g.name LIKE '%$nombre%'");
+                            WHERE g.name LIKE '%$nombre%' OR g.name LIKE 'Modulo1r%'");
             }
         }else {
             $query = $this
@@ -113,13 +123,21 @@ class UserAdmin extends BaseUserAdmin {
         if ($usuario->getId() != 1) {
             $grupos = $usuario->getGroups();
             if ($grupos[0]->getId() != 1) {
-                list($nombre) = explode('Admin', $grupos[0]->getName());
+                if ($grupos[0]->getName() != 'Modulo1regempleado') {
+                    list($nombre) = explode('Admin', $grupos[0]->getName());
 
-                return new ProxyQuery(
-                        $query
-                                ->where("s_groups.name LIKE '$nombre%'")
-                );
+                    return new ProxyQuery(
+                            $query
+                                    ->where("s_groups.name LIKE '$nombre%'")
+                    );
+                } else {
+                    return new ProxyQuery(
+                            $query
+                                    ->where("s_groups.name LIKE 'Modulo6%' OR s_groups.name LIKE 'Modulo1r%'")
+                    );
+                }
             } else {
+
                 $establecimiento = $this->getModelManager()
                         ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
                 if (!is_null($establecimiento)) {
@@ -129,11 +147,11 @@ class UserAdmin extends BaseUserAdmin {
                         $nombre = 'Us';
                     return new ProxyQuery(
                             $query
-                                    ->where("s_groups.name LIKE '%$nombre%'")
+                                    ->where("s_groups.name LIKE '%$nombre%' OR s_groups.name LIKE 'Modulo6%' OR s_groups.name LIKE 'Modulo1r%'")
                     );
                 } else
                     return $query;
-            }
+            }//FIN DEL ELSE DE USUARIOS NO ADMINISTRADORES
         } else {
             return $query;
         }
@@ -147,19 +165,18 @@ class UserAdmin extends BaseUserAdmin {
 
     public function postPersist($usuario) {
 
-        if($usuario->hasGroup('Modulo1Hos') || $usuario->hasGroup('Modulo1HosAdmin') || $usuario->hasGroup('Modulo1Us') || $usuario->hasGroup('Modulo1UsAdmin')){
-            $empleado=new MntEmpleado();
+        if ($usuario->hasGroup('Modulo1Hos') || $usuario->hasGroup('Modulo1HosAdmin') || $usuario->hasGroup('Modulo1Us') || $usuario->hasGroup('Modulo1UsAdmin')) {
+            $empleado = new MntEmpleado();
             $empleado->setApellido($usuario->getLastName());
             $empleado->setNombre($usuario->getFirstName());
-            $empleado->setNombreempleado($usuario->getFirstName().' '.$usuario->getLastName());
+            $empleado->setNombreempleado($usuario->getFirstName() . ' ' . $usuario->getLastName());
             $idTipoEmpleado = $this->getModelManager()
-                        ->findOneBy('MinsalSiapsBundle:MntTipoEmpleado', array('codigo' => 'ARC'));
+                    ->findOneBy('MinsalSiapsBundle:MntTipoEmpleado', array('codigo' => 'ARC'));
             $empleado->setIdTipoEmpleado($idTipoEmpleado);
             $empleado->setIdEstablecimiento($usuario->getIdEstablecimiento());
             $this->getModelManager()->create($empleado);
             $usuario->setIdEmpleado($empleado);
         }
-
     }
 
 }

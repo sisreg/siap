@@ -14,7 +14,7 @@ class SecIngresoAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
                 ->add('idProcedenciaIngreso', 'entity', array(
-                    'required'=>true,
+                    'required' => true,
                     'label' => 'Procedencia de ingreso',
                     'class' => 'MinsalSeguimientoBundle:SecProcedenciaIngreso',
                     'query_builder' => function(EntityRepository $repositorio) {
@@ -23,7 +23,7 @@ class SecIngresoAdmin extends Admin {
                         ->where('spi.habilitado = true');
             }))
                 ->add('idCircunstanciaIngreso', 'entity', array(
-                    'required'=>true,
+                    'required' => true,
                     'label' => 'Circunstancia de ingreso',
                     'class' => 'MinsalSeguimientoBundle:SecCircunstanciaIngreso',
                     'query_builder' => function(EntityRepository $repositorio) {
@@ -35,10 +35,10 @@ class SecIngresoAdmin extends Admin {
                     'required' => true,
                     'label' => 'Fecha del Ingreso',
                     'widget' => 'single_text', 'format' => 'dd-MM-yyyy'
-                    ))
+                ))
                 ->add('hora', 'time', array('required' => true, 'label' => 'Hora del Ingreso'))
                 ->add('idAtenAreaModEstab', 'entity', array('label' => 'Especialidad',
-                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab', 'read_only' => 'true'))
+                    'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab'))
                 ->add('idAmbienteIngreso', 'entity', array('label' => 'Servicio de Ingreso',
                     'class' => 'MinsalSiapsBundle:MntAtenAreaModEstab'))
                 ->add('embarazada', null, array('label' => 'Embarazada', 'required' => false,))
@@ -62,7 +62,7 @@ class SecIngresoAdmin extends Admin {
                         ->createQueryBuilder('me')
                         ->where('me.idTipoEmpleado = 4');
             }))
-                ->add('idEstablecimientoReferencia', null, array('label' => 'Nombre del Establecimiento (REFERIDO DE:', 'required' => false,
+                ->add('idEstablecimientoReferencia', null, array('label' => 'Nombre del Establecimiento (REFERIDO DE:)', 'required' => false,
                     'class' => 'MinsalSiapsBundle:CtlEstablecimiento',
                     'query_builder' => function(EntityRepository $repositorio) {
                 return $repositorio
@@ -74,7 +74,8 @@ class SecIngresoAdmin extends Admin {
     }
 
     public function validate(ErrorElement $errorElement, $ingreso) {
-        //     var_dump($ingreso->getHora()->format('H'));
+      //  var_dump($ingreso->getIdAtenAreaModEstab());
+        
         $fechaActual = new \DateTime();
         list($hora, $minutos) = explode(":", $ingreso->getHora()->format('H:i'));
         if ($ingreso->getFecha()->diff($fechaActual)->d == 0 && $ingreso->getFecha()->diff($fechaActual)->m == 0 && $ingreso->getFecha()->diff($fechaActual)->y == 0) {
@@ -83,12 +84,12 @@ class SecIngresoAdmin extends Admin {
                         ->addViolation('La hora del ingreso no puede ser mayor que la hora actual')
                         ->end();
             elseif ($fechaActual->format('H') == $hora) {
-                if ($fechaActual->format('i') < ($minutos-1))
+                if ($fechaActual->format('i') < ($minutos - 1))
                     $errorElement->with('hora2')
                             ->addViolation('La hora del ingreso no puede ser mayor que la hora actual')
                             ->end();
             }
-        } elseif ($ingreso->getFecha()->diff($fechaActual)->invert == 1) {           
+        } elseif ($ingreso->getFecha()->diff($fechaActual)->invert == 1) {
             $errorElement->with('fecha')
                     ->addViolation('La fecha del ingreso no puede ser mayor que la fecha actual')
                     ->end();
@@ -107,22 +108,21 @@ class SecIngresoAdmin extends Admin {
                     ->setParameter('actual', $fechaActual->format('d-m-Y'))
                     ->getResult();
             foreach ($posiblePaciente as $paciente) {
-                $errorElement->with('diagnostico')
+                $errorElement->with('error')
                         ->addViolation('No se puede ingresar a este paciente porque ha sido ingresado anteriormente')
                         ->end();
             }
         }
-        
-        if(is_null($ingreso->getIdProcedenciaIngreso()))
-             $errorElement->with('idProcedenciaIngreso')
+
+        if (is_null($ingreso->getIdProcedenciaIngreso()))
+            $errorElement->with('idProcedenciaIngreso')
                     ->addViolation('Debe de seleccionar la procedencia del ingreso')
                     ->end();
-        
-         if(is_null($ingreso->getIdCircunstanciaIngreso()))
-             $errorElement->with('idCircunstanciaIngreso')
+
+        if (is_null($ingreso->getIdCircunstanciaIngreso()))
+            $errorElement->with('idCircunstanciaIngreso')
                     ->addViolation('Debe de seleccionar la circunstancia del ingreso')
                     ->end();
-        
     }
 
     public function getTemplate($name) {

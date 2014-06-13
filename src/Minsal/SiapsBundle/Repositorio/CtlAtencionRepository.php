@@ -26,6 +26,7 @@ class CtlAtencionRepository extends EntityRepository {
                 ->select('a')
                 ->from('MinsalSiapsBundle:CtlAtencion', 'a')
                 ->where('a.idTipoAtencion = 1')
+                ->orderBy('a.id','ASC')
                 ->getQuery()
                 ->getResult();
     }

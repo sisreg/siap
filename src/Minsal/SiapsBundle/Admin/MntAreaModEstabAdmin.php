@@ -25,14 +25,14 @@ class MntAreaModEstabAdmin extends Admin {
                 return $repositorio->obtenerEstabConfigurado();
             }))
                 ->add('idModalidadEstab', 'entity', array('label' => $this->getTranslator()->trans('id_modalidad'),
-                    'empty_value' => 'Seleccione la modalidad',
+                    'empty_value' => '',
                     'class' => 'MinsalSiapsBundle:MntModalidadEstablecimiento'
                 ))
-                ->add('idAreaAtencion', null, array('empty_value' => 'Seleccione el área',
+                ->add('idAreaAtencion', null, array('empty_value' => '',
                     'label' => 'Área de atención',
                     'required' => true
                 ))
-                ->add('idServicioExternoEstab', null, array('empty_value' => 'Seleccione el servicio externo',
+                ->add('idServicioExternoEstab', null, array('empty_value' => '',
                     'label' => 'Servicio Externo'
                 ))
                 ->add('atenciones', null, array(

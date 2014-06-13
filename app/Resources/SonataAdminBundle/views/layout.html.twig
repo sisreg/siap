@@ -16,7 +16,7 @@
 {% block javascripts %}
     <script>
         window.SONATA_CONFIG = {
-            CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}false{% else %}false{% endif %},
+            CONFIRM_EXIT: {# if admin_pool is defined and admin_pool.getOption('confirm_exit') %}false{% else %}false{% endif #}false,
             USE_SELECT2: {% if admin_pool is defined and admin_pool.getOption('use_select2') %}true{% else %}false{% endif %},
             USE_ICHECK: {% if admin_pool is defined and admin_pool.getOption('use_icheck') %}true{% else %}false{% endif %}
         };
@@ -57,9 +57,13 @@
         {% block logo %}
             <center>
                 <a class="logo" href="{{ url('sonata_admin_dashboard') }}">
-                    <img class="banner" src="{{ asset('bundles/applicationcore/images/banner.png') }}" alt="{{ admin_pool.title }}">
+                    <img class="banner" src="{{ asset('bundles/applicationcore/images/logo_siaps.png') }}" alt="{{ admin_pool.title }}">
                 </a>
             </center>
+             {% if app.user %}
+                    <h1 class="establecimiento">{{ app.user.getIdEstablecimiento() }}</h1>
+                    <p class="usuario"><strong>Bienvenid@:</strong>{{app.user}}</p>
+                {% endif %}
         {% endblock %}
 
         {# Creacion del Menu #}
@@ -106,7 +110,7 @@
                                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-user">
-                                            {% include admin_pool.getTemplate('user_block') %}
+                                            {% include 'SonataAdminBundle::user_block.html.twig'  %}
                                         </ul>
                                     </li>
                                 </ul>

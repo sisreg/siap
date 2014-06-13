@@ -134,6 +134,9 @@ class MntEmpleadoAdmin extends Admin {
         //PARA VERIFICAR SI TIENE NUMERO DE VIGILANCIA
         if ($empleado->getNumeroJuntaVigilancia() != '')
             $empleado->setCodigoFarmacia($empleado->getNumeroJuntaVigilancia());
+          foreach($empleado->getEspecialidadesEstab() as $especialidadesEstab)
+         echo( $especialidadesEstab->getIdAreaModEstab().'<br/>');
+         exit();
     }
 
     public function prePersist($empleado) {
@@ -148,7 +151,7 @@ class MntEmpleadoAdmin extends Admin {
         if ($empleado->getNumeroJuntaVigilancia() != '') {
             $empleado->setCodigoFarmacia($empleado->getNumeroJuntaVigilancia());
         }
-        var_dump(count($empleado->getEspecialidadesEstab()));exit();
+       
     }     
 
     /*
@@ -164,11 +167,11 @@ class MntEmpleadoAdmin extends Admin {
              * Se utiliza el User Manager porque el encriptado es especial y con este crearemos
              * el nuevo usuario
              * */
-            $bandera=false;
             $idAreaModEstab='';            
             foreach($empleado->getEspecialidadesEstab() as $especialidadesEstab){
-	      if(!$bandera){
+	      
 		    if($especialidadesEstab->getIdAreaModEstab()!=$idAreaModEstab){
+			$idAreaModEstab=$especialidadesEstab->getIdAreaModEstab();
 		      /* Setear los valores generales del usuario */
 			$contrasenia = "123";
 			$firstname = $empleado->getNombre();
@@ -216,7 +219,7 @@ class MntEmpleadoAdmin extends Admin {
 			$usuario->setIdAreaModEstab($idAreaModEstab);
 			$userManager->updateUser($usuario);
 		    }
-		}
+		
             }
         }
     }

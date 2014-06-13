@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hojaIngresoEgreso" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="96e2e82d-337e-4b41-a0b8-a100dfe5e290">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -70,7 +70,7 @@ M.nombre procedencia,
 N.nombre circunstancia,
 A.diagnostico,
 to_char(A.fecha,'DD/MM/YYYY') AS fecha_ingreso,
-to_char(A.hora,'HH:MI') AS hora_ingreso,
+to_char(A.hora,'HH:MI AM') AS hora_ingreso,
 CASE WHEN A.embarazada=true THEN 'Si' WHEN A.embarazada=false THEN 'No' ELSE ' ' END as embarazada,
 CASE WHEN A.semanas_amenorrea IS NULL THEN 'N/A' ELSE CAST(A.semanas_amenorrea AS TEXT) END as semanas_amenorrea,
 CASE WHEN A.fecha_probable_parto IS NOT NULL THEN to_char(A.fecha_probable_parto,'DD/MM/YYYY') ELSE 'N/A' END AS fecha_parto,
@@ -81,7 +81,7 @@ CASE WHEN A.id_tipo_accidente=2 THEN 'Si' ELSE 'NO' END laboral,
 T.nombreempleado medico,
 U.cargo cargo,
 V.firstname||' '||V.lastname ingreso_esdomed,
-to_char(A.fecha_registro,'DD/MM/YYYY HH:MI') fecha_registro
+to_char(A.fecha_registro,'DD/MM/YYYY HH:MI AM') fecha_registro
 FROM sec_ingreso A
      INNER JOIN mnt_expediente B ON A.id_expediente=B.id
      INNER JOIN mnt_paciente C ON B.id_paciente=C.id
@@ -556,7 +556,7 @@ a=ambos]]></fieldDescription>
 				<text><![CDATA[Fecha de Ingreso:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="258" y="346" width="37" height="17" uuid="68b7b532-78f4-4ecc-b63a-a2c51832c8ee"/>
+				<reportElement x="252" y="346" width="43" height="17" uuid="68b7b532-78f4-4ecc-b63a-a2c51832c8ee"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>

@@ -2,7 +2,26 @@ $(document).ready(function() {
     $listado = $('ul[id$="_atenciones"]');
     $listado.hide();
     $capa_listado = $listado.parent().append('<div id="tree" style="width:50%;"></div>');
+    
+    $('select[id$="_idModalidadEstab"]').select2({
+        placeholder: 'Seleccione...',
+        allowClear:  true,
+	width: 'resolve'
+    });
 
+    $('select[id$="_idAreaAtencion"]').select2({
+        placeholder: 'Seleccione...',
+        allowClear:  true,
+	width: 'resolve'
+    });
+    
+    
+    $('select[id$="_idServicioExternoEstab"]').select2({
+        placeholder: 'Seleccione...',
+        allowClear:  true,
+	width: 'resolve'
+    });
+    
     $("#tree").dynatree({
         checkbox: true,
         selectMode: 2,

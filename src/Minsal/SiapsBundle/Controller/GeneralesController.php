@@ -20,7 +20,7 @@ class GeneralesController extends Controller {
      */
 
     /**
-     * @Route("/profile/show", name="fos_user_profile_show")
+     * @Route("/", name="sonata_user_profile_show")
      */
     public function raiz() {
         $this->get('session')->getFlashBag()->add(

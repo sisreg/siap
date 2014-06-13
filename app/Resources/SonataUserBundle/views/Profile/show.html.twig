@@ -1,0 +1,19 @@
+{% extends 'SonataAdminBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="span10">
+        {% for message in app.session.flashbag.get('fos_user_success') %}
+        <div class="alert alert-success">
+                {{ message|trans({}, "FOSUserBundle") }}
+            </div>
+        {% endfor %}
+        {% for message in app.session.flashbag.get('sonata_user_success') %}
+            <div class="alert alert-success">
+                {{ message|trans({}, "SonataUserBundle") }}
+                </div>
+        {% endfor %}
+                <a class="btn btn-primary sonata-action-element" href="{{ path('_inicio') }}">
+                    <i class="icon-home"></i>Regresar al menu principal
+                </a>
+            </div>
+{% endblock %} 

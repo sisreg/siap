@@ -1,6 +1,6 @@
-#_inicio:
-    #pattern:  /
-    #defaults: { _controller: SonataAdminBundle:Core:dashboard }
+_inicio:
+    pattern:  /
+    defaults: { _controller: SonataAdminBundle:Core:dashboard }
 
 root:
     pattern: /
@@ -58,7 +58,7 @@ sonata_user_register:
 
 sonata_user_change_password:
     resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
-    prefix: /profile
+    prefix: /admin
 
 sonata_user:
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
