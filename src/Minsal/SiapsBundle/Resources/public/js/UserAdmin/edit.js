@@ -20,7 +20,8 @@ $(document).ready(function() {
     });
     
     $('input[id$="_username"]').focusout(function(){
-        $('input[id$="_email"]').val($('input[id$="_username"]').val()+'@salud.gob.sv')
+        $('input[id$="_email"]').val($('input[id$="_username"]').val()+'@salud.gob.sv');
+        $('input[id$="_plainPassword_first"]').focus();
     }); 
     
     $('input[id$="_enabled"]').attr("checked","checked");

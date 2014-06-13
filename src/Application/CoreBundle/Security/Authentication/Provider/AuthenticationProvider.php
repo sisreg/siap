@@ -62,7 +62,6 @@ class AuthenticationProvider implements AuthenticationProviderInterface {
             $username = $this->getSignedUsername();
         }
 
-        
         if (empty($username)) {
             $username = 'NONE_PROVIDED';
         }
@@ -254,9 +253,9 @@ class AuthenticationProvider implements AuthenticationProviderInterface {
                     }
                 }
             } catch (\Exception $repositoryProblem) {
-                /*$ex = new AuthenticationServiceException('Error al procesar la firma digital<br /><br /><center><b>Descripci&oacute;n del Error</b></center><br />'.$repositoryProblem->getMessage(), 0, $repositoryProblem);
-                throw $ex*/;
-                return ;
+                $ex = new AuthenticationServiceException('Error al procesar la firma digital<br /><br /><center><b>Descripci&oacute;n del Error</b></center><br />'.$repositoryProblem->getMessage(), 0, $repositoryProblem);
+                throw $ex;
+                /*return ;*/
             }
         }
     }

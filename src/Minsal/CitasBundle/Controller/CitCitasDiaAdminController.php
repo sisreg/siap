@@ -75,7 +75,7 @@ class CitCitasDiaAdminController extends CRUDController {
                 $citDistribucion = $em->getRepository('MinsalCitasBundle:CitDistribucion')->findOneBy(
                     array(
                         'idEmpleado'         => $idEmpleado,
-                        'dia'                => date( "w", $date->getTimestamp()),
+                        'dia'                => date( "w", $date->getTimestamp())+1,
                         'mes'                => date( "n", $date->getTimestamp()),
                         'yrs'                => date( "Y", $date->getTimestamp()),
                         'idAtenAreaModEstab' => $especialidad,

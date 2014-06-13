@@ -291,7 +291,50 @@ div#dialog-message p {
   color: #843534;
 }
 
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert-error hr {
+  border-top-color: #e4b9c0;
+}
+.alert-error .alert-link {
+  color: #843534;
+}
 
+.mouse-auto            { cursor: auto; }
+.mouse-default         { cursor: default; }
+.mouse-none            { cursor: none; }
+.mouse-context-menu    { cursor: context-menu; }
+.mouse-help            { cursor: help; }
+.mouse-pointer         { cursor: pointer; }
+.mouse-progress        { cursor: progress; }
+.mouse-wait            { cursor: wait; }
+.mouse-cell            { cursor: cell; }
+.mouse-crosshair       { cursor: crosshair; }
+.mouse-text            { cursor: text; }
+.mouse-vertical-text   { cursor: vertical-text; }
+.mouse-alias           { cursor: alias; }
+.mouse-copy            { cursor: copy; }
+.mouse-move            { cursor: move; }
+.mouse-no-drop         { cursor: no-drop; }
+.mouse-not-allowed     { cursor: not-allowed; }
+.mouse-all-scroll      { cursor: all-scroll; }
+.mouse-col-resize      { cursor: col-resize; }
+.mouse-row-resize      { cursor: row-resize; }
+.mouse-n-resize        { cursor: n-resize; }
+.mouse-e-resize        { cursor: e-resize; }
+.mouse-s-resize        { cursor: s-resize; }
+.mouse-w-resize        { cursor: w-resize; }
+.mouse-ns-resize       { cursor: ns-resize; }
+.mouse-ew-resize       { cursor: ew-resize; }
+.mouse-ne-resize       { cursor: ne-resize; }
+.mouse-nw-resize       { cursor: nw-resize; }
+.mouse-se-resize       { cursor: se-resize; }
+.mouse-sw-resize       { cursor: sw-resize; }
+.mouse-nesw-resize     { cursor: nesw-resize; }
+.mouse-nwse-resize     { cursor: nwse-resize; }
 
 @media (max-width: 891px) {
     .banner {

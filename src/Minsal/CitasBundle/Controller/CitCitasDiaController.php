@@ -101,7 +101,7 @@ class CitCitasDiaController extends Controller  {
         $sql = "SELECT TO_CHAR(t01.date, 'YYYY/MM/DD') AS date,
                        COALESCE(t02.distribucion, 0) AS distribucion
                 FROM (
-                      SELECT serie::date AS date, EXTRACT(DOW FROM serie) AS DOW
+                      SELECT serie::date AS date, EXTRACT(DOW FROM serie)+1 AS DOW
                       FROM generate_series ('$lowerLimit'::timestamp, '$upperLimit'::timestamp, '1 day'::interval) serie) t01
                 LEFT OUTER JOIN (
                       SELECT yrs, mes, dia, COUNT(*) AS distribucion FROM  cit_distribucion
@@ -110,7 +110,7 @@ class CitCitasDiaController extends Controller  {
                             AND id_area_mod_estab = :idAreaModEstab
                       GROUP BY yrs, mes, dia) t02 ON (t02.yrs = EXTRACT(YEAR FROM t01.date::timestamp)
                                   AND t02.mes = EXTRACT(MONTH FROM t01.date::timestamp)
-                                  AND t02.dia = EXTRACT(DOW FROM t01.date::timestamp)) ORDER BY date";
+                                  AND t02.dia = EXTRACT(DOW FROM t01.date::timestamp)+1) ORDER BY date";
         
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idEmpleado',   $idEmpleado);
@@ -157,7 +157,7 @@ class CitCitasDiaController extends Controller  {
         $stm->bindValue(':idEmpleado', $idEmpleado);
         $stm->bindValue(':idAtenAreaModEstab', $especialidad);
         $stm->bindValue(':idAreaModEstab', $idAreaModEstab);
-        $stm->bindValue(':dia', date( "w", $date->getTimestamp()));
+        $stm->bindValue(':dia', date( "w", $date->getTimestamp())+1);
         $stm->bindValue(':mes', date( "n", $date->getTimestamp()));
         $stm->bindValue(':yrs', date( "Y", $date->getTimestamp()));
         $stm->execute();
@@ -415,7 +415,7 @@ class CitCitasDiaController extends Controller  {
         $fecha        = date('Y-m-d', $date->getTimestamp());
         $today        = new \DateTime();
         $hoy          = date('Y-m-d', $today->getTimestamp());
-        $user         = $this->container->get('security.context')->getToken()->getUser();
+        $user         = $this->getUser();
         
         /*****************************************************************************************
          * SQL que verifica y obtiene si un paciente tiene cita previa con el medico
@@ -476,7 +476,7 @@ class CitCitasDiaController extends Controller  {
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idExpediente', $idExpediente);
         $stm->bindValue(':idUsuarioReg',   $user->getId());
-        $stm->bindValue(':idAtenAreaModEstab', $especialidad);
+        $stm->bindValue(':idAtenAreaModEstab', $especialidad);var_dump($stm);exit();
         $stm->execute();
         $result = $stm->fetchAll();
         
@@ -521,7 +521,7 @@ class CitCitasDiaController extends Controller  {
         $stm->bindValue(':idAtenAreaModEstab', $especialidad);
         $stm->bindValue(':idAreaModEstab', $idAreaModEstab);
         $stm->bindValue(':idRangohora', $idRangohora);
-        $stm->bindValue(':dia', date( "w", $date->getTimestamp()));
+        $stm->bindValue(':dia', date( "w", $date->getTimestamp())+1);
         $stm->bindValue(':mes', date( "n", $date->getTimestamp()));
         $stm->bindValue(':yrs', date( "Y", $date->getTimestamp()));
         $stm->execute();
@@ -562,7 +562,7 @@ class CitCitasDiaController extends Controller  {
         $citDistribucion = $em->getRepository('MinsalCitasBundle:CitDistribucion')->findOneBy(
             array(
                 'idEmpleado'         => $idEmpleado,
-                'dia'                => date( "w", $date->getTimestamp()),
+                'dia'                => date( "w", $date->getTimestamp())+1,
                 'mes'                => date( "n", $date->getTimestamp()),
                 'yrs'                => date( "Y", $date->getTimestamp()),
                 'idAtenAreaModEstab' => $especialidad,
