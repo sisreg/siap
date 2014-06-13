@@ -16,12 +16,12 @@
 
 
         <li class="user-body">
-	    <div class="pull-left">
-	    <a href="{{url('fos_user_change_password')}}" class="btn btn-default btn-flat"><i class="fa fa-sign-out fa-fw"></i> Cambiar Contraseña</a>
-	    <br/>
-                <a href="{{ _logout_uri }}" class="btn btn-default btn-flat"><i class="fa fa-sign-out fa-fw"></i> {{ _logout_text }}</a>
+	    
+                    
+                <li><a href="{{url('fos_user_change_password')}}" ><span class="glyphicon glyphicon-pencil"></span> Cambiar Contraseña</a><li>
+                <li><a href="{{ _logout_uri }}"><i class="fa fa-sign-out fa-fw"></i> {{ _logout_text }}</a></li>
                
-            </div>
+            
         </li>
 
     {% endif %}
