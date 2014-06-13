@@ -336,6 +336,11 @@ div#dialog-message p {
 .mouse-nesw-resize     { cursor: nesw-resize; }
 .mouse-nwse-resize     { cursor: nwse-resize; }
 
+.select2-offscreen, .select2-offscreen:focus {
+    left: auto !important;
+    top: auto !important; 
+}
+
 @media (max-width: 891px) {
     .banner {
         width:100% !important;
