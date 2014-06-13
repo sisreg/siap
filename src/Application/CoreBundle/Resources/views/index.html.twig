@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="{{ asset('bundles/applicationcore/css/bootstrap3/css/bootstrap.min.css') }}">
         <!-- Optional theme -->
         <link rel="stylesheet" href="{{ asset('bundles/applicationcore/css/bootstrap3/css/bootstrap-theme.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('bundles/applicationcore/css/corelayout.css') }}" type="text/css" media="all" />
         <script src="{{ asset('bundles/sonatajquery/jquery-1.10.2.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/sonatajquery/jquery-ui-1.10.4.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/sonatajquery/jquery-ui-i18n.js') }}" type="text/javascript"></script>
@@ -20,15 +19,6 @@
                 $('.carousel').carousel({
                     interval: 3000
                 });
-            });
-        </script>
-        <script type="text/javascript">
-            jQuery(document).ready(function($) {
-                $('body').removeClass('skin-black');
-                $('aside.left-side').removeClass('left-side');
-
-                $('body').append('<div class="page-footer"><img class="dtic-footer" src="{{ asset("bundles/applicationcore/images/dtic.png") }}" alt="dtic"/>Dirección de Tecnologías de Información y Comunicaciones - Ministerio de Salud</div>');
-
             });
         </script>
         <title>Ministerio de Salud de El Salvador</title>
@@ -94,5 +84,8 @@
                 </div>
             </div>
         </div>
+        <div class="page-footer">
+                <img class="dtic-footer" src="{{ asset("bundles/applicationcore/images/dtic.png") }}" alt="dtic"/>Dirección de Tecnologías de Información y Comunicaciones - Ministerio de Salud
+            </div>
     </body>
 </html>
