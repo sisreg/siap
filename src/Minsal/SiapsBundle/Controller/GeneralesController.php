@@ -224,7 +224,7 @@ class GeneralesController extends Controller {
                     ':nomAreaAtencion'   => 'consulta externa',
                     ':nomModalidad'      => 'minsal'));
                 $empEspecialidades = $query->getResult();
-                
+                var_dump($empEspecialidades);exit();
                 if($empEspecialidades) {
                     if(count($empEspecialidades) > 1) {
                         $response =  $this->render(
