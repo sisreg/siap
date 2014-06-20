@@ -234,8 +234,8 @@ class GeneralesController extends Controller {
                                                         'admin_pool'        => $this->container->get('sonata.admin.pool')
                                             ));
                     } else {
-                        $session->set('_idEmpEspecialidadEstab', $empEspecialidades[0]['idAtenAreaModEstab']);
-                        $session->set('_nombreEmpEspecialidadEstab', $empEspecialidades[0]['mombreAtenAreaModEstab']);
+                        $session->set('_idEmpEspecialidadEstab', $empEspecialidades->getIdAtenAreaModEstab());
+                        $session->set('_nombreEmpEspecialidadEstab', $empEspecialidades->getNombreConsulta());
                     }
                 }
             }
