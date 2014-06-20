@@ -224,7 +224,6 @@ class GeneralesController extends Controller {
                     ':nomAreaAtencion'   => 'consulta externa',
                     ':nomModalidad'      => 'minsal'));
                 $empEspecialidades = $query->getResult();
-                var_dump($empEspecialidades);exit();
                 if($empEspecialidades) {
                     if(count($empEspecialidades) > 1) {
                         $response =  $this->render(
@@ -234,8 +233,8 @@ class GeneralesController extends Controller {
                                                         'admin_pool'        => $this->container->get('sonata.admin.pool')
                                             ));
                     } else {
-                        $session->set('_idEmpEspecialidadEstab', $empEspecialidades->getIdAtenAreaModEstab());
-                        $session->set('_nombreEmpEspecialidadEstab', $empEspecialidades->getNombreConsulta());
+                        $session->set('_idEmpEspecialidadEstab', $empEspecialidades[0]->getIdAtenAreaModEstab());
+                        $session->set('_nombreEmpEspecialidadEstab', $empEspecialidades[0]->getNombreConsulta());
                     }
                 }
             }
