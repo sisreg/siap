@@ -91,7 +91,6 @@ $(document).ready(function() {
         width: '100%'
     });
 
-    //$('select[id$="_idDepartamentoDomicilio"]').prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
     $('select[id$="_idDepartamentoDomicilio"]').select2({
         placeholder: 'Departamento de Domicilio...',
         allowClear: true,
