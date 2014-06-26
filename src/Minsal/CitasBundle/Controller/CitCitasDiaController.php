@@ -476,7 +476,7 @@ class CitCitasDiaController extends Controller  {
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idExpediente', $idExpediente);
         $stm->bindValue(':idUsuarioReg',   $user->getId());
-        $stm->bindValue(':idAtenAreaModEstab', $especialidad);var_dump($stm);exit();
+        $stm->bindValue(':idAtenAreaModEstab', $especialidad);
         $stm->execute();
         $result = $stm->fetchAll();
         
