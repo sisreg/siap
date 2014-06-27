@@ -301,13 +301,13 @@ class CitCitasDiaController extends Controller  {
                     COALESCE(t02.tercerNombre,'')))))) AS text
                 FROM MinsalSiapsBundle:MntExpediente t01
                 INNER JOIN MinsalSiapsBundle:MntPaciente t02 WITH (t02.id = t01.idPaciente)
-                WHERE LOWER(
-                        CONCAT(COALESCE(CONCAT(t01.numero, ' - '), ''), 
+                WHERE t01.numero LIKE '$clue%'
+                    OR LOWER(
                         CONCAT(COALESCE(CONCAT(t02.primerApellido, ' '), ''), 
                         CONCAT(COALESCE(CONCAT(t02.segundoApellido, ', '), ''), 
                         CONCAT(COALESCE(CONCAT(t02.primerNombre,' '), ''), 
                         CONCAT(COALESCE(CONCAT(t02.segundoNombre,' '), ''), 
-                        COALESCE(t02.tercerNombre,''))))))) LIKE '%$clue%'
+                        COALESCE(t02.tercerNombre,'')))))) LIKE '%$clue%'
                 ORDER BY text";
          
         $result = $em->createQuery($dql)
