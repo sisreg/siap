@@ -23,7 +23,7 @@ $(document).ready(function() {
                         $("#fecha_fin").focus();
                 }
             });
-        } else if( (new Date($("#fecha_inicio").val()).getTime() > new Date($("#fecha_fin").val()).getTime())){
+        } else if( $("#fecha_inicio").datepicker("getDate") > $("#fecha_fin").datepicker("getDate")){
             ($('#error')) ? $('#error').remove() : '';
             var elem = $("<div id='error' title='Error de llenado'><center>" +
                     "La fecha de inicio debe de ser menor que la fecha fin."

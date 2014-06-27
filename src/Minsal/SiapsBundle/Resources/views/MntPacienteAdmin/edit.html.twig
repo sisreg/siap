@@ -26,7 +26,7 @@
             {{ "form_not_available"|trans({}, "SonataAdminBundle") }}
         </div>
     {% else %}
-        <form
+        <form id="form_paciente"
             {% if admin_pool.getOption('form_type') == 'horizontal' %}class="form-horizontal"{% endif %}
             role="form"
             action="{{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }}
