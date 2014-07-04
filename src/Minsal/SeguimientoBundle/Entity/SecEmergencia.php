@@ -34,7 +34,7 @@ class SecEmergencia {
     /**
      * @var \Minsal\SiapsBundle\MntPaciente
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntPaciente")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntPaciente",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_paciente", referencedColumnName="id")
      * })

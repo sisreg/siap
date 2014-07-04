@@ -5,9 +5,9 @@ $(document).ready(function() {
         datatype: 'json',
         altRows: true,
         height: "100%",
-        width:"100%",
+        width: "100%",
         hidegrid: false,
-        colNames: ['idPaciente', 'Acciones','NEC', 'Apellidos', 'Nombres', 'F. NAC.', 'Documento', 'Nombre Madre', 'Conocido por','Última \n                 Consulta'],
+        colNames: ['idPaciente', 'Acciones', 'NEC', 'Apellidos', 'Nombres', 'F. NAC.', 'Documento', 'Nombre Madre', 'Conocido por', 'Última \n                 Consulta'],
         colModel: [
             {name: 'id', index: 'id', editable: false},
             {name: 'acciones', index: 'acciones', editable: false, width: 100, align: "center"},
@@ -18,7 +18,7 @@ $(document).ready(function() {
             {name: 'documento', index: 'documento', editable: false, width: 130, align: "center"},
             {name: 'nombre_madre', index: 'nombre_madre', editable: false, width: 240},
             {name: 'conocido_por', index: 'conocido_por', editable: false, width: 200},
-            {name: 'conocido_por', index: 'conocido_por', editable: false, width: 100}            
+            {name: 'conocido_por', index: 'conocido_por', editable: false, width: 100}
         ],
         multiselect: false,
         rowNum: 10,
@@ -29,29 +29,32 @@ $(document).ready(function() {
         loadComplete: function() {
             $('#lregistro').text('Total de registros: ' + $(this).getGridParam('records'));
             /*if ($('#tipo').val() == 'g'){
-                $("#capturar").show();
-                $('#buscar').show();
-            }else{
-                $('#buscar').hide();
-            }*/
-                
+             $("#capturar").show();
+             $('#buscar').show();
+             }else{
+             $('#buscar').hide();
+             }*/
+
         },
         gridComplete: function() {
             var ids = jQuery("#tBuscarPaciente").jqGrid('getDataIDs');
             for (var i = 0; i < ids.length; i++) {
                 var cl = ids[i];
                 if (cl != 0) {
-                    if ($('#tipo').val() != 'g')
-                        ce = "<a class=\"btn btn-info\" href=\"" + cl + "\/view\"><span class=\"glyphicon glyphicon-folder-open\"></span>Detalle</a>";
+                    if ($('#tipo').val() != 'g') {
+                        ce = "<a class=\"btn btn-info\" href=\"" + cl + "\/view\"><span class=\"\"></span> Detalle</a>";
+                        ce = "<div id='detalle" + cl + "'></div>";
+                    }
                     else
-                        ce = "<a class=\"btn btn-info\" href=\"create?idPacienteInicial=" + cl + "&tipo=g" + "\"><span class=\"glyphicon glyphicon-edit\"></span>Agregar</a>";
+                        ce = "<a class=\"btn btn-info\" href=\"create?idPacienteInicial=" + cl + "&tipo=g" + "\"><span class=\"glyphicon glyphicon-edit\"> Agregar</a>";
                     jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
+                    $('#detalle' + cl).load(Routing.generate('boton_detalle', {'idPaciente': cl}));
                 }
             }
         }
     }).jqGrid('navGrid', '#pBuscarPaciente',
             {edit: false, add: false, del: false, search: false, refresh: false}
     )
-    .hideCol(['id']);
+            .hideCol(['id']);
 });
 

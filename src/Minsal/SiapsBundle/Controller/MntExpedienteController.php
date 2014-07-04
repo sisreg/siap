@@ -68,8 +68,8 @@ INNER JOIN mnt_paciente B on (A.id_paciente=B.id)
 INNER JOIN ctl_establecimiento D on (A.id_establecimiento=D.id AND configurado=true)
 INNER JOIN ctl_sexo C on (B.id_sexo=C.id)
 LEFT JOIN fos_user_user E on (B.id_user=E.id)
-WHERE A.fecha_creacion>=to_date('$fechaInicio','DD-MM-YYYY') 
-      AND A.fecha_creacion<=to_date('$fechaFin','DD-MM-YYYY')
+WHERE date(A.fecha_creacion)>=to_date('$fechaInicio','DD-MM-YYYY') 
+      AND date(A.fecha_creacion)<=to_date('$fechaFin','DD-MM-YYYY')
 	$restriccion";
 	
 	$ordenamiento="";

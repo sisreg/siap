@@ -1,0 +1,16 @@
+{%block javascripts %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#btnemergencia{{ idPaciente }}').click(function() {
+                url = Routing.generate('_report_seguimiento_paciente') + '/rpt_hoja_urgencia/PDF?paciente={{idPaciente}}';
+                window.open(url, '_blank');
+                return false;
+            });
+
+        });
+    </script>
+{%endblock%}
+<a id="btnemergencia{{ idPaciente }}" href="" class="btn btn-info">
+    <span class="glyphicon glyphicon-book"></span> Hoja de Emergencia
+</a>

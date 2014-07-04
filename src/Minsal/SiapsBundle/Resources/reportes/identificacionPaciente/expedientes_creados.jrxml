@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="25" bottomMargin="25" uuid="cebea5eb-b8fc-4cc4-ba0b-b9d5c31c1764">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.5026296018031553"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="43"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -280,24 +280,24 @@ a=ambos]]></fieldDescription>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{establecimiento}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="4" y="7" width="62" height="58" uuid="672aab0c-b53d-42f7-837b-b8c869e308d7"/>
-				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="468" y="12" width="66" height="53" uuid="a02441d4-da1c-4f54-ae11-fec5d8118db2"/>
-				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
-			</image>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="222" y="73" width="64" height="20" uuid="02e27df4-30a9-4f93-9d1b-74f24d7ae258"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{fecha_inicio}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="324" y="73" width="64" height="20" uuid="f18012e5-558a-4cd0-ae28-e3a044641cb4"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{fecha_fin}]]></textFieldExpression>
 			</textField>
+			<image scaleImage="FillFrame" isUsingCache="false" onErrorType="Blank">
+				<reportElement x="472" y="12" width="76" height="56" uuid="4b76f3e3-a0d5-4721-9e58-ed927b0d00e6"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="12" y="12" width="62" height="58" uuid="c5475392-8d5e-4959-a879-5f28f57055b4"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

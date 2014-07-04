@@ -12,15 +12,21 @@ class MntPacienteRepository extends EntityRepository {
 
     public function obtenerdatosPaciente($valor) {
 
+        $dql="SELECT p,u,e
+              FROM MinsalSiapsBundle:MntPaciente p
+              LEFT JOIN p.expedientes e
+              LEFT JOIN p.idUser u
+              WHERE p.id =:valor";
+        $paciente = $this->getEntityManager()
+                ->getRepository('MinsalSiapsBundle:MntPaciente')
+                ->find($valor);
+      
+        if(count($paciente->getExpedientes())>0)
+                $dql.=" AND e.habilitado=true";
         $consulta = $this->getEntityManager()
-                ->createQueryBuilder()
-                ->select('p', 'u', 'e')
-                ->from('MinsalSiapsBundle:MntPaciente', 'p')
-                ->leftJoin('p.expedientes', 'e')
-                ->leftjoin('p.idUser', 'u')
-                ->where('p.id =:valor and e.habilitado=true')
-                ->setParameter(':valor', $valor)
-                ->getQuery();
+                ->createQuery($dql)
+                ->setParameter(':valor', $valor);
+        
         try {
             return $consulta->getSingleResult();
         } catch (\Doctrine\ORM\NoResultException $e) {

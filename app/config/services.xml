@@ -47,6 +47,12 @@
             <argument>Minsal\SeguimientoBundle\Entity\SecIngreso</argument>
             <argument>MinsalSeguimientoBundle:SecIngresoAdmin</argument>
         </service>
+        <service id="sonata.admin.secemergencia" class="Minsal\SeguimientoBundle\Admin\SecEmergenciaAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="IP-1-Identificación Paciente" label="Buscar Paciente de Emergencias"/>
+            <argument />
+            <argument>Minsal\SeguimientoBundle\Entity\SecEmergencia</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
         <!--REPORTES -->
         <service id="sonata.admin.expediente" class="Minsal\SiapsBundle\Admin\MntExpedienteAdmin">
             <tag name="sonata.admin" manager_type="orm" group="RP-1-Reportes" label="Expedientes Creados"/>

@@ -136,7 +136,7 @@
                                         <li>
                                             {% if menu.uri is not empty %}
                                                 {% if menu.label=='Dashboard' or menu.label=='⌂' %}
-                                                    <a href="{{ menu.uri }}">Inicio</a>
+                                                    <a href="{{ menu.uri }}"><span class="glyphicon glyphicon-home"></span> </a>
                                                 {% else %}
                                                     <a href="{{ menu.uri }}">{{ menu.label|raw }}</a>
                                                 {% endif %}

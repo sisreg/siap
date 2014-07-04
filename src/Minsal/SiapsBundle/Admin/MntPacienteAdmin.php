@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Minsal\SiapsBundle\Entity\MntAuditoriaPaciente;
+use Minsal\SeguimientoBundle\Entity\SecEmergencia;
 use Minsal\Metodos\Funciones;
 use Doctrine\DBAL as DBAL;
 
@@ -80,15 +81,15 @@ class MntPacienteAdmin extends Admin {
                 ))
                 ->add('idParentescoResponsable', null, array('required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
                 ->add('idParentescoProporDatos', null, array('required' => true, 'label' => $this->getTranslator()->trans('idParentescoProporDatos')))
-                ->add('expedientes', 'sonata_type_collection', array(
-                    'label' => 'Expedientes Clínicos',
-                    'required' => true), array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                    'limit' => 1
-                ))
-
         ;
+        if ($this->getRequest()->get('procedencia') != 'e')
+            $formMapper->add('expedientes', 'sonata_type_collection', array(
+                'label' => 'Expedientes Clínicos',
+                'required' => true), array(
+                'edit' => 'inline',
+                'inline' => 'table',
+                'limit' => 1
+            ));
     }
 
     public function getTemplate($name) {
@@ -101,6 +102,9 @@ class MntPacienteAdmin extends Admin {
                 break;
             case 'view':
                 return 'MinsalSiapsBundle:MntPacienteAdmin:view.html.twig';
+            case 'buscaremergencia':
+                return 'MinsalSiapsBundle:MntPacienteAdmin:list.html.twig';
+                break;
             default:
                 return parent::getTemplate($name);
                 break;
@@ -114,18 +118,35 @@ class MntPacienteAdmin extends Admin {
         $paciente->setPrimerApellido(chop(ltrim($paciente->getPrimerApellido())));
         $paciente->setSegundoApellido(chop(ltrim($paciente->getSegundoApellido())));
         $paciente->setApellidoCasada(chop(ltrim($paciente->getApellidoCasada())));
-        foreach ($paciente->getExpedientes() as $expediente) {
-            $expediente->setIdPaciente($paciente);
-        }
+
         $establecimiento = $this->getModelManager()
                 ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
-        $expediente->setIdEstablecimiento($establecimiento);
         $fecha_actual = new \DateTime();
         $paciente->setFechaRegistro($fecha_actual);
-        $expediente->setFechaCreacion($fecha_actual);
-        $expediente->setHoraCreacion($fecha_actual);
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $paciente->setIdUser($user);
+        if ($this->getRequest()->get('procedencia') != 'e') {
+            $expediente->setIdEstablecimiento($establecimiento);
+            foreach ($paciente->getExpedientes() as $expediente) {
+                $expediente->setIdPaciente($paciente);
+            }
+            $expediente->setFechaCreacion($fecha_actual);
+            $expediente->setHoraCreacion($fecha_actual);
+        } else {
+            $emergencia = new SecEmergencia();
+            $anio = date("Y");
+            $emergencia->setAnioEmergencia($anio);
+            $sql = "SELECT COALESCE(MAX(CAST(numero_emergencia AS integer))+1,1) AS numero FROM sec_emergencia WHERE anio_emergencia=" . $anio;
+            $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+            $con = $em->getConnection();
+            $query = $con->query($sql);
+            $query = $query->fetch();
+            $emergencia->setNumeroEmergencia($query['numero']);
+            $emergencia->setIdPaciente($paciente);
+            $emergencia->setIdUsuarioRegistra($user);
+            $emergencia->setFechaRegistra($fecha_actual);
+            $this->getModelManager()->create($emergencia);
+        }
     }
 
     public function preUpdate($paciente) {
@@ -261,77 +282,79 @@ class MntPacienteAdmin extends Admin {
     }
 
     public function validate(ErrorElement $errorElement, $paciente) {
-//Verificando que haya ingresado número de expediente
-        if (count($paciente->getExpedientes()) == 0) {
-            $errorElement->with('expedientes')
-                    ->addViolation('Debe agregar un número de expediente')
-                    ->end();
-        } else {
-            $establecimiento = $this->getModelManager()
-                    ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
-            $formatoExpediente = $establecimiento->getTipoExpediente();
-            if ($formatoExpediente == 'G') {
-                foreach ($paciente->getExpedientes() as $expediente) {
-                    if (preg_match('/^\d{1,}-\d{2}$/', $expediente->getNumero()) == 0) {
-                        $errorElement->with('numero')
-                                ->addViolation('El formato del número de expediente es incorrecto o contiene letras')
-                                ->end();
-                    } else {
-                        list($entero, $anio) = explode('-', $expediente->getNumero());
-                        $entero = (int) $entero;
-                        if ($entero == 0)
-                            $errorElement->with('numero')
-                                    ->addViolation('El numero de expediente no puede ser 0')
-                                    ->end();
-                        else
-                            $expediente->setNumero((string) $entero . '-' . $anio);
-                    }
-                }
+        if ($this->getRequest()->get('procedencia') != 'e') {
+            //Verificando que haya ingresado número de expediente
+            if (count($paciente->getExpedientes()) == 0) {
+                $errorElement->with('expedientes')
+                        ->addViolation('Debe agregar un número de expediente')
+                        ->end();
             } else {
-                foreach ($paciente->getExpedientes() as $expediente) {
-                    if (preg_match('/^\d{1,}$/', $expediente->getNumero()) == 0) {
-                        $errorElement->with('numero')
-                                ->addViolation('El formato del número de expediente es incorrecto o contiene letras')
-                                ->end();
-                    } else {
-                        $numero = (int) $expediente->getNumero();
-                        if ($numero == 0)
+                $establecimiento = $this->getModelManager()
+                        ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+                $formatoExpediente = $establecimiento->getTipoExpediente();
+                if ($formatoExpediente == 'G') {
+                    foreach ($paciente->getExpedientes() as $expediente) {
+                        if (preg_match('/^\d{1,}-\d{2}$/', $expediente->getNumero()) == 0) {
                             $errorElement->with('numero')
-                                    ->addViolation('El numero de expediente no puede ser 0')
+                                    ->addViolation('El formato del número de expediente es incorrecto o contiene letras')
                                     ->end();
-                        else
-                            $expediente->setNumero((string) $numero);
+                        } else {
+                            list($entero, $anio) = explode('-', $expediente->getNumero());
+                            $entero = (int) $entero;
+                            if ($entero == 0)
+                                $errorElement->with('numero')
+                                        ->addViolation('El numero de expediente no puede ser 0')
+                                        ->end();
+                            else
+                                $expediente->setNumero((string) $entero . '-' . $anio);
+                        }
+                    }
+                } else {
+                    foreach ($paciente->getExpedientes() as $expediente) {
+                        if (preg_match('/^\d{1,}$/', $expediente->getNumero()) == 0) {
+                            $errorElement->with('numero')
+                                    ->addViolation('El formato del número de expediente es incorrecto o contiene letras')
+                                    ->end();
+                        } else {
+                            $numero = (int) $expediente->getNumero();
+                            if ($numero == 0)
+                                $errorElement->with('numero')
+                                        ->addViolation('El numero de expediente no puede ser 0')
+                                        ->end();
+                            else
+                                $expediente->setNumero((string) $numero);
+                        }
                     }
                 }
-            }
-            foreach ($paciente->getExpedientes() as $expediente) {
-                if (is_null($paciente->getId())) {
-                    $dql = "SELECT count(e) as resul
+                foreach ($paciente->getExpedientes() as $expediente) {
+                    if (is_null($paciente->getId())) {
+                        $dql = "SELECT count(e) as resul
                   FROM MinsalSiapsBundle:MntExpediente e
                   JOIN e.idPaciente p
                   WHERE e.numero LIKE :variable";
-                    $repuesta = $this->getModelManager()
-                            ->getEntityManager('MinsalSiapsBundle:MntExpediente')
-                            ->createQuery($dql)
-                            ->setParameter('variable', $expediente->getNumero())
-                            ->getArrayResult();
-                } else {
-                    $dql = "SELECT count(e) as resul
+                        $repuesta = $this->getModelManager()
+                                ->getEntityManager('MinsalSiapsBundle:MntExpediente')
+                                ->createQuery($dql)
+                                ->setParameter('variable', $expediente->getNumero())
+                                ->getArrayResult();
+                    } else {
+                        $dql = "SELECT count(e) as resul
                   FROM MinsalSiapsBundle:MntExpediente e
                   JOIN e.idPaciente p
                   WHERE e.numero LIKE :variable AND p.id != :paciente";
-                    $repuesta = $this->getModelManager()
-                            ->getEntityManager('MinsalSiapsBundle:MntExpediente')
-                            ->createQuery($dql)
-                            ->setParameter('variable', $expediente->getNumero())
-                            ->setParameter('paciente', $paciente->getId())
-                            ->getArrayResult();
+                        $repuesta = $this->getModelManager()
+                                ->getEntityManager('MinsalSiapsBundle:MntExpediente')
+                                ->createQuery($dql)
+                                ->setParameter('variable', $expediente->getNumero())
+                                ->setParameter('paciente', $paciente->getId())
+                                ->getArrayResult();
+                    }
                 }
-            }
-            if ($repuesta[0]['resul'] == 1) {
-                $errorElement->with('numero')
-                        ->addViolation('Este expediente ya existe digite otro')
-                        ->end();
+                if ($repuesta[0]['resul'] == 1) {
+                    $errorElement->with('numero')
+                            ->addViolation('Este expediente ya existe digite otro')
+                            ->end();
+                }
             }
         }
         /* VALIDACIÓN DE QUE EL PACIENTE NO EXISTA */
@@ -494,6 +517,7 @@ class MntPacienteAdmin extends Admin {
 
     protected function configureRoutes(RouteCollection $collection) {
         $collection->add('view', $this->getRouterIdParameter() . '/view');
+        $collection->add('buscaremergencia', 'consulta/emergencia');
     }
 
 //PARA LIMITAR EL NUMERO DE EXPEDIENTES A AGREGAR LA PRIMERA VEZ

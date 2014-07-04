@@ -73,15 +73,16 @@ class MntPacienteController extends Controller {
         $conn = $em->getConnection();
         //CONSTANTES
         if (strcmp($tipo_busqueda, 'l') == 0)
-            $sql = "SELECT A.*,C.nombre,B.numero,
+            $sql = "SELECT A.*,C.nombre,coalesce(B.numero,'EM') numero,
                 E.nombre_ambiente ambiente,
                 D.diagnostico,D.fecha,D.hora
                 FROM mnt_paciente A 
-                      LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente,
-                      mnt_expediente B
-                      LEFT JOIN sec_ingreso D ON D.id_expediente=B.id
+                      LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente
+                      LEFT JOIN mnt_expediente B ON B.id_paciente=A.id
+                      LEFT JOIN sec_ingreso D ON (D.id_expediente=B.id AND D.id = (SELECT id FROM sec_ingreso WHERE fecha=(SELECT max(fecha) FROM sec_ingreso WHERE id_expediente=B.id) AND id_expediente=B.id))
                       LEFT JOIN mnt_aten_area_mod_estab E ON D.id_ambiente_ingreso=E.id
-                WHERE B.id_paciente=A.id AND B.habilitado= TRUE";
+                WHERE (B.habilitado= TRUE OR (SELECT COUNT(id) FROM sec_emergencia WHERE id_paciente=A.id)>0) 
+                ";
         else
             $sql = "SELECT A.*,C.nombre 
                FROM mnt_paciente A LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente
@@ -220,6 +221,19 @@ class MntPacienteController extends Controller {
         $datos['edad'] = $calcular->calcularEdad($conn, $fecha_nacimiento);
 
         return new Response(json_encode($datos));
+    }
+    
+     /*
+     * DESCRIPCIÓN: Método que devuelve la vista para mostrar el boton de pasar al detalle
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
+    /**
+     * @Route("/boton/detalle/{idPaciente}", name="boton_detalle", options={"expose"=true})
+     */
+    public function botonDetalleAction($idPaciente) {
+       
+        return $this->render('MinsalSiapsBundle:MntPacienteAdmin:boton_detalle.html.twig', array('idPaciente' => $idPaciente));
     }
 
 }

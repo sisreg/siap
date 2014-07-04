@@ -105,13 +105,13 @@ ORDER BY A.primer_Apellido ASC, E.fecha DESC]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{establecimiento}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="44" y="1" width="62" height="58" uuid="68567050-4ab3-4d85-922d-de567379b32d"/>
-				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
+			<image scaleImage="FillFrame" isUsingCache="false" onErrorType="Blank">
+				<reportElement x="452" y="5" width="76" height="56" uuid="45638ae9-9269-4567-abf9-9317a0b7d6ce"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="470" y="1" width="66" height="53" uuid="faf64766-7c58-4019-9b82-3626c2cf4f70"/>
-				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
+				<reportElement x="37" y="0" width="62" height="58" uuid="aa4a5bc4-debc-4afb-a3c2-76aad35c5cc5"/>
+				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>

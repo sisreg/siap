@@ -49,9 +49,11 @@ fos_user.password.mismatch: 'La nueva constraseña no coinciden'
 'Mnt Empleado List' : 'Listado de Empleados'
 'Mnt Cie10 List' : 'Diágnosticos CIE10'
 'Mnt Ciq List' : 'Prócedimiento Médicos CIE9'
+'Mnt Paciente Buscaremergencia': 'Buscar Paciente para Emergencia'
 #SEGUIMIENTOBUNDLE
 'Sec Ingreso List' : ''
 'Sec Procedencia Ingreso List': 'Listado de Pacientes Ingresado'
+'Sec Emergencia List': 'Listado de Pacientes en Emergencia'
 #CITASBUNDLE
 'Cit Citas Dia List': 'Citas'
 

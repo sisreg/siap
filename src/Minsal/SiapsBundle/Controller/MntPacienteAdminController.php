@@ -20,7 +20,7 @@ class MntPacienteAdminController extends Controller {
         $conn = $em->getConnection();
         $calcular = new Funciones();
         $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'));
-
+        
         return $this->render($this->admin->getTemplate('view'), array(
                     'action' => 'view',
                     'datos' => $datos_paciente,
@@ -187,6 +187,7 @@ class MntPacienteAdminController extends Controller {
                     'action' => 'create',
                     'form' => $view,
                     'object' => $object,
+                    'procedencia' => $this->get('request')->get('procedencia')
         ));
     }
 
@@ -196,6 +197,19 @@ class MntPacienteAdminController extends Controller {
         $url = $this->admin->generateUrl('view', $params);
 
         return new RedirectResponse($url);
+    }
+
+    public function buscaremergenciaAction() {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if ($user->hasRole('ROLE_USER_BUSCAREMERGENCIA') === false && $user->hasRole('ROLE_SUPER_ADMIN') === false) {
+            return $this->render('MinsalSiapsBundle::Accesso_denegado.html.twig', array('admin_pool' => $this->container->get('sonata.admin.pool'),
+                        'layout' => $this->container->get('sonata.admin.pool')->getTemplate('layout')
+            ));
+        }
+
+        return $this->render($this->admin->getTemplate('buscaremergencia'), array(
+                    'action' => 'buscaremergencia'
+        ));
     }
 
 }

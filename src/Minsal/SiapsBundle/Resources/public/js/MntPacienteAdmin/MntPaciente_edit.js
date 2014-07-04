@@ -30,7 +30,6 @@ $(document).ready(function() {
         width: '100%'
     });
 
-    //$('select[id$="_idDepartamentoNacimiento"]').prepend('<option/>').val(function(){return $('[selected]',this).val() ;});
     $('select[id$="_idDepartamentoNacimiento"]').select2({
         placeholder: 'Departamento de Nacimiento...',
         allowClear: true,
@@ -570,7 +569,8 @@ $(document).ready(function() {
 
     });
 
-    if ($('select[id$="_idPaisNacimiento"]').select2('val') == 68 && $('select[id$="_idDepartamentoNacimiento"]').select2('val') == "") {
+    if (($('select[id$="_idPaisNacimiento"]').select2('val') == 68 && $('select[id$="_idDepartamentoNacimiento"]').select2('val') == "") || $('select[id$="_idPaisNacimiento"]').select2('val')=='') {
+        $('select[id$="_idPaisNacimiento"]').select2('val',68) ;
         $('select[id$="_idDepartamentoNacimiento"]').children().remove();
         $('select[id$="_idDepartamentoNacimiento"]').append('<option></option>');
         $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').select2('val'),

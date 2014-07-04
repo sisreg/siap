@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="792" columnWidth="562" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="30" uuid="b3dbe2a0-70cd-4578-a4d9-18f1579c84c3">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="598"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
 	<style name="Heading 3" fontSize="14" isBold="true"/>
@@ -191,11 +191,11 @@ a=ambos]]></fieldDescription>
 				<text><![CDATA[Sistema Nacional de Salud]]></text>
 			</staticText>
 			<image>
-				<reportElement x="2" y="1" width="62" height="58" uuid="1865519f-cc33-47d5-8413-9b4a382cd6d9"/>
+				<reportElement x="2" y="8" width="62" height="58" uuid="1865519f-cc33-47d5-8413-9b4a382cd6d9"/>
 				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Escudo"]]></imageExpression>
 			</image>
-			<image>
-				<reportElement x="493" y="0" width="66" height="53" uuid="2af6a919-d104-4e2f-ae02-10817e62f582"/>
+			<image scaleImage="FillFrame" isUsingCache="false" onErrorType="Blank">
+				<reportElement x="486" y="10" width="76" height="56" uuid="2af6a919-d104-4e2f-ae02-10817e62f582"/>
 				<imageExpression><![CDATA["repo:/reports/siaps/Reporte_Salud"]]></imageExpression>
 			</image>
 		</band>
