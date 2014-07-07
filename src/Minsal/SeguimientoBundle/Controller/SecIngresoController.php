@@ -182,7 +182,8 @@ class SecIngresoController extends Controller {
         $conn = $em->getConnection();
         //CONSTANTES
 
-        $sql = "SELECT A.*,E.id id_ingreso,C.nombre,B.numero,D.nombre_ambiente ambiente,E.diagnostico,E.fecha,E.hora
+        $sql = "SELECT A.*,E.id id_ingreso,C.nombre,B.numero,D.nombre_ambiente ambiente,E.diagnostico,E.fecha,E.hora,
+                    concat(coalesce(cast(E.tarjetas_entregadas as text)||' Tarjetas','0 Tarjetas'),coalesce(' A '||E.responsable_tarjeta,'')) tarjetas
                 FROM mnt_paciente A 
                      INNER JOIN mnt_expediente B ON B.id_paciente=A.id
                      LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente                     
@@ -237,6 +238,7 @@ class SecIngresoController extends Controller {
                     $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
                     $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
                     date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
+                    $aux['tarjetas'],
                     $aux['ambiente'],
                     $aux['diagnostico'],
                     date('d-m-Y', strtotime($aux['fecha'])) . " " . date('H:i', strtotime($aux['hora']))

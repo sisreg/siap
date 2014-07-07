@@ -45,7 +45,7 @@ $(document).ready(function() {
                 var cl = ids[i];
                 if (cl != 0) {
                     if ($('#tipo').val() != 'g')
-                        ce = "<a class=\"btn btn-info\" href=\"" + cl + "\/view\"><span class=\"glyphicon glyphicon-folder-open\"></span> Detalle</a>";
+                        ce = "<a class=\"btn btn-info\" href=\"" + cl + "\/edit\"><span class=\"glyphicon glyphicon-folder-open\"></span> Detalle</a>";
                     else
                         ce = "<a class=\"btn btn-info\" href=\"create?idPacienteInicial=" + cl + "&tipo=g" + "\"><span class=\"glyphicon glyphicon-edit\"> Agregar</a>";
                     jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
