@@ -181,11 +181,28 @@ $(document).ready(function() {
 
 
     $('#form_paciente').submit(function() {
-        if ($('#idPaisDomicilio').select2('val') == '68') {
+        if ($('#idPaisDomicilio').select2('val') == 68) {
             if ($('select[id$="_idDepartamentoDomicilio"]').select2('val') == '') {
                 ($('#error')) ? $('#error').empty() : '';
                 var elem = $("<div id='error' title='Error de Llenado'><center>" +
                         "Debe de introducir el Departamento Domicilio"
+                        + "</center></div>");
+                elem.insertAfter($("#form_paciente"));
+                $("#error").dialog({
+                    close: function() {
+                        $('select[id$="_idDepartamentoDomicilio"]').focus();
+                    }
+
+                });
+                return false;
+            }
+        }
+
+        if ($('select[id$="_idPaisNacimiento"]').select2('val') == 68) {
+            if ($('select[id$="_idDepartamentoNacimiento"]').select2('val') == '') {
+                ($('#error')) ? $('#error').empty() : '';
+                var elem = $("<div id='error' title='Error de Llenado'><center>" +
+                        "Debe de introducir el Departamento de Nacimiento"
                         + "</center></div>");
                 elem.insertAfter($("#form_paciente"));
                 $("#error").dialog({
@@ -386,8 +403,8 @@ $(document).ready(function() {
             }
         }
     });
-    
-    
+
+
     if ($('input:checkbox[id$="_asegurado"]').prop('checked')) {
         $('select[id$="_idAreaCotizacion"]').removeAttr('disabled');
         $('input:checkbox[id$="_cotizante"]').removeAttr('disabled');
@@ -409,7 +426,7 @@ $(document).ready(function() {
 
     $('input:checkbox[id$="_asegurado"]').on('ifUnchecked', function(event) {
         //$('select[id$="_idAreaCotizacion"] option[value=""]').attr('selected', true);
-         $('select[id$="_idAreaCotizacion"]').select2('val','');
+        $('select[id$="_idAreaCotizacion"]').select2('val', '');
         $('select[id$="_idAreaCotizacion"]').attr('disabled', 'disabled');
         $('input:checkbox[id$="_cotizante"]').iCheck('disable');
         $('input:checkbox[id$="_cotizante"]').iCheck('uncheck');
@@ -433,7 +450,7 @@ $(document).ready(function() {
     $('select[id$="_idParentescoResponsable"]').change(function() {
         if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Madre') {
             $('input[id$="_nombreResponsable"]').val($('input[id$="_nombreMadre"]').val());
-            $('select[id$="_idDocResponsable"]').select2('val',"");
+            $('select[id$="_idDocResponsable"]').select2('val', "");
             $('input[id$="_numeroDocIdeResponsable"]').val("");
             $('input[id$="_direccionResponsable"]').val("");
             $('input[id$="_telefonoResponsable"]').val("");
@@ -441,7 +458,7 @@ $(document).ready(function() {
         }
         else if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Padre') {
             $('input[id$="_nombreResponsable"]').val($('input[id$="_nombrePadre"]').val());
-            $('select[id$="_idDocResponsable"]').select2('val',"");
+            $('select[id$="_idDocResponsable"]').select2('val', "");
             $('input[id$="_numeroDocIdeResponsable"]').val("");
             $('input[id$="_direccionResponsable"]').val("");
             $('input[id$="_telefonoResponsable"]').val("");
@@ -449,21 +466,21 @@ $(document).ready(function() {
         else {
             if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Compañero(a) ' || $('select[id$="_idParentescoResponsable"] option:selected').text() == 'Esposo(a)') {
                 $('input[id$="_nombreResponsable"]').val($('input[id$="_nombreConyuge"]').val());
-                $('select[id$="_idDocResponsable"]').select2('val',"");
+                $('select[id$="_idDocResponsable"]').select2('val', "");
                 $('input[id$="_numeroDocIdeResponsable"]').val("");
                 $('input[id$="_direccionResponsable"]').val("");
                 $('input[id$="_telefonoResponsable"]').val("");
             }
             else if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'El paciente') {
                 $('input[id$="_nombreResponsable"]').val($('input[id$="_primerNombre"]').val() + ' ' + $('input[id$="_primerApellido"]').val());
-                $('select[id$="_idDocResponsable"]').select2('val',$('select[id$="_idDocPaciente"]').select2('val'));
+                $('select[id$="_idDocResponsable"]').select2('val', $('select[id$="_idDocPaciente"]').select2('val'));
                 $('input[id$="_numeroDocIdeResponsable"]').val($('input[id$="_numeroDocIdePaciente"]').val());
                 $('input[id$="_direccionResponsable"]').val($('input[id$="_direccion"]').val());
                 $('input[id$="_telefonoResponsable"]').val($('input[id$="_telefonoCasa"]').val());
             }
             else {
                 $('input[id$="_nombreResponsable"]').val("");
-                $('select[id$="_idDocResponsable"]').select2('val',"");
+                $('select[id$="_idDocResponsable"]').select2('val', "");
                 $('input[id$="_numeroDocIdeResponsable"]').val("");
                 $('input[id$="_direccionResponsable"]').val("");
                 $('input[id$="_telefonoResponsable"]').val("");
@@ -476,7 +493,7 @@ $(document).ready(function() {
         if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Madre') {
             $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreMadre"]').val());
             if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Madre') {
-                $('select[id$="_idDocProporcionoDatos"]').select2('val',$('select[id$="_idDocResponsable"]').select2('val'));
+                $('select[id$="_idDocProporcionoDatos"]').select2('val', $('select[id$="_idDocResponsable"]').select2('val'));
                 $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
             } else {
                 $('select[id$="_idDocProporcionoDatos"]').val("");
@@ -486,10 +503,10 @@ $(document).ready(function() {
         else if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Padre') {
             $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombrePadre"]').val());
             if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Padre') {
-                $('select[id$="_idDocProporcionoDatos"]').select2('val',$('select[id$="_idDocResponsable"]').select2('val'));
+                $('select[id$="_idDocProporcionoDatos"]').select2('val', $('select[id$="_idDocResponsable"]').select2('val'));
                 $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
             } else {
-                $('select[id$="_idDocProporcionoDatos"]').select2('val',"");
+                $('select[id$="_idDocProporcionoDatos"]').select2('val', "");
                 $('input[id$="_numeroDocIdeProporDatos"]').val("");
             }
         }
@@ -497,7 +514,7 @@ $(document).ready(function() {
             if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Compañero(a) ' || $('select[id$="_idParentescoProporDatos"] option:selected').text() == 'Esposo(a)') {
                 $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreConyuge"]').val());
                 if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Compañero(a) ' || $('select[id$="_idParentescoResponsable"] option:selected').text() == 'Esposo(a)') {
-                    $('select[id$="_idDocProporcionoDatos"]').select2('val',$('select[id$="_idDocResponsable"]').select2('val'));
+                    $('select[id$="_idDocProporcionoDatos"]').select2('val', $('select[id$="_idDocResponsable"]').select2('val'));
                     $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
                 } else {
                     $('select[id$="_idDocProporcionoDatos"]').val("");
@@ -518,17 +535,17 @@ $(document).ready(function() {
                     nombre += ' ' + $('input[id$="_apellidoCasada"]').val();
                 $('input[id$="_nombreProporcionoDatos"]').val(nombre);
 
-                $('select[id$="_idDocProporcionoDatos"]').select2('val',$('select[id$="_idDocPaciente"]').select2('val'));
+                $('select[id$="_idDocProporcionoDatos"]').select2('val', $('select[id$="_idDocPaciente"]').select2('val'));
                 $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdePaciente"]').val());
             } else {
                 if ($('select[id$="_idParentescoProporDatos"] option:selected').text() == $('select[id$="_idParentescoResponsable"] option:selected').text()) {
                     $('input[id$="_nombreProporcionoDatos"]').val($('input[id$="_nombreResponsable"]').val());
-                    $('select[id$="_idDocProporcionoDatos"]').select2('val',$('select[id$="_idDocResponsable"]').select2('val'));
+                    $('select[id$="_idDocProporcionoDatos"]').select2('val', $('select[id$="_idDocResponsable"]').select2('val'));
                     $('input[id$="_numeroDocIdeProporDatos"]').val($('input[id$="_numeroDocIdeResponsable"]').val());
                 }
                 else {
                     $('input[id$="_nombreProporcionoDatos"]').val("");
-                    $('select[id$="_idDocProporcionoDatos"]').select2('val',"");
+                    $('select[id$="_idDocProporcionoDatos"]').select2('val', "");
                     $('input[id$="_numeroDocIdeProporDatos"]').val("");
                 }
             }
@@ -539,27 +556,28 @@ $(document).ready(function() {
     $('select[id$="_idPaisNacimiento"]').change(function() {
         $('select[id$="_idDepartamentoNacimiento"]').children().remove();
         $('select[id$="_idDepartamentoNacimiento"]').append('<option></option>');
-        if ($('select[id$="_idPaisNacimiento"]').val() == '') {
+        if ($('select[id$="_idPaisNacimiento"]').select2('val') == '') {
             $('select[id$="_idDepartamentoNacimiento"]').attr('disabled', 'disabled');
 
         } else {
-            $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').val(),
+            $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').select2('val'),
                     function(data) {
                         $.each(data.deptos, function(indice, depto) {
-                            $('select[id$="_idDepartamentoNacimiento"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
+                            $('select[id$="_idDepartamentoNacimiento"]').append($('<option>', {value: depto.id, text: depto.nombre}));
                         });
                     });
             $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
         }
 
     });
-    if ($('select[id$="_idPaisNacimiento"]').val() == 68 && $('select[id$="_idDepartamentoNacimiento"]').val() == "") {
+
+    if ($('select[id$="_idPaisNacimiento"]').select2('val') == 68 && $('select[id$="_idDepartamentoNacimiento"]').select2('val') == "") {
         $('select[id$="_idDepartamentoNacimiento"]').children().remove();
         $('select[id$="_idDepartamentoNacimiento"]').append('<option></option>');
-        $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').val(),
+        $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').select2('val'),
                 function(data) {
                     $.each(data.deptos, function(indice, depto) {
-                        $('select[id$="_idDepartamentoNacimiento"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
+                        $('select[id$="_idDepartamentoNacimiento"]').append($('<option>', {value: depto.id, text: depto.nombre}));
                     });
                 });
         $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
@@ -568,13 +586,13 @@ $(document).ready(function() {
     $('select[id$="_idDepartamentoNacimiento"]').change(function() {
         $('select[id$="_idMunicipioNacimiento"]').children().remove();
         $('select[id$="_idMunicipioNacimiento"]').append('<option></option>');
-        if ($('select[id$="_idDepartamentoNacimiento"]').val() == '') {
+        if ($('select[id$="_idDepartamentoNacimiento"]').select2('val') == '') {
             $('select[id$="_idMunicipioNacimiento"]').attr('disabled', 'disabled');
         } else {
-            $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoNacimiento"]').val(),
+            $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoNacimiento"]').select2('val'),
                     function(data) {
                         $.each(data.municipios, function(indice, munic) {
-                            $('select[id$="_idMunicipioNacimiento"]').append('<option value="' + munic.id + '">' + munic.nombre + '</option>');
+                            $('select[id$="_idMunicipioNacimiento"]').append($('<option>', {value: munic.id, text: munic.nombre}));
                         });
                     });
             $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
@@ -586,13 +604,13 @@ $(document).ready(function() {
     $('select[id$="_idDepartamentoDomicilio"]').change(function() {
         $('select[id$="_idMunicipioDomicilio"]').children().remove();
         $('select[id$="_idMunicipioDomicilio"]').append('<option></option>');
-        if ($('select[id$="_idDepartamentoDomicilio"]').val() == '') {
+        if ($('select[id$="_idDepartamentoDomicilio"]').select2('val') == '') {
             $('select[id$="_idMunicipioDomicilio"]').attr('disabled', 'disabled');
         } else {
-            $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').val(),
+            $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').select2('val'),
                     function(data) {
                         $.each(data.municipios, function(indice, munic) {
-                            $('select[id$="_idMunicipioDomicilio"]').append('<option value="' + munic.id + '">' + munic.nombre + '</option>');
+                            $('select[id$="_idMunicipioDomicilio"]').append($('<option>', {value: munic.id, text: munic.nombre}));
                         });
                     });
             $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
@@ -612,35 +630,34 @@ $(document).ready(function() {
     });
 
     /*CUANDO CARGA EL MUNICIPIO DE DOMICILIO SI ESTA LLENO*/
-    if ($('select[id$="_idDepartamentoNacimiento"]').val() != '') {
+    if ($('select[id$="_idDepartamentoNacimiento"]').select2('val') != '') {
         $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
         valor = $('select[id$="_idMunicipioNacimiento"]').val();
         $('select[id$="_idMunicipioNacimiento"]').children().remove();
         $('select[id$="_idMunicipioNacimiento"]').append('<option></option>');
-        $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoNacimiento"]').val(),
+        $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoNacimiento"]').select2('val'),
                 function(data) {
                     $.each(data.municipios, function(indice, munic) {
-                        if (valor == munic.id)
-                            $('select[id$="_idMunicipioNacimiento"]').append('<option selected="selected" value="' + munic.id + '">' + munic.nombre + '</option>');
-                        else
-                            $('select[id$="_idMunicipioNacimiento"]').append('<option value="' + munic.id + '">' + munic.nombre + '</option>');
+                        $('select[id$="_idMunicipioNacimiento"]').append($('<option>', {value: munic.id, text: munic.nombre}));
                     });
+                    $('select[id$="_idMunicipioNacimiento"]').select2('val', valor);
                 });
+        
         $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
     }
 
-    if ($('select[id$="_idDepartamentoDomicilio"]').val() != '') {
-        valorDoc = $('select[id$="_idMunicipioDomicilio"]').val();
+    if ($('select[id$="_idDepartamentoDomicilio"]').select2('val') != '') {
+        
+        valorDoc = $('select[id$="_idMunicipioDomicilio"]').select2('val');
         $('select[id$="_idMunicipioDomicilio"]').children().remove();
-        $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').val(),
+        $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').select2('val'),
                 function(data) {
                     $.each(data.municipios, function(indice, municDoc) {
-                        if (valorDoc == municDoc.id)
-                            $('select[id$="_idMunicipioDomicilio"]').append('<option selected="selected" value="' + municDoc.id + '">' + municDoc.nombre + '</option>');
-                        else
-                            $('select[id$="_idMunicipioDomicilio"]').append('<option value="' + municDoc.id + '">' + municDoc.nombre + '</option>');
+                        $('select[id$="_idMunicipioDomicilio"]').append($('<option>', {value: municDoc.id, text: municDoc.nombre}));
                     });
+                    $('select[id$="_idMunicipioDomicilio"]').select2('val', valorDoc);
                 });
+      
         $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
     }
 
@@ -648,13 +665,13 @@ $(document).ready(function() {
     $('select[id$="_areaGeograficaDomicilio"]').change(function() {
         $('select[id$="_idCantonDomicilio"]').children().remove();
         $('select[id$="_idCantonDomicilio"]').append('<option></option>');
-        if ($('select[id$="_areaGeograficaDomicilio"]').val() != '2') {
+        if ($('select[id$="_areaGeograficaDomicilio"]').select2('val') != 2) {
             $('select[id$="_idCantonDomicilio"]').attr('disabled', 'disabled');
         } else {
-            $.getJSON(Routing.generate('get_cantones') + '?idMunicipio=' + $('select[id$="_idMunicipioDomicilio"]').val(),
+            $.getJSON(Routing.generate('get_cantones') + '?idMunicipio=' + $('select[id$="_idMunicipioDomicilio"]').select2('val'),
                     function(data) {
                         $.each(data.cantones, function(indice, canton) {
-                            $('select[id$="_idCantonDomicilio"]').append('<option value="' + canton.id + '">' + canton.nombre + '</option>');
+                            $('select[id$="_idCantonDomicilio"]').append($('<option>', {value: canton.id, text: canton.nombre}));
                         });
                     });
             $('select[id$="_idCantonDomicilio"]').removeAttr('disabled');
@@ -666,10 +683,10 @@ $(document).ready(function() {
     });
 
     //AGREGANDO JSON PARA CARGAR LOS PAISES ALEDAÑOS A EL SALVADOR
-    if ($('select[id$="_idDepartamentoDomicilio"]').val() == '') {
+    if ($('select[id$="_idDepartamentoDomicilio"]').select2('val') == '') {
         $.getJSON(Routing.generate('get_paises'), function(data) {
             $.each(data.paises, function(indice, aux) {
-                $('#idPaisDomicilio').append('<option value="' + aux.id + '">' + aux.nombre + '</option>');
+                $('#idPaisDomicilio').append($('<option>', {value: aux.id, text: aux.nombre}));
             });
             $('#idPaisDomicilio').select2('val', '68');
         });
@@ -679,17 +696,17 @@ $(document).ready(function() {
 
         $.getJSON(Routing.generate('get_departamentos') + '?idPais=68', function(data) {
             $.each(data.deptos, function(indice, depto) {
-                $('select[id$="_idDepartamentoDomicilio"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
+                $('select[id$="_idDepartamentoDomicilio"]').append($('<option>', {value: depto.id, text: depto.nombre}));
             });
         });
 
         $('select[id$="_idDepartamentoDomicilio"]').removeAttr('disabled');
         $('input[id$="_primerApellido"]').focus();
     } else {
-        $.getJSON(Routing.generate('get_pais_depto') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').val(), function(datos) {
+        $.getJSON(Routing.generate('get_pais_depto') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').select2('val'), function(datos) {
             $.getJSON(Routing.generate('get_paises'), function(data) {
                 $.each(data.paises, function(indice, aux2) {
-                    $('#idPaisDomicilio').append('<option value="' + aux2.id + '">' + aux2.nombre + '</option>');
+                     $('#idPaisDomicilio').append($('<option>', {value: aux2.id, text: aux2.nombre}));
                 });
                 $('#idPaisDomicilio').select2('val', datos.pais);
             });
@@ -702,10 +719,10 @@ $(document).ready(function() {
         $('select[id$="_idMunicipioDomicilio"]').children().remove();
         $('select[id$="_idMunicipioDomicilio"]').append('<option></option>');
         $('select[id$="_idMunicipioDomicilio"]').attr('disabled', 'disabled');
-        $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('#idPaisDomicilio').val(),
+        $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('#idPaisDomicilio').select2('val'),
                 function(data) {
                     $.each(data.deptos, function(indice, depto) {
-                        $('select[id$="_idDepartamentoDomicilio"]').append('<option value="' + depto.id + '">' + depto.nombre + '</option>');
+                        $('select[id$="_idDepartamentoDomicilio"]').append($('<option>', {value: depto.id, text: depto.nombre}));
                     });
                 });
     });
