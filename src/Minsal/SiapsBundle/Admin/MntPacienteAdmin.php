@@ -127,12 +127,12 @@ class MntPacienteAdmin extends Admin {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $paciente->setIdUser($user);
         if ($this->getRequest()->get('procedencia') != 'e') {
-            $expediente->setIdEstablecimiento($establecimiento);
             foreach ($paciente->getExpedientes() as $expediente) {
+                $expediente->setIdEstablecimiento($establecimiento);
                 $expediente->setIdPaciente($paciente);
-            }
-            $expediente->setFechaCreacion($fecha_actual);
-            $expediente->setHoraCreacion($fecha_actual);
+                $expediente->setFechaCreacion($fecha_actual);
+		$expediente->setHoraCreacion($fecha_actual);
+            }            
         } else {
             $emergencia = new SecEmergencia();
             $anio = date("Y");
