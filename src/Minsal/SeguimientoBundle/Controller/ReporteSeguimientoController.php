@@ -82,34 +82,81 @@ class ReporteSeguimientoController extends Controller {
     public function pacienteAction($report_name, $report_format) {
         $em = $this->getDoctrine()->getManager();
         $id_paciente=$this->get('request')->get('paciente');
+        $id_emergencia=0;
         $emergencia = $em->getRepository("MinsalSeguimientoBundle:SecEmergencia")->findBy(array('idPaciente' => $id_paciente));
-        
-
-        if (count($emergencia) == 0) {
-            $emergencia = new SecEmergencia();
-            $paciente = $em->getRepository("MinsalSiapsBundle:MntPaciente")->find($id_paciente);
-            $anio = date("Y");
-            $emergencia->setAnioEmergencia($anio);
-            $sql = "SELECT COALESCE(MAX(CAST(numero_emergencia AS integer))+1,1) AS numero FROM sec_emergencia WHERE anio_emergencia=" . $anio;
-            $con = $em->getConnection();
-            $query = $con->query($sql);
-            $query = $query->fetch();
-            $emergencia->setNumeroEmergencia($query['numero']);
-            $emergencia->setIdPaciente($paciente);
-            $emergencia->setIdUsuarioRegistra($this->container->get('security.context')->getToken()->getUser());
-            $emergencia->setFechaRegistra(new \DateTime());
-            $em->persist($emergencia);
-            $em->flush();
-        }
-
-        $request = $this->getRequest();
-        $id_paciente = $request->get('paciente');
+        $paciente = $em->getRepository("MinsalSiapsBundle:MntPaciente")->find($id_paciente);
+	
+	if (is_null($this->get('request')->get('id_emergencia'))) {
+	      if (count($emergencia) == 0) {
+		  $emergencia = new SecEmergencia();
+		  $anio = date("Y");
+		  $emergencia->setAnioEmergencia($anio);
+		  $sql = "SELECT COALESCE(MAX(CAST(numero_emergencia AS integer))+1,1) AS numero FROM sec_emergencia WHERE anio_emergencia=" . $anio;
+		  $con = $em->getConnection();
+		  $query = $con->query($sql);
+		  $query = $query->fetch();
+		  $emergencia->setNumeroEmergencia($query['numero']);
+		  $emergencia->setIdPaciente($paciente);
+		  $emergencia->setIdUsuarioRegistra($this->container->get('security.context')->getToken()->getUser());
+		  $emergencia->setFechaRegistra(new \DateTime());
+		  $em->persist($emergencia);
+		  $em->flush();
+		  $id_emergencia=$emergencia->getId();
+	      }else{
+		  $dql = "SELECT max(u) maximo,u entidad
+			  FROM MinsalSeguimientoBundle:SecEmergencia u
+			  WHERE u.idPaciente = ".$paciente->getId().
+			  " GROUP BY u";
+		  $emergencia= $em->createQuery($dql)->getSingleResult();
+		  $emergencia=$emergencia['entidad'];
+		  $fechaActual = new \DateTime();
+		  list($hora, $minutos) = explode(":", $emergencia->getFechaRegistra()->format('H:i'));
+		  if($emergencia->getFechaRegistra()->diff($fechaActual)->d == 0 && $emergencia->getFechaRegistra()->diff($fechaActual)->m == 0 && $emergencia->getFechaRegistra()->diff($fechaActual)->y == 0){
+		    if ($fechaActual->format('H') > ($hora+5)){
+			$emergencia = new SecEmergencia();
+			$anio = date("Y");
+			$emergencia->setAnioEmergencia($anio);
+			$sql = "SELECT COALESCE(MAX(CAST(numero_emergencia AS integer))+1,1) AS numero FROM sec_emergencia WHERE anio_emergencia=" . $anio;
+			$con = $em->getConnection();
+			$query = $con->query($sql);
+			$query = $query->fetch();
+			$emergencia->setNumeroEmergencia($query['numero']);
+			$emergencia->setIdPaciente($paciente);
+			$emergencia->setIdUsuarioRegistra($this->container->get('security.context')->getToken()->getUser());
+			$emergencia->setFechaRegistra(new \DateTime());
+			$em->persist($emergencia);
+			$em->flush();
+			$id_emergencia=$emergencia->getId();
+		    }else{//FIN DEL IF DE LA HORA EL MISMO DIA
+		      $id_emergencia=$emergencia->getId();
+		    }
+		  }else{
+		    $emergencia = new SecEmergencia();
+		    $anio = date("Y");
+		    $emergencia->setAnioEmergencia($anio);
+		    $sql = "SELECT COALESCE(MAX(CAST(numero_emergencia AS integer))+1,1) AS numero FROM sec_emergencia WHERE anio_emergencia=" . $anio;
+		    $con = $em->getConnection();
+		    $query = $con->query($sql);
+		    $query = $query->fetch();
+		    $emergencia->setNumeroEmergencia($query['numero']);
+		    $emergencia->setIdPaciente($paciente);
+		    $emergencia->setIdUsuarioRegistra($this->container->get('security.context')->getToken()->getUser());
+		    $emergencia->setFechaRegistra(new \DateTime());
+		    $em->persist($emergencia);
+		    $em->flush();
+		    $id_emergencia=$emergencia->getId();
+		  }
+	      }
+        }else{
+	    $id_emergencia=$this->get('request')->get('id_emergencia');
+	}
 
         $jasperReport = $this->container->get('jasper.build.reports');
         $jasperReport->setReportName($report_name);
         $jasperReport->setReportFormat($report_format);
         $jasperReport->setReportPath("/reports/siaps/seguimiento/");
-        $jasperReport->setReportParams(array('id_paciente' => $id_paciente));
+        
+        $jasperReport->setReportParams(array('id_paciente' => (int)$id_paciente,'id_emergencia'=> (int)$id_emergencia));
 
         return $jasperReport->buildReport();
     }

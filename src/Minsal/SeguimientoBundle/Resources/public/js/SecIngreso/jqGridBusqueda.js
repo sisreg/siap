@@ -7,17 +7,18 @@ $(document).ready(function() {
         height: "100%",
         width: "100%",
         hidegrid: false,
-        colNames: ['idPaciente', 'Acciones', 'No. Expediente', 'Apellidos', 'Nombres', 'F. NAC.', 'Servicio Ingreso', 'Diagnóstico Presuntivo', 'Fecha de Ingreso'],
+        colNames: ['idPaciente', 'Acciones', 'NEC', 'Apellidos', 'Nombres', 'F. NAC.','Tarjetas Entregadas', 'Servicio Ingreso', 'Diagnóstico Presuntivo', 'F. Ingreso'],
         colModel: [
             {name: 'id', index: 'id', editable: false},
             {name: 'acciones', index: 'acciones', editable: false, width: 150, align: "center"},
-            {name: 'nec', index: 'nec', editable: false, width: 100, align: "center"},
+            {name: 'nec', index: 'nec', editable: false, width: 90, align: "center"},
             {name: 'apellidos', index: 'apellidos', editable: false, width: 200},
             {name: 'nombres', index: 'nombres', editable: false, width: 200},
-            {name: 'fecha_nacimiento', index: 'fecha_nacimiento', editable: false, width: 70, align: "center"},
-            {name: 'servicio', index: 'servicio', editable: false, width: 150, align: "center"},
-            {name: 'diagnostico', index: 'diagnostico', editable: false, width: 200, align: "center"},
-            {name: 'fecha_ingreso', index: 'fecha_ingreso', editable: false, width: 120, align: "center"}
+            {name: 'fecha_nacimiento', index: 'fecha_nacimiento', editable: false, width: 90, align: "center"},
+            {name: 'tarjeta_entregada', index: 'tarjeta_entregada', editable: false, width: 120, align: "center"},
+            {name: 'servicio', index: 'servicio', editable: false, width: 120, align: "center"},
+            {name: 'diagnostico', index: 'diagnostico', editable: false, width: 160, align: "center"},
+            {name: 'fecha_ingreso', index: 'fecha_ingreso', editable: false, width: 100, align: "center"}
         ],
         multiselect: false,
         rowNum: 10,
@@ -27,19 +28,6 @@ $(document).ready(function() {
         viewrecords: true,
         loadComplete: function() {
             $('#lregistro').text('Total de pacientes: ' + $(this).getGridParam('records'));
-        },
-        gridComplete: function() {
-            var ids = jQuery("#tBuscarPaciente").jqGrid('getDataIDs');
-            for (var i = 0; i < ids.length; i++) {
-                var cl = ids[i];
-                if (cl != 0) {
-                    ce = "<div id='ingreso" + cl + "'></div>";
-                    ce += "<div id='boton" + cl + "'></div>";
-                    jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
-                    $('#boton' + cl).load(Routing.generate('boton_editar', {'idRegistro': cl}));
-                    $('#ingreso' + cl).load(Routing.generate('boton_ingreso_egreso', {'idIngreso': cl}));
-                }
-            }
         }
     }).jqGrid('navGrid', '#pBuscarPaciente',
             {edit: false, add: false, del: false, search: false, refresh: false}

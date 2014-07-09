@@ -161,7 +161,7 @@ class SecIngreso {
      */
     private $motivoReferencia;
 
-     /**
+    /**
      * @var \Application\Sonata\UserBundle\Entity\User
      *
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
@@ -171,13 +171,12 @@ class SecIngreso {
      */
     private $idUsuarioRegistra;
 
-        /**
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_registro", type="datetime")
      */
     private $fechaRegistro;
-
 
     /**
      * @var \Application\Sonata\UserBundle\Entity\User
@@ -189,7 +188,7 @@ class SecIngreso {
      */
     private $idUsuarioModifica;
 
-        /**
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_modificacion", type="datetime")
@@ -206,14 +205,26 @@ class SecIngreso {
      */
     private $idEmpleado;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="responsable_tarjeta", type="string", length=80, nullable=false)
+     */
+    private $responsableTarjeta;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tarjetas_entregadas", type="integer", nullable=false)
+     */
+    private $tarjetasEntregadas;
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -223,8 +234,7 @@ class SecIngreso {
      * @param \DateTime $fecha
      * @return SecIngreso
      */
-    public function setFecha($fecha)
-    {
+    public function setFecha($fecha) {
         $this->fecha = $fecha;
 
         return $this;
@@ -235,8 +245,7 @@ class SecIngreso {
      *
      * @return \DateTime
      */
-    public function getFecha()
-    {
+    public function getFecha() {
         return $this->fecha;
     }
 
@@ -246,8 +255,7 @@ class SecIngreso {
      * @param \DateTime $hora
      * @return SecIngreso
      */
-    public function setHora($hora)
-    {
+    public function setHora($hora) {
         $this->hora = $hora;
 
         return $this;
@@ -258,8 +266,7 @@ class SecIngreso {
      *
      * @return \DateTime
      */
-    public function getHora()
-    {
+    public function getHora() {
         return $this->hora;
     }
 
@@ -269,8 +276,7 @@ class SecIngreso {
      * @param string $diagnostico
      * @return SecIngreso
      */
-    public function setDiagnostico($diagnostico)
-    {
+    public function setDiagnostico($diagnostico) {
         $this->diagnostico = $diagnostico;
 
         return $this;
@@ -281,8 +287,7 @@ class SecIngreso {
      *
      * @return string
      */
-    public function getDiagnostico()
-    {
+    public function getDiagnostico() {
         return $this->diagnostico;
     }
 
@@ -292,8 +297,7 @@ class SecIngreso {
      * @param boolean $embarazada
      * @return SecIngreso
      */
-    public function setEmbarazada($embarazada)
-    {
+    public function setEmbarazada($embarazada) {
         $this->embarazada = $embarazada;
 
         return $this;
@@ -304,8 +308,7 @@ class SecIngreso {
      *
      * @return boolean
      */
-    public function getEmbarazada()
-    {
+    public function getEmbarazada() {
         return $this->embarazada;
     }
 
@@ -315,8 +318,7 @@ class SecIngreso {
      * @param integer $semanasAmenorrea
      * @return SecIngreso
      */
-    public function setSemanasAmenorrea($semanasAmenorrea)
-    {
+    public function setSemanasAmenorrea($semanasAmenorrea) {
         $this->semanasAmenorrea = $semanasAmenorrea;
 
         return $this;
@@ -327,8 +329,7 @@ class SecIngreso {
      *
      * @return integer
      */
-    public function getSemanasAmenorrea()
-    {
+    public function getSemanasAmenorrea() {
         return $this->semanasAmenorrea;
     }
 
@@ -338,8 +339,7 @@ class SecIngreso {
      * @param \DateTime $fechaProbableParto
      * @return SecIngreso
      */
-    public function setFechaProbableParto($fechaProbableParto)
-    {
+    public function setFechaProbableParto($fechaProbableParto) {
         $this->fechaProbableParto = $fechaProbableParto;
 
         return $this;
@@ -350,8 +350,7 @@ class SecIngreso {
      *
      * @return \DateTime
      */
-    public function getFechaProbableParto()
-    {
+    public function getFechaProbableParto() {
         return $this->fechaProbableParto;
     }
 
@@ -361,8 +360,7 @@ class SecIngreso {
      * @param string $motivoReferencia
      * @return SecIngreso
      */
-    public function setMotivoReferencia($motivoReferencia)
-    {
+    public function setMotivoReferencia($motivoReferencia) {
         $this->motivoReferencia = $motivoReferencia;
 
         return $this;
@@ -373,8 +371,7 @@ class SecIngreso {
      *
      * @return string
      */
-    public function getMotivoReferencia()
-    {
+    public function getMotivoReferencia() {
         return $this->motivoReferencia;
     }
 
@@ -384,8 +381,7 @@ class SecIngreso {
      * @param \DateTime $fechaRegistro
      * @return SecIngreso
      */
-    public function setFechaRegistro($fechaRegistro)
-    {
+    public function setFechaRegistro($fechaRegistro) {
         $this->fechaRegistro = $fechaRegistro;
 
         return $this;
@@ -396,8 +392,7 @@ class SecIngreso {
      *
      * @return \DateTime
      */
-    public function getFechaRegistro()
-    {
+    public function getFechaRegistro() {
         return $this->fechaRegistro;
     }
 
@@ -407,8 +402,7 @@ class SecIngreso {
      * @param \DateTime $fechaModificacion
      * @return SecIngreso
      */
-    public function setFechaModificacion($fechaModificacion)
-    {
+    public function setFechaModificacion($fechaModificacion) {
         $this->fechaModificacion = $fechaModificacion;
 
         return $this;
@@ -419,8 +413,7 @@ class SecIngreso {
      *
      * @return \DateTime
      */
-    public function getFechaModificacion()
-    {
+    public function getFechaModificacion() {
         return $this->fechaModificacion;
     }
 
@@ -430,8 +423,7 @@ class SecIngreso {
      * @param \Minsal\SiapsBundle\Entity\MntExpediente $idExpediente
      * @return SecIngreso
      */
-    public function setIdExpediente(\Minsal\SiapsBundle\Entity\MntExpediente $idExpediente = null)
-    {
+    public function setIdExpediente(\Minsal\SiapsBundle\Entity\MntExpediente $idExpediente = null) {
         $this->idExpediente = $idExpediente;
 
         return $this;
@@ -442,8 +434,7 @@ class SecIngreso {
      *
      * @return \Minsal\SiapsBundle\Entity\MntExpediente
      */
-    public function getIdExpediente()
-    {
+    public function getIdExpediente() {
         return $this->idExpediente;
     }
 
@@ -453,8 +444,7 @@ class SecIngreso {
      * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab
      * @return SecIngreso
      */
-    public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null)
-    {
+    public function setIdAtenAreaModEstab(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAtenAreaModEstab = null) {
         $this->idAtenAreaModEstab = $idAtenAreaModEstab;
 
         return $this;
@@ -465,8 +455,7 @@ class SecIngreso {
      *
      * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
      */
-    public function getIdAtenAreaModEstab()
-    {
+    public function getIdAtenAreaModEstab() {
         return $this->idAtenAreaModEstab;
     }
 
@@ -476,8 +465,7 @@ class SecIngreso {
      * @param \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAmbienteIngreso
      * @return SecIngreso
      */
-    public function setIdAmbienteIngreso(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAmbienteIngreso = null)
-    {
+    public function setIdAmbienteIngreso(\Minsal\SiapsBundle\Entity\MntAtenAreaModEstab $idAmbienteIngreso = null) {
         $this->idAmbienteIngreso = $idAmbienteIngreso;
 
         return $this;
@@ -488,8 +476,7 @@ class SecIngreso {
      *
      * @return \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
      */
-    public function getIdAmbienteIngreso()
-    {
+    public function getIdAmbienteIngreso() {
         return $this->idAmbienteIngreso;
     }
 
@@ -499,8 +486,7 @@ class SecIngreso {
      * @param \Minsal\SiapsBundle\Entity\MntCie10 $idCie10
      * @return SecIngreso
      */
-    public function setIdCie10(\Minsal\SiapsBundle\Entity\MntCie10 $idCie10 = null)
-    {
+    public function setIdCie10(\Minsal\SiapsBundle\Entity\MntCie10 $idCie10 = null) {
         $this->idCie10 = $idCie10;
 
         return $this;
@@ -511,8 +497,7 @@ class SecIngreso {
      *
      * @return \Minsal\SiapsBundle\Entity\MntCie10
      */
-    public function getIdCie10()
-    {
+    public function getIdCie10() {
         return $this->idCie10;
     }
 
@@ -522,8 +507,7 @@ class SecIngreso {
      * @param \Minsal\SeguimientoBundle\Entity\SecEstadoPaciente $idEstado
      * @return SecIngreso
      */
-    public function setIdEstado(\Minsal\SeguimientoBundle\Entity\SecEstadoPaciente $idEstado = null)
-    {
+    public function setIdEstado(\Minsal\SeguimientoBundle\Entity\SecEstadoPaciente $idEstado = null) {
         $this->idEstado = $idEstado;
 
         return $this;
@@ -534,8 +518,7 @@ class SecIngreso {
      *
      * @return \Minsal\SeguimientoBundle\Entity\SecEstadoPaciente
      */
-    public function getIdEstado()
-    {
+    public function getIdEstado() {
         return $this->idEstado;
     }
 
@@ -545,8 +528,7 @@ class SecIngreso {
      * @param \Minsal\SeguimientoBundle\Entity\SecProcedenciaIngreso $idProcedenciaIngreso
      * @return SecIngreso
      */
-    public function setIdProcedenciaIngreso(\Minsal\SeguimientoBundle\Entity\SecProcedenciaIngreso $idProcedenciaIngreso = null)
-    {
+    public function setIdProcedenciaIngreso(\Minsal\SeguimientoBundle\Entity\SecProcedenciaIngreso $idProcedenciaIngreso = null) {
         $this->idProcedenciaIngreso = $idProcedenciaIngreso;
 
         return $this;
@@ -557,8 +539,7 @@ class SecIngreso {
      *
      * @return \Minsal\SeguimientoBundle\Entity\SecProcedenciaIngreso
      */
-    public function getIdProcedenciaIngreso()
-    {
+    public function getIdProcedenciaIngreso() {
         return $this->idProcedenciaIngreso;
     }
 
@@ -568,8 +549,7 @@ class SecIngreso {
      * @param \Minsal\SeguimientoBundle\Entity\SecCircunstanciaIngreso $idCircunstanciaIngreso
      * @return SecIngreso
      */
-    public function setIdCircunstanciaIngreso(\Minsal\SeguimientoBundle\Entity\SecCircunstanciaIngreso $idCircunstanciaIngreso = null)
-    {
+    public function setIdCircunstanciaIngreso(\Minsal\SeguimientoBundle\Entity\SecCircunstanciaIngreso $idCircunstanciaIngreso = null) {
         $this->idCircunstanciaIngreso = $idCircunstanciaIngreso;
 
         return $this;
@@ -580,8 +560,7 @@ class SecIngreso {
      *
      * @return \Minsal\SeguimientoBundle\Entity\SecCircunstanciaIngreso
      */
-    public function getIdCircunstanciaIngreso()
-    {
+    public function getIdCircunstanciaIngreso() {
         return $this->idCircunstanciaIngreso;
     }
 
@@ -591,8 +570,7 @@ class SecIngreso {
      * @param \Minsal\SeguimientoBundle\Entity\SecTipoAccidente $idTipoAccidente
      * @return SecIngreso
      */
-    public function setIdTipoAccidente(\Minsal\SeguimientoBundle\Entity\SecTipoAccidente $idTipoAccidente = null)
-    {
+    public function setIdTipoAccidente(\Minsal\SeguimientoBundle\Entity\SecTipoAccidente $idTipoAccidente = null) {
         $this->idTipoAccidente = $idTipoAccidente;
 
         return $this;
@@ -603,8 +581,7 @@ class SecIngreso {
      *
      * @return \Minsal\SeguimientoBundle\SecTipoAccidente
      */
-    public function getIdTipoAccidente()
-    {
+    public function getIdTipoAccidente() {
         return $this->idTipoAccidente;
     }
 
@@ -614,8 +591,7 @@ class SecIngreso {
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoReferencia
      * @return SecIngreso
      */
-    public function setIdEstablecimientoReferencia(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoReferencia = null)
-    {
+    public function setIdEstablecimientoReferencia(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoReferencia = null) {
         $this->idEstablecimientoReferencia = $idEstablecimientoReferencia;
 
         return $this;
@@ -626,8 +602,7 @@ class SecIngreso {
      *
      * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      */
-    public function getIdEstablecimientoReferencia()
-    {
+    public function getIdEstablecimientoReferencia() {
         return $this->idEstablecimientoReferencia;
     }
 
@@ -637,8 +612,7 @@ class SecIngreso {
      * @param \Application\Sonata\UserBundle\Entity\User $idUsuarioRegistra
      * @return SecIngreso
      */
-    public function setIdUsuarioRegistra(\Application\Sonata\UserBundle\Entity\User $idUsuarioRegistra)
-    {
+    public function setIdUsuarioRegistra(\Application\Sonata\UserBundle\Entity\User $idUsuarioRegistra) {
         $this->idUsuarioRegistra = $idUsuarioRegistra;
 
         return $this;
@@ -649,8 +623,7 @@ class SecIngreso {
      *
      * @return \Application\Sonata\UserBundle\Entity\User
      */
-    public function getIdUsuarioRegistra()
-    {
+    public function getIdUsuarioRegistra() {
         return $this->idUsuarioRegistra;
     }
 
@@ -660,8 +633,7 @@ class SecIngreso {
      * @param \Application\Sonata\UserBundle\Entity\User $idUsuarioModifica
      * @return SecIngreso
      */
-    public function setIdUsuarioModifica(\Application\Sonata\UserBundle\Entity\User $idUsuarioModifica)
-    {
+    public function setIdUsuarioModifica(\Application\Sonata\UserBundle\Entity\User $idUsuarioModifica) {
         $this->idUsuarioModifica = $idUsuarioModifica;
 
         return $this;
@@ -672,13 +644,12 @@ class SecIngreso {
      *
      * @return \Application\Sonata\UserBundle\Entity\User
      */
-    public function getIdUsuarioModifica()
-    {
+    public function getIdUsuarioModifica() {
         return $this->idUsuarioModifica;
     }
 
     public function __toString() {
-        return (string) $this->idExpediente->getIdPaciente()?:'';
+        return (string) $this->idExpediente->getIdPaciente()? : '';
     }
 
     /**
@@ -687,8 +658,7 @@ class SecIngreso {
      * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado
      * @return SecIngreso
      */
-    public function setIdEmpleado(\Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado)
-    {
+    public function setIdEmpleado(\Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado) {
         $this->idEmpleado = $idEmpleado;
 
         return $this;
@@ -699,8 +669,54 @@ class SecIngreso {
      *
      * @return \Minsal\SiapsBundle\Entity\MntEmpleado
      */
-    public function getIdEmpleado()
-    {
+    public function getIdEmpleado() {
         return $this->idEmpleado;
+    }
+
+
+    /**
+     * Set responsableTarjeta
+     *
+     * @param string $responsableTarjeta
+     * @return SecIngreso
+     */
+    public function setResponsableTarjeta($responsableTarjeta)
+    {
+        $this->responsableTarjeta = $responsableTarjeta;
+
+        return $this;
+    }
+
+    /**
+     * Get responsableTarjeta
+     *
+     * @return string 
+     */
+    public function getResponsableTarjeta()
+    {
+        return $this->responsableTarjeta;
+    }
+
+    /**
+     * Set tarjetasEntregadas
+     *
+     * @param integer $tarjetasEntregadas
+     * @return SecIngreso
+     */
+    public function setTarjetasEntregadas($tarjetasEntregadas)
+    {
+        $this->tarjetasEntregadas = $tarjetasEntregadas;
+
+        return $this;
+    }
+
+    /**
+     * Get tarjetasEntregadas
+     *
+     * @return integer 
+     */
+    public function getTarjetasEntregadas()
+    {
+        return $this->tarjetasEntregadas;
     }
 }

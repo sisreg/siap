@@ -54,12 +54,12 @@ class SecEmergenciaController extends Controller {
         //CONSTANTES
 
         $sql = "SELECT A.*,E.id id_emergencia,concat(C.nombre,':',coalesce(A.numero_doc_ide_paciente,'-')),coalesce(B.numero,'EM') numero,
-E.numero_emergencia,to_char(E.fecha_registra,'DD-MM-YYYY') as fecha_emergencia
+			E.numero_emergencia,to_char(E.fecha_registra,'DD-MM-YYYY') as fecha_emergencia
                 FROM mnt_paciente A 
-                     LEFT JOIN mnt_expediente B ON B.id_paciente=A.id
+                     LEFT JOIN mnt_expediente B ON (B.id_paciente=A.id and B.habilitado= TRUE)
                      LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente                     
                      INNER JOIN sec_emergencia E ON E.id_paciente=A.id
-                WHERE (B.habilitado= TRUE OR (SELECT COUNT(id) FROM sec_emergencia WHERE id_paciente=A.id)>0)
+                WHERE 
                 ";
 
 
@@ -88,8 +88,8 @@ E.numero_emergencia,to_char(E.fecha_registra,'DD-MM-YYYY') as fecha_emergencia
         }
         
 
-        $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec ;
-        $sql.= " ORDER BY cast(E.numero_emergencia as integer) DESC LIMIT 100";
+        $condiciones=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec ;
+        $sql.= substr_replace($condiciones, '', 0, 5)." ORDER BY cast(E.numero_emergencia as integer) DESC LIMIT 100";
 
         $query = $conn->query($sql);
 
@@ -101,7 +101,8 @@ E.numero_emergencia,to_char(E.fecha_registra,'DD-MM-YYYY') as fecha_emergencia
             foreach ($query->fetchAll() as $aux) {
                 $rows[$i]['id'] = $aux['id_emergencia'];
                 $rows[$i]['cell'] = array($aux['id_emergencia'],
-                    $espacio,
+                    $espacio = '<a href="' . $this->generateUrl('_report_seguimiento_paciente', array('report_name' => 'rpt_hoja_urgencia','report_format'=>'PDF','paciente'=>$aux['id'],'id_emergencia'=>$aux['id_emergencia'])) . 
+                    '" target="_blank" class="btn btn-info"><span class="glyphicon glyphicon-book"></span> Hoja de Emergencia</a>',
                     $aux['numero'],
                     $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
                     $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],

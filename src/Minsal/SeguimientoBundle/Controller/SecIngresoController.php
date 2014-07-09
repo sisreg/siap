@@ -142,20 +142,6 @@ class SecIngresoController extends Controller {
     }
 
     /*
-     * DESCRIPCIÓN: Método que devuelve la vista para mostrar el boton de
-     * editar ingreso desde JGRID.
-     * ANALISTA PROGRAMADOR: Karen Peñate
-     */
-
-    /**
-     * @Route("/boton/editar/{idRegistro}", name="boton_editar", options={"expose"=true})
-     */
-    public function botonEditarAction($idRegistro) {
-
-        return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_editar.html.twig', array('idRegistro' => $idRegistro));
-    }
-
-    /*
      * DESCRIPCIÓN: Método que devuelve un JSON que contiene los ingresos
      * de acuerdo a los parámetros enviados.
      * ANALISTA PROGRAMADOR: Karen Peñate
@@ -182,7 +168,8 @@ class SecIngresoController extends Controller {
         $conn = $em->getConnection();
         //CONSTANTES
 
-        $sql = "SELECT A.*,E.id id_ingreso,C.nombre,B.numero,D.nombre_ambiente ambiente,E.diagnostico,E.fecha,E.hora
+        $sql = "SELECT A.*,E.id id_ingreso,C.nombre,B.numero,D.nombre_ambiente ambiente,E.diagnostico,E.fecha,E.hora,
+                    concat(coalesce(cast(E.tarjetas_entregadas as text)||' Tarjetas','0 Tarjetas'),coalesce(' A '||E.responsable_tarjeta,'')) tarjetas
                 FROM mnt_paciente A 
                      INNER JOIN mnt_expediente B ON B.id_paciente=A.id
                      LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente                     
@@ -223,13 +210,17 @@ class SecIngresoController extends Controller {
         $sql.= " ORDER BY E.fecha DESC, E.hora DESC,A.primer_Apellido ASC";
 
         $query = $conn->query($sql);
-
         $numfilas = count($query->rowCount());
-        $espacio = "";
         $i = 0;
         $rows = array();
         if ($numfilas > 0) {
             foreach ($query->fetchAll() as $aux) {
+                //SE COLOCO AQUI PARA QUE EL GRID NO SE TARDE EN CARGAR-->KEPA
+                $espacio = '<a href="'.$this->generateUrl('hoja_ingreso_egreso',array('report_name'=>'hojaIngresoEgreso','report_format'=>'PDF','paciente'=>$aux['id'],'ingreso'=>$aux['id_ingreso'])).'" target="_blank" class="btn btn-info">
+                            <span class="glyphicon glyphicon-book"></span> Hoja de Ingreso</a>';
+                $espacio .= '<a href="'.$this->generateUrl('admin_minsal_seguimiento_secingreso_edit',array('id'=>$aux['id_ingreso'])).'" class="btn btn-info">
+                            <span class="glyphicon glyphicon-pencil"></span> Editar</a>';
+                //
                 $rows[$i]['id'] = $aux['id_ingreso'];
                 $rows[$i]['cell'] = array($aux['id_ingreso'],
                     $espacio,
@@ -237,6 +228,7 @@ class SecIngresoController extends Controller {
                     $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
                     $aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
                     date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
+                    $aux['tarjetas'],
                     $aux['ambiente'],
                     $aux['diagnostico'],
                     date('d-m-Y', strtotime($aux['fecha'])) . " " . date('H:i', strtotime($aux['hora']))
@@ -257,26 +249,7 @@ class SecIngresoController extends Controller {
         return new Response($jsonresponse);
     }
 
-    /*
-     * DESCRIPCIÓN: Método que devuelve la vista para mostrar el boton de
-     * imprimir hoja de ingreso desde JGRID.
-     * ANALISTA PROGRAMADOR: Karen Peñate
-     */
-
-    /**
-     * @Route("/boton/ingreso/egreso/{idIngreso}", name="boton_ingreso_egreso", options={"expose"=true})
-     */
-    public function botonIngresoEgresoAction($idIngreso) {
-        $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT C.id as id
-                FROM MinsalSeguimientoBundle:SecIngreso A
-                JOIN A.idExpediente B
-                JOIN B.idPaciente C
-                WHERE A.id=$idIngreso";
-        $paciente = $em->createQuery($dql)
-                ->getSingleResult();
-        return $this->render('MinsalSeguimientoBundle:SecIngreso:boton_ingreso_egreso.html.twig', array('idPaciente' => $paciente['id'], 'idIngreso' => $idIngreso));
-    }
+   
      /*
      * DESCRIPCIÓN: Método que devuelve la vista para la busqueda de los 
      * ingresos por fecha

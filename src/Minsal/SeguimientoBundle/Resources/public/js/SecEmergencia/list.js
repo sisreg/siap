@@ -87,12 +87,14 @@ $(document).ready(function() {
                             });
                             return false;
                         } else {
-                            $('#resultadoBusqueda').load(Routing.generate('buscar_emergencias'));
-                            $('#resultadoBusqueda').show();
+			$('#resultadoBusqueda').load(Routing.generate('buscar_emergencias'));
+                        $('#lresultado').show();
+                        $('#resultadoBusqueda').show();
 
                         }
                     } else {
-                        $('#resultadoBusqueda').load(Routing.generate('buscar_emergencias'));
+		        $('#resultadoBusqueda').load(Routing.generate('buscar_emergencias'));
+                        $('#lresultado').show();
                         $('#resultadoBusqueda').show();
 
                     }

@@ -27,17 +27,6 @@ $(document).ready(function() {
         viewrecords: true,
         loadComplete: function() {
             $('#lregistro').text('Total de registros: ' + $(this).getGridParam('records'));                        
-        },
-        gridComplete: function() {
-            var ids = jQuery("#tPacientesEmergencias").jqGrid('getDataIDs');
-            for (var i = 0; i < ids.length; i++) {
-                var cl = ids[i];
-                if (cl != 0) {
-                    ce = "<div id='emergencia" + cl + "'></div>";
-                    jQuery("#tPacientesEmergencias").jqGrid('setRowData', ids[i], {acciones: ce});
-                    $('#emergencia' + cl).load(Routing.generate('boton_emergencia', {'idEmergencia': cl}));
-                }
-            }
         }
     }).jqGrid('navGrid', '#pagerpacientesEmergencias',
             {edit: false, add: false, del: false, search: false, refresh: false}

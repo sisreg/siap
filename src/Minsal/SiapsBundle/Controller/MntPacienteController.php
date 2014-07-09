@@ -67,7 +67,7 @@ class MntPacienteController extends Controller {
         $nec = chop(ltrim($request->get('nec')));
         $dui = $request->get('dui');
         $tipo_busqueda = $request->get('tipo_busqueda');
-
+        $procedencia = $request->get('procedencia');
         //INICIALIZANDO VARIABLE DOCTRINE
         $em = $this->getDoctrine()->getManager();
         $conn = $em->getConnection();
@@ -118,7 +118,7 @@ class MntPacienteController extends Controller {
         }
         if ($dui != '')
             $dui = " AND A.numero_doc_ide_paciente::text ~*'$dui'";
-        $order_by=" ORDER BY A.primer_apellido,A.primer_nombre, A.fecha_nacimiento";
+        $order_by = " ORDER BY A.primer_apellido,A.primer_nombre, A.fecha_nacimiento";
         $sql.=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $nombreMadre . $conocidoPor . $fechaNacimiento . $nec . $dui . $order_by;
         if (strcmp($tipo_busqueda, 'l') == 0)
             $query = $conn->query($sql);
@@ -132,12 +132,14 @@ class MntPacienteController extends Controller {
 
         $establecimiento = $em->getRepository("MinsalSiapsBundle:CtlEstablecimiento")->obtenerEstablecimientoConfigurado();
         $numfilas = count($query->rowCount());
-        $espacio = "";
         $i = 0;
         $rows = array();
         if ($numfilas > 0) {
             if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1) {
                 foreach ($query->fetchAll() as $aux) {
+                    $espacio = '<a href="' . $this->generateUrl('admin_minsal_siaps_mntpaciente_edit', array('id' => $aux['id'],'procedencia'=>$procedencia)) . '" class="btn btn-info">
+    <span class="glyphicon glyphicon-folder-open"></span> Detalle
+</a>';
                     if (strcmp($tipo_busqueda, 'l') == 0) {
                         $numero = $aux['numero'];
                         $id = $aux['id'];
@@ -149,7 +151,7 @@ class MntPacienteController extends Controller {
                     if (!is_null($aux['fecha']))
                         $fechaIngreso = date('d-m-Y', strtotime($aux['fecha'])) . " " . date('H:i', strtotime($aux['hora']));
                     else
-                        $fechaIngreso=null;
+                        $fechaIngreso = null;
                     $rows[$i]['cell'] = array($id,
                         $espacio, $numero,
                         $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'],
@@ -221,19 +223,6 @@ class MntPacienteController extends Controller {
         $datos['edad'] = $calcular->calcularEdad($conn, $fecha_nacimiento);
 
         return new Response(json_encode($datos));
-    }
-    
-     /*
-     * DESCRIPCIÓN: Método que devuelve la vista para mostrar el boton de pasar al detalle
-     * ANALISTA PROGRAMADOR: Karen Peñate
-     */
-
-    /**
-     * @Route("/boton/detalle/{idPaciente}", name="boton_detalle", options={"expose"=true})
-     */
-    public function botonDetalleAction($idPaciente) {
-       
-        return $this->render('MinsalSiapsBundle:MntPacienteAdmin:boton_detalle.html.twig', array('idPaciente' => $idPaciente));
     }
 
 }

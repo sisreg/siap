@@ -39,22 +39,6 @@ $(document).ready(function() {
              }*/
 
         },
-        gridComplete: function() {
-            var ids = jQuery("#tBuscarPaciente").jqGrid('getDataIDs');
-            for (var i = 0; i < ids.length; i++) {
-                var cl = ids[i];
-                if (cl != 0) {
-                    if ($('#tipo').val() != 'g'){
-                        ce = "<a class=\"btn btn-info\" href=\"" + cl + "\/view\"><span class=\"\"></span> Detalle</a>";
-                        ce = "<div id='detalle" + cl + "'></div>";
-                    }
-                    else
-                        ce = "<a class=\"btn btn-info\" href=\"create?idPacienteInicial=" + cl + "&tipo=g" + "\"><span class=\"glyphicon glyphicon-edit\"> Agregar</a>";
-                    jQuery("#tBuscarPaciente").jqGrid('setRowData', ids[i], {acciones: ce});
-                    $('#detalle' + cl).load(Routing.generate('boton_detalle', {'idPaciente': cl}));
-                }
-            }
-        }
     }).jqGrid('navGrid', '#pBuscarPaciente',
             {edit: false, add: false, del: false, search: false, refresh: false}
     )

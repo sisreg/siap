@@ -62,7 +62,11 @@
             </center>
              {% if app.user %}
                     <h1 class="establecimiento">{{ app.user.getIdEstablecimiento() }}</h1>
-                    <p class="usuario"><strong>Bienvenid@:</strong>{{app.user}}</p>
+                    {% if app.user.getIdEmpleado() %}
+                        <p class="usuario"><strong>Bienvenid@:</strong>{{app.user.getIdEmpleado().getNombreempleado()}}</p>
+                    {% else %}
+                        <p class="usuario"><strong>Bienvenid@:</strong>{{app.user}}</p>
+                    {% endif %}
                 {% endif %}
         {% endblock %}
 

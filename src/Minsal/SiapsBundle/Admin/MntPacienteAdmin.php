@@ -82,6 +82,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('idParentescoResponsable', null, array('required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
                 ->add('idParentescoProporDatos', null, array('required' => true, 'label' => $this->getTranslator()->trans('idParentescoProporDatos')))
         ;
+        //var_dump($this->getRequest()->get('procedencia'));exit();
         if ($this->getRequest()->get('procedencia') != 'e')
             $formMapper->add('expedientes', 'sonata_type_collection', array(
                 'label' => 'Expedientes Clínicos',

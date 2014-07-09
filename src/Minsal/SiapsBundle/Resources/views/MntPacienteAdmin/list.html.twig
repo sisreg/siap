@@ -53,9 +53,9 @@
                                 Capturar Datos
                             </a>
                             {% if action is not sameas('buscaremergencia') %}
-                                <input id="procedencia" value="c" type="hidden"/>
+                                <input id="procedencia" name="procedencia" value="c" type="hidden"/>
                             {% else %}                                
-                                <input id="procedencia" value="e" type="hidden"/>
+                                <input id="procedencia" name="procedencia" value="e" type="hidden"/>
                             {% endif %}
                             <a id="buscar" class="btn btn-primary" href="">
                                 <span class="glyphicon glyphicon-search"></span>

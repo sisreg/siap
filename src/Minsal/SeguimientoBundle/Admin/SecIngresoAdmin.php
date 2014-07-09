@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Minsal\Metodos\Funciones;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Range;
 
 class SecIngresoAdmin extends Admin {
 
@@ -70,12 +72,20 @@ class SecIngresoAdmin extends Admin {
                         ->where('e.idTipoEstablecimiento NOT IN (12,13)');
             }))
                 ->add('motivoReferencia', 'textarea', array('required' => false, 'label' => 'Motivo de la Referencia'))
+                ->add('responsableTarjeta', 'textarea', array('required' => false, 'label' => 'Persona a quién se le entregan las tarjetas',
+                    'constraints'=>array(new Length(array('min'=>10,'max'=>75)))))
+                ->add('tarjetasEntregadas', 'integer', array('required' => false, 'label' => 'Cantidad de Tarjetas a entregar',
+                    'constraints' => array(
+                        new Range(array('min' => 1,'max'=>2,
+                                        'minMessage'=> "Debe de entregar al menos una tarjeta",
+                                        'maxMessage'=> "No puede entregar más de dos tarjetas")),
+            )))
         ;
     }
 
     public function validate(ErrorElement $errorElement, $ingreso) {
-      //  var_dump($ingreso->getIdAtenAreaModEstab());
-        
+        //  var_dump($ingreso->getIdAtenAreaModEstab());
+
         $fechaActual = new \DateTime();
         list($hora, $minutos) = explode(":", $ingreso->getHora()->format('H:i'));
         if ($ingreso->getFecha()->diff($fechaActual)->d == 0 && $ingreso->getFecha()->diff($fechaActual)->m == 0 && $ingreso->getFecha()->diff($fechaActual)->y == 0) {

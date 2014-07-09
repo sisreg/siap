@@ -22,6 +22,9 @@ nbproject/
 #Archivos de respaldo
 *~
 
+#Archivos de solución de conflictos
+*.orig
+
 #Archivo de configuración del JasperServerReport
 src/Minsal/Util/JasperReport/_jasperserverreports.php
 

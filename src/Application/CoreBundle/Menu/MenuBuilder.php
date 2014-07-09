@@ -89,6 +89,6 @@ class MenuBuilder extends ContainerAware {
         if($user->hasRole('ROLE_USER_LISTAREXPEDIENTES') || $user->hasRole('ROLE_SUPER_ADMIN'))
             $this->menu['Reporte']->addChild('Expedientes Creados por Usuario', array('route' => 'admin_minsal_siaps_mntexpediente_listarexpedientes'));
         if($user->hasRole('ROLE_USER_BUSCAREMERGENCIA') || $user->hasRole('ROLE_SUPER_ADMIN'))
-            $this->menu['Identificación Paciente']->addChild('Consulta de Emergencia', array('route' => 'admin_minsal_siaps_mntpaciente_buscaremergencia'));
+            $this->menu['Identificación Paciente']->addChild('Registrar Emergencia', array('route' => 'admin_minsal_siaps_mntpaciente_buscaremergencia'));
     }
 }
