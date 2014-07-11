@@ -95,7 +95,7 @@ class MntPaciente {
     /**
      * @var string
      *
-     * @ORM\Column(name="direccion", type="string", length=100, nullable=true)
+     * @ORM\Column(name="direccion", type="string", length=200, nullable=true)
      * @Assert\Length(min = "10")
      */
     private $direccion;

@@ -51,7 +51,7 @@
             <tag name="sonata.admin" manager_type="orm" group="IP-1-Identificación Paciente" label="Consultar Emergencias"/>
             <argument />
             <argument>Minsal\SeguimientoBundle\Entity\SecEmergencia</argument>
-            <argument>SonataAdminBundle:CRUD</argument>
+            <argument>MinsalSeguimientoBundle:SecEmergenciaAdmin</argument>
         </service>
         <!--REPORTES -->
         <service id="sonata.admin.expediente" class="Minsal\SiapsBundle\Admin\MntExpedienteAdmin">

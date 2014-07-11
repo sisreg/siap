@@ -1,10 +1,4 @@
 $(document).ready(function() {
-    $('#servicio_ingreso').select2({
-      width: '60%',
-      placeholder:'Seleccione...',
-      allowClear:true
-    });
-  
     $("#fecha_inicio").datepicker().mask("99-99-9999");
     $("#fecha_fin").datepicker().mask("99-99-9999");
 
@@ -14,7 +8,7 @@ $(document).ready(function() {
             var elem = $("<div id='error' title='Error de llenado'><center>" +
                     "Debe de seleccionar ambas fechas para generar el reporte."
                     + "</center></div>");
-            elem.insertAfter($("#pacientesIngresados"));
+            elem.insertAfter($("#pacientesEmergencia"));
             $("#error").dialog({
                 close: function() {
                     if ($("#fecha_inicio").val() == '')
@@ -28,7 +22,7 @@ $(document).ready(function() {
             var elem = $("<div id='error' title='Error de llenado'><center>" +
                     "La fecha de inicio debe de ser menor que la fecha fin."
                     + "</center></div>");
-            elem.insertAfter($("#pacientesIngresados"));
+            elem.insertAfter($("#pacientesEmergencia"));
             $("#error").dialog({
                 close: function() {
                     $("#fecha_inicio").val('');
@@ -37,16 +31,9 @@ $(document).ready(function() {
                 }
             });
         } else {
-            $('#resultado').load(Routing.generate('buscar_ingresos_pacientes'), {'datos': $('#pacientesIngresados').serialize()});
+            $('#resultado').load(Routing.generate('buscar_emergencias_pacientes'), {'datos': $('#pacientesEmergencia').serialize()});
         }
         return false;
     });
-
-    $.getJSON(Routing.generate('get_servicios_hospitalarios_todos'),
-            function(data) {
-                $.each(data.especialidades, function(indice, aux) {
-                    $('#servicio_ingreso').append('<option value="' + aux.id + '">' + aux.nombre + '</option>');
-                });
-            });
 });
 

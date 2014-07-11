@@ -16,6 +16,9 @@ class SecEmergenciaAdmin extends Admin {
             case 'list':
                 return 'MinsalSeguimientoBundle:SecEmergencia:list.html.twig';
                 break;
+            case 'resumen_emergencia':
+                return 'MinsalSeguimientoBundle:SecEmergencia:resumen_emergencia.html.twig';
+                break;
             default:
                 return parent::getTemplate($name);
                 break;
@@ -27,6 +30,7 @@ class SecEmergenciaAdmin extends Admin {
         $collection->remove('edit');
         $collection->remove('delete');
         $collection->remove('view');
+        $collection->add('resumen_emergencia', 'resumen/emergencia');
     }
 
 }

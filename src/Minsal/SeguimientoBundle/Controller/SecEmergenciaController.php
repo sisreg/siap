@@ -35,6 +35,7 @@ class SecEmergenciaController extends Controller {
      * @Route("/cargar/emergencias", name="cargar_emergencias", options={"expose"=true})
      */
     public function cargarEmergenciasAction() {
+    
         //OBTENIENDO PARÁMETROS DE BUSQUEDA
         $request = $this->getRequest();
         $primerNombre = chop(ltrim($request->get('primer_nombre')));
@@ -52,7 +53,7 @@ class SecEmergenciaController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $conn = $em->getConnection();
         //CONSTANTES
-
+  
         $sql = "SELECT A.*,E.id id_emergencia,concat(C.nombre,':',coalesce(A.numero_doc_ide_paciente,'-')),coalesce(B.numero,'EM') numero,
 			E.numero_emergencia,to_char(E.fecha_registra,'DD-MM-YYYY') as fecha_emergencia
                 FROM mnt_paciente A 
@@ -87,7 +88,7 @@ class SecEmergenciaController extends Controller {
             $nec = " AND B.numero='$nec'";
         }
         
-
+	//'Número Expediente', 'Nombre del Paciente', 'F. NAC.','Fecha de Emergencia','No. de Emergencia' 
         $condiciones=$primerNombre . $primerApellido . $segundoNombre . $tercerNombre . $segundoApellido . $apellidoCasada . $fechaNacimiento . $nec ;
         $sql.= substr_replace($condiciones, '', 0, 5)." ORDER BY cast(E.numero_emergencia as integer) DESC LIMIT 100";
 
@@ -127,24 +128,83 @@ class SecEmergenciaController extends Controller {
     }
     
      /*
-     * DESCRIPCIÓN: Método que devuelve la vista para mostrar el boton de
-     * imprimir hoja de emergencia desde JGRID.
+     * DESCRIPCIÓN: Método que devuelve la vista para la busqueda de los 
+     * emergencias por fecha
      * ANALISTA PROGRAMADOR: Karen Peñate
      */
 
     /**
-     * @Route("/boton/emergencia/{idEmergencia}", name="boton_emergencia", options={"expose"=true})
+     * @Route("/buscar/emergencias/pacientes", name="buscar_emergencias_pacientes", options={"expose"=true})
      */
-    public function botonEmergenciaAction($idEmergencia) {
-        $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT C.id as id
-                FROM MinsalSeguimientoBundle:SecEmergencia A
-                JOIN A.idPaciente C
-                WHERE A.id=$idEmergencia";
-        $paciente = $em->createQuery($dql)
-                ->getSingleResult();
-        return $this->render('MinsalSeguimientoBundle:SecEmergencia:boton_emergencia.html.twig', array('idPaciente' => $paciente['id']));
+    public function buscarEmergenciasPacienteAction() {
+
+        return $this->render('MinsalSeguimientoBundle:SecEmergencia:resultado_reporte_list.html.twig', array());
     }
+    
+     /*
+     * DESCRIPCIÓN: Método que devuelve un JSON que contiene los emergencias de 
+     * los pacientes en las fechas establecidas.
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     */
+
+    /**
+     * @Route("/pacientes/en/emergencia", name="pacientes_en_emergencia", options={"expose"=true})
+     */
+    public function cargarReporteIngresoAction() {
+        //OBTENIENDO PARÁMETROS DE BUSQUEDA
+        $request = $this->getRequest();
+        $fecha_inicio= $request->get('fecha_inicio');
+        $fecha_fin= $request->get('fecha_fin');
+
+        //INICIALIZANDO VARIABLE DOCTRINE
+        $em = $this->getDoctrine()->getManager();
+        $conn = $em->getConnection();
+        //CONSTANTES
+
+        $sql = "SELECT A.*,E.id id_ingreso,B.numero,D.nombre_ambiente ambiente,E.diagnostico,E.fecha,E.hora
+                FROM mnt_paciente A 
+                     INNER JOIN mnt_expediente B ON B.id_paciente=A.id
+                     INNER JOIN sec_ingreso E ON E.id_expediente=B.id
+                     LEFT JOIN mnt_aten_area_mod_estab D ON E.id_ambiente_ingreso=D.id
+                WHERE  B.habilitado= TRUE 
+                       AND E.fecha>=to_date('$fecha_inicio','DD-MM-YYYY') and E.fecha<=to_date('$fecha_fin','DD-MM-YYYY')";
+        if ($servicio != '')
+            $sql .= " AND E.id_ambiente_ingreso=$servicio";
+        $sql.= " ORDER BY E.fecha DESC, E.hora DESC,A.primer_Apellido ASC";
+
+        $query = $conn->query($sql);
+
+        $numfilas = count($query->rowCount());
+        $espacio = "";
+        $i = 0;
+        $rows = array();
+        if ($numfilas > 0) {
+            foreach ($query->fetchAll() as $aux) {
+                $rows[$i]['id'] = $aux['id_ingreso'];
+                $rows[$i]['cell'] = array(
+                    $aux['numero'],
+                    $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'].$aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
+                    date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
+                    date('d-m-Y', strtotime($aux['fecha'])) . " " . date('H:i', strtotime($aux['hora'])),
+                    $aux['ambiente'],
+                    $aux['diagnostico']                   
+                );
+                $i++;
+            }
+        }
+
+        $datos = json_encode($rows);
+        $pages = floor($numfilas / 10) + 1;
+
+        $jsonresponse = '{
+               "page":"1",
+               "total":"' . $pages . '",
+               "records":"' . $numfilas . '", 
+               "rows":' . $datos . '}';
+
+        return new Response($jsonresponse);
+    }
+
 
 }
 
