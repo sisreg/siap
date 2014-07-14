@@ -24,8 +24,7 @@ class MntPacienteAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper) {
         $elSalvador = $this->getModelManager()
                 ->findOneBy('MinsalSiapsBundle:CtlPais', array('id' => 68));
-        $nacionalidad = $this->getModelManager()
-                ->findOneBy('MinsalSiapsBundle:CtlNacionalidad', array('id' => 1));
+
         $formMapper
                 ->add('primerApellido', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('segundoApellido', null, array('attr' => array('class' => 'span5 limpiar')))
@@ -37,13 +36,13 @@ class MntPacienteAdmin extends Admin {
                     'widget' => 'single_text', 'format' => 'dd-MM-yyyy'
                 /* 'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día') */                ))
                 ->add('horaNacimiento', null, array('required' => false))
-                ->add('idSexo', null, array('label' => 'Sexo'))
+                ->add('idSexo', null, array('label' => 'Sexo *', 'required' => false))
                 ->add('numeroDocIdePaciente', null, array('label' => $this->getTranslator()->trans('numeroDocIdePaciente')))
                 ->add('direccion', null, array('required' => true, 'attr' => array('class' => 'span5 mayuscula')))
                 ->add('telefonoCasa', null, array('label' => $this->getTranslator()->trans('telefonoCasa'), 'attr' => array('class' => 'span5 telefono')))
                 ->add('lugarTrabajo', null, array('attr' => array('class' => 'span5 mayuscula')))
                 ->add('telefonoTrabajo', null, array('label' => 'Telefono Trabajo', 'attr' => array('class' => 'span5 telefono')))
-                ->add('idAreaCotizacion', null, array('label' => $this->getTranslator()->trans('idAreaCotizacion'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idAreaCotizacion', null, array('label' => $this->getTranslator()->trans('idAreaCotizacion'), 'required' => false, 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('asegurado')
                 ->add('cotizante', null, array('attr' => array('class' => 'deshabilitados')))
                 ->add('numeroAfiliacion', null, array('attr' => array('class' => 'span5 deshabilitados')))
@@ -59,28 +58,27 @@ class MntPacienteAdmin extends Admin {
                 ->add('observacion', null, array('attr' => array('class' => 'span5 mayuscula')))
                 ->add('conocidoPor', null, array('attr' => array('class' => 'span5 limpiar')))
                 ->add('areaGeograficaDomicilio', null, array())
-                ->add('idCantonDomicilio', null, array('label' => $this->getTranslator()->trans('idCantonDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idCantonDomicilio', null, array('required' => false, 'label' => $this->getTranslator()->trans('idCantonDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('idDepartamentoDomicilio', null, array(
                     'required' => false, 'label' => $this->getTranslator()->trans('idDepartamentoDomicilio')))
-                ->add('idDocPaciente', null, array('required' => true, 'label' => $this->getTranslator()->trans('idDocPaciente')))
-                ->add('idDocProporcionoDatos', null, array('required' => true, 'label' => $this->getTranslator()->trans('idDocProporcionoDatos')))
-                ->add('idDocResponsable', null, array('required' => true, 'label' => $this->getTranslator()->trans('idDocResponsable')))
-                ->add('idEstadoCivil', null, array('required' => true, 'label' => $this->getTranslator()->trans('idEstadoCivil')))
+                ->add('idDocPaciente', null, array('required' => false, 'label' => $this->getTranslator()->trans('idDocPaciente')))
+                ->add('idDocProporcionoDatos', null, array('required' => false, 'label' => $this->getTranslator()->trans('idDocProporcionoDatos')))
+                ->add('idDocResponsable', null, array('required' => false, 'label' => $this->getTranslator()->trans('idDocResponsable')))
+                ->add('idEstadoCivil', null, array('required' => false, 'label' => $this->getTranslator()->trans('idEstadoCivil')))
                 ->add('idMunicipioDomicilio', null, array('required' => false, 'label' => $this->getTranslator()->trans('idMunicipioDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
-                ->add('idDepartamentoNacimiento', null, array('label' => $this->getTranslator()->trans('idDepartamentoNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
-                ->add('idMunicipioNacimiento', null, array('label' => $this->getTranslator()->trans('idMunicipioNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idDepartamentoNacimiento', null, array('required' => false, 'label' => $this->getTranslator()->trans('idDepartamentoNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
+                ->add('idMunicipioNacimiento', null, array('required' => false, 'label' => $this->getTranslator()->trans('idMunicipioNacimiento'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('idNacionalidad', null, array(
                     'label' => $this->getTranslator()->trans('idNacionalidad'),
-                    'required' => true,
-                    'preferred_choices' => array($nacionalidad)
+                    'required' => false
                 ))
-                ->add('idOcupacion', null, array('required' => true, 'label' => $this->getTranslator()->trans('idOcupacion')))
-                ->add('idPaisNacimiento', 'entity', array('required' => true, 'label' => $this->getTranslator()->trans('idPaisNacimiento'),
+                ->add('idOcupacion', null, array('required' => false, 'label' => $this->getTranslator()->trans('idOcupacion')))
+                ->add('idPaisNacimiento', 'entity', array('required' => false, 'label' => $this->getTranslator()->trans('idPaisNacimiento'),
                     'class' => 'MinsalSiapsBundle:CtlPais',
                     'preferred_choices' => array($elSalvador)
                 ))
-                ->add('idParentescoResponsable', null, array('required' => true, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
-                ->add('idParentescoProporDatos', null, array('required' => true, 'label' => $this->getTranslator()->trans('idParentescoProporDatos')))
+                ->add('idParentescoResponsable', null, array('required' => false, 'label' => $this->getTranslator()->trans('idParentescoResponsable')))
+                ->add('idParentescoProporDatos', null, array('required' => false, 'label' => $this->getTranslator()->trans('idParentescoProporDatos')))
         ;
         //var_dump($this->getRequest()->get('procedencia'));exit();
         if ($this->getRequest()->get('procedencia') != 'e')
@@ -103,6 +101,7 @@ class MntPacienteAdmin extends Admin {
                 break;
             case 'view':
                 return 'MinsalSiapsBundle:MntPacienteAdmin:view.html.twig';
+                break;
             case 'buscaremergencia':
                 return 'MinsalSiapsBundle:MntPacienteAdmin:list.html.twig';
                 break;
@@ -131,8 +130,8 @@ class MntPacienteAdmin extends Admin {
                 $expediente->setIdEstablecimiento($establecimiento);
                 $expediente->setIdPaciente($paciente);
                 $expediente->setFechaCreacion($fecha_actual);
-		$expediente->setHoraCreacion($fecha_actual);
-            }            
+                $expediente->setHoraCreacion($fecha_actual);
+            }
         } else {
             $emergencia = new SecEmergencia();
             $anio = date("Y");
@@ -283,6 +282,7 @@ class MntPacienteAdmin extends Admin {
     }
 
     public function validate(ErrorElement $errorElement, $paciente) {
+        /* ESTA VALIDACIÓN SE REALIZARA SOLO CUANDO EL PACIENTE VENGA POR ARCHIVO NO DE EMERGENCIA */
         if ($this->getRequest()->get('procedencia') != 'e') {
             //Verificando que haya ingresado número de expediente
             if (count($paciente->getExpedientes()) == 0) {
@@ -457,7 +457,7 @@ class MntPacienteAdmin extends Admin {
                 }
             }
         }
-
+        //VALIDACIÓN DE QUE EL SEXO EXISTA
         if (is_null($paciente->getIdSexo())) {
             $errorElement->with('idSexo')
                     ->addViolation('El Sexo es obligatorio')
@@ -466,7 +466,10 @@ class MntPacienteAdmin extends Admin {
             $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
             $conn = $em->getConnection();
             $calcular = new Funciones();
-            $edad = $calcular->calcularEdad($conn, $paciente->getFechaNacimiento()->format('d-m-Y'));
+            if ($paciente->getHoraNacimiento())
+                $edad = $calcular->calcularEdad($conn, $paciente->getFechaNacimiento()->format('d-m-Y'), $paciente->getHoraNacimiento()->format('H:i'));
+            else
+                $edad = $calcular->calcularEdad($conn, $paciente->getFechaNacimiento()->format('d-m-Y'));
             $aux = explode(' ', $edad);
             if (count($aux) > 1) {
                 if (strstr($aux[1], 'año')) {
@@ -513,6 +516,30 @@ class MntPacienteAdmin extends Admin {
         if (is_null($paciente->getIdNacionalidad()))
             $errorElement->with('idNacionalidad')
                     ->addViolation('Debe de seleccionar la nacionalidad del paciente')
+                    ->end();
+        if (is_null($paciente->getIdDocPaciente()))
+            $errorElement->with('idDocPaciente')
+                    ->addViolation('Debe de seleccionar el tipo de documento del paciente')
+                    ->end();
+        if (is_null($paciente->getIdDocResponsable()))
+            $errorElement->with('idDocResponsable')
+                    ->addViolation('Debe de seleccionar el tipo de documento del responsable')
+                    ->end();
+        if (is_null($paciente->getIdDocProporcionoDatos()))
+            $errorElement->with('idDocProporcionoDatos')
+                    ->addViolation('Debe de seleccionar el tipo de documento de la persona que proporcionó datos')
+                    ->end();
+        if (is_null($paciente->getIdParentescoProporDatos()))
+            $errorElement->with('idParentescoProporDatos')
+                    ->addViolation('Debe de seleccionar el parentesco del que proporcionó datos')
+                    ->end();
+        if (is_null($paciente->getIdParentescoResponsable()))
+            $errorElement->with('idParentescoResponsable')
+                    ->addViolation('Debe de seleccionar el parentesco del responsable')
+                    ->end();
+        if (is_null($paciente->getAreaGeograficaDomicilio()))
+            $errorElement->with('areaGeograficaDomicilio')
+                    ->addViolation('Debe de seleccionar el área geografica del domicilio')
                     ->end();
     }
 

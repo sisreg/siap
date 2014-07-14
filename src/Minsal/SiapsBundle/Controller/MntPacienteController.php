@@ -137,7 +137,7 @@ class MntPacienteController extends Controller {
         if ($numfilas > 0) {
             if ($establecimiento->getIdTipoEstablecimiento()->getId() == 1) {
                 foreach ($query->fetchAll() as $aux) {
-                    $espacio = '<a href="' . $this->generateUrl('admin_minsal_siaps_mntpaciente_edit', array('id' => $aux['id'],'procedencia'=>$procedencia)) . '" class="btn btn-info">
+                    $espacio = '<a href="' . $this->generateUrl('admin_minsal_siaps_mntpaciente_edit', array('id' => $aux['id'], 'procedencia' => $procedencia)) . '" class="btn btn-info">
     <span class="glyphicon glyphicon-folder-open"></span> Detalle
 </a>';
                     if (strcmp($tipo_busqueda, 'l') == 0) {
@@ -215,12 +215,12 @@ class MntPacienteController extends Controller {
     public function edad_paciente() {
         $request = $this->getRequest();
         $fecha_nacimiento = $request->get('fecha_nacimiento');
-        $fecha_actual = getdate();
-        $fecha_actual = $fecha_actual['mday'] . '-' . $fecha_actual['mon'] . '-' . $fecha_actual['year'];
+        $hora_nacimiento = $request->get('hora_nacimiento');
         $em = $this->getDoctrine()->getManager();
         $conn = $em->getConnection();
         $calcular = new Funciones();
-        $datos['edad'] = $calcular->calcularEdad($conn, $fecha_nacimiento);
+
+        $datos['edad'] = $calcular->calcularEdad($conn, $fecha_nacimiento,$hora_nacimiento);
 
         return new Response(json_encode($datos));
     }

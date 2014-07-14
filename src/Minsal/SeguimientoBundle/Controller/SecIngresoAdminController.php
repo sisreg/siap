@@ -25,15 +25,17 @@ class SecIngresoAdminController extends Controller {
         $datos_paciente = $em->getRepository("MinsalSiapsBundle:MntPaciente")->obtenerDatosPaciente($this->get('request')->get('id_paciente'));
         $conn = $em->getConnection();
         $calcular = new Funciones();
-        $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'));
+        if ($datos_paciente->getHoraNacimiento())
+            $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'), $datos_paciente->getHoraNacimiento()->format('H:i'));
+        else
+            $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'));
         $aux = explode(' ', $edad);
         if (strstr($aux[1], 'año')) {
             if ($aux[0] >= 11 && $aux[0] <= 50)
                 $embarazo = '1';
             else
                 $embarazo = '0';
-        }
-        else
+        } else
             $embarazo = '0';
         //DECLARO EL OBJETO INGRESO EN ESTE CASO
         $object = $this->admin->getNewInstance();
@@ -126,15 +128,17 @@ class SecIngresoAdminController extends Controller {
         $datos_paciente = $em->getRepository("MinsalSiapsBundle:MntPaciente")->obtenerDatosPaciente($object->getIdExpediente()->getIdPaciente()->getId());
         $conn = $em->getConnection();
         $calcular = new Funciones();
-        $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'));
+        if ($datos_paciente->getHoraNacimiento())
+            $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'), $datos_paciente->getHoraNacimiento()->format('H:i'));
+        else
+            $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'));
         $aux = explode(' ', $edad);
         if (strstr($aux[1], 'año')) {
             if ($aux[0] >= 11 && $aux[0] <= 50)
                 $embarazo = '1';
             else
                 $embarazo = '0';
-        }
-        else
+        } else
             $embarazo = '0';
 
         /** @var $form \Symfony\Component\Form\Form */
@@ -189,12 +193,13 @@ class SecIngresoAdminController extends Controller {
                     'embarazo' => $embarazo
         ));
     }
+
     //AGREGANDO LA RUTA RESUMEN AL CONTROLADOR
     public function resumenAction() {
-        
+
         return $this->render($this->admin->getTemplate('resumen'), array());
     }
-    
+
     //PARA SIEMPRE REDIRECCIONAR A LA RUTA RESUMEN.
     public function redirectTo($object) {
 
@@ -202,7 +207,6 @@ class SecIngresoAdminController extends Controller {
 
         return new RedirectResponse($url);
     }
-    
 
 }
 

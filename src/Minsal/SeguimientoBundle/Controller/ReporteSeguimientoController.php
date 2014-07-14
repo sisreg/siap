@@ -85,7 +85,6 @@ class ReporteSeguimientoController extends Controller {
         $id_emergencia=0;
         $emergencia = $em->getRepository("MinsalSeguimientoBundle:SecEmergencia")->findBy(array('idPaciente' => $id_paciente));
         $paciente = $em->getRepository("MinsalSiapsBundle:MntPaciente")->find($id_paciente);
-	
 	if (is_null($this->get('request')->get('id_emergencia'))) {
 	      if (count($emergencia) == 0) {
 		  $emergencia = new SecEmergencia();
@@ -103,11 +102,14 @@ class ReporteSeguimientoController extends Controller {
 		  $em->flush();
 		  $id_emergencia=$emergencia->getId();
 	      }else{
-		  $dql = "SELECT max(u) maximo,u entidad
+		  $dql = "SELECT max(u),u entidad
 			  FROM MinsalSeguimientoBundle:SecEmergencia u
-			  WHERE u.idPaciente = ".$paciente->getId().
-			  " GROUP BY u";
-		  $emergencia= $em->createQuery($dql)->getSingleResult();
+                               JOIN u.idPaciente p
+			  WHERE p.id = ".$id_paciente.
+			  " GROUP BY u.id";
+                  
+		  $emergencia= $em->createQuery($dql)->getResult();
+                  $emergencia=end($emergencia);
 		  $emergencia=$emergencia['entidad'];
 		  $fechaActual = new \DateTime();
 		  list($hora, $minutos) = explode(":", $emergencia->getFechaRegistra()->format('H:i'));
@@ -158,6 +160,32 @@ class ReporteSeguimientoController extends Controller {
         
         $jasperReport->setReportParams(array('id_paciente' => (int)$id_paciente,'id_emergencia'=> (int)$id_emergencia));
 
+        return $jasperReport->buildReport();
+    }
+    
+     /*
+     * DESCRIPCIÓN: Método que genera la hoja de resumen de emergencia en un rango de fechas
+     * ANALISTA PROGRAMADOR: Karen Peñate
+     * PARAMETROS ENTRADA:
+     *          fecha_inicio    =>  Fecha de inicio del reporte
+     *          fecha_fin       =>  Fecha fin del reporte
+     *          report_name     =>  Nombre del reporte
+     *          report_format   =>  Formato del reporte
+     */
+
+    /**
+     * @Route("/total/emergencias/{report_name}/{report_format}/{fecha_inicio}/{fecha_fin}", name="total_emergencias", options={"expose"=true})
+     */
+    public function totalEmergenciasAction($report_name, $report_format, $fecha_inicio, $fecha_fin) {
+
+        $jasperReport = $this->container->get('jasper.build.reports');
+        $jasperReport->setReportName($report_name);
+        $jasperReport->setReportFormat($report_format);
+        $jasperReport->setReportPath("/reports/siaps/seguimiento/");
+        $jasperReport->setReportParams(array(
+            'fecha_inicio' => $fecha_inicio,
+            'fecha_fin' => $fecha_fin
+        ));
         return $jasperReport->buildReport();
     }
 

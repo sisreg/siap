@@ -17,11 +17,11 @@ class Funciones {
      * 
      * $conn => Es la conexión para poder realizar la consulta
      * $fechaNacimiento => Es la fecha de nacimiento de la persona
-     * 
+     * $fechaHoraNacimiento => Es la horaNacimiento de la persona
      * @return string
      * 
      */
-    public function calcularEdad($conn, $fechaNacimiento) {
+    public function calcularEdad($conn, $fechaNacimiento,$horaNacimiento=null) {
         $fecha_actual = getdate();
         $fecha_actual = $fecha_actual['mday'] . '-' . $fecha_actual['mon'] . '-' . $fecha_actual['year'];
         $sql = "SELECT age('$fecha_actual','$fechaNacimiento')";
@@ -36,6 +36,17 @@ class Funciones {
             $edad = ereg_replace('days', 'días,', $edad);
             $edad = ereg_replace('day', 'día,', $edad);
             $edad = ereg_replace('[,]$', '', $edad);
+        }
+        /*AGREGAR LO DE SI ES = 000000 COLOCAR LA FECHA*/
+        if(strcmp($edad,'00:00:00')==0){
+	  if (is_null($horaNacimiento)){
+	    $edad='0 días';
+	  }else{
+	    $sql = "SELECT concat_ws(' ',regexp_replace(to_char((now()::TIME - '$horaNacimiento'),'HH24:MI'),':',' Horas '),'Minutos') AS age";
+	    $query = $conn->query($sql);
+	    $edad = $query->fetch();
+	    $edad = $edad['age'];
+          }
         }
         return $edad;
     }

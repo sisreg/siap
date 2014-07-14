@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $("#tPacientesEmergencias").jqGrid({
         url: Routing.generate('pacientes_en_emergencia'),
-        postData: $('#pacientesEmergencias').serialize(),
+        postData: $('#pacientesEmergencia').serialize(),
         datatype: 'json',
         altRows: true,
         height: "100%",
@@ -33,7 +33,7 @@ $(document).ready(function() {
     $('#exportar_hoja_calculo').click(function() {
         alert('hola');
         if ($('.ui-paging-info').text() != 'Sin registros que mostrar') {
-            url = Routing.generate('total_ingresos') + '/rpt_resumen_ingresos/XLS/' + $('#fecha_inicio').val() + '/' + $('#fecha_fin').val();
+            url = Routing.generate('total_emergencias') + '/rpt_resumen_emergencias/XLS/' + $('#fecha_inicio').val() + '/' + $('#fecha_fin').val();
             window.open(url, '_blank');
             return false;
         }
@@ -44,7 +44,7 @@ $(document).ready(function() {
     });
     $('#exportar_pdf').click(function() {
         if ($('.ui-paging-info').text() != 'Sin registros que mostrar') {
-            url = Routing.generate('total_ingresos') + '/rpt_resumen_ingresos/PDF/' + $('#fecha_inicio').val() + '/' + $('#fecha_fin').val();
+            url = Routing.generate('total_emergencias') + '/rpt_resumen_emergencias/PDF/' + $('#fecha_inicio').val() + '/' + $('#fecha_fin').val();
             window.open(url, '_blank');
             return false;
         }

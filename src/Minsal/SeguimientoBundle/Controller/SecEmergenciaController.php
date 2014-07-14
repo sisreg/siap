@@ -150,7 +150,7 @@ class SecEmergenciaController extends Controller {
     /**
      * @Route("/pacientes/en/emergencia", name="pacientes_en_emergencia", options={"expose"=true})
      */
-    public function cargarReporteIngresoAction() {
+    public function cargarReporteEmergenciaAction() {
         //OBTENIENDO PARÁMETROS DE BUSQUEDA
         $request = $this->getRequest();
         $fecha_inicio= $request->get('fecha_inicio');
@@ -161,16 +161,14 @@ class SecEmergenciaController extends Controller {
         $conn = $em->getConnection();
         //CONSTANTES
 
-        $sql = "SELECT A.*,E.id id_ingreso,B.numero,D.nombre_ambiente ambiente,E.diagnostico,E.fecha,E.hora
+        $sql = "SELECT A.*,E.id id_emergencia,concat(C.nombre,':',coalesce(A.numero_doc_ide_paciente,'-')),coalesce(B.numero,'EM') numero,
+			E.numero_emergencia,to_char(E.fecha_registra,'DD-MM-YYYY HH24:MI AM') as fecha_emergencia
                 FROM mnt_paciente A 
-                     INNER JOIN mnt_expediente B ON B.id_paciente=A.id
-                     INNER JOIN sec_ingreso E ON E.id_expediente=B.id
-                     LEFT JOIN mnt_aten_area_mod_estab D ON E.id_ambiente_ingreso=D.id
-                WHERE  B.habilitado= TRUE 
-                       AND E.fecha>=to_date('$fecha_inicio','DD-MM-YYYY') and E.fecha<=to_date('$fecha_fin','DD-MM-YYYY')";
-        if ($servicio != '')
-            $sql .= " AND E.id_ambiente_ingreso=$servicio";
-        $sql.= " ORDER BY E.fecha DESC, E.hora DESC,A.primer_Apellido ASC";
+                     LEFT JOIN mnt_expediente B ON (B.id_paciente=A.id and B.habilitado= TRUE)
+                     LEFT JOIN ctl_documento_identidad C ON C.id=A.id_doc_ide_paciente                     
+                     INNER JOIN sec_emergencia E ON E.id_paciente=A.id
+                WHERE date(E.fecha_registra)>=to_date('$fecha_inicio','DD-MM-YYYY') AND date(E.fecha_registra)<=to_date('$fecha_fin','DD-MM-YYYY')
+                ORDER BY E.id";
 
         $query = $conn->query($sql);
 
@@ -180,14 +178,13 @@ class SecEmergenciaController extends Controller {
         $rows = array();
         if ($numfilas > 0) {
             foreach ($query->fetchAll() as $aux) {
-                $rows[$i]['id'] = $aux['id_ingreso'];
+                $rows[$i]['id'] = $aux['id_emergencia'];
                 $rows[$i]['cell'] = array(
                     $aux['numero'],
                     $aux['primer_apellido'] . ' ' . $aux['segundo_apellido'] . ' ' . $aux['apellido_casada'].$aux['primer_nombre'] . ' ' . $aux['segundo_nombre'] . ' ' . $aux['tercer_nombre'],
                     date('d-m-Y', strtotime($aux['fecha_nacimiento'])),
-                    date('d-m-Y', strtotime($aux['fecha'])) . " " . date('H:i', strtotime($aux['hora'])),
-                    $aux['ambiente'],
-                    $aux['diagnostico']                   
+                    date('d-m-Y H:i', strtotime($aux['fecha_emergencia'])),
+                    $aux['numero_emergencia']                   
                 );
                 $i++;
             }

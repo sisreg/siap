@@ -19,8 +19,10 @@ class MntPacienteAdminController extends Controller {
         $datos_paciente = $em->getRepository("MinsalSiapsBundle:MntPaciente")->obtenerDatosPaciente($valor);
         $conn = $em->getConnection();
         $calcular = new Funciones();
-        $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'));
-        
+        if ($datos_paciente->getHoraNacimiento())
+            $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'), $datos_paciente->getHoraNacimiento()->format('H:i'));
+        else
+            $edad = $calcular->calcularEdad($conn, $datos_paciente->getFechaNacimiento()->format('d-m-Y'));
         return $this->render($this->admin->getTemplate('view'), array(
                     'action' => 'view',
                     'datos' => $datos_paciente,
@@ -204,15 +206,14 @@ class MntPacienteAdminController extends Controller {
      *
      * @return Response
      */
-    public function editAction($id = null)
-    {
+    public function editAction($id = null) {
         // the key used to lookup the template
         $templateKey = 'edit';
 
         $id = $this->get('request')->get($this->admin->getIdParameter());
         $object = $this->admin->getObject($id);
         $procedencia = $this->get('request')->get('procedencia');
-        
+
         if (!$object) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
@@ -238,8 +239,8 @@ class MntPacienteAdminController extends Controller {
 
                 if ($this->isXmlHttpRequest()) {
                     return $this->renderJson(array(
-                        'result'    => 'ok',
-                        'objectId'  => $this->admin->getNormalizedIdentifier($object)
+                                'result' => 'ok',
+                                'objectId' => $this->admin->getNormalizedIdentifier($object)
                     ));
                 }
 
@@ -267,12 +268,13 @@ class MntPacienteAdminController extends Controller {
         $this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
 
         return $this->render($this->admin->getTemplate($templateKey), array(
-            'action' => 'edit',
-            'form'   => $view,
-            'object' => $object,
-            'procedencia'=>$procedencia
+                    'action' => 'edit',
+                    'form' => $view,
+                    'object' => $object,
+                    'procedencia' => $procedencia
         ));
     }
+
     public function redirectTo($object) {
         $params = array();
         $params['id'] = $object->getId();
@@ -293,8 +295,6 @@ class MntPacienteAdminController extends Controller {
                     'action' => 'buscaremergencia'
         ));
     }
-    
-    
 
 }
 

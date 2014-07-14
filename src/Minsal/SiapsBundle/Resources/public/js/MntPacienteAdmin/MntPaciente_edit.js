@@ -10,6 +10,8 @@ $(document).ready(function() {
     $('select[id$="_horaNacimiento_minute"]').select2({
         placeholder: 'Minutos',
         allowClear: true
+    }).on('select2-close', function() {
+        calcular_edad('h');
     });
 
     $('select[id$="_idSexo"]').prepend('<option/>').val(function() {
@@ -188,7 +190,7 @@ $(document).ready(function() {
                 elem.insertAfter($("#form_paciente"));
                 $("#error").dialog({
                     close: function() {
-                        $('select[id$="_idDepartamentoDomicilio"]').focus();
+                        $('select[id$="_idDepartamentoDomicilio"]').select2('focus');
                     }
 
                 });
@@ -205,7 +207,7 @@ $(document).ready(function() {
                 elem.insertAfter($("#form_paciente"));
                 $("#error").dialog({
                     close: function() {
-                        $('select[id$="_idDepartamentoDomicilio"]').focus();
+                        $('select[id$="_idDepartamentoNacimiento"]').select2('focus');
                     }
 
                 });
@@ -229,12 +231,16 @@ $(document).ready(function() {
     $('.deshabilitados').attr('disabled', 'disabled');
 
     $('input[id$="_fechaNacimiento"]').datepicker().mask("99-99-9999").focusout(function() {
-        calcular_edad();
+        calcular_edad('f');
     });
 
     if ($('input[id$="_fechaNacimiento"]').val() != '') {
-        calcular_edad();
+        if ($('select[id$="_horaNacimiento_minute"]').select2('val') != '')
+            calcular_edad('h');
+        else
+            calcular_edad('f');
     }
+
 
 
 
@@ -434,16 +440,24 @@ $(document).ready(function() {
 
     /*LIMPIAR APELLIDO CASADA SI ES HOMBRE*/
     $('select[id$="_idSexo"]').change(function() {
-        if ($('select[id$="_idSexo"]').val() == '1')
+        if ($('select[id$="_idSexo"]').select2('val') == '1' || $('select[id$="_idSexo"]').select2('val') == '3') {
             $('input[id$="_apellidoCasada"]').attr('disabled', 'disabled');
+            $('input[id$="_apellidoCasada"]').val('');
+        }
         else
             $('input[id$="_apellidoCasada"]').removeAttr('disabled');
     });
 
-    if ($('select[id$="_idSexo"]').val() == '1')
+    if ($('select[id$="_idSexo"]').select2('val') == '1' || $('select[id$="_idSexo"]').select2('val') == '3')
         $('input[id$="_apellidoCasada"]').attr('disabled', 'disabled');
     else
         $('input[id$="_apellidoCasada"]').removeAttr('disabled');
+
+    //COLOCAR NACIONALIDAD SALVADOREÑO POR DEFECTO
+    if ($('select[id$="_idNacionalidad"]').select2('val') == '') {
+        $('select[id$="_idNacionalidad"]').select2('val', 1);
+    }
+
     /*LLENAR DATOS PERSONA RESPONSABLE*/
     $('select[id$="_idParentescoResponsable"]').change(function() {
         if ($('select[id$="_idParentescoResponsable"] option:selected').text() == 'Madre') {
@@ -569,8 +583,8 @@ $(document).ready(function() {
 
     });
 
-    if (($('select[id$="_idPaisNacimiento"]').select2('val') == 68 && $('select[id$="_idDepartamentoNacimiento"]').select2('val') == "") || $('select[id$="_idPaisNacimiento"]').select2('val')=='') {
-        $('select[id$="_idPaisNacimiento"]').select2('val',68) ;
+    if (($('select[id$="_idPaisNacimiento"]').select2('val') == 68 && $('select[id$="_idDepartamentoNacimiento"]').select2('val') == "") || $('select[id$="_idPaisNacimiento"]').select2('val') == '') {
+        $('select[id$="_idPaisNacimiento"]').select2('val', 68);
         $('select[id$="_idDepartamentoNacimiento"]').children().remove();
         $('select[id$="_idDepartamentoNacimiento"]').append('<option></option>');
         $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').select2('val'),
@@ -641,12 +655,12 @@ $(document).ready(function() {
                     });
                     $('select[id$="_idMunicipioNacimiento"]').select2('val', valor);
                 });
-        
+
         $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
     }
 
     if ($('select[id$="_idDepartamentoDomicilio"]').select2('val') != '') {
-        
+
         valorDoc = $('select[id$="_idMunicipioDomicilio"]').select2('val');
         $('select[id$="_idMunicipioDomicilio"]').children().remove();
         $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').select2('val'),
@@ -656,7 +670,7 @@ $(document).ready(function() {
                     });
                     $('select[id$="_idMunicipioDomicilio"]').select2('val', valorDoc);
                 });
-      
+
         $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
     }
 
@@ -705,7 +719,7 @@ $(document).ready(function() {
         $.getJSON(Routing.generate('get_pais_depto') + '?idDepartamento=' + $('select[id$="_idDepartamentoDomicilio"]').select2('val'), function(datos) {
             $.getJSON(Routing.generate('get_paises'), function(data) {
                 $.each(data.paises, function(indice, aux2) {
-                     $('#idPaisDomicilio').append($('<option>', {value: aux2.id, text: aux2.nombre}));
+                    $('#idPaisDomicilio').append($('<option>', {value: aux2.id, text: aux2.nombre}));
                 });
                 $('#idPaisDomicilio').select2('val', datos.pais);
             });
@@ -727,11 +741,17 @@ $(document).ready(function() {
     });
 
     //PARA CALCULAR LA EDAD DEL PACIENTE
-    function calcular_edad() {
-        $.getJSON(Routing.generate('edad_paciente') + '?fecha_nacimiento=' + $('input[id$="_fechaNacimiento"]').val(),
-                function(data) {
-                    $('input[id="edad"]').val(data.edad);
-                });
+    function calcular_edad(tipo) {
+        if (tipo == 'h')
+            $.getJSON(Routing.generate('edad_paciente') + '?fecha_nacimiento=' + $('input[id$="_fechaNacimiento"]').val() + '&hora_nacimiento=' + $('select[id$="_horaNacimiento_hour"]').select2('val') + ':' + $('select[id$="_horaNacimiento_minute"]').select2('val'),
+                    function(data) {
+                        $('input[id="edad"]').val(data.edad);
+                    });
+        else
+            $.getJSON(Routing.generate('edad_paciente') + '?fecha_nacimiento=' + $('input[id$="_fechaNacimiento"]').val(),
+                    function(data) {
+                        $('input[id="edad"]').val(data.edad);
+                    });
     }
 
 
