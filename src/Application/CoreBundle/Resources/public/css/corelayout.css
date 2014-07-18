@@ -349,3 +349,10 @@ div#dialog-message p {
         width:100% !important;
     }
 }
+
+.form-control:focus {
+  border-color: #3c8dbc !important;
+  box-shadow: none;
+  background-color: #90EE90   !important;
+  font-weight: bold;
+}

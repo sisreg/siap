@@ -188,6 +188,13 @@ class MntEmpleado {
      *      )
      */
     private $especialidadesMedico;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="habilitado", type="boolean", nullable=false)
+     */
+    private $habilitado;
 
     /**
      * Get id
@@ -713,5 +720,28 @@ class MntEmpleado {
     public function getEspecialidadesMedico()
     {
         return $this->especialidadesMedico;
+    }
+
+    /**
+     * Set habilitado
+     *
+     * @param boolean $habilitado
+     * @return MntEmpleado
+     */
+    public function setHabilitado($habilitado)
+    {
+        $this->habilitado = $habilitado;
+
+        return $this;
+    }
+
+    /**
+     * Get habilitado
+     *
+     * @return boolean 
+     */
+    public function getHabilitado()
+    {
+        return $this->habilitado;
     }
 }

@@ -22,9 +22,9 @@ class MntEmpleadoAdmin extends Admin {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('nombre', null, array('label' => 'Nombre del Médico'))
-                ->add('apellido', null, array('label' => 'Apellido'))
+                ->add('nombreempleado', null, array('label' => 'Nombre del Médico'))
                 ->add('idTipoEmpleado', null, array('label' => 'Tipo Empleado'))
+                ->add('habilitado', null, array('label' => 'Habilitado'))
         ;
     }
 
@@ -49,6 +49,7 @@ class MntEmpleadoAdmin extends Admin {
                 ;
             }
                 ))
+                ->add('habilitado',null,array('label'=>'Habilitado','required'=>false))
                 ->add('especialidadesEstab', 'entity', array(
                     'label' => 'Especialidades con las que trabaja el médico',
                     'required' => false,
@@ -88,6 +89,7 @@ class MntEmpleadoAdmin extends Admin {
         $listMapper
                 ->addIdentifier('nombreempleado', null, array('label' => 'Nombre Empleado'))
                 ->add('idTipoEmpleado', null, array('label' => 'Tipo Empleado'))
+                ->add('habilitado', null, array('editable' => false,'label'=>'Habilitado'))
                 ->add('_action', 'actions', array(
                     'label' => $this->getTranslator()->trans('Action'),
                     'actions' => array(
@@ -134,10 +136,16 @@ class MntEmpleadoAdmin extends Admin {
         //PARA VERIFICAR SI TIENE NUMERO DE VIGILANCIA
         if ($empleado->getNumeroJuntaVigilancia() != '')
             $empleado->setCodigoFarmacia($empleado->getNumeroJuntaVigilancia());
+        
+        $usuarios=$this->getModelManager()->findBy('ApplicationSonataUserBundle:User', array('idEmpleado' => $empleado->getId()));
+        foreach ($usuarios as $usuario){
+            $usuario->setEnabled($empleado->getHabilitado());
+        }
+        
     }
 
     public function prePersist($empleado) {
-        $empleado->setIdEstablecimiento($establecimiento = $this->getModelManager()
+        $empleado->setIdEstablecimiento($this->getModelManager()
                 ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true)));
 //ATRIBUTOS DE LA AUDITORIA
         $empleado->setIdusuarioreg($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser());
