@@ -370,7 +370,7 @@ contenido:
         DocumentRoot /var/www/siaps/web  ##Esta debe ser la ruta donde está el proyecto!
         DirectoryIndex app.php
         <Directory /var/www/siaps/web >  ##Esta debe ser la ruta donde está el proyecto!
-                Options Indexes FollowSymLinks MultiViews
+                Options FollowSymLinks MultiViews
                 AllowOverride All
                 Order allow,deny
                 allow from all
