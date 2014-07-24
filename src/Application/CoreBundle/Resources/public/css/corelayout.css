@@ -356,3 +356,17 @@ div#dialog-message p {
   background-color: #90EE90   !important;
   font-weight: bold;
 }
+
+.select2-default {
+    color: #000000 !important;
+}
+
+.select2-choice {
+    color: #000000 !important;
+}
+
+.sonata-bc .sonata-ba-list-field-header {
+    font-size: 10pt;
+    background-color: #D0E6FF;
+    color:black;
+}

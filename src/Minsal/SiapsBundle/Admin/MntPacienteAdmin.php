@@ -150,6 +150,17 @@ class MntPacienteAdmin extends Admin {
     }
 
     public function preUpdate($paciente) {
+        $establecimiento = $this->getModelManager()
+                ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
+        $fecha_actual = new \DateTime();
+        $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        foreach ($paciente->getExpedientes() as $expediente) {
+            $expediente->setIdEstablecimiento($establecimiento);
+            $expediente->setIdPaciente($paciente);
+            $expediente->setFechaCreacion($fecha_actual);
+            $expediente->setHoraCreacion($fecha_actual);
+        }
+
         $paciente->setPrimerNombre(chop(ltrim($paciente->getPrimerNombre())));
         $paciente->setSegundoNombre(chop(ltrim($paciente->getSegundoNombre())));
         $paciente->setTercerNombre(chop(ltrim($paciente->getTercerNombre())));

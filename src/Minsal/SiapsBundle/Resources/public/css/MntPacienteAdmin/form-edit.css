@@ -3,20 +3,24 @@
     text-align: left;
     border: 2px solid #E3E3E3;
     position: relative;
-    width: 90%;
+    width: 90%; 
+   background-color: #D0E6FF;
+   color:black;
 }
 
 table.dat_paciente td + td {
-    border-right: 2px solid #E3E3E3
+    border-right: 2px solid #E3E3E3;    
 }
 
 .dat_paciente_sec td {
     padding-left: 15px;
+    color:white;
+    background-color:  #022C5C
 }
 
 .sonata-bc .form-horizontal .control-group:before span[id$="_expedientes"] table.table-bordered {
     text-align: center;
-    border: 2px solid #E3E3E3;
+    border: 2px solid black;
     clear: both;
     display: inline;
 }

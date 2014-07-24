@@ -19,7 +19,7 @@ class MntAuditoriaPaciente
      * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="mnt_paciente_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="mnt_auditoria_paciente_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 

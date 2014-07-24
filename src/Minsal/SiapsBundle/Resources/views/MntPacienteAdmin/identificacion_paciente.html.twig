@@ -7,13 +7,15 @@
     </tr>
     <tr class="dat_paciente_content">               
         <td width='25%'><label>Número Expediente:</label></td>
+         <td width='25%' style="font-size: 14pt;">
        {% if datos.getExpedientes()|length >0 %}
-            <td width='25%' style="font-size: 14pt;">
                 {% for expediente in datos.expedientes %}
                     <b>{{expediente.numero}}</b>
                 {%endfor%}
-            </td>
+        {%else%}
+                    <b>EM</b>
         {%endif%}
+         </td>
         <td colspan="2"><label>Nombre:</label> 
             {{datos.primerApellido}} {{datos.segundoApellido}} {{datos.apellidoCasada}}, {{datos.primerNombre}} {{datos.segundoNombre}} {{datos.tercerNombre}}   
         </td>

@@ -1,10 +1,6 @@
 /*PARA BOTONES DENTRO DEL JQGRID*/
 /*Para campos de busqueda*/
 .sonata-bc .nombres {width:135px;}
-.sonata-bc .sonata-ba-list-field-header {
-    font-size: 10pt;
-    background-color: #F0F8FF;
-}
 
 .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
     border: 2px solid #E5EDF5;
