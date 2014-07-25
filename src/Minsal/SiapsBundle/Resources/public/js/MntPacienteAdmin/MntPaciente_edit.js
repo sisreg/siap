@@ -605,8 +605,9 @@ $(document).ready(function() {
                     $.each(data.deptos, function(indice, depto) {
                         $('select[id$="_idDepartamentoNacimiento"]').append($('<option>', {value: depto.id, text: depto.nombre}));
                     });
+                     $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
                 });
-        $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
+       
     }
     /*CARGAR MUNICIPIOS NACIMIENTO*/
     $('select[id$="_idDepartamentoNacimiento"]').change(function() {
@@ -620,8 +621,9 @@ $(document).ready(function() {
                         $.each(data.municipios, function(indice, munic) {
                             $('select[id$="_idMunicipioNacimiento"]').append($('<option>', {value: munic.id, text: munic.nombre}));
                         });
+                        $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
                     });
-            $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
+            
         }
 
     });
@@ -638,8 +640,9 @@ $(document).ready(function() {
                         $.each(data.municipios, function(indice, munic) {
                             $('select[id$="_idMunicipioDomicilio"]').append($('<option>', {value: munic.id, text: munic.nombre}));
                         });
+                        $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
                     });
-            $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
+           x
         }
 
     }).focusout(function() {

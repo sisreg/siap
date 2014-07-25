@@ -57,7 +57,7 @@ class MntPacienteAdmin extends Admin {
                 ->add('numeroDocIdeProporDatos', null, array('label' => $this->getTranslator()->trans('numeroDocIdeProporDatos')))
                 ->add('observacion', null, array('attr' => array('class' => 'span5 mayuscula')))
                 ->add('conocidoPor', null, array('attr' => array('class' => 'span5 limpiar')))
-                ->add('areaGeograficaDomicilio', null, array())
+                ->add('areaGeograficaDomicilio', null, array('required' => false))
                 ->add('idCantonDomicilio', null, array('required' => false, 'label' => $this->getTranslator()->trans('idCantonDomicilio'), 'attr' => array('class' => 'span5 deshabilitados')))
                 ->add('idDepartamentoDomicilio', null, array(
                     'required' => false, 'label' => $this->getTranslator()->trans('idDepartamentoDomicilio')))
