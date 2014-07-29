@@ -657,7 +657,6 @@ $(document).ready(function() {
                         });
                         $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
                     });
-           x
         }
 
     }).focusout(function() {

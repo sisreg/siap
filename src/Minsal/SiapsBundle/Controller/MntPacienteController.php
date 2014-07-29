@@ -168,6 +168,9 @@ class MntPacienteController extends Controller {
                 }
             } else {
                 foreach ($query->fetchAll() as $aux) {
+                    $espacio = '<a href="' . $this->generateUrl('admin_minsal_siaps_mntpaciente_edit', array('id' => $aux['id'], 'procedencia' => 'c')) . '" class="btn btn-info">
+    <span class="glyphicon glyphicon-folder-open"></span> Detalle
+</a>';
                     if (strcmp($tipo_busqueda, 'l') == 0) {
                         $numero = $aux['numero'];
                         $id = $aux['id'];
