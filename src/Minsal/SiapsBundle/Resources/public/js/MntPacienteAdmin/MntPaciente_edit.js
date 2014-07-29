@@ -600,6 +600,11 @@ $(document).ready(function() {
         $('select[id$="_idPaisNacimiento"]').select2('val', 68);
         $('select[id$="_idDepartamentoNacimiento"]').children().remove();
         $('select[id$="_idDepartamentoNacimiento"]').append('<option></option>');
+         $('select[id$="_idDepartamentoNacimiento"]').select2({
+            placeholder: 'Departamento de Nacimiento...',
+            allowClear: true,
+            width: '100%'
+        });
         $.getJSON(Routing.generate('get_departamentos') + '?idPais=' + $('select[id$="_idPaisNacimiento"]').select2('val'),
                 function(data) {
                     $.each(data.deptos, function(indice, depto) {
@@ -610,10 +615,15 @@ $(document).ready(function() {
        
     }
     /*CARGAR MUNICIPIOS NACIMIENTO*/
-    $('select[id$="_idDepartamentoNacimiento"]').change(function() {
+    $('select[id$="_idDepartamentoNacimiento"]').on('change', function(e) {
         $('select[id$="_idMunicipioNacimiento"]').children().remove();
         $('select[id$="_idMunicipioNacimiento"]').append('<option></option>');
-        if ($('select[id$="_idDepartamentoNacimiento"]').select2('val') == '') {
+        $('select[id$="_idMunicipioNacimiento"]').select2({
+            placeholder: 'Municipio de Nacimiento...',
+            allowClear: true,
+            width: '100%'
+        });
+        if (!e.val) {
             $('select[id$="_idMunicipioNacimiento"]').attr('disabled', 'disabled');
         } else {
             $.getJSON(Routing.generate('get_municipios') + '?idDepartamento=' + $('select[id$="_idDepartamentoNacimiento"]').select2('val'),
