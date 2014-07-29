@@ -600,7 +600,7 @@ $(document).ready(function() {
         $('select[id$="_idPaisNacimiento"]').select2('val', 68);
         $('select[id$="_idDepartamentoNacimiento"]').children().remove();
         $('select[id$="_idDepartamentoNacimiento"]').append('<option></option>');
-         $('select[id$="_idDepartamentoNacimiento"]').select2({
+        $('select[id$="_idDepartamentoNacimiento"]').select2({
             placeholder: 'Departamento de Nacimiento...',
             allowClear: true,
             width: '100%'
@@ -610,9 +610,9 @@ $(document).ready(function() {
                     $.each(data.deptos, function(indice, depto) {
                         $('select[id$="_idDepartamentoNacimiento"]').append($('<option>', {value: depto.id, text: depto.nombre}));
                     });
-                     $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
+                    $('select[id$="_idDepartamentoNacimiento"]').removeAttr('disabled');
                 });
-       
+
     }
     /*CARGAR MUNICIPIOS NACIMIENTO*/
     $('select[id$="_idDepartamentoNacimiento"]').on('change', function(e) {
@@ -633,7 +633,7 @@ $(document).ready(function() {
                         });
                         $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
                     });
-            
+
         }
 
     });
@@ -655,7 +655,7 @@ $(document).ready(function() {
                         $.each(data.municipios, function(indice, munic) {
                             $('select[id$="_idMunicipioDomicilio"]').append($('<option>', {value: munic.id, text: munic.nombre}));
                         });
-                        $('select[id$="_idMunicipioNacimiento"]').removeAttr('disabled');
+                        $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
                     });
         }
 
@@ -671,7 +671,7 @@ $(document).ready(function() {
             placeholder: 'Cantón de Domicilio...',
             allowClear: true,
             width: '100%'
-        });        
+        });
     }).focusout(function() {
         $('select[id$="_areaGeograficaDomicilio"]').focus();
     });
@@ -703,9 +703,10 @@ $(document).ready(function() {
                         $('select[id$="_idMunicipioDomicilio"]').append($('<option>', {value: municDoc.id, text: municDoc.nombre}));
                     });
                     $('select[id$="_idMunicipioDomicilio"]').select2('val', valorDoc);
+                     $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
                 });
 
-        $('select[id$="_idMunicipioDomicilio"]').removeAttr('disabled');
+       
     }
 
     /*CARGAR CANTONES DE DOMICILIO*/
@@ -716,7 +717,7 @@ $(document).ready(function() {
             placeholder: 'Cantón de Domicilio...',
             allowClear: true,
             width: '100%'
-        });        
+        });
         if ($('select[id$="_areaGeograficaDomicilio"]').select2('val') != 2) {
             $('select[id$="_idCantonDomicilio"]').attr('disabled', 'disabled');
         } else {
@@ -725,8 +726,9 @@ $(document).ready(function() {
                         $.each(data.cantones, function(indice, canton) {
                             $('select[id$="_idCantonDomicilio"]').append($('<option>', {value: canton.id, text: canton.nombre}));
                         });
+                        $('select[id$="_idCantonDomicilio"]').removeAttr('disabled');
                     });
-            $('select[id$="_idCantonDomicilio"]').removeAttr('disabled');
+
         }
 
     }
@@ -772,7 +774,7 @@ $(document).ready(function() {
             placeholder: 'Departamento de Domicilio...',
             allowClear: true,
             width: '100%'
-        });        
+        });
         $('select[id$="_idMunicipioDomicilio"]').children().remove();
         $('select[id$="_idMunicipioDomicilio"]').append('<option></option>');
         $('select[id$="_idMunicipioDomicilio"]').select2({
