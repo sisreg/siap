@@ -639,9 +639,14 @@ $(document).ready(function() {
     });
 
     /*CARGAR MUNICIPIOS DE DOMICILIO*/
-    $('select[id$="_idDepartamentoDomicilio"]').change(function() {
+    $('select[id$="_idDepartamentoDomicilio"]').on('change', function(e) {
         $('select[id$="_idMunicipioDomicilio"]').children().remove();
         $('select[id$="_idMunicipioDomicilio"]').append('<option></option>');
+        $('select[id$="_idMunicipioDomicilio"]').select2({
+            placeholder: 'Municipio de Domicilio...',
+            allowClear: true,
+            width: '100%'
+        });
         if ($('select[id$="_idDepartamentoDomicilio"]').select2('val') == '') {
             $('select[id$="_idMunicipioDomicilio"]').attr('disabled', 'disabled');
         } else {
@@ -660,10 +665,14 @@ $(document).ready(function() {
     });
 
     /*LIMPIAR CANTONES DE DOMICILIO AL CAMBIAR MUNICIPIO*/
-    $('select[id$="_idMunicipioDomicilio"]').change(function() {
-        $('select[id$="_areaGeograficaDomicilio"]').val('')
+    $('select[id$="_idMunicipioDomicilio"]').on('change', function(e) {
         $('select[id$="_idCantonDomicilio"]').children().remove();
         $('select[id$="_idCantonDomicilio"]').append('<option></option>');
+        $('select[id$="_idCantonDomicilio"]').select2({
+            placeholder: 'Cantón de Domicilio...',
+            allowClear: true,
+            width: '100%'
+        });        
     }).focusout(function() {
         $('select[id$="_areaGeograficaDomicilio"]').focus();
     });
@@ -701,9 +710,14 @@ $(document).ready(function() {
     }
 
     /*CARGAR CANTONES DE DOMICILIO*/
-    $('select[id$="_areaGeograficaDomicilio"]').change(function() {
+    $('select[id$="_areaGeograficaDomicilio"]').on('change', function(e) {
         $('select[id$="_idCantonDomicilio"]').children().remove();
         $('select[id$="_idCantonDomicilio"]').append('<option></option>');
+        $('select[id$="_idCantonDomicilio"]').select2({
+            placeholder: 'Cantón de Domicilio...',
+            allowClear: true,
+            width: '100%'
+        });        
         if ($('select[id$="_areaGeograficaDomicilio"]').select2('val') != 2) {
             $('select[id$="_idCantonDomicilio"]').attr('disabled', 'disabled');
         } else {
@@ -752,14 +766,14 @@ $(document).ready(function() {
         });
     }
     //AL CAMBIAR EL PAIS DE DOMICILIO QUE CARGUE LOS DEPARTAMENTO DE DOMICILIO.
-    $('#idPaisDomicilio').change(function() {
+    $('#idPaisDomicilio').on('change', function(e) {
         $('select[id$="_idDepartamentoDomicilio"]').children().remove();
         $('select[id$="_idDepartamentoDomicilio"]').append('<option></option>');
         $('select[id$="_idDepartamentoDomicilio"]').select2({
             placeholder: 'Departamento de Domicilio...',
             allowClear: true,
             width: '100%'
-        });
+        });        
         $('select[id$="_idMunicipioDomicilio"]').children().remove();
         $('select[id$="_idMunicipioDomicilio"]').append('<option></option>');
         $('select[id$="_idMunicipioDomicilio"]').select2({
