@@ -39,7 +39,7 @@ INNER JOIN (
         SELECT ti01.id,
               ti01.username AS nom_usuarioreg
         FROM fos_user_user ti01
-        INNER JOIN mnt_empleado ti02 ON (ti02.id = ti01.id_empleado)
+        --INNER JOIN mnt_empleado ti02 ON (ti02.id = ti01.id_empleado)
            ) t14 ON (t14.id = t01.idusuarioreg)
 WHERE t01.id = $P{id}]]>
 	</queryString>
