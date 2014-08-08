@@ -15,7 +15,6 @@ class CtlAtencionRepository extends EntityRepository {
                 ->createQueryBuilder()
                 ->select('a')
                 ->from('MinsalSiapsBundle:CtlAtencion', 'a')
-                ->where('a.idTipoAtencion != 4')
                 ->getQuery()
                 ->getResult();
     }
