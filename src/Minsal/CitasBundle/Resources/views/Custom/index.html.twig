@@ -186,7 +186,7 @@
                 ajax: {
                     url: Routing.generate('citasexpedientepaciente'),
                     dataType: 'json',
-                    quietMillis: 100,
+                    quietMillis: 500,
                     data: function (term, page) {
                         return {
                             clue: term,     //search term
@@ -195,7 +195,7 @@
                         };
                     },
                     results: function (data, page) {
-                        var more = (page * 10) < data.data2.total;
+                        var more = (page * 10) < data.data2;
                         
                         return {results: data.data1, more: more};
                     }

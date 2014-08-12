@@ -291,74 +291,25 @@ class CitCitasDiaController extends Controller  {
         /*****************************************************************************************
          * SQL que obtiene el numero de expediente y nombre del paciente para asignar la cita
          ****************************************************************************************/
-        
-        /*$dql = "SELECT t01.id, 
-                    CONCAT(COALESCE(CONCAT(t01.numero, ' - '), ''), 
-                    CONCAT(COALESCE(CONCAT(t02.primerApellido, ' '), ''), 
-                    CONCAT(COALESCE(CONCAT(t02.segundoApellido, ', '), ''), 
-                    CONCAT(COALESCE(CONCAT(t02.primerNombre,' '), ''), 
-                    CONCAT(COALESCE(CONCAT(t02.segundoNombre,' '), ''), 
-                    COALESCE(t02.tercerNombre,'')))))) AS text
-                FROM MinsalSiapsBundle:MntExpediente t01
-                INNER JOIN MinsalSiapsBundle:MntPaciente t02 WITH (t02.id = t01.idPaciente)
-                WHERE t01.numero LIKE '$clue%'
-                    OR LOWER(
-                        CONCAT(COALESCE(CONCAT(t02.primerApellido, ' '), ''), 
-                        CONCAT(COALESCE(CONCAT(t02.segundoApellido, ', '), ''), 
-                        CONCAT(COALESCE(CONCAT(t02.primerNombre,' '), ''), 
-                        CONCAT(COALESCE(CONCAT(t02.segundoNombre,' '), ''), 
-                        COALESCE(t02.tercerNombre,'')))))) LIKE '%$clue%'
-                ORDER BY text";
-         
-        $result = $em->createQuery($dql)
-                    ->setMaxResults($limit)
-                    ->setFirstResult($page)
-                    ->getArrayResult();*/
 
         $sql = "SELECT t01.id,
-                       CONCAT_WS(' ', CONCAT(COALESCE(t01.numero, ''), ' - '), t02.primer_apellido, t02.segundo_apellido, t02.apellido_casada) || ', ' || CONCAT_WS(' ', t02.primer_nombre, t02.segundo_nombre, t02.tercer_nombre) AS text
+                       CONCAT_WS(' ', CONCAT(COALESCE(t01.numero, ''), ' - '), t02.primer_apellido, t02.segundo_apellido, t02.apellido_casada) || ', ' || CONCAT_WS(' ', t02.primer_nombre, t02.segundo_nombre, t02.tercer_nombre) AS text,
+                       count(*) OVER() AS total
                 FROM mnt_expediente     t01
-                INNER JOIN mnt_paciente t02 ON (t02.id = t01.id_paciente)
+                INNER JOIN mnt_paciente t02 ON (t02.id = t01.id_paciente AND t01.habilitado = true)
                 WHERE t01.numero LIKE '$clue%'
-                      OR LOWER(
-                            CONCAT_WS(' ', CONCAT(COALESCE(t01.numero, ''), ' - '), t02.primer_apellido, t02.segundo_apellido, t02.apellido_casada) || ', ' || CONCAT_WS(' ', t02.primer_nombre, t02.segundo_nombre, t02.tercer_nombre)
-                        ) LIKE '%$clue%'
+                      OR CONCAT_WS(' ', t02.primer_apellido, t02.segundo_apellido, t02.apellido_casada) || ', ' || CONCAT_WS(' ', t02.primer_nombre, t02.segundo_nombre, t02.tercer_nombre) ILIKE '%$clue%'
+                GROUP BY t01.id,
+                       CONCAT_WS(' ', CONCAT(COALESCE(t01.numero, ''), ' - '), t02.primer_apellido, t02.segundo_apellido, t02.apellido_casada) || ', ' || CONCAT_WS(' ', t02.primer_nombre, t02.segundo_nombre, t02.tercer_nombre)
                 ORDER BY text
                 LIMIT $limit OFFSET $page";
 
         $stm  = $this->getDoctrine()->getManager()->getConnection()->prepare($sql);
         $stm->execute();
         $result = $stm->fetchAll();
-        
-        $citcita['data1'] = $result;
-        
-        /*$dql = "SELECT COUNT(t01) as Total
-                FROM MinsalSiapsBundle:MntExpediente t01
-                INNER JOIN MinsalSiapsBundle:MntPaciente t02 WITH (t02.id = t01.idPaciente)
-                WHERE LOWER(
-                        CONCAT(COALESCE(CONCAT(t01.numero, ' - '), ''), 
-                        CONCAT(COALESCE(CONCAT(t02.primerApellido, ' '), ''), 
-                        CONCAT(COALESCE(CONCAT(t02.segundoApellido, ', '), ''), 
-                        CONCAT(COALESCE(CONCAT(t02.primerNombre,' '), ''), 
-                        CONCAT(COALESCE(CONCAT(t02.segundoNombre,' '), ''), 
-                        COALESCE(t02.tercerNombre,''))))))) LIKE '%$clue%'";
-         
-        $result = $em->createQuery($dql)
-                    ->getArrayResult();*/
 
-        $sql = "SELECT COUNT(t01.id) AS total
-                FROM mnt_expediente     t01
-                INNER JOIN mnt_paciente t02 ON (t02.id = t01.id_paciente)
-                WHERE t01.numero LIKE '$clue%'
-                      OR LOWER(
-                            CONCAT_WS(' ', CONCAT(COALESCE(t01.numero, ''), ' - '), t02.primer_apellido, t02.segundo_apellido, t02.apellido_casada) || ', ' || CONCAT_WS(' ', t02.primer_nombre, t02.segundo_nombre, t02.tercer_nombre)
-                        ) LIKE '%$clue%'";
-        
-        $stm  = $this->getDoctrine()->getManager()->getConnection()->prepare($sql);
-        $stm->execute();
-        $result = $stm->fetchAll();
-        
-        $citcita['data2'] = $result[0];
+        $citcita['data1'] = $result;
+        $citcita['data2'] = $result[0]['total'];
         
         return new Response(json_encode($citcita));
     }
