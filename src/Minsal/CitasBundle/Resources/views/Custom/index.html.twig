@@ -195,7 +195,7 @@
                         };
                     },
                     results: function (data, page) {
-                        var more = (page * 10) < data.data2.Total;
+                        var more = (page * 10) < data.data2.total;
                         
                         return {results: data.data1, more: more};
                     }
