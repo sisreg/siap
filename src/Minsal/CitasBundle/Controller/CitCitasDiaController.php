@@ -322,7 +322,7 @@ class CitCitasDiaController extends Controller  {
         $em  = $this->getDoctrine()->getManager();
         
         $dql = "SELECT t01.id,
-                       CONCAT(COALESCE(CONCAT(t01.nombre, ' '), ''), COALESCE(t01.apellido, '')) AS nombre,
+                       COALESCE(t01.nombreempleado,'') AS nombre,
                        IDENTITY(t01.idEstablecimiento) AS idEstablecimiento
                 FROM MinsalSiapsBundle:MntEmpleado              t01
                 INNER JOIN MinsalSiapsBundle:MntTipoEmpleado    t02 WITH (t02.id = t01.idTipoEmpleado)
@@ -349,9 +349,7 @@ class CitCitasDiaController extends Controller  {
         /*****************************************************************************************
          * SQL que obtiene todas las especialidades del medico
          ****************************************************************************************/
-        $dql = "SELECT t02.id,
-                       t03.nombre,
-                       IDENTITY (t02.idEstablecimiento) AS idEstablecimiento
+        $dql = "SELECT t02
                 FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab      t01
                 INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab         t02 WITH (t02.id = t01.idAtenAreaModEstab)
                 INNER JOIN MinsalSiapsBundle:CtlAtencion                 t03 WITH (t03.id = t02.idAtencion)
@@ -372,9 +370,15 @@ class CitCitasDiaController extends Controller  {
                             ':codEmpleado'       => 'MED',
                             ':nomAreaAtencion'   => 'consulta externa',
                             ':nomModalidad'      => 'minsal'))
-                    ->getArrayResult();
-        
-        $citcita['data1'] = $result;
+                     ->getResult();
+
+        $new_result = array();
+        foreach ($result as $key => $value) {
+          $new_result[$key]['id']     = $value->getId();
+          $new_result[$key]['nombre'] = $value->getNombreConsulta();
+        }
+
+        $citcita['data1'] = $new_result;
         
         return new Response(json_encode($citcita));
     }

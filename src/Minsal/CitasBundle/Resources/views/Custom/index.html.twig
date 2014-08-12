@@ -22,7 +22,7 @@
             
             {% if app.user.getIdEmpleado.getIdTipoEmpleado is defined and app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo is sameas("MED") %}
                 idEmpleado     = '{{ app.user.getIdEmpleado.getId }}';
-                nombreEmpleado = '{{ app.user.getIdEmpleado.getNombre ~ " " ~ app.user.getIdEmpleado.getApellido }}';
+                nombreEmpleado = '{{ app.user.getIdEmpleado.getNombreempleado }}';
                 idEmpleadoEspecialidadEstab = '{{ app.session.get("_idEmpEspecialidadEstab") }}';
             {% else %}
                 if($('#idEmpleado').select2('data') != null) {
@@ -848,12 +848,13 @@
                     async: false,
                     dataType: 'json',
                     success: function(data) {
+                    	console.log(data.data1[0]);
                         $.each(data.data1, function(indice, val) {
                             if(superAdmin == 'true') {
                                 $idEmpleadoEspecialidadEstab.append($('<option>', {value:val.id, text: val.nombre}));
                             } else {
                                 if(value.idEstablecimiento == '{% if app.user.getIdEmpleado %}{{ app.user.getIdEmpleado.getIdEstablecimiento.getId }}{% endif %}') {
-                                    $idEmpleadoEspecialidadEstab.append($('<option>', {value:val.id, text: val.nombre}));
+                                    $idEmpleadoEspecialidadEstab.append($('<option>', {value: val.id, text: val.nombre }));
                                 }
                             }
                         });
