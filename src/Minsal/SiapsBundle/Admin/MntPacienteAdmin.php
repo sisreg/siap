@@ -277,19 +277,19 @@ class MntPacienteAdmin extends Admin {
 
 
 //si alguno de los valores ha cambiado se guarda en la tabla auditoría paciente
+        $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        $fecha_actual = new \DateTime();
         if ($cambio == TRUE) {
             $establecimiento = $this->getModelManager()
                     ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true));
             $auditoria->setIdEstablecimiento($establecimiento);
-            $fecha_actual = new \DateTime();
             $auditoria->setFechaModificacion($fecha_actual);
-            $paciente->setFechaMod($fecha_actual);
-            $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
             $auditoria->setIdUser($user);
-            $paciente->setIdUserMod($user);
             $auditoria->setIdPaciente($paciente);
             $this->getModelManager()->create($auditoria);
         }
+        $paciente->setIdUserMod($user);
+        $paciente->setFechaMod($fecha_actual);
     }
 
     public function validate(ErrorElement $errorElement, $paciente) {
