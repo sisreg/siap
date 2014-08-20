@@ -14,7 +14,7 @@ use FOS\UserBundle\Model\User;
 use  Doctrine\DBAL\Types\Type;
 
 class CitCitasDiaController extends Controller  {
-	
+
 	/**
      * @Route("/citas/dia/medico/get", name="citasdiaxmedico", options={"expose"=true})
      * @Method("GET")
@@ -34,7 +34,7 @@ class CitCitasDiaController extends Controller  {
          * SQL que determina la cantidad de citas por primera vez, subsecuentes, agregados, aten-
          * didos y total de citas para cada dia de un mes determinado por usuario y especialidad
          ****************************************************************************************/
-        $sql = "SELECT TO_CHAR(t05.date, 'YYYY/MM/DD') AS date, COALESCE(t06.primeraVez,0) AS primera_vez, COALESCE(t06.subsecuentes,0) AS subsecuentes, 
+        $sql = "SELECT TO_CHAR(t05.date, 'YYYY/MM/DD') AS date, COALESCE(t06.primeraVez,0) AS primera_vez, COALESCE(t06.subsecuentes,0) AS subsecuentes,
                        COALESCE(t06.agregados,0) AS agregados, COALESCE(t06.totalCitas,0) AS total_citas,
                        COALESCE(t06.atendidos,0) AS atendidos
                 FROM (
@@ -50,10 +50,10 @@ class CitCitasDiaController extends Controller  {
                       FROM cit_citas_dia t01
                       INNER JOIN mnt_expediente 		       t02 ON (t01.id_expediente = t02.id)
                       INNER JOIN mnt_empleado 			 t03 ON (t01.id_empleado   = t03.id)
-                      WHERE t01.fecha >= '$lowerLimit' AND t01.fecha<= '$upperLimit' 
+                      WHERE t01.fecha >= '$lowerLimit' AND t01.fecha<= '$upperLimit'
                             AND t01.id_empleado = :idEmpleado AND t01.id_aten_area_mod_estab = :especialidad
                       GROUP BY t01.fecha) t06 ON (t05.date = t06.date) ORDER BY date";
-        
+
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idEmpleado',   $idEmpleado);
         $stm->bindValue(':especialidad', $especialidad);
@@ -72,13 +72,13 @@ class CitCitasDiaController extends Controller  {
                        END AS bloqueado,
                        COALESCE(t02.tipo_evento, 'N/A') AS tipo_evento,
                        COALESCE(t03.citas_programadas, 0) AS citas_programadas
-                FROM ( 
+                FROM (
                       SELECT serie::date AS date
                       FROM generate_series ('$lowerLimit'::timestamp, '$upperLimit'::timestamp, '1 day'::interval) serie) t01
                 LEFT OUTER JOIN (
                       SELECT fechaini, fechafin,
                              CASE WHEN idempleado = :idEmpleado THEN 'personal'
-                                                                ELSE 'festivo' 
+                                                                ELSE 'festivo'
                              END AS tipo_evento
                       FROM cit_evento
                       WHERE idempleado = :idEmpleado OR idempleado IS NULL) t02 ON (t01.date BETWEEN t02.fechaini AND t02.fechafin)
@@ -87,7 +87,7 @@ class CitCitasDiaController extends Controller  {
                       FROM cit_citas_dia
                       WHERE id_empleado = :idEmpleado AND (id_estado = 1 OR id_estado = 6)
                       GROUP BY fecha) t03 ON (t01.date = t03.fecha) ORDER BY date";
-        
+
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idEmpleado',   $idEmpleado);
         $stm->execute();
@@ -111,7 +111,7 @@ class CitCitasDiaController extends Controller  {
                       GROUP BY yrs, mes, dia) t02 ON (t02.yrs = EXTRACT(YEAR FROM t01.date::timestamp)
                                   AND t02.mes = EXTRACT(MONTH FROM t01.date::timestamp)
                                   AND t02.dia = EXTRACT(DOW FROM t01.date::timestamp)+1) ORDER BY date";
-        
+
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idEmpleado',   $idEmpleado);
         $stm->bindValue(':especialidad', $especialidad);
@@ -120,7 +120,7 @@ class CitCitasDiaController extends Controller  {
         $result = $stm->fetchAll();
 
         $citcita['data3'] = $result;
-        
+
         return new Response(json_encode($citcita));
     }
 
@@ -136,7 +136,7 @@ class CitCitasDiaController extends Controller  {
         $idEmpleado     = $request->get('idEmpleado');
         $especialidad   = $request->get('idEmpleadoEspecialidadEstab');
         $idAreaModEstab = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->findOneById($especialidad)->getIdAreaModEstab()->getId();
-        
+
         /*****************************************************************************************
          * SQL que determina el horario de atencion de pacientes de un medico para una fecha de-
          * terminada
@@ -167,7 +167,7 @@ class CitCitasDiaController extends Controller  {
 
         return new Response(json_encode($citcita));
     }
-    
+
     /**
      * @Route("/citas/verificar/evento/get", name="citasverificarevento", options={"expose"=true})
      * @Method("GET")
@@ -179,7 +179,7 @@ class CitCitasDiaController extends Controller  {
         $idEmpleado = $request->get('idEmpleado');
         $hora       = date("H:i:s", strtotime($request->get('hora')));
         $fecha      = date('Y-m-d', $date->getTimestamp());
-        
+
         /*****************************************************************************************
          * SQL que verifica que el medico no tenga evento en la hora seleccionada
          ****************************************************************************************/
@@ -229,7 +229,7 @@ class CitCitasDiaController extends Controller  {
                       INNER JOIN MinsalSiapsBundle:MntPaciente   t03 WITH (t03.id = t02.idPaciente)
                       INNER JOIN MinsalSiapsBundle:MntEmpleado   t04 WITH (t04.id = t01.idEmpleado)
                       INNER JOIN MinsalCitasBundle:CitEstadoCita t05 WITH (t05.id = t01.idEstado)";
-        
+
         $where = " WHERE t01.fecha = :fecha
                         AND t01.idEmpleado = :idEmpleado
                         AND t01.idTipocita = :idTipocita
@@ -237,7 +237,7 @@ class CitCitasDiaController extends Controller  {
                         AND t01.idRangohora = :hora
                         AND t01.idMotivo IS NULL
                    ORDER BY t05.estado DESC";
-        
+
         $result = $em->createQuery($dql."".$where)
                      ->setParameter(':fecha', date('Y-m-d', $date->getTimestamp()))
                      ->setParameter(':idEmpleado', $idEmpleado)
@@ -276,7 +276,7 @@ class CitCitasDiaController extends Controller  {
 
         return new Response(json_encode($citcita));
     }
-    
+
     /**
      * @Route("/citas/expediente/paciente/get", name="citasexpedientepaciente", options={"expose"=true})
      * @Method("GET")
@@ -284,10 +284,10 @@ class CitCitasDiaController extends Controller  {
     public function getExpedientePacienteAction() {
         $em      = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
-        $clue    = strtolower($request->get('clue'));
+        $clue    = ltrim(strtolower($request->get('clue')), '0');
         $limit   = $request->get('page_limit');
         $page    = $request->get('page') - 1;
-        
+
         /*****************************************************************************************
          * SQL que obtiene el numero de expediente y nombre del paciente para asignar la cita
          ****************************************************************************************/
@@ -310,17 +310,17 @@ class CitCitasDiaController extends Controller  {
 
         $citcita['data1'] = $result;
         $citcita['data2'] = $result[0]['total'];
-        
+
         return new Response(json_encode($citcita));
     }
-    
+
     /**
      * @Route("/citas/medicos/get", name="citasgetmedico", options={"expose"=true})
      * @Method("GET")
      */
     public function getMedicoAction() {
         $em  = $this->getDoctrine()->getManager();
-        
+
         $dql = "SELECT t01.id,
                        COALESCE(t01.nombreempleado,'') AS nombre,
                        IDENTITY(t01.idEstablecimiento) AS idEstablecimiento
@@ -328,15 +328,15 @@ class CitCitasDiaController extends Controller  {
                 INNER JOIN MinsalSiapsBundle:MntTipoEmpleado    t02 WITH (t02.id = t01.idTipoEmpleado)
                 INNER JOIN MinsalSiapsBundle:CtlEstablecimiento t03 WITH (t03.id = t01.idEstablecimiento)
                 WHERE t02.codigo = 'MED'";
-        
+
         $result = $em->createQuery($dql)
                     ->getArrayResult();
-        
+
         $citcita['data1'] = $result;
-        
+
         return new Response(json_encode($citcita));
     }
-    
+
     /**
      * @Route("/citas/medicos/especilidad/estab/get", name="citasgetmedicoespecilidadestab", options={"expose"=true})
      * @Method("GET")
@@ -345,7 +345,7 @@ class CitCitasDiaController extends Controller  {
         $em         = $this->getDoctrine()->getManager();
         $request    = $this->getRequest();
         $idEmpleado = $request->get('idEmpleado');
-        
+
         /*****************************************************************************************
          * SQL que obtiene todas las especialidades del medico
          ****************************************************************************************/
@@ -379,10 +379,10 @@ class CitCitasDiaController extends Controller  {
         }
 
         $citcita['data1'] = $new_result;
-        
+
         return new Response(json_encode($citcita));
     }
-    
+
     /**
      * @Route("/citas/paciente/poseecita/get", name="citaspacienteposeecita", options={"expose"=true})
      * @Method("GET")
@@ -398,7 +398,7 @@ class CitCitasDiaController extends Controller  {
         $today        = new \DateTime();
         $hoy          = date('Y-m-d', $today->getTimestamp());
         $user         = $this->getUser();
-        
+
         /*****************************************************************************************
          * SQL que verifica y obtiene si un paciente tiene cita previa con el medico
          ****************************************************************************************/
@@ -429,44 +429,44 @@ class CitCitasDiaController extends Controller  {
                 INNER JOIN mnt_rangohora                     t10 ON (t10.id = t07.id_rangohora)
                 INNER JOIN mnt_expediente                    t11 ON (t11.id = t07.id_expediente)
                 WHERE t07.fecha='$fecha' AND t11.id=:idExpediente";
-        
+
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idExpediente', $idExpediente);
         $stm->execute();
         $result = $stm->fetchAll();
-        
+
         $citcita['data1'] = $result;
-        
+
         /*****************************************************************************************
          * SQL que verifica y obtiene si un paciente tiene cita previa con el medico
          ****************************************************************************************/
-        
+
         $sql = "SELECT t04.nombre AS nombre_atencion,
                        t01.id_empleado,
                        t02.hora_ini,
                        t02.meridianoini
-                FROM cit_citas_dia t01 
+                FROM cit_citas_dia t01
                 INNER JOIN mnt_rangohora           t02 ON (t02.id = t01.id_rangohora)
                 INNER JOIN mnt_aten_area_mod_estab t03 ON (t03.id = t01.id_aten_area_mod_estab)
                 INNER JOIN ctl_atencion            t04 ON (t04.id = t03.id_atencion)
-                WHERE t01.fecha = '$fecha' 
+                WHERE t01.fecha = '$fecha'
                     AND t01.id_expediente          = :idExpediente
                     AND t01.idusuarioreg           = :idUsuarioReg
                     AND t01.id_aten_area_mod_estab = :idAtenAreaModEstab
                     AND DATE(t01.fechahorareg)     = '$hoy'";
-        
+
         $stm = $this->container->get('database_connection')->prepare($sql);
         $stm->bindValue(':idExpediente', $idExpediente);
         $stm->bindValue(':idUsuarioReg',   $user->getId());
         $stm->bindValue(':idAtenAreaModEstab', $especialidad);
         $stm->execute();
         $result = $stm->fetchAll();
-        
+
         $citcita['data2'] = $result;
-        
+
         return new Response(json_encode($citcita));
     }
-    
+
     /**
      * @Route("/citas/comprobar/disponibilidad", name="citascomprobardisponibilidad", options={"expose"=true})
      * @Method("GET")
@@ -510,7 +510,7 @@ class CitCitasDiaController extends Controller  {
         $result = $stm->fetchAll();
 
         $citcita['data1'] = $result[0];
-        
+
         /*****************************************************************************************
          * SQL que determina el numero de pacientes agregados que tiene un medico en para una
          * especialidad y horario determinado
@@ -524,7 +524,7 @@ class CitCitasDiaController extends Controller  {
                     AND t01.idEstablecimiento = :idEstablecimiento
                     AND t01.idRangohora       = :idRangohora
                     AND t01.idAreaModEstab    = :idAreaModEstab";
-        
+
         $result = $em->createQuery($dql)
                     ->setParameter(':idAtenAreaModEstab', $especialidad)
                     ->setParameter(':idEstado', '6')
@@ -536,7 +536,7 @@ class CitCitasDiaController extends Controller  {
                     ->getSingleScalarResult();
 
         $citcita['data2'] = $result;
-        
+
         /*****************************************************************************************
          * SQL que determina el numero de pacientes agregados que tiene un medico en para una
          * especialidad y horario determinado
@@ -554,10 +554,10 @@ class CitCitasDiaController extends Controller  {
 
         /*Limite de subsecuentes que pueden ser asignados en el dia y hora al medico*/
         $subsecuentes = $citDistribucion->getSubsecuente();
-        
+
         /*Obteniendo el total de citas que posee el medico*/
         $qb = $em->createQueryBuilder();
-        
+
         $totalCitas = $qb->select($qb->expr()->count('t01.id'))
                          ->from('MinsalCitasBundle:CitCitasDia', 't01')
                          ->where('t01.fecha = :fecha')
@@ -567,13 +567,13 @@ class CitCitasDiaController extends Controller  {
                          ->andWhere('t01.idRangohora = :idRangohora')
                          ->setParameters(array(
                                 ':fecha' => date('Y-m-d', $date->getTimestamp()),
-                                ':idEmpleado'   => $idEmpleado, 
+                                ':idEmpleado'   => $idEmpleado,
                                 ':idTipocita'   => $tipoCita,
                                 ':especialidad' => $especialidad,
                                 ':idRangohora'  => $idRangohora))
                         ->getQuery()
                         ->getSingleScalarResult();
-        
+
         if($totalCitas >= $subsecuentes ) {
             $result = 'true';
         } else {
@@ -594,7 +594,7 @@ class CitCitasDiaController extends Controller  {
      */
     public function getComprobanteCitaAction($report_format = "HTML") {
         $request     = $this->getRequest();
-        
+
         if ($request->getMethod() == 'POST') {
             $id = $request->get('id');
 
@@ -603,7 +603,7 @@ class CitCitasDiaController extends Controller  {
             throw new AccessDeniedException();
         }
     }
-    
+
     /**
      * @Route("/citas/buildcomprobante/get/{id}/{report_format}", name="citasbuildcomprobante", options={"expose"=true})
      * @Method("GET")
@@ -616,7 +616,7 @@ class CitCitasDiaController extends Controller  {
         $jasperReport->setReportFormat($report_format);
         $jasperReport->setReportPath("/reports/siaps/seguimiento/");
         $jasperReport->setReportParams(array('id' => $id));
-        
+
         return $jasperReport->buildReport();
     }
 }
