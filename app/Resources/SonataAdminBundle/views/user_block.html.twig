@@ -15,11 +15,29 @@
         {% endif %}
 
             <li>
-                <a href="{{ _logout_uri }}"><i class="fa fa-sign-out fa-fw"></i> {{ _logout_text }}</a>
+                <a href="{{ _logout_uri }}">
+                    <i class="fa fa-sign-out fa-fw" style="width:25px;"></i>
+                    {{ _logout_text }}
+                </a>
             </li>
+            {% if app.user.getIdEmpleado.getIdTipoEmpleado is defined and app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo is sameas("MED") and
+                  app.session.get('_secured_token') is defined and app.session.get('_secured_token') is not null and
+                  app.request.attributes.get('_route') != 'verify_medic_service' %}
+                <li>
+                    <a href="{{ url('verify_medic_service', { '_provided_token': app.session.get('_secured_token') }) }}">
+                        <i style="width:25px; margin-right: 10px;">
+                            <span class="glyphicon glyphicon-user" style="margin-right: 0;font-size: 10px;"></span>
+                            <span class="glyphicon glyphicon-log-in" style="margin-right: 0;font-size: 10px;"></span>
+                        </i>
+                        Cambiar de Especialidad
+                    </a>
+                </li>
+            {% endif %}
             <li>
-                <a href="{{url('fos_user_change_password')}}" ><span class="glyphicon glyphicon-pencil"></span> Cambiar Contraseña</a>
+                <a href="{{ url('fos_user_change_password') }}">
+                    <span class="glyphicon glyphicon-pencil" style="width:25px;"></span>
+                    Cambiar Contraseña
+                </a>
             <li>
     {% endif %}
 {% endblock %}
-

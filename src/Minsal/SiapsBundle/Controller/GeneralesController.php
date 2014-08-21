@@ -11,6 +11,7 @@ use Doctrine\DBAL as DBAL;
 use FOS\UserBundle\Model\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use FOS\UserBundle\Util\TokenGenerator;
 
 class GeneralesController extends Controller {
     /*
@@ -189,53 +190,54 @@ class GeneralesController extends Controller {
     public function verifyMedicServiceAction() {
         $user           = $this->container->get('security.context')->getToken()->getUser();
         $session        = $this->container->get('session');
+        $request        = $this->container->get('request');
         $em             = $this->getDoctrine()->getManager();
         $response       = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
         $codigoEmpleado = $user->getIdEmpleado() ? $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo() : 'N/A';
-	  
-        if($session->get('_moduleSelection') !== null && $codigoEmpleado == 'MED') {
-        
-            if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
 
-                $idEmpleado        = $user->getIdEmpleado()->getId();
-                $idEstablecimiento = $user->getIdEmpleado()->getIdEstablecimiento()->getId();
+        if( ( ($session->get('_moduleSelection') !== null && (null === $session->get('_idEmpEspecialidadEstab') || null === $session->get('_idEmpEspecialidadEstab')) ) ||
+              ($session->get('_secured_token') === $request->query->get('_provided_token') && null !== $session->get('_idEmpEspecialidadEstab') && null !== $session->get('_idEmpEspecialidadEstab') )
+            ) && $codigoEmpleado == 'MED') {
 
-                $dql = "SELECT t02
-                        FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab      t01
-                        INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab         t02 WITH (t02.id = t01.idAtenAreaModEstab)
-                        INNER JOIN MinsalSiapsBundle:CtlAtencion                 t03 WITH (t03.id = t02.idAtencion)
-                        INNER JOIN MinsalSiapsBundle:MntAreaModEstab             t04 WITH (t04.id = t02.idAreaModEstab)
-                        INNER JOIN MinsalSiapsBundle:CtlAreaAtencion             t05 WITH (t05.id = t04.idAreaAtencion)
-                        INNER JOIN MinsalSiapsBundle:MntModalidadEstablecimiento t06 WITH (t06.id = t04.idModalidadEstab)
-                        INNER JOIN MinsalSiapsBundle:CtlModalidad                t07 WITH (t07.id = t06.idModalidad)
-                        INNER JOIN MinsalSiapsBundle:MntEmpleado                 t08 WITH (t08.id = t01.idEmpleado)
-                        INNER JOIN MinsalSiapsBundle:MntTipoEmpleado             t09 WITH (t09.id = t08.idTipoEmpleado)
-                        WHERE t01.idEmpleado = :idEmpleado
-                            AND t02.idEstablecimiento = :idEstablecimiento
-                            AND LOWER(t05.nombre) = :nomAreaAtencion
-                            AND LOWER(t07.nombre) = :nomModalidad
-                            AND UPPER(t09.codigo) = :codEmpleado";
+            $idEmpleado        = $user->getIdEmpleado()->getId();
+            $idEstablecimiento = $user->getIdEmpleado()->getIdEstablecimiento()->getId();
 
-                $query = $em->createQuery($dql);
-                $query->setParameters(array(
-                    ':idEmpleado'        => $idEmpleado,
-                    ':codEmpleado'       => 'MED',
-                    ':idEstablecimiento' => $idEstablecimiento,
-                    ':nomAreaAtencion'   => 'consulta externa',
-                    ':nomModalidad'      => 'minsal'));
-                $empEspecialidades = $query->getResult();
-                if($empEspecialidades) {
-                    if(count($empEspecialidades) > 1) {
-                        $response =  $this->render(
-                                                    'MinsalSiapsBundle::ServicioMedicoEstablecimiento.html.twig', array(
-                                                        'user'              => $user,
-                                                        'empEspecialidades' => $empEspecialidades,
-                                                        'admin_pool'        => $this->container->get('sonata.admin.pool')
-                                            ));
-                    } else {                    
-                        $session->set('_idEmpEspecialidadEstab', $empEspecialidades[0]->getId());
-                        $session->set('_nombreEmpEspecialidadEstab', $empEspecialidades[0]->getNombreConsulta());
-                    }
+            $dql = "SELECT t02
+                    FROM MinsalSiapsBundle:MntEmpleadoEspecialidadEstab      t01
+                    INNER JOIN MinsalSiapsBundle:MntAtenAreaModEstab         t02 WITH (t02.id = t01.idAtenAreaModEstab)
+                    INNER JOIN MinsalSiapsBundle:CtlAtencion                 t03 WITH (t03.id = t02.idAtencion)
+                    INNER JOIN MinsalSiapsBundle:MntAreaModEstab             t04 WITH (t04.id = t02.idAreaModEstab)
+                    INNER JOIN MinsalSiapsBundle:CtlAreaAtencion             t05 WITH (t05.id = t04.idAreaAtencion)
+                    INNER JOIN MinsalSiapsBundle:MntModalidadEstablecimiento t06 WITH (t06.id = t04.idModalidadEstab)
+                    INNER JOIN MinsalSiapsBundle:CtlModalidad                t07 WITH (t07.id = t06.idModalidad)
+                    INNER JOIN MinsalSiapsBundle:MntEmpleado                 t08 WITH (t08.id = t01.idEmpleado)
+                    INNER JOIN MinsalSiapsBundle:MntTipoEmpleado             t09 WITH (t09.id = t08.idTipoEmpleado)
+                    WHERE t01.idEmpleado = :idEmpleado
+                        AND t02.idEstablecimiento = :idEstablecimiento
+                        AND LOWER(t05.nombre) = :nomAreaAtencion
+                        AND LOWER(t07.nombre) = :nomModalidad
+                        AND UPPER(t09.codigo) = :codEmpleado";
+
+            $query = $em->createQuery($dql);
+            $query->setParameters(array(
+                ':idEmpleado'        => $idEmpleado,
+                ':codEmpleado'       => 'MED',
+                ':idEstablecimiento' => $idEstablecimiento,
+                ':nomAreaAtencion'   => 'consulta externa',
+                ':nomModalidad'      => 'minsal'));
+            $empEspecialidades = $query->getResult();
+            if($empEspecialidades) {
+                if(count($empEspecialidades) > 1) {
+                    $response =  $this->render(
+                                                'MinsalSiapsBundle::ServicioMedicoEstablecimiento.html.twig', array(
+                                                    'user'              => $user,
+                                                    'empEspecialidades' => $empEspecialidades,
+                                                    'admin_pool'        => $this->container->get('sonata.admin.pool'),
+                                                    'previous_url'      => $session->get('_secured_token') ? $request->server->get('HTTP_REFERER') : null,
+                                        ));
+                } else {
+                    $session->set('_idEmpEspecialidadEstab', $empEspecialidades[0]->getId());
+                    $session->set('_nombreEmpEspecialidadEstab', $empEspecialidades[0]->getNombreConsulta());
                 }
             }
         }
@@ -264,11 +266,21 @@ class GeneralesController extends Controller {
         $response = new RedirectResponse($this->generateUrl('sonata_admin_dashboard'));
         $codigoEmpleado = $user->getIdEmpleado()->getIdTipoEmpleado()->getCodigo();
 
-        if($request->isMethod('POST') && $session->get('_moduleSelection') !== null && $codigoEmpleado == 'MED') {
-            if( (null === $session->get('_idEmpEspecialidadEstab')) || (null === $session->get('_idEmpEspecialidadEstab')) ) {
-                $session->set('_idEmpEspecialidadEstab', $request->get('_id-especialidad'));
-                $session->set('_nombreEmpEspecialidadEstab', $request->get('_nombre-especialidad'));
+        if( ( ($session->get('_moduleSelection') !== null && (null === $session->get('_idEmpEspecialidadEstab') || null === $session->get('_idEmpEspecialidadEstab')) ) ||
+              ($session->get('_secured_token') === $request->get('_provided_token') && null !== $session->get('_idEmpEspecialidadEstab') && null !== $session->get('_idEmpEspecialidadEstab') )
+            ) &&  $request->isMethod('POST') && $codigoEmpleado === 'MED') {
+
+            if($session->get('_secured_token') === null) {
+                $tokenGenerator = new TokenGenerator();
+                $session->set('_secured_token', $tokenGenerator->generateToken());
+            } else {
+                if($request->get('previous_url') != '')
+                    $response = new RedirectResponse($request->get('previous_url'));
             }
+
+            $session->set('_idEmpEspecialidadEstab', $request->get('_id-especialidad'));
+            $session->set('_nombreEmpEspecialidadEstab', $request->get('_nombre-especialidad'));
+
             return $response;
         } else {
             throw new AccessDeniedException();

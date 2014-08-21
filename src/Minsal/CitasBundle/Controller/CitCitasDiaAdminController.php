@@ -26,9 +26,9 @@ class CitCitasDiaAdminController extends CRUDController {
 	if (false === $this->admin->isGranted('LIST')) {
 		throw new AccessDeniedException();
 	}
-    
+
     $request = $this->get('request');
-        
+
 	$datagrid = $this->admin->getDatagrid();
 	$formView = $datagrid->getForm()->createView();
 
@@ -45,7 +45,7 @@ class CitCitasDiaAdminController extends CRUDController {
             'query'  => $request->query,
 		));
 	}
-    
+
     /**
      * return the Response object associated to the create action
      *
@@ -56,11 +56,11 @@ class CitCitasDiaAdminController extends CRUDController {
         if (false === $this->admin->isGranted('CREATE')) {
             throw new AccessDeniedException();
         }
-        
+
         if ($this->getRestMethod()== 'POST') {
             $em      = $this->getDoctrine()->getManager();
             $request = $this->get('request');
-            
+
             $idEmpleado   = $request->get('idEmpleado');
             $especialidad = $request->get('idEmpleadoEspecialidadEstab');
             $date         = new \DateTime($request->get('date'));
@@ -70,7 +70,7 @@ class CitCitasDiaAdminController extends CRUDController {
             $today        = new \DateTime();
             $usuario      = $this->getUser();
             $ipcita       = $request->server->get('REMOTE_ADDR');
-            
+
             try {
                 $citDistribucion = $em->getRepository('MinsalCitasBundle:CitDistribucion')->findOneBy(
                     array(
@@ -101,7 +101,7 @@ class CitCitasDiaAdminController extends CRUDController {
                         ->andWhere('t01.idRangohora = :idRangohora')
                         ->setParameters(array(
                                 ':fecha' => date('Y-m-d', $date->getTimestamp()),
-                                ':idEmpleado'   => $idEmpleado, 
+                                ':idEmpleado'   => $idEmpleado,
                                 ':idTipocita'   => $tipoCita,
                                 ':especialidad' => $especialidad,
                                 ':idRangohora'  => $idRangohora))
@@ -127,7 +127,7 @@ class CitCitasDiaAdminController extends CRUDController {
                         ->andWhere('t01.idRangohora = :idRangohora')
                         ->setParameters(array(
                                 ':fecha' => date('Y-m-d', $date->getTimestamp()),
-                                ':idEmpleado'     => $idEmpleado, 
+                                ':idEmpleado'     => $idEmpleado,
                                 ':idTipocita'     => $tipoCita,
                                 ':idAreaModEstab' => $mntAtenAreaModEstab->getIdAreaModEstab()->getId(),
                                 ':idRangohora'    => $idRangohora))
@@ -159,18 +159,20 @@ class CitCitasDiaAdminController extends CRUDController {
                         'idRangohora'        => $em->getRepository('MinsalSiapsBundle:MntRangohora')->findOneById($idRangohora),
                         'idAreaModEstab'     => $mntAtenAreaModEstab->getIdAreaModEstab()
                     );
-
+                //var_dump($parameters);exit();
                 $qb = $em->createQueryBuilder();
                 $citaPrevia = $qb->select('t01')
                         ->from('MinsalCitasBundle:CitCitasDia', 't01')
                         ->where('t01.fecha > :today')
-                        ->andWhere('t01.idusuarioreg = :idusuarioreg')
+                        ->andWhere('t01.idEmpleado = :idEmpleado')
                         ->andWhere('t01.idExpediente = :idExpediente')
+                        ->andWhere('t01.idAtenAreaModEstab = :especialidad')
                         ->andWhere('t01.idEstado = 1 OR t01.idEstado = 6')
                         ->setParameters(array(
                             ':today' => date('Y-m-d', $today->getTimestamp()),
-                            ':idusuarioreg' => $usuario->getId(),
-                            ':idExpediente' => $idExpediente))
+                            ':idEmpleado'   => $mntEmpleado->getId(),
+                            ':idExpediente' => $idExpediente,
+                            ':especialidad' => $especialidad))
                     ->getQuery()
                     ->getResult();
 
@@ -189,20 +191,20 @@ class CitCitasDiaAdminController extends CRUDController {
                                     </a>
                                 </form>';
                 $this->addFlash('sonata_flash_success', 'Cita creada exitosamente '.$comprobante);
-                
+
             } catch(\Exception $e) {
                 $this->addFlash('sonata_flash_error', 'Eror en la generacion de la cita... Detalle del Erro: '.$e);
             }
-            
-            return new RedirectResponse($this->admin->generateUrl('list', array('idEmpleado' => $idEmpleado, 'idEspecialidad' => $especialidad)));
+
+            return new RedirectResponse($this->admin->generateUrl('list', array('idEmpleado' => $idEmpleado, 'idEspecialidad' => $especialidad, 'month' => date( "n", $date->getTimestamp())-1 )));
         } else {
             throw new AccessDeniedException();
         }
     }
-    
+
     private function insertCita($parameters) {
         $object  = $this->admin->getNewInstance();
-        
+
         $object->setIdTipocita($parameters['idTipocita']);
         $object->setIdAtenAreaModEstab($parameters['idAtenAreaModEstab']);
         $object->setIdEstado($parameters['idEstadoInsr']);
@@ -216,21 +218,21 @@ class CitCitasDiaAdminController extends CRUDController {
         $object->setIdEstablecimiento($parameters['idEstablecimiento']);
         $object->setIdRangohora($parameters['idRangohora']);
         $object->setIdAreaModEstab($parameters['idAreaModEstab']);
-        
+
         $this->admin->create($object);
-        
+
         return $object->getId();
     }
-    
+
     private function updateCita($id, $parameters) {
         $em = $this->getDoctrine()->getManager();
         $citCitasDia = $em->getRepository('MinsalCitasBundle:CitCitasDia')->findOneById($id);
-        
+
         $citCitasDia->setIdEstado($parameters['idEstadoAct']);
         $citCitasDia->setFecha($parameters['fecha']);
         $citCitasDia->setIdMotivo($parameters['idMotivoAct']);
         $citCitasDia->setIdRangohora($parameters['idRangohora']);
-        
+
         $this->admin->update($citCitasDia);
     }
 }

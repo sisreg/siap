@@ -287,7 +287,7 @@ class CitCitasDiaController extends Controller  {
         $clue    = ltrim(strtolower($request->get('clue')), '0');
         $limit   = $request->get('page_limit');
         $page    = $request->get('page') - 1;
-
+		
         /*****************************************************************************************
          * SQL que obtiene el numero de expediente y nombre del paciente para asignar la cita
          ****************************************************************************************/
@@ -309,7 +309,7 @@ class CitCitasDiaController extends Controller  {
         $result = $stm->fetchAll();
 
         $citcita['data1'] = $result;
-        $citcita['data2'] = $result[0]['total'];
+        $citcita['data2'] = count($result) > 0 ? $result[0]['total'] : 0;
 
         return new Response(json_encode($citcita));
     }
