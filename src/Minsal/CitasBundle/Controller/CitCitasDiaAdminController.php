@@ -196,7 +196,7 @@ class CitCitasDiaAdminController extends CRUDController {
                 $this->addFlash('sonata_flash_error', 'Eror en la generacion de la cita... Detalle del Erro: '.$e);
             }
 
-            return new RedirectResponse($this->admin->generateUrl('list', array('idEmpleado' => $idEmpleado, 'idEspecialidad' => $especialidad, 'month' => date( "n", $date->getTimestamp())-1 )));
+            return new RedirectResponse($this->admin->generateUrl('list', array('idEmpleado' => $idEmpleado, 'idEspecialidad' => $especialidad, 'month' => date( "n", $date->getTimestamp())-1, 'year' => date( "Y", $date->getTimestamp()) )));
         } else {
             throw new AccessDeniedException();
         }
