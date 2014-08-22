@@ -3,7 +3,7 @@
 {% block title %}Comprobante de Cita{% endblock %}
 {% block javascript %}
     {{ parent() }}
-    <script type="text/javascript">
+    <!--script type="text/javascript">
         jQuery(document).ready(function($) {
             $iframe = $('iframe#content-iframe');
 
@@ -11,7 +11,7 @@
                   this.contentWindow.print();
             });
         });
-    </script>
+    </script-->
 {% endblock%}
 {% block iframe %}
     <center>
