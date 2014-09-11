@@ -33,11 +33,13 @@
                     </a>
                 </li>
             {% endif %}
-            <li>
-                <a href="{{ url('fos_user_change_password') }}">
-                    <span class="glyphicon glyphicon-pencil" style="width:25px;"></span>
-                    Cambiar Contraseña
-                </a>
-            <li>
+            {% if app.session.get('_moduleSelection') != 3 and app.session.get('_moduleSelection') != 4 and app.session.get('_moduleSelection') != 6 %}
+                <li>
+                    <a href="{{ url('fos_user_change_password') }}">
+                        <span class="glyphicon glyphicon-pencil" style="width:25px;"></span>
+                        Cambiar Contraseña
+                    </a>
+                <li>
+            {% endif %}
     {% endif %}
 {% endblock %}
