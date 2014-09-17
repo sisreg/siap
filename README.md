@@ -34,7 +34,7 @@ Como **usuario root** escribir en una terminal:
 
         aptitude install apache2-mpm-prefork php5 php5-gd php-apc libgd2-xpm acl \
         php5-mcrypt curl git libapache2-mod-php5 php5-intl php-pear php5-cli \
-        php5-pgsql postgresql openjdk-7-jdk openjdk-7-jre ttf-mscorefonts-installer
+        php5-pgsql postgresql openjdk-7-jdk openjdk-7-jre 
         
 
 * Editar el archivo /etc/php5/apache2/php.ini como **usuario root**; con cualquier
@@ -81,7 +81,7 @@ consola:
 
 ###Carga del script
 * Clonar el siguiente repositorio de git como usuario normal:
-	git clone http://git.salud.gob.sv/SIAPS/db_siaps.git
+	git clone http://git.salud.gob.sv/SIAPS/db_siap.git
 * Entrar al directorio y realizar la carga con el archivo denominado 
 **siap-prod.sql** ejecutando la siguiente sentencia como 
 **usuario postgres**:
@@ -207,7 +207,7 @@ sentencia:
 * Copiar en este directorio el archivo ZIP proporcionado con todos los reportes
 utilizados y ejecutar:
 
-        ./js-import.sh --input-zip NOMBRE_DEL_ARCHIVO.zip
+        ./js-import.sh --input-zip NOMBRE_DEL_ARCHIVO.zip --update
 
 * Esperar a que termina de importar los reportes y al terminar quitarle la 
 contraseña al usuario postgresql siempre como **usuario postgres**
@@ -279,7 +279,7 @@ La instalación puede realizarse de dos formas:
 * Copiando el proyecto directamente en el directorio raiz.
 
 ###Clonando el proyecto desde el servidor git.salud.gob.sv
-* Clonar el repositorio **git@git.salud.gob.sv:SIAPS/siaps.git**
+* Clonar el repositorio **gitolite@git-externo.salud.gob.sv/siap**
 * Descargar el el archivo **composer.phar** como **usuario normal** con la
 siguiente sentencia:
 
@@ -298,8 +298,8 @@ sentencia:
 
 * Si es para **producción** no realizar cambio de rama y permanecer en la rama 
 master.
-* Agregar el archivo **parameters.yml** en el directorio **app/config/** con un 
-contenido similar al siguiente:
+* Agregar el archivo **parameters.yml** en el directorio **app/config/** con el 
+siguiente contenido:
 
         parameters:
             database_driver: pdo_pgsql
@@ -316,29 +316,35 @@ contenido similar al siguiente:
             secret: df1ca40cfc425c4f34e654696720435a044b9ca9
             database_path: null
             jasper_username: usuarioJasperServer
-            jasper_password: usuarioJasperServer
+            jasper_password: contraseñaJasperServer
             jasper_url: http://localhost:8080/jasperserver/services/repository?wsdl   
+            module1_url: http://siap.establecimiento/admin/login?_moduleSelection=1
+            module2_url: http://siap.establecimiento/admin/login?_moduleSelection=2
+            module3_url: http://siap.establecimiento/admin/login?_moduleSelection=3
+            module4_url: http://siap.establecimiento/admin/login?_moduleSelection=4
+            module5_url: http://siap.establecimiento/admin/login?_moduleSelection=5
+            module6_url: http://siap.establecimiento/admin/login?_moduleSelection=6
 
 * Cambiar los parámetros por los datos que se definieron en la creación de la 
-base de datos y las variables del jasper según como se hayan configurado.
-* Crear los directorios cache/, logs/ e imagenes/ con la siguiente sentencia:
+base de datos y las variables del jasper según como se hayan configurado.Además
+se deberá cambiar la palabra establecimiento por el nombre del establecimiento
+a configurar.
+* Crear los directorios cache/, logs/ , imagenes/ y upload/firmaDigital  con la siguiente sentencia:
 
-        mkdir -p app/cache app/logs web/imagenes
+        mkdir -p app/cache app/logs web/imagenes upload/firmaDigital
 
 * Siempre como **usuario normal** ejecutar:
 
          php composer.phar install
 
-* Si da error ejecutar
-
-         php composer.phar update
-
 * Aplicar las acl al directorio cache y logs:
 
-        setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/ web/imagenes
-        setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/ web/imagenes
+        setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/ web/imagenes upload/firmaDigital
+        setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache/ app/logs/ web/imagenes upload/firmaDigital
+
 * Limpiar cache de producción con la siguiente instrucción:
     php app/console cache:clear --env=prod
+
 * Agregar los estilos y javascript a producción con la siguiente instrucción:
     php app/console assets:install --symlink --env=prod
 
@@ -361,31 +367,31 @@ el valor indicado.
 
         cd /etc/apache2/sites-available/
 
-* Con un editor de texto crear el archivo **siap.localhost** con el siguiente
+* Con un editor de texto crear el archivo **siap.establecimiento** con el siguiente
 contenido:
 
         # Inicio del archivo
         <VirtualHost VARIABLE_RETORNADA>
-        ServerName siap.localhost
-        DocumentRoot /var/www/siaps/web  ##Esta debe ser la ruta donde está el proyecto!
+        ServerName siap.establecimiento
+        DocumentRoot /var/www/siap/web  ##Esta debe ser la ruta donde está el proyecto, no olvidar borrar esta linea!
         DirectoryIndex app.php
-        <Directory /var/www/siaps/web >  ##Esta debe ser la ruta donde está el proyecto!
+        <Directory /var/www/siap/web >  ##Esta debe ser la ruta donde está el proyecto, no olvidar borrar esta linea!
                 Options FollowSymLinks MultiViews
                 AllowOverride All
                 Order allow,deny
                 allow from all
         </Directory>
-        ErrorLog ${APACHE_LOG_DIR}/siap.localhost-error.log
+        ErrorLog ${APACHE_LOG_DIR}/siap.establecimiento-error.log
         # Possible values include: debug, info, notice, warn, error, crit,
         # alert, emerg.
         LogLevel warn
-        CustomLog ${APACHE_LOG_DIR}/siap.localhost-access.log combined
+        CustomLog ${APACHE_LOG_DIR}/siap.establecimiento-access.log combined
         </VirtualHost>
         # Fin del archivo
 
 * Guardar el archivo. Luego, como **root** ejecutar:
 
-        a2ensite siap.localhost
+        a2ensite siap.establecimiento
 
 * Habilitar el modo de reescritura con la siguiente sentencia:
 
@@ -398,7 +404,7 @@ contenido:
 * Se debe agregar en el archivo **/etc/hosts** la IP junto con el ServerName 
 del Virtual Host. La línea debe ser similar a la siguiente:
 
-        X.X.X.X       siap.localhost
+        X.X.X.X       siap.establecimiento
 
 * Para el caso de todas las maquinas clientes. Agregar la línea anterior en el 
 archivo **/etc/hosts** para que puedan acceder al sistema.
@@ -407,6 +413,6 @@ Herramientas la opción "Editar" y seleccionar "Preferencias". Aparecerá una ve
 la opción "Aplicaciones" luego en el campo de búsqueda digitar "pdf", deberá aparecer en el tipo de contenido
 Portable Document Format(PDF) y en la acción debe seleccionarse "Previsualizar en Iceweasel".
 * Probar desde un navegador (recomendado Iceweasel/Firefox) la siguiente url: 
-*http://siap.localhost/* y deberá aparecer la página de inicio de sesión del 
+*http://siap.establecimiento/* y deberá aparecer la página de inicio de sesión del 
 sistema.
 
