@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgExploracionClinica" table="srg_exploracion_clinica">
+    <indexes>
+      <index name="idx_2ef5013c30f3feea" columns="id_consulta_gine_pf"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="mamas" type="boolean" column="mamas" nullable="true"/>
+    <field name="abdomen" type="boolean" column="abdomen" nullable="true"/>
+    <field name="miembros" type="boolean" column="miembros" nullable="true"/>
+    <field name="mamasDescripcion" type="string" column="mamas_descripcion" length="20" nullable="true"/>
+    <field name="abdomenDescripcion" type="string" column="abdomen_descripcion" length="20" nullable="true"/>
+    <field name="miembrosDescripcion" type="string" column="miembros_descripcion" length="20" nullable="true"/>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

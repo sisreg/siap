@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgInscripcion" table="srg_inscripcion">
+    <indexes>
+      <index name="idx_e45f5bd30f3feea" columns="id_consulta_gine_pf"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="inscripcionPrimeraVez" type="boolean" column="inscripcion_primera_vez" nullable="true"/>
+    <field name="primeraVezInstitucion" type="boolean" column="primera_vez_institucion" nullable="true"/>
+    <field name="anyosEscolaridad" type="decimal" column="anyos_escolaridad" precision="2" scale="0" nullable="true"/>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgOrganismoCervicoMicroorga" table="srg_organismo_cervico_microorga">
+    <indexes>
+      <index name="idx_83f47f1aeb85eb8b" columns="id_organismo_cervico"/>
+      <index name="idx_83f47f1a5c2159b1" columns="id_microorganismo"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <many-to-one field="idOrganismoCervico" target-entity="SrgOrganismoCervico">
+      <join-columns>
+        <join-column name="id_organismo_cervico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idMicroorganismo" target-entity="SrgCtlMicroorganismo">
+      <join-columns>
+        <join-column name="id_microorganismo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

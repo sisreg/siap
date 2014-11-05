@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgSintomaLocalSintomaMama" table="srg_sintoma_local_sintoma_mama">
+    <indexes>
+      <index name="idx_76211bbbab403071" columns="id_sintoma_local"/>
+      <index name="idx_76211bbbb2c63f84" columns="id_sintoma_mama"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <many-to-one field="idSintomaLocal" target-entity="SrgSintomaLocal">
+      <join-columns>
+        <join-column name="id_sintoma_local" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idSintomaMama" target-entity="SrgCtlSintomaMama">
+      <join-columns>
+        <join-column name="id_sintoma_mama" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgCambioCelularReactivo" table="srg_cambio_celular_reactivo">
+    <indexes>
+      <index name="idx_eebd9501c2e87b78" columns="id_examen_cervico_vaginal"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="radiacion" type="boolean" column="radiacion" nullable="true"/>
+    <field name="inflamacion" type="boolean" column="inflamacion" nullable="true"/>
+    <field name="diu" type="boolean" column="diu" nullable="true"/>
+    <field name="atrofia" type="boolean" column="atrofia" nullable="true"/>
+    <field name="celulasGlanduHisterec" type="boolean" column="celulas_glandu_histerec" nullable="true"/>
+    <field name="celulasEndoCuarenta" type="boolean" column="celulas_endo_cuarenta" nullable="true"/>
+    <many-to-one field="idExamenCervicoVaginal" target-entity="SrgExamenCervicoVaginal">
+      <join-columns>
+        <join-column name="id_examen_cervico_vaginal" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

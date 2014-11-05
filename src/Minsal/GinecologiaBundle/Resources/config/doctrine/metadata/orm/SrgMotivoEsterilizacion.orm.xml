@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgMotivoEsterilizacion" table="srg_motivo_esterilizacion">
+    <indexes>
+      <index name="idx_3d66e3a456558889" columns="id_esterilizacion"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="razonesMedicas" type="boolean" column="razones_medicas" nullable="true"/>
+    <field name="noMasHijos" type="boolean" column="no_mas_hijos" nullable="true"/>
+    <field name="motivosPersonales" type="boolean" column="motivos_personales" nullable="true"/>
+    <field name="intoleranciaAnticonceptivos" type="boolean" column="intolerancia_anticonceptivos" nullable="true"/>
+    <field name="economicas" type="boolean" column="economicas" nullable="true"/>
+    <field name="detalleOtros" type="string" column="detalle_otros" length="50" nullable="true"/>
+    <many-to-one field="idEsterilizacion" target-entity="SrgEsterilizacion">
+      <join-columns>
+        <join-column name="id_esterilizacion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

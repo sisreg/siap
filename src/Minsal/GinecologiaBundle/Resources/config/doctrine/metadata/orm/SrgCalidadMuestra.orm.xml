@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgCalidadMuestra" table="srg_calidad_muestra">
+    <indexes>
+      <index name="idx_5f896c1c2e87b78" columns="id_examen_cervico_vaginal"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="satisfactoria" type="boolean" column="satisfactoria" nullable="true"/>
+    <field name="detalleInsatisfactoria" type="string" column="detalle_insatisfactoria" length="100" nullable="true"/>
+    <field name="procesada" type="boolean" column="procesada" nullable="true"/>
+    <field name="celularidadAdecuada" type="boolean" column="celularidad_adecuada" nullable="true"/>
+    <field name="fijacionPreserAdecuada" type="boolean" column="fijacion_preser_adecuada" nullable="true"/>
+    <field name="materialExtrano" type="boolean" column="material_extrano" nullable="true"/>
+    <field name="inflamacion" type="boolean" column="inflamacion" nullable="true"/>
+    <field name="sangre" type="boolean" column="sangre" nullable="true"/>
+    <field name="citolisis" type="boolean" column="citolisis" nullable="true"/>
+    <field name="ausenciaComponente" type="boolean" column="ausencia_componente" nullable="true"/>
+    <field name="laminaQuebrada" type="boolean" column="lamina_quebrada" nullable="true"/>
+    <field name="faltaInfoClinica" type="boolean" column="falta_info_clinica" nullable="true"/>
+    <field name="identificacionInadecuada" type="boolean" column="identificacion_inadecuada" nullable="true"/>
+    <field name="negativaParaLesion" type="boolean" column="negativa_para_lesion" nullable="true"/>
+    <many-to-one field="idExamenCervicoVaginal" target-entity="SrgExamenCervicoVaginal">
+      <join-columns>
+        <join-column name="id_examen_cervico_vaginal" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

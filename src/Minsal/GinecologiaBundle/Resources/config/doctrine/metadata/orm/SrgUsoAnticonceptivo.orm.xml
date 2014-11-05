@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgUsoAnticonceptivo" table="srg_uso_anticonceptivo">
+    <indexes>
+      <index name="idx_9b1282fe33455c07" columns="id_ctl_anticonceptivo"/>
+      <index name="idx_9b1282fe56558889" columns="id_esterilizacion"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="ninguno" type="boolean" column="ninguno" nullable="true"/>
+    <field name="marca" type="string" column="marca" length="20" nullable="true"/>
+    <field name="condonesTipo" type="string" column="condones_tipo" length="20" nullable="true"/>
+    <field name="detalleOtros" type="string" column="detalle_otros" length="20" nullable="true"/>
+    <field name="dondeObtuvo" type="string" column="donde_obtuvo" length="20" nullable="true"/>
+    <many-to-one field="idEsterilizacion" target-entity="SrgEsterilizacion">
+      <join-columns>
+        <join-column name="id_esterilizacion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idCtlAnticonceptivo" target-entity="SrgCtlAnticonceptivo">
+      <join-columns>
+        <join-column name="id_ctl_anticonceptivo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

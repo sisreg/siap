@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgCtlAnticonceptivo" table="srg_ctl_anticonceptivo">
+    <indexes>
+      <index name="idx_b297aadaff29320" columns="id_metodo_planificacion"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="nombreAnticonceptivo" type="string" column="nombre_anticonceptivo" length="60" nullable="false"/>
+    <field name="tipoAnticonceptivo" type="string" column="tipo_anticonceptivo" length="60" nullable="false"/>
+    <field name="materialAnticonceptivo" type="string" column="material_anticonceptivo" length="60" nullable="true"/>
+    <many-to-one field="idMetodoPlanificacion" target-entity="SrgCtlMetodoPlanificacion">
+      <join-columns>
+        <join-column name="id_metodo_planificacion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

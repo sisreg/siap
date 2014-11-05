@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgPap" table="srg_pap">
+    <indexes>
+      <index name="idx_c6684e21c2e87b78" columns="id_examen_cervico_vaginal"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="papPrevio" type="boolean" column="pap_previo" nullable="true"/>
+    <field name="numeroPapPrevio" type="decimal" column="numero_pap_previo" precision="2" scale="0" nullable="true"/>
+    <field name="papPrimeraVez" type="boolean" column="pap_primera_vez" nullable="true"/>
+    <field name="papSubVigente" type="boolean" column="pap_sub_vigente" nullable="true"/>
+    <field name="papSubAtrasado" type="boolean" column="pap_sub_atrasado" nullable="true"/>
+    <many-to-one field="idExamenCervicoVaginal" target-entity="SrgExamenCervicoVaginal">
+      <join-columns>
+        <join-column name="id_examen_cervico_vaginal" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

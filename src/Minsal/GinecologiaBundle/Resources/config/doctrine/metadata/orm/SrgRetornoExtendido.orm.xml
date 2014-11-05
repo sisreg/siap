@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgRetornoExtendido" table="srg_retorno_extendido">
+    <indexes>
+      <index name="idx_41ba650b7dfa12f6" columns="id_establecimiento"/>
+      <index name="idx_41ba650b695ea351" columns="id_atencion"/>
+      <index name="idx_41ba650b7d6a022" columns="id_tipo_referencia_retorno"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="uniq_41ba650b30f3feea" columns="id_consulta_gine_pf"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaLlenadoFormulario" type="date" column="fecha_llenado_formulario" nullable="true"/>
+    <field name="fechaQueSeRecibe" type="date" column="fecha_que_se_recibe" nullable="true"/>
+    <field name="criteriosInterconsultate" type="text" column="criterios_interconsultate" nullable="true"/>
+    <field name="datosPositivosInterrogatorio" type="text" column="datos_positivos_interrogatorio" nullable="true"/>
+    <field name="informacionRelevantePaciente" type="text" column="informacion_relevante_paciente" nullable="true"/>
+    <field name="impresionDiagnostica" type="string" column="impresion_diagnostica" length="80" nullable="true"/>
+    <field name="tratamiento" type="text" column="tratamiento" nullable="true"/>
+    <field name="conductaASeguir" type="text" column="conducta_a_seguir" nullable="true"/>
+    <field name="dejarControlPaciente" type="boolean" column="dejar_control_paciente" nullable="true"/>
+    <field name="fechaLlenadoProximaCita" type="date" column="fecha_llenado_proxima_cita" nullable="true"/>
+    <field name="detalleValoracionPertinencia" type="text" column="detalle_valoracion_pertinencia" nullable="true"/>
+    <field name="valoracionNecesaria" type="boolean" column="valoracion_necesaria" nullable="true"/>
+    <field name="valoracionOportuna" type="boolean" column="valoracion_oportuna" nullable="true"/>
+    <many-to-one field="idTipoReferenciaRetorno" target-entity="SrgCtlTipoReferenciaRetorno">
+      <join-columns>
+        <join-column name="id_tipo_referencia_retorno" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAtencion" target-entity="CtlAtencion">
+      <join-columns>
+        <join-column name="id_atencion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

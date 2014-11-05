@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgExamenfisico" table="srg_examenfisico">
+    <unique-constraints>
+      <unique-constraint name="uniq_b0609a51de2271f9" columns="id_historialclinico"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="pulso" type="string" column="pulso" length="10" nullable="true"/>
+    <field name="presionarterial" type="string" column="presionarterial" length="10" nullable="true"/>
+    <field name="respiracion" type="string" column="respiracion" length="6" nullable="true"/>
+    <field name="peso" type="smallint" column="peso" nullable="true"/>
+    <field name="talla" type="float" column="talla" precision="10" scale="0" nullable="true"/>
+    <field name="temperatura" type="smallint" column="temperatura" nullable="true"/>
+    <field name="observaciones" type="text" column="observaciones" nullable="true"/>
+    <many-to-one field="idHistorialclinico" target-entity="SecHistorialClinico">
+      <join-columns>
+        <join-column name="id_historialclinico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

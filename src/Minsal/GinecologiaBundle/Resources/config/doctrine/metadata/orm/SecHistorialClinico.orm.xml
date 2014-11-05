@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SecHistorialClinico" table="sec_historial_clinico">
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="datosclinicos" type="string" column="datosclinicos" length="200" nullable="true"/>
+    <field name="fechaconsulta" type="date" column="fechaconsulta" nullable="true"/>
+    <field name="seguimientoconsultaext" type="string" column="seguimientoconsultaext" nullable="true"/>
+    <field name="fechahorareg" type="date" column="fechahorareg" nullable="true"/>
+    <field name="piloto" type="string" column="piloto" nullable="true"/>
+    <field name="ipaddress" type="string" column="ipaddress" length="15" nullable="true"/>
+  </entity>
+</doctrine-mapping>

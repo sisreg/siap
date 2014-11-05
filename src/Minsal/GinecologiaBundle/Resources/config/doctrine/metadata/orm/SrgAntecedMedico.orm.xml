@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgAntecedMedico" table="srg_anteced_medico">
+    <indexes>
+      <index name="idx_21e3cea630f3feea" columns="id_consulta_gine_pf"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="diabetes" type="boolean" column="diabetes" nullable="true"/>
+    <field name="asma" type="boolean" column="asma" nullable="true"/>
+    <field name="hipertencion" type="boolean" column="hipertencion" nullable="true"/>
+    <field name="tratamientosPrevios" type="boolean" column="tratamientos_previos" nullable="true"/>
+    <field name="trataPreviosDescripcion" type="string" column="trata_previos_descripcion" length="40" nullable="true"/>
+    <field name="transtornosMentales" type="boolean" column="transtornos_mentales" nullable="true"/>
+    <field name="transtorMentaDescripcion" type="string" column="transtor_menta_descripcion" length="40" nullable="true"/>
+    <field name="transtornosComportamientos" type="boolean" column="transtornos_comportamientos" nullable="true"/>
+    <field name="transtorComporDescripcion" type="string" column="transtor_compor_descripcion" length="40" nullable="true"/>
+    <field name="cancer" type="boolean" column="cancer" nullable="true"/>
+    <field name="cancerDescripcion" type="string" column="cancer_descripcion" length="40" nullable="true"/>
+    <field name="otros" type="boolean" column="otros" nullable="true"/>
+    <field name="otrosDescripcion" type="string" column="otros_descripcion" length="40" nullable="true"/>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

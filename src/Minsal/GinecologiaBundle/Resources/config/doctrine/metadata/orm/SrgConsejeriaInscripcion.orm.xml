@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgConsejeriaInscripcion" table="srg_consejeria_inscripcion">
+    <unique-constraints>
+      <unique-constraint name="uniq_b52d9f438b4c5407" columns="id_inscripcion"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="informoMetodo" type="boolean" column="informo_metodo" nullable="false"/>
+    <field name="mecanismoAccion" type="boolean" column="mecanismo_accion" nullable="false"/>
+    <field name="usoCorrecto" type="boolean" column="uso_correcto" nullable="false"/>
+    <field name="efectosSecundarios" type="boolean" column="efectos_secundarios" nullable="false"/>
+    <field name="tasaEfectividad" type="boolean" column="tasa_efectividad" nullable="false"/>
+    <field name="signosAlarma" type="boolean" column="signos_alarma" nullable="false"/>
+    <field name="seguimiento" type="boolean" column="seguimiento" nullable="true"/>
+    <many-to-one field="idInscripcion" target-entity="SrgInscripcion">
+      <join-columns>
+        <join-column name="id_inscripcion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

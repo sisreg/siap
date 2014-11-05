@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgExamenFisicoInscripcion" table="srg_examen_fisico_inscripcion">
+    <indexes>
+      <index name="idx_7bfe67068b4c5407" columns="id_inscripcion"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="estadoMamas" type="string" column="estado_mamas" length="1" nullable="true"/>
+    <field name="estadoMamasDetalle" type="string" column="estado_mamas_detalle" length="100" nullable="true"/>
+    <field name="estadoAbdomen" type="string" column="estado_abdomen" length="1" nullable="true"/>
+    <field name="estadoAbdomenDetalle" type="string" column="estado_abdomen_detalle" length="100" nullable="true"/>
+    <field name="estadoMiembros" type="string" column="estado_miembros" length="1" nullable="true"/>
+    <field name="estadoMiembrosDetalle" type="string" column="estado_miembros_detalle" length="100" nullable="true"/>
+    <many-to-one field="idInscripcion" target-entity="SrgInscripcion">
+      <join-columns>
+        <join-column name="id_inscripcion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

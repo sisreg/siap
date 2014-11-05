@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgEntregaMetodo" table="srg_entrega_metodo">
+    <indexes>
+      <index name="idx_cf5f7bba33455c07" columns="id_ctl_anticonceptivo"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="uniq_cf5f7bba8b4c5407" columns="id_inscripcion"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaInicioMetodo" type="date" column="fecha_inicio_metodo" nullable="false"/>
+    <field name="anticonOralNom" type="string" column="anticon_oral_nom" length="200" nullable="true"/>
+    <field name="indicaciones" type="string" column="indicaciones" length="200" nullable="false"/>
+    <field name="observaciones" type="string" column="observaciones" length="200" nullable="true"/>
+    <field name="fechaProximaConsulta" type="date" column="fecha_proxima_consulta" nullable="true"/>
+    <many-to-one field="idInscripcion" target-entity="SrgInscripcion">
+      <join-columns>
+        <join-column name="id_inscripcion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idCtlAnticonceptivo" target-entity="SrgCtlAnticonceptivo">
+      <join-columns>
+        <join-column name="id_ctl_anticonceptivo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

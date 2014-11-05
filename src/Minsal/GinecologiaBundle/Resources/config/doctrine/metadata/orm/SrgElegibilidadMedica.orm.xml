@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgElegibilidadMedica" table="srg_elegibilidad_medica">
+    <indexes>
+      <index name="idx_2f291a078b4c5407" columns="id_inscripcion"/>
+      <index name="idx_2f291a079f7b4d5b" columns="id_criterio_elegibilidad"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <many-to-one field="idInscripcion" target-entity="SrgInscripcion">
+      <join-columns>
+        <join-column name="id_inscripcion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idCriterioElegibilidad" target-entity="SrgCtlCriterioElegibilidad">
+      <join-columns>
+        <join-column name="id_criterio_elegibilidad" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

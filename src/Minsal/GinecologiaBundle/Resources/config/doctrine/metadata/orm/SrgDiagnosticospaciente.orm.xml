@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgDiagnosticospaciente" table="srg_diagnosticospaciente">
+    <unique-constraints>
+      <unique-constraint name="uniq_39754375d881c2b3" columns="id_diagnostico1"/>
+      <unique-constraint name="uniq_39754375368fa39f" columns="id_diagnostico3"/>
+      <unique-constraint name="uniq_3975437541889309" columns="id_diagnostico2"/>
+      <unique-constraint name="uniq_39754375de2271f9" columns="id_historialclinico"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="procedimientos" type="text" column="procedimientos" nullable="true"/>
+    <field name="examenesgabinete" type="text" column="examenesgabinete" nullable="true"/>
+    <field name="descripcioncie101" type="text" column="descripcioncie101" nullable="true"/>
+    <field name="descripcioncie102" type="text" column="descripcioncie102" nullable="true"/>
+    <field name="descripcioncie103" type="text" column="descripcioncie103" nullable="true"/>
+    <many-to-one field="idDiagnostico3" target-entity="SrgCie10">
+      <join-columns>
+        <join-column name="id_diagnostico3" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idDiagnostico2" target-entity="SrgCie10">
+      <join-columns>
+        <join-column name="id_diagnostico2" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idDiagnostico1" target-entity="SrgCie10">
+      <join-columns>
+        <join-column name="id_diagnostico1" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idHistorialclinico" target-entity="SecHistorialClinico">
+      <join-columns>
+        <join-column name="id_historialclinico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

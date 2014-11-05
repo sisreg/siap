@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CtlEstablecimiento" table="ctl_establecimiento">
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="150" nullable="false"/>
+    <field name="direccion" type="string" column="direccion" length="250" nullable="true"/>
+    <field name="telefono" type="string" column="telefono" length="15" nullable="true"/>
+    <field name="codUcsf" type="integer" column="cod_ucsf" nullable="true"/>
+    <field name="activo" type="boolean" column="activo" nullable="true"/>
+    <field name="idNivelMinsal" type="integer" column="id_nivel_minsal" nullable="true"/>
+    <field name="tipoExpediente" type="string" column="tipo_expediente" nullable="true"/>
+    <field name="configurado" type="boolean" column="configurado" nullable="true"/>
+  </entity>
+</doctrine-mapping>

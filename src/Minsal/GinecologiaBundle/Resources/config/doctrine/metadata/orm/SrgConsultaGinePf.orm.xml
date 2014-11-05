@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgConsultaGinePf" table="srg_consulta_gine_pf">
+    <unique-constraints>
+      <unique-constraint name="uniq_d676c7be31827296" columns="id_historial_clinico"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaConsulta" type="date" column="fecha_consulta" nullable="false"/>
+    <field name="horaInicio" type="time" column="hora_inicio" nullable="true"/>
+    <field name="horaFin" type="time" column="hora_fin" nullable="true"/>
+    <field name="estadoConsulta" type="string" column="estado_consulta" length="1" nullable="false"/>
+    <field name="especialidadConsulta" type="string" column="especialidad_consulta" length="2" nullable="false"/>
+    <field name="referenciaRecibida" type="boolean" column="referencia_recibida" nullable="true"/>
+    <field name="retornoRecibido" type="boolean" column="retorno_recibido" nullable="true"/>
+    <many-to-one field="idHistorialClinico" target-entity="SecHistorialClinico">
+      <join-columns>
+        <join-column name="id_historial_clinico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

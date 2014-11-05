@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgMotivoConsultaSintomaMam" table="srg_motivo_consulta_sintoma_mam">
+    <indexes>
+      <index name="idx_5ae96f0dcd0e2589" columns="id_motivo_consulta"/>
+      <index name="idx_5ae96f0db2c63f84" columns="id_sintoma_mama"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <many-to-one field="idMotivoConsulta" target-entity="SrgMotivoConsulta">
+      <join-columns>
+        <join-column name="id_motivo_consulta" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idSintomaMama" target-entity="SrgCtlSintomaMama">
+      <join-columns>
+        <join-column name="id_sintoma_mama" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

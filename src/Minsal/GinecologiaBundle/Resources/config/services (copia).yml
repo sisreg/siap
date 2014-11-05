@@ -1,0 +1,66 @@
+services:
+    minsal_ginecologia.admin.srg_ctl_criterio_elegibilidad:
+        class: Minsal\GinecologiaBundle\Admin\SrgCtlCriterioElegibilidadAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgCtlCriterioElegibilidad, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: SrgCtlCriterioElegibilidad}
+
+    minsal_ginecologia.admin.srg_consulta_gine_pf:
+        class: Minsal\GinecologiaBundle\Admin\SrgConsultaGinePfAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgConsultaGinePf, MinsalGinecologiaBundle:SrgConsultaGinePfAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: SrgConsultaGinePf}
+
+    minsal_ginecologia.admin.srg_examen_cervico_vaginal:
+        class: Minsal\GinecologiaBundle\Admin\SrgExamenCervicoVaginalAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgExamenCervicoVaginal, MinsalGinecologiaBundle:SrgExamenCervicoVaginalAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestión de exámenes, label: Solicitud y reporte de examen cervico vaginal}
+
+    minsal_ginecologia.admin.srg_dato_clinico:
+        class: Minsal\GinecologiaBundle\Admin\SrgDatoClinicoAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgDatoClinico, MinsalGinecologiaBundle:SrgDatoClinicoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestión de exámenes , label: SrgDatoClinico}
+
+    minsal_ginecologia.admin.srg_referencia_extendida:
+        class: Minsal\GinecologiaBundle\Admin\SrgReferenciaExtendidaAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgReferenciaExtendida, MinsalGinecologiaBundle:SrgReferenciaExtendidaAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestión de referencias, label: Referencia extendida}
+
+    minsal_ginecologia.admin.srg_retorno_extendido:
+        class: Minsal\GinecologiaBundle\Admin\SrgRetornoExtendidoAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgRetornoExtendido, MinsalGinecologiaBundle:SrgRetornoExtendidoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestión de retornos, label: Retorno extendido}
+
+    minsal_ginecologia.admin.srg_anteced_medico:
+        class: Minsal\GinecologiaBundle\Admin\SrgAntecedMedicoAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgAntecedMedico, MinsalGinecologiaBundle:SrgAntecedMedicoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Antecedentes, label: Antecedente médico}
+
+    minsal_ginecologia.admin.srg_anteced_quirurgico:
+        class: Minsal\GinecologiaBundle\Admin\SrgAntecedQuirurgicoAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgAntecedQuirurgico, MinsalGinecologiaBundle:SrgAntecedQuirurgicoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Antecedentes, label: Antecedente quirurgico}
+
+    minsal_ginecologia.admin.srg_anteced_alergia:
+        class: Minsal\GinecologiaBundle\Admin\SrgAntecedAlergiaAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgAntecedAlergia, MinsalGinecologiaBundle:SrgAntecedAlergiaAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Antecedentes, label: Antecedente alergia}
+
+    minsal_ginecologia.admin.srg_antecedente_obstetrico:
+        class: Minsal\GinecologiaBundle\Admin\SrgAntecedenteObstetricoAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgAntecedenteObstetrico, MinsalGinecologiaBundle:SrgAntecedenteObstetricoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Antecedentes, label: Antecedente obstetrico}
+
+    minsal_ginecologia.admin.srg_antecedente_ginecologico:
+        class: Minsal\GinecologiaBundle\Admin\SrgAntecedenteGinecologicoAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgAntecedenteGinecologico, MinsalGinecologiaBundle:SrgAntecedenteGinecologicoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Antecedentes, label: Antecedente ginecologico}

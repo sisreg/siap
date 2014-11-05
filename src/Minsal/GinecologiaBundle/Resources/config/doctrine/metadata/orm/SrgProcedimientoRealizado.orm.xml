@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgProcedimientoRealizado" table="srg_procedimiento_realizado">
+    <indexes>
+      <index name="idx_e0692d2c35600aae" columns="id_procedimiento_esterilizacion"/>
+      <index name="idx_e0692d2c56558889" columns="id_esterilizacion"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="column5" type="boolean" column="column_5" nullable="true"/>
+    <field name="column6" type="decimal" column="column_6" precision="99" scale="0" nullable="true"/>
+    <field name="column7" type="string" column="column_7" length="200" nullable="true"/>
+    <many-to-one field="idEsterilizacion" target-entity="SrgEsterilizacion">
+      <join-columns>
+        <join-column name="id_esterilizacion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idProcedimientoEsterilizacion" target-entity="SrgCtlProcedimientoEsteriliz">
+      <join-columns>
+        <join-column name="id_procedimiento_esterilizacion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

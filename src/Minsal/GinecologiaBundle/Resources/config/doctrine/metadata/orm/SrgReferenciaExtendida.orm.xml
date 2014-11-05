@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgReferenciaExtendida" table="srg_referencia_extendida">
+    <indexes>
+      <index name="idx_2b1eb3cf695ea351" columns="id_atencion"/>
+      <index name="idx_2b1eb3cf7dfa12f6" columns="id_establecimiento"/>
+      <index name="idx_2b1eb3cfc88a4ac1" columns="id_motivo_referencia"/>
+      <index name="idx_2b1eb3cf7d6a022" columns="id_tipo_referencia_retorno"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="uniq_2b1eb3cf30f3feea" columns="id_consulta_gine_pf"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="impresionDiagnostica" type="string" column="impresion_diagnostica" length="200" nullable="true"/>
+    <field name="detalleMotivoReferencia" type="string" column="detalle_motivo_referencia" length="80" nullable="true"/>
+    <field name="datosPositivosInterrogatorio" type="text" column="datos_positivos_interrogatorio" nullable="true"/>
+    <field name="informacionRelevantePaciente" type="text" column="informacion_relevante_paciente" nullable="true"/>
+    <field name="tratamiento" type="text" column="tratamiento" nullable="true"/>
+    <field name="resumenRetornoRecibido" type="text" column="resumen_retorno_recibido" nullable="true"/>
+    <many-to-one field="idMotivoReferencia" target-entity="SrgCtlMotivoReferencia">
+      <join-columns>
+        <join-column name="id_motivo_referencia" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idTipoReferenciaRetorno" target-entity="SrgCtlTipoReferenciaRetorno">
+      <join-columns>
+        <join-column name="id_tipo_referencia_retorno" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAtencion" target-entity="CtlAtencion">
+      <join-columns>
+        <join-column name="id_atencion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

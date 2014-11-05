@@ -1,0 +1,8 @@
+services:
+
+
+    minsal_ginecologia.admin.srg_antecedente_ginecologico:
+        class: Minsal\GinecologiaBundle\Admin\SrgAntecedenteGinecologicoAdmin
+        arguments: [~, Minsal\GinecologiaBundle\Entity\SrgAntecedenteGinecologico, MinsalGinecologiaBundle:SrgAntecedenteGinecologicoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: CT-1-Citas, label: Antecedente ginecologico}

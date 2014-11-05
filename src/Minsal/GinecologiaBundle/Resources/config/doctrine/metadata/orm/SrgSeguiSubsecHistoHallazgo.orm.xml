@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgSeguiSubsecHistoHallazgo" table="srg_segui_subsec_histo_hallazgo">
+    <indexes>
+      <index name="idx_dc97a20f39a7aed1" columns="id_seguimiento_subsecuente"/>
+      <index name="idx_dc97a20fd42682c7" columns="id_historia_hallazgo"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <many-to-one field="idSeguimientoSubsecuente" target-entity="SrgSeguimientoSubsecuente">
+      <join-columns>
+        <join-column name="id_seguimiento_subsecuente" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idHistoriaHallazgo" target-entity="SrgCtlHistoriaHallazgo">
+      <join-columns>
+        <join-column name="id_historia_hallazgo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

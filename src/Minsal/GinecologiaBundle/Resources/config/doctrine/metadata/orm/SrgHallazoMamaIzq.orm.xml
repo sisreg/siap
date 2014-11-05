@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgHallazoMamaIzq" table="srg_hallazo_mama_izq">
+    <indexes>
+      <index name="idx_1892a237d6891b1e" columns="id_hallazgo_mama"/>
+      <index name="idx_1892a237f47a39cb" columns="id_resultado_explora_fisica"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <many-to-one field="idResultadoExploraFisica" target-entity="SrgResultadoExploraFisica">
+      <join-columns>
+        <join-column name="id_resultado_explora_fisica" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idHallazgoMama" target-entity="SrgCtlHallazgoMama">
+      <join-columns>
+        <join-column name="id_hallazgo_mama" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgOrganismoCervico" table="srg_organismo_cervico">
+    <indexes>
+      <index name="idx_8765fb5fc2e87b78" columns="id_examen_cervico_vaginal"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="cambiosCeluHerpesSimple" type="boolean" column="cambios_celu_herpes_simple" nullable="true"/>
+    <field name="cambiosFloraVaginosis" type="boolean" column="cambios_flora_vaginosis" nullable="true"/>
+    <field name="detalleOtrosOrganismos" type="string" column="detalle_otros_organismos" length="100" nullable="true"/>
+    <many-to-one field="idExamenCervicoVaginal" target-entity="SrgExamenCervicoVaginal">
+      <join-columns>
+        <join-column name="id_examen_cervico_vaginal" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

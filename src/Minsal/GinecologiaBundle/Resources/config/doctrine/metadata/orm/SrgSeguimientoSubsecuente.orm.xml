@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgSeguimientoSubsecuente" table="srg_seguimiento_subsecuente">
+    <indexes>
+      <index name="idx_475a141633455c07" columns="id_ctl_anticonceptivo"/>
+      <index name="idx_475a1416402d9b96" columns="id_tipo_consulta_pf"/>
+      <index name="idx_475a141645888fea" columns="id_ctl_anticonceptivo_cambio"/>
+      <index name="idx_475a141630f3feea" columns="id_consulta_gine_pf"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="sintomasGripales" type="boolean" column="sintomas_gripales" nullable="true"/>
+    <field name="continuaMetodo" type="boolean" column="continua_metodo" nullable="true"/>
+    <field name="motivoCambio" type="string" column="motivo_cambio" length="200" nullable="true"/>
+    <field name="diagnostico" type="text" column="diagnostico" nullable="true"/>
+    <field name="tomaPap" type="text" column="toma_pap" nullable="true"/>
+    <field name="indicaciones" type="text" column="indicaciones" nullable="true"/>
+    <field name="fechaControlAnual" type="date" column="fecha_control_anual" nullable="true"/>
+    <field name="fechaProximoAbasto" type="date" column="fecha_proximo_abasto" nullable="true"/>
+    <many-to-one field="idTipoConsultaPf" target-entity="SrgTipoConsultaPf">
+      <join-columns>
+        <join-column name="id_tipo_consulta_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idCtlAnticonceptivoCambio" target-entity="SrgCtlAnticonceptivo">
+      <join-columns>
+        <join-column name="id_ctl_anticonceptivo_cambio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idCtlAnticonceptivo" target-entity="SrgCtlAnticonceptivo">
+      <join-columns>
+        <join-column name="id_ctl_anticonceptivo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgHojaAbastecimiento" table="srg_hoja_abastecimiento">
+    <indexes>
+      <index name="idx_e198037430f3feea" columns="id_consulta_gine_pf"/>
+      <index name="idx_e198037433455c07" columns="id_ctl_anticonceptivo"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="uniq_e1980374ff29320" columns="id_metodo_planificacion"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="cantidadEntregada" type="decimal" column="cantidad_entregada" precision="3" scale="0" nullable="false"/>
+    <field name="usuariaActiva" type="decimal" column="usuaria_activa" precision="4" scale="0" nullable="true"/>
+    <field name="fechaAbasto" type="date" column="fecha_abasto" nullable="false"/>
+    <field name="observaciones" type="text" column="observaciones" nullable="true"/>
+    <field name="proximaCita" type="date" column="proxima_cita" nullable="true"/>
+    <many-to-one field="idCtlAnticonceptivo" target-entity="SrgCtlAnticonceptivo">
+      <join-columns>
+        <join-column name="id_ctl_anticonceptivo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idMetodoPlanificacion" target-entity="SrgCtlMetodoPlanificacion">
+      <join-columns>
+        <join-column name="id_metodo_planificacion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgAntecedenteGinecologico" table="srg_antecedente_ginecologico">
+    <unique-constraints>
+      <unique-constraint name="uniq_b1cd43da30f3feea" columns="id_consulta_gine_pf"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fur1" type="date" column="fur1" nullable="true"/>
+    <field name="dismenorrea" type="boolean" column="dismenorrea" nullable="true"/>
+    <field name="ciclosMenstruales" type="string" column="ciclos_menstruales" length="3" nullable="true"/>
+    <field name="duracionDelCiclo" type="decimal" column="duracion_del_ciclo" precision="3" scale="0" nullable="true"/>
+    <field name="sangramientos" type="string" column="sangramientos" length="4" nullable="true"/>
+    <field name="duracionDelSangramiento" type="decimal" column="duracion_del_sangramiento" precision="2" scale="0" nullable="true"/>
+    <field name="fechaUltimoPap" type="date" column="fecha_ultimo_pap" nullable="true"/>
+    <field name="resultadoUltimoPap" type="string" column="resultado_ultimo_pap" length="200" nullable="true"/>
+    <field name="observaciones" type="text" column="observaciones" nullable="true"/>
+    <field name="estaLactando" type="boolean" column="esta_lactando" nullable="false"/>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

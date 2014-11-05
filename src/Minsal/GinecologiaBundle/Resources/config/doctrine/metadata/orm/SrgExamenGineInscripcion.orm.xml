@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgExamenGineInscripcion" table="srg_examen_gine_inscripcion">
+    <indexes>
+      <index name="idx_fcd8ac868b4c5407" columns="id_inscripcion"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="genitalesExternos" type="string" column="genitales_externos" length="1" nullable="true"/>
+    <field name="prolapsoUterino" type="boolean" column="prolapso_uterino" nullable="true"/>
+    <field name="grado" type="decimal" column="grado" precision="2" scale="0" nullable="true"/>
+    <field name="vagina" type="string" column="vagina" length="1" nullable="true"/>
+    <field name="cuelloUterinoMovilidad" type="string" column="cuello_uterino_movilidad" length="1" nullable="true"/>
+    <field name="cuelloUterinoDolorMov" type="string" column="cuello_uterino_dolor_mov" length="1" nullable="true"/>
+    <field name="cuelloUterinoSangra" type="boolean" column="cuello_uterino_sangra" nullable="true"/>
+    <field name="tomaPap" type="boolean" column="toma_pap" nullable="true"/>
+    <field name="papObservaciones" type="string" column="pap_observaciones" length="100" nullable="true"/>
+    <field name="uteroPosicion" type="string" column="utero_posicion" length="1" nullable="true"/>
+    <field name="uteroTamano" type="string" column="utero_tamano" length="1" nullable="true"/>
+    <field name="uteroHisterometria" type="decimal" column="utero_histerometria" precision="2" scale="0" nullable="true"/>
+    <field name="uteroMovilidad" type="string" column="utero_movilidad" length="1" nullable="true"/>
+    <field name="uteroDolorMov" type="boolean" column="utero_dolor_mov" nullable="true"/>
+    <field name="uteroAnexoLibre" type="boolean" column="utero_anexo_libre" nullable="true"/>
+    <field name="uteroAnexoEngrosado" type="boolean" column="utero_anexo_engrosado" nullable="true"/>
+    <field name="uteroDolorPalpacion" type="boolean" column="utero_dolor_palpacion" nullable="true"/>
+    <field name="uteroTumores" type="boolean" column="utero_tumores" nullable="true"/>
+    <field name="uteroFondoSaco" type="boolean" column="utero_fondo_saco" nullable="true"/>
+    <field name="uteroObservaciones" type="string" column="utero_observaciones" length="100" nullable="true"/>
+    <many-to-one field="idInscripcion" target-entity="SrgInscripcion">
+      <join-columns>
+        <join-column name="id_inscripcion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

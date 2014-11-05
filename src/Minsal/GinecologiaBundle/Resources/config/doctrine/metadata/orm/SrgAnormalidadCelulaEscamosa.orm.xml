@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgAnormalidadCelulaEscamosa" table="srg_anormalidad_celula_escamosa">
+    <indexes>
+      <index name="idx_61cf85a2c2e87b78" columns="id_examen_cervico_vaginal"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="ascUs" type="boolean" column="asc_us" nullable="true"/>
+    <field name="ascH" type="boolean" column="asc_h" nullable="true"/>
+    <field name="leiBajoGrado" type="boolean" column="lei_bajo_grado" nullable="true"/>
+    <field name="leiAltoGrado" type="boolean" column="lei_alto_grado" nullable="true"/>
+    <field name="hallazgoSospechosoInvasion" type="boolean" column="hallazgo_sospechoso_invasion" nullable="true"/>
+    <field name="carcinomaCelulasEscamosas" type="boolean" column="carcinoma_celulas_escamosas" nullable="true"/>
+    <field name="detalleOtrasNeoplasMalignas" type="string" column="detalle_otras_neoplas_malignas" length="100" nullable="true"/>
+    <many-to-one field="idExamenCervicoVaginal" target-entity="SrgExamenCervicoVaginal">
+      <join-columns>
+        <join-column name="id_examen_cervico_vaginal" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

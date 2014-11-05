@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgAtencionPreventiva" table="srg_atencion_preventiva">
+    <indexes>
+      <index name="idx_57564cc930f3feea" columns="id_consulta_gine_pf"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="dispenzarizacionGrupo" type="string" column="dispenzarizacion_grupo" length="5" nullable="true"/>
+    <field name="dispenzarizacionTipo" type="string" column="dispenzarizacion_tipo" length="5" nullable="true"/>
+    <field name="lactanciaMaterna" type="string" column="lactancia_materna" length="5" nullable="true"/>
+    <field name="citologiasProstataEIvaa" type="string" column="citologias_prostata_e_ivaa" length="5" nullable="true"/>
+    <field name="semanasDeAmenorrea" type="string" column="semanas_de_amenorrea" length="15" nullable="true"/>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

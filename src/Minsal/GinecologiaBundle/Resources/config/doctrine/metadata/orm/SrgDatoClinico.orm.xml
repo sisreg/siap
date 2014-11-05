@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgDatoClinico" table="srg_dato_clinico">
+    <indexes>
+      <index name="idx_673dcc0b33455c07" columns="id_ctl_anticonceptivo"/>
+      <index name="idx_673dcc0bc2e87b78" columns="id_examen_cervico_vaginal"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="anticonceptivos" type="boolean" column="anticonceptivos" nullable="true"/>
+    <field name="leucorrea" type="boolean" column="leucorrea" nullable="true"/>
+    <field name="sangrado" type="boolean" column="sangrado" nullable="true"/>
+    <field name="cervicitis" type="boolean" column="cervicitis" nullable="true"/>
+    <field name="crio" type="boolean" column="crio" nullable="true"/>
+    <field name="leep" type="boolean" column="leep" nullable="true"/>
+    <field name="cono" type="boolean" column="cono" nullable="true"/>
+    <field name="histerectomia" type="boolean" column="histerectomia" nullable="true"/>
+    <field name="radiacion" type="boolean" column="radiacion" nullable="true"/>
+    <field name="hormonal" type="boolean" column="hormonal" nullable="true"/>
+    <field name="fecha" type="date" column="fecha" nullable="true"/>
+    <field name="biopsia" type="boolean" column="biopsia" nullable="true"/>
+    <field name="fechaBiopsia" type="date" column="fecha_biopsia" nullable="true"/>
+    <field name="resultadoBiopsia" type="string" column="resultado_biopsia" length="100" nullable="true"/>
+    <many-to-one field="idExamenCervicoVaginal" target-entity="SrgExamenCervicoVaginal">
+      <join-columns>
+        <join-column name="id_examen_cervico_vaginal" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idCtlAnticonceptivo" target-entity="SrgCtlAnticonceptivo">
+      <join-columns>
+        <join-column name="id_ctl_anticonceptivo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

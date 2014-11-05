@@ -1,3 +1,8 @@
+minsal_ginecologia:
+    resource: "@MinsalGinecologiaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 _inicio:
     pattern:  /
     defaults: { _controller: SonataAdminBundle:Core:dashboard }

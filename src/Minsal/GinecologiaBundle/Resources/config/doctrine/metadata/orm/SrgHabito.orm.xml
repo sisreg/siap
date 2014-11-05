@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgHabito" table="srg_habito">
+    <indexes>
+      <index name="idx_2f9051948cf23c1f" columns="id_examen_mama"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="obesidadPosmeno" type="boolean" column="obesidad_posmeno" nullable="true"/>
+    <field name="tabaco" type="boolean" column="tabaco" nullable="true"/>
+    <field name="alcohol" type="boolean" column="alcohol" nullable="true"/>
+    <many-to-one field="idExamenMama" target-entity="SrgExamenMama">
+      <join-columns>
+        <join-column name="id_examen_mama" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

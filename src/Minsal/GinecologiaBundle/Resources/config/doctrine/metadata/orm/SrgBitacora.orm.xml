@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgBitacora" table="srg_bitacora">
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="idUsuario" type="integer" column="id_usuario" nullable="true"/>
+    <field name="descripcionAccion" type="string" column="descripcion_accion" length="100" nullable="true"/>
+    <field name="tablaInvolucrada" type="string" column="tabla_involucrada" length="50" nullable="true"/>
+    <field name="fechaBitacora" type="date" column="fecha_bitacora" nullable="true"/>
+    <field name="horaBitacora" type="time" column="hora_bitacora" nullable="true"/>
+  </entity>
+</doctrine-mapping>

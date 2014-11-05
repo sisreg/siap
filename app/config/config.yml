@@ -9,6 +9,7 @@ imports:
     - { resource: bundles/sonata_formatter.yml }
     - { resource: bundles/sonata_user.yml }
     - { resource: bundles/fos_user.yml }
+    - { resource: @MinsalGinecologiaBundle/Resources/config/services.yml }
 
 framework:
     #esi:             ~

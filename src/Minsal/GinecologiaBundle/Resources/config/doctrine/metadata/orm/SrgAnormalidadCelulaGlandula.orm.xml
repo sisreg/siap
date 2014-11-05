@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgAnormalidadCelulaGlandula" table="srg_anormalidad_celula_glandula">
+    <indexes>
+      <index name="idx_dc073f90c2e87b78" columns="id_examen_cervico_vaginal"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="gladularesAtipicasEndocervica" type="boolean" column="gladulares_atipicas_endocervica" nullable="true"/>
+    <field name="gladularesAtipicasEndometrial" type="boolean" column="gladulares_atipicas_endometrial" nullable="true"/>
+    <field name="gladularesAtipicasOrigenNoD" type="boolean" column="gladulares_atipicas_origen_no_d" nullable="true"/>
+    <field name="endocervicalesFavoNeoplasia" type="boolean" column="endocervicales_favo_neoplasia" nullable="true"/>
+    <field name="grandularesFavoNeoplasia" type="boolean" column="grandulares_favo_neoplasia" nullable="true"/>
+    <field name="adenocarcinomaEndoInsitu" type="boolean" column="adenocarcinoma_endo_insitu" nullable="true"/>
+    <field name="adenocarcinomaEndocervical" type="boolean" column="adenocarcinoma_endocervical" nullable="true"/>
+    <field name="adenocarcinomaExtrauterino" type="boolean" column="adenocarcinoma_extrauterino" nullable="true"/>
+    <field name="adenocarcinomaEndometrial" type="boolean" column="adenocarcinoma_endometrial" nullable="true"/>
+    <field name="adenocarcinomaSinEspecificar" type="boolean" column="adenocarcinoma_sin_especificar" nullable="true"/>
+    <field name="detalleOtrasNeoplaMalignas" type="string" column="detalle_otras_neopla_malignas" length="100" nullable="true"/>
+    <many-to-one field="idExamenCervicoVaginal" target-entity="SrgExamenCervicoVaginal">
+      <join-columns>
+        <join-column name="id_examen_cervico_vaginal" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SrgEsterilizacion" table="srg_esterilizacion">
+    <indexes>
+      <index name="idx_505cc6c630f3feea" columns="id_consulta_gine_pf"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="nombreResponsableEsterilizaci" type="string" column="nombre_responsable_esterilizaci" length="80" nullable="true"/>
+    <field name="fechaEsterilizacion" type="date" column="fecha_esterilizacion" nullable="true"/>
+    <field name="observacionesResponsableEster" type="text" column="observaciones_responsable_ester" nullable="true"/>
+    <many-to-one field="idConsultaGinePf" target-entity="SrgConsultaGinePf">
+      <join-columns>
+        <join-column name="id_consulta_gine_pf" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
